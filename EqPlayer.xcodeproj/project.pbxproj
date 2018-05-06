@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F4CB0521FC0D9397D05F214 /* Pods_EqPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */; };
 		EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ABBD7209EF92D006D124D /* AppDelegate.swift */; };
 		EB4ABBDA209EF92D006D124D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ABBD9209EF92D006D124D /* ViewController.swift */; };
 		EB4ABBDD209EF92D006D124D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBDB209EF92D006D124D /* Main.storyboard */; };
 		EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBDE209EF92F006D124D /* Assets.xcassets */; };
 		EB4ABBE2209EF92F006D124D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBE0209EF92F006D124D /* LaunchScreen.storyboard */; };
+		EB4ABBEA209EFCB5006D124D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EqPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.release.xcconfig"; sourceTree = "<group>"; };
 		EB4ABBD4209EF92D006D124D /* EqPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EqPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB4ABBD7209EF92D006D124D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB4ABBD9209EF92D006D124D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		EB4ABBDE209EF92F006D124D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB4ABBE1209EF92F006D124D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB4ABBE3209EF92F006D124D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F4CB0521FC0D9397D05F214 /* Pods_EqPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1224413986664437A4EB16AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2F55842F6198D93E1079B769 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */,
+				9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EB4ABBCB209EF92D006D124D = {
 			isa = PBXGroup;
 			children = (
 				EB4ABBD6209EF92D006D124D /* EqPlayer */,
 				EB4ABBD5209EF92D006D124D /* Products */,
+				2F55842F6198D93E1079B769 /* Pods */,
+				1224413986664437A4EB16AA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +80,10 @@
 		EB4ABBD6209EF92D006D124D /* EqPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				EB4ABBEE209F01D7006D124D /* Support */,
+				EB4ABBED209F01CF006D124D /* View */,
+				EB4ABBEC209F01C5006D124D /* Controller */,
+				EB4ABBEB209F01BD006D124D /* Model */,
 				EB4ABBD7209EF92D006D124D /* AppDelegate.swift */,
 				EB4ABBD9209EF92D006D124D /* ViewController.swift */,
 				EB4ABBDB209EF92D006D124D /* Main.storyboard */,
@@ -64,6 +94,35 @@
 			path = EqPlayer;
 			sourceTree = "<group>";
 		};
+		EB4ABBEB209F01BD006D124D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EB4ABBEC209F01C5006D124D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EB4ABBED209F01CF006D124D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EB4ABBEE209F01D7006D124D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +130,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EB4ABBE6209EF92F006D124D /* Build configuration list for PBXNativeTarget "EqPlayer" */;
 			buildPhases = (
+				2319F33B21B9DDB92EA14D76 /* [CP] Check Pods Manifest.lock */,
 				EB4ABBD0209EF92D006D124D /* Sources */,
 				EB4ABBD1209EF92D006D124D /* Frameworks */,
 				EB4ABBD2209EF92D006D124D /* Resources */,
+				8C39AA07ACC597F0BCA594EC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,12 +184,58 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB4ABBE2209EF92F006D124D /* LaunchScreen.storyboard in Resources */,
+				EB4ABBEA209EFCB5006D124D /* GoogleService-Info.plist in Resources */,
 				EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */,
 				EB4ABBDD209EF92D006D124D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2319F33B21B9DDB92EA14D76 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EqPlayer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C39AA07ACC597F0BCA594EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EB4ABBD0209EF92D006D124D /* Sources */ = {
@@ -278,15 +385,13 @@
 		};
 		EB4ABBE7209EF92F006D124D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2CY3RX8F76;
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -296,15 +401,13 @@
 		};
 		EB4ABBE8209EF92F006D124D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2CY3RX8F76;
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
