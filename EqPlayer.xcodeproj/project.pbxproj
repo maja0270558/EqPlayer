@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		9F4CB0521FC0D9397D05F214 /* Pods_EqPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */; };
+		EB04334E209F03D800616EB9 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB04334B209F03D700616EB9 /* SpotifyAudioPlayback.framework */; };
+		EB04334F209F03D800616EB9 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB04334C209F03D700616EB9 /* SpotifyAuthentication.framework */; };
+		EB043350209F03D800616EB9 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB04334D209F03D800616EB9 /* SpotifyMetadata.framework */; };
+		EB043356209F051600616EB9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB043355209F051600616EB9 /* AVFoundation.framework */; };
+		EB043358209F052A00616EB9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB043357209F052A00616EB9 /* SystemConfiguration.framework */; };
 		EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ABBD7209EF92D006D124D /* AppDelegate.swift */; };
 		EB4ABBDA209EF92D006D124D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ABBD9209EF92D006D124D /* ViewController.swift */; };
 		EB4ABBDD209EF92D006D124D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBDB209EF92D006D124D /* Main.storyboard */; };
@@ -19,6 +24,12 @@
 /* Begin PBXFileReference section */
 		2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EqPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		EB04334B209F03D700616EB9 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		EB04334C209F03D700616EB9 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
+		EB04334D209F03D800616EB9 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
+		EB043351209F043600616EB9 /* EqPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EqPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
+		EB043355209F051600616EB9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EB043357209F052A00616EB9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EB4ABBD4209EF92D006D124D /* EqPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EqPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB4ABBD7209EF92D006D124D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB4ABBD9209EF92D006D124D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,7 +46,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB043358209F052A00616EB9 /* SystemConfiguration.framework in Frameworks */,
+				EB043356209F051600616EB9 /* AVFoundation.framework in Frameworks */,
+				EB043350209F03D800616EB9 /* SpotifyMetadata.framework in Frameworks */,
 				9F4CB0521FC0D9397D05F214 /* Pods_EqPlayer.framework in Frameworks */,
+				EB04334F209F03D800616EB9 /* SpotifyAuthentication.framework in Frameworks */,
+				EB04334E209F03D800616EB9 /* SpotifyAudioPlayback.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +61,8 @@
 		1224413986664437A4EB16AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB043357209F052A00616EB9 /* SystemConfiguration.framework */,
+				EB043355209F051600616EB9 /* AVFoundation.framework */,
 				2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */,
 			);
 			name = Frameworks;
@@ -118,7 +136,11 @@
 		EB4ABBEE209F01D7006D124D /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				EB04334B209F03D700616EB9 /* SpotifyAudioPlayback.framework */,
+				EB04334C209F03D700616EB9 /* SpotifyAuthentication.framework */,
+				EB04334D209F03D800616EB9 /* SpotifyMetadata.framework */,
 				EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */,
+				EB043351209F043600616EB9 /* EqPlayer-Bridging-Header.h */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -157,6 +179,7 @@
 				TargetAttributes = {
 					EB4ABBD3209EF92D006D124D = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -388,12 +411,23 @@
 			baseConfigurationReference = EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2CY3RX8F76;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EqPlayer/Support",
+				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "EqPlayer/Support/EqPlayer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -404,12 +438,22 @@
 			baseConfigurationReference = 9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2CY3RX8F76;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EqPlayer/Support",
+				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "EqPlayer/Support/EqPlayer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
