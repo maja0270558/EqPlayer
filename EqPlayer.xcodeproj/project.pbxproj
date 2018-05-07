@@ -13,12 +13,19 @@
 		EB043350209F03D800616EB9 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB04334D209F03D800616EB9 /* SpotifyMetadata.framework */; };
 		EB043356209F051600616EB9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB043355209F051600616EB9 /* AVFoundation.framework */; };
 		EB043358209F052A00616EB9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB043357209F052A00616EB9 /* SystemConfiguration.framework */; };
+		EB04335C209FF86C00616EB9 /* EQSpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB04335B209FF86C00616EB9 /* EQSpotifyManager.swift */; };
+		EB04335E209FF96A00616EB9 /* EQSpotifyClientInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB04335D209FF96A00616EB9 /* EQSpotifyClientInfo.swift */; };
 		EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ABBD7209EF92D006D124D /* AppDelegate.swift */; };
-		EB4ABBDA209EF92D006D124D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ABBD9209EF92D006D124D /* ViewController.swift */; };
-		EB4ABBDD209EF92D006D124D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBDB209EF92D006D124D /* Main.storyboard */; };
 		EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBDE209EF92F006D124D /* Assets.xcassets */; };
 		EB4ABBE2209EF92F006D124D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBE0209EF92F006D124D /* LaunchScreen.storyboard */; };
 		EB4ABBEA209EFCB5006D124D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */; };
+		EB5B0B3020A004780056E8D6 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B2F20A004780056E8D6 /* Login.storyboard */; };
+		EB5B0B3220A004840056E8D6 /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B3120A004840056E8D6 /* Player.storyboard */; };
+		EB5B0B3520A004CE0056E8D6 /* EQStoryBoardExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3420A004CE0056E8D6 /* EQStoryBoardExtention.swift */; };
+		EB5B0B3720A006330056E8D6 /* EQLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3620A006330056E8D6 /* EQLoginViewController.swift */; };
+		EB5B0B3920A0074C0056E8D6 /* EQMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3820A0074C0056E8D6 /* EQMainViewController.swift */; };
+		EB5B0B3B20A008820056E8D6 /* EQSpotifyCoreAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */; };
+		EB5B0B3D20A033A80056E8D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B3C20A033A80056E8D6 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,14 +37,21 @@
 		EB043351209F043600616EB9 /* EqPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EqPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		EB043355209F051600616EB9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EB043357209F052A00616EB9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EB04335B209FF86C00616EB9 /* EQSpotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSpotifyManager.swift; sourceTree = "<group>"; };
+		EB04335D209FF96A00616EB9 /* EQSpotifyClientInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSpotifyClientInfo.swift; sourceTree = "<group>"; };
 		EB4ABBD4209EF92D006D124D /* EqPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EqPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB4ABBD7209EF92D006D124D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB4ABBD9209EF92D006D124D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EB4ABBDC209EF92D006D124D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB4ABBDE209EF92F006D124D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB4ABBE1209EF92F006D124D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB4ABBE3209EF92F006D124D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB5B0B2F20A004780056E8D6 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		EB5B0B3120A004840056E8D6 /* Player.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Player.storyboard; sourceTree = "<group>"; };
+		EB5B0B3420A004CE0056E8D6 /* EQStoryBoardExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQStoryBoardExtention.swift; sourceTree = "<group>"; };
+		EB5B0B3620A006330056E8D6 /* EQLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQLoginViewController.swift; sourceTree = "<group>"; };
+		EB5B0B3820A0074C0056E8D6 /* EQMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMainViewController.swift; sourceTree = "<group>"; };
+		EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSpotifyCoreAudioController.swift; sourceTree = "<group>"; };
+		EB5B0B3C20A033A80056E8D6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,13 +112,13 @@
 		EB4ABBD6209EF92D006D124D /* EqPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				EB5B0B3320A004AF0056E8D6 /* Extention */,
+				EB5B0B2E20A003E70056E8D6 /* StoryBoards */,
 				EB4ABBEE209F01D7006D124D /* Support */,
 				EB4ABBED209F01CF006D124D /* View */,
 				EB4ABBEC209F01C5006D124D /* Controller */,
 				EB4ABBEB209F01BD006D124D /* Model */,
 				EB4ABBD7209EF92D006D124D /* AppDelegate.swift */,
-				EB4ABBD9209EF92D006D124D /* ViewController.swift */,
-				EB4ABBDB209EF92D006D124D /* Main.storyboard */,
 				EB4ABBDE209EF92F006D124D /* Assets.xcassets */,
 				EB4ABBE0209EF92F006D124D /* LaunchScreen.storyboard */,
 				EB4ABBE3209EF92F006D124D /* Info.plist */,
@@ -115,6 +129,7 @@
 		EB4ABBEB209F01BD006D124D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EB04335B209FF86C00616EB9 /* EQSpotifyManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,6 +137,9 @@
 		EB4ABBEC209F01C5006D124D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EB5B0B3620A006330056E8D6 /* EQLoginViewController.swift */,
+				EB5B0B3820A0074C0056E8D6 /* EQMainViewController.swift */,
+				EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -141,8 +159,27 @@
 				EB04334D209F03D800616EB9 /* SpotifyMetadata.framework */,
 				EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */,
 				EB043351209F043600616EB9 /* EqPlayer-Bridging-Header.h */,
+				EB04335D209FF96A00616EB9 /* EQSpotifyClientInfo.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		EB5B0B2E20A003E70056E8D6 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				EB5B0B2F20A004780056E8D6 /* Login.storyboard */,
+				EB5B0B3120A004840056E8D6 /* Player.storyboard */,
+				EB5B0B3C20A033A80056E8D6 /* Main.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		EB5B0B3320A004AF0056E8D6 /* Extention */ = {
+			isa = PBXGroup;
+			children = (
+				EB5B0B3420A004CE0056E8D6 /* EQStoryBoardExtention.swift */,
+			);
+			path = Extention;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +194,7 @@
 				EB4ABBD1209EF92D006D124D /* Frameworks */,
 				EB4ABBD2209EF92D006D124D /* Resources */,
 				8C39AA07ACC597F0BCA594EC /* [CP] Embed Pods Frameworks */,
+				EB5B0B3E20A03F480056E8D6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -209,7 +247,9 @@
 				EB4ABBE2209EF92F006D124D /* LaunchScreen.storyboard in Resources */,
 				EB4ABBEA209EFCB5006D124D /* GoogleService-Info.plist in Resources */,
 				EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */,
-				EB4ABBDD209EF92D006D124D /* Main.storyboard in Resources */,
+				EB5B0B3D20A033A80056E8D6 /* Main.storyboard in Resources */,
+				EB5B0B3220A004840056E8D6 /* Player.storyboard in Resources */,
+				EB5B0B3020A004780056E8D6 /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +298,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EB5B0B3E20A03F480056E8D6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -265,22 +318,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4ABBDA209EF92D006D124D /* ViewController.swift in Sources */,
+				EB5B0B3B20A008820056E8D6 /* EQSpotifyCoreAudioController.swift in Sources */,
+				EB04335C209FF86C00616EB9 /* EQSpotifyManager.swift in Sources */,
+				EB5B0B3520A004CE0056E8D6 /* EQStoryBoardExtention.swift in Sources */,
 				EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */,
+				EB5B0B3920A0074C0056E8D6 /* EQMainViewController.swift in Sources */,
+				EB5B0B3720A006330056E8D6 /* EQLoginViewController.swift in Sources */,
+				EB04335E209FF96A00616EB9 /* EQSpotifyClientInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EB4ABBDB209EF92D006D124D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EB4ABBDC209EF92D006D124D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		EB4ABBE0209EF92F006D124D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
