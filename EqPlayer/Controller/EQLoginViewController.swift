@@ -12,7 +12,7 @@ class EQLoginViewController: UIViewController {
    weak var appDelegate = UIApplication.shared.delegate
 
     @IBOutlet weak var loginButton: UIButton!
-    
+
     @IBAction func loginAction(_ sender: UIButton) {
         if let delegate = appDelegate as? AppDelegate {
             delegate.spotifyManager.login()

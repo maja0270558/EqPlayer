@@ -26,6 +26,11 @@
 		EB5B0B3920A0074C0056E8D6 /* EQMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3820A0074C0056E8D6 /* EQMainViewController.swift */; };
 		EB5B0B3B20A008820056E8D6 /* EQSpotifyCoreAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */; };
 		EB5B0B3D20A033A80056E8D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B3C20A033A80056E8D6 /* Main.storyboard */; };
+		EB5B0B4120A05D970056E8D6 /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3F20A05D970056E8D6 /* IconCollectionViewCell.swift */; };
+		EB5B0B4220A05D970056E8D6 /* IconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B4020A05D970056E8D6 /* IconCollectionViewCell.xib */; };
+		EB5B0B4520A05DB00056E8D6 /* MainControllerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B4320A05DB00056E8D6 /* MainControllerCollectionViewCell.swift */; };
+		EB5B0B4620A05DB00056E8D6 /* MainControllerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B4420A05DB00056E8D6 /* MainControllerCollectionViewCell.xib */; };
+		EB5B0B4820A072550056E8D6 /* EQCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +57,11 @@
 		EB5B0B3820A0074C0056E8D6 /* EQMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMainViewController.swift; sourceTree = "<group>"; };
 		EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSpotifyCoreAudioController.swift; sourceTree = "<group>"; };
 		EB5B0B3C20A033A80056E8D6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		EB5B0B3F20A05D970056E8D6 /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB5B0B4020A05D970056E8D6 /* IconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconCollectionViewCell.xib; sourceTree = "<group>"; };
+		EB5B0B4320A05DB00056E8D6 /* MainControllerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainControllerCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB5B0B4420A05DB00056E8D6 /* MainControllerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainControllerCollectionViewCell.xib; sourceTree = "<group>"; };
+		EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +157,10 @@
 		EB4ABBED209F01CF006D124D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EB5B0B3F20A05D970056E8D6 /* IconCollectionViewCell.swift */,
+				EB5B0B4020A05D970056E8D6 /* IconCollectionViewCell.xib */,
+				EB5B0B4320A05DB00056E8D6 /* MainControllerCollectionViewCell.swift */,
+				EB5B0B4420A05DB00056E8D6 /* MainControllerCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,6 +174,7 @@
 				EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */,
 				EB043351209F043600616EB9 /* EqPlayer-Bridging-Header.h */,
 				EB04335D209FF96A00616EB9 /* EQSpotifyClientInfo.swift */,
+				EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -249,6 +264,8 @@
 				EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */,
 				EB5B0B3D20A033A80056E8D6 /* Main.storyboard in Resources */,
 				EB5B0B3220A004840056E8D6 /* Player.storyboard in Resources */,
+				EB5B0B4620A05DB00056E8D6 /* MainControllerCollectionViewCell.xib in Resources */,
+				EB5B0B4220A05D970056E8D6 /* IconCollectionViewCell.xib in Resources */,
 				EB5B0B3020A004780056E8D6 /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,13 +335,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB5B0B4820A072550056E8D6 /* EQCollectionViewFlowLayout.swift in Sources */,
 				EB5B0B3B20A008820056E8D6 /* EQSpotifyCoreAudioController.swift in Sources */,
 				EB04335C209FF86C00616EB9 /* EQSpotifyManager.swift in Sources */,
 				EB5B0B3520A004CE0056E8D6 /* EQStoryBoardExtention.swift in Sources */,
 				EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */,
 				EB5B0B3920A0074C0056E8D6 /* EQMainViewController.swift in Sources */,
+				EB5B0B4520A05DB00056E8D6 /* MainControllerCollectionViewCell.swift in Sources */,
 				EB5B0B3720A006330056E8D6 /* EQLoginViewController.swift in Sources */,
 				EB04335E209FF96A00616EB9 /* EQSpotifyClientInfo.swift in Sources */,
+				EB5B0B4120A05D970056E8D6 /* IconCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

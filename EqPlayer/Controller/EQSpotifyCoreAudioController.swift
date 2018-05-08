@@ -84,7 +84,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
                 0,
                 AudioUnitParameterValue(eqFreq[Int(index)]),
                 0)
-            print("\(kAUNBandEQParam_Frequency+UInt32(index))" + "-----^^^^^^")
+//            print("\(kAUNBandEQParam_Frequency+UInt32(index))" + "-----^^^^^^")
         }
         //設定bypass
         for index in stride(from: 0, to: noBands, by: 1) {

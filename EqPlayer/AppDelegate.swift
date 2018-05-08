@@ -59,7 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             return
         }
-        window?.rootViewController = UIStoryboard.mainStoryBoard().instantiateInitialViewController()
+        let viewController = UIStoryboard.mainStoryBoard().instantiateInitialViewController()
+        window?.rootViewController = viewController
     }
 
 }

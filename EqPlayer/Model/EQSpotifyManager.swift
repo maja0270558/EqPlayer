@@ -68,6 +68,6 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
         return data
     }
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
-          UIApplication.shared.keyWindow?.rootViewController? = UIStoryboard.mainStoryBoard().instantiateInitialViewController()!
+        AppDelegate.shard?.switchToMainStoryBoard()
     }
 }
