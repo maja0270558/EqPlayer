@@ -19,10 +19,19 @@ class EQUserTableViewController: EQTableViewController, ScrollableController {
 
     func setupTableView() {
         userTableView.delegate = self
+        userTableView.dataSource = self
         let sessionInfo = EQSectionProvider()
         sessionInfo.headerData = 0
         sessionInfo.headerHeight = UITableViewAutomaticDimension
         sessionInfo.headerView = UserInfoHeaderView()
+        sessionInfo.cellDatas = [0, 2, 0]
+        sessionInfo.cellHeight = UITableViewAutomaticDimension
+        sessionInfo.cellOperator = { data, cell in
+            guard let nay = data as? Int else {
+                fatalError("")
+            }
+            cell.textLabel?.text = "cell \(nay)"
+        }
         setupSession(sectionData: [sessionInfo])
     }
 

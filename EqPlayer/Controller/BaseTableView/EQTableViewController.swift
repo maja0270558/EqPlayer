@@ -50,7 +50,9 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         guard let identifier = keeper.cellIdentifier else {
             guard let cell = keeper.cell else {
-                return UITableViewCell()
+                let emptyCell = UITableViewCell()
+                keeper.cellOperator(keeper.cellDatas[indexPath.row], emptyCell)
+                return emptyCell
             }
 
             keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
@@ -61,6 +63,7 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 
         keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
+        print("")
 
         return cell
     }

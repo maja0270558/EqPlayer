@@ -58,8 +58,7 @@ class EQMainViewController: UIViewController {
         controllers.append(userController2)
         controllers.append(userController3)
         controllers.append(userController4)
-        
-        
+
         var index: CGFloat = 0
         var previousController: UIViewController?
         for controller in controllers {
@@ -78,8 +77,10 @@ class EQMainViewController: UIViewController {
                         containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor)
                     ])
                 }
-                NSLayoutConstraint.activate([containerView.heightAnchor.constraint(equalTo: preController.view.heightAnchor),
-                    containerView.widthAnchor.constraint(equalTo: preController.view.widthAnchor)])
+                NSLayoutConstraint.activate([
+                    containerView.heightAnchor.constraint(equalTo: preController.view.heightAnchor),
+                    containerView.widthAnchor.constraint(equalTo: preController.view.widthAnchor)
+                ])
             } else {
                 NSLayoutConstraint.activate([
                     containerView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
@@ -87,8 +88,10 @@ class EQMainViewController: UIViewController {
                     containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
                 ])
             }
-            NSLayoutConstraint.activate([containerView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
-                                         containerView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor)])
+            NSLayoutConstraint.activate([
+                containerView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
+                containerView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor)
+            ])
             previousController = controller
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(controller.view)
