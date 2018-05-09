@@ -24,6 +24,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         }
         return 0
     }
+
     func setGain(value: Float, forBandAt: UInt32) {
         if let unit = eqUnit {
             let parameterId = kAUNBandEQParam_Gain + forBandAt
@@ -40,8 +41,8 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         toInputBus destinationInputBusNumber: UInt32,
         ofNode destinationNode: AUNode,
         in graph: AUGraph!
-        ) throws {
-        //定義nodetype
+    ) throws {
+        // 定義nodetype
         var desc = AudioComponentDescription(
             componentType: kAudioUnitType_Effect,
             componentSubType: kAudioUnitSubType_NBandEQ,
@@ -53,17 +54,17 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         AUGraphNodeInfo(graph, eqNode, nil, &eqUnit)
         AudioUnitInitialize(eqUnit!)
 
-        //幾個band
+        // 幾個band
         var eqFreq: [UInt32] = [25, 40, 63, 100, 160, 250, 400, 640, 1000, 1600, 2500, 4000, 6300, 10000, 16000]
         // [32,44,63,88,125,180,250,355,500,710,1000,1400,2000,2800,4000,5600,8000,11300,16000,22000]
         // [32, 250, 500, 1000, 2000, 16000]
         // [32, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
         // [25,40, 63, 100, 250, 400, 640, 1000, 1600, 2500, 4000,6300,10000,16000]
 
-        var eqBypass = Array.init(repeating: 0, count: eqFreq.count)//[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var eqBypass = Array(repeating: 0, count: eqFreq.count) // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         var noBands: UInt32 = UInt32(eqFreq.count)
 
-        //設定幾個band
+        // 設定幾個band
         let status = AudioUnitSetProperty(
             eqUnit!,
             kAUNBandEQProperty_NumberOfBands,
@@ -75,7 +76,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         if status != noErr {
             print(status.description)
         }
-        //設定頻率
+        // 設定頻率
         for index in stride(from: 0, to: noBands, by: 1) {
             AudioUnitSetParameter(
                 eqUnit!,
@@ -86,7 +87,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
                 0)
 //            print("\(kAUNBandEQParam_Frequency+UInt32(index))" + "-----^^^^^^")
         }
-        //設定bypass
+        // 設定bypass
         for index in stride(from: 0, to: noBands, by: 1) {
             AudioUnitSetParameter(
                 eqUnit!,
@@ -96,10 +97,13 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
                 AudioUnitParameterValue(eqBypass[Int(index)]),
                 0)
         }
+
         // MARK: connect
+
         AUGraphConnectNodeInput(graph, sourceNode, sourceOutputBusNumber, eqNode, 0)
         AUGraphConnectNodeInput(graph, eqNode, 0, destinationNode, destinationInputBusNumber)
     }
+
     override func disposeOfCustomNodes(in graph: AUGraph!) {
         AudioUnitUninitialize(eqUnit!)
         eqUnit = nil

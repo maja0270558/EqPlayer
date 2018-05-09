@@ -6,15 +6,15 @@
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import UIKit
 import Firebase
+import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     static let shard = UIApplication.shared.delegate as? AppDelegate
     let spotifyManager = EQSpotifyManager()
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         spotifyManager.setupAuth()
         if let session = spotifyManager.auth?.session {
@@ -27,10 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
-
+    func application(_: UIApplication, open url: URL, options _: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         if (spotifyManager.auth?.canHandle(url))! {
-            spotifyManager.auth?.handleAuthCallback(withTriggeredAuthURL: url, callback: { (error, _) in
+            spotifyManager.auth?.handleAuthCallback(withTriggeredAuthURL: url, callback: { error, _ in
                 if error != nil {
                     print("error!")
                 }
@@ -62,5 +61,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewController = UIStoryboard.mainStoryBoard().instantiateInitialViewController()
         window?.rootViewController = viewController
     }
-
 }

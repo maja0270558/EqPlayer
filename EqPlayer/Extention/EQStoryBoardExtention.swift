@@ -12,15 +12,18 @@ extension UIStoryboard {
     static func loginStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "Login", bundle: nil)
     }
+
     static func mainStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "Player", bundle: nil)
     }
 }
+
 extension CGFloat {
     static func random() -> CGFloat {
         return CGFloat(arc4random()) / CGFloat(UInt32.max)
     }
 }
+
 extension UIColor {
     static func random() -> UIColor {
         return UIColor(red: .random(),

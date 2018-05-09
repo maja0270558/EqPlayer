@@ -8,11 +8,10 @@
 
 import Foundation
 class EQCollectionViewFlowLayout: UICollectionViewFlowLayout {
-
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity _: CGPoint) -> CGPoint {
         var offsetAdjustment = MAXFLOAT
-        let horizontalOffset = proposedContentOffset.x + (self.collectionView!.bounds.size.width - self.itemSize.width) / 2.0
-        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: self.collectionView!.bounds.size.width, height: self.collectionView!.bounds.size.height)
+        let horizontalOffset = proposedContentOffset.x + (collectionView!.bounds.size.width - itemSize.width) / 2.0
+        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView!.bounds.size.width, height: collectionView!.bounds.size.height)
         let array = super.layoutAttributesForElements(in: targetRect)
 
         for layoutAttributes in array! {

@@ -9,7 +9,6 @@
 import Foundation
 
 enum EQSpotifyClientInfo: String {
-
     case clientID = "8a7aff6cb6d141b3bdba8695d133c7bd"
 
     case redirectURL = "eqplayer://returnafterlogin"
@@ -17,7 +16,6 @@ enum EQSpotifyClientInfo: String {
     case sessionKey = "SpotifySession"
 
     func string() -> String {
-       return self.rawValue
+        return rawValue
     }
-
 }

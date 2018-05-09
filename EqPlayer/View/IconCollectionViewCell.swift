@@ -10,15 +10,16 @@ import UIKit
 
 class IconCollectionViewCell: UICollectionViewCell {
     var originalIconSize: CGSize = CGSize.zero
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet var iconImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+
     func setupImageSize(size: CGSize, currentIndex: CGFloat, cellRow: CGFloat) {
         originalIconSize = size
         var scale = fabs(currentIndex - cellRow)
-        if scale>1 {
+        if scale > 1 {
             scale = 1
         }
         let scaleFactor = scale * 0.4

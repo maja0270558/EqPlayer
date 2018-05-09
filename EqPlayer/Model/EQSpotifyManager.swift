@@ -25,9 +25,9 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
         auth?.sessionUserDefaultsKey = EQSpotifyClientInfo.sessionKey.rawValue
         loginURL = auth?.spotifyWebAuthenticationURL()
         NotificationCenter.default.addObserver(self, selector: #selector(EQSpotifyManager.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessfull"), object: nil)
-
     }
-    @objc func updateAfterFirstLogin () {
+
+    @objc func updateAfterFirstLogin() {
         guard let session = auth?.session else {
             fatalError("session nil")
         }
@@ -35,19 +35,21 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     }
 
     func initializePlayer(authSession: SPTSession) {
-        self.player!.playbackDelegate = self
-        self.player!.delegate = self
+        player!.playbackDelegate = self
+        player!.delegate = self
         do {
-            try self.player?.start(withClientId: auth?.clientID, audioController: coreAudioController, allowCaching: false)
+            try player?.start(withClientId: auth?.clientID, audioController: coreAudioController, allowCaching: false)
         } catch {
             print("error")
         }
-        self.player!.login(withAccessToken: authSession.accessToken)
+        player!.login(withAccessToken: authSession.accessToken)
     }
+
     func popLoginViewController() {
-        self.authViewController = SFSafariViewController(url: self.loginURL!)
-        UIApplication.shared.keyWindow?.rootViewController?.present(self.authViewController!, animated: true, completion: nil)
+        authViewController = SFSafariViewController(url: loginURL!)
+        UIApplication.shared.keyWindow?.rootViewController?.present(authViewController!, animated: true, completion: nil)
     }
+
     func login() {
         if let session = auth?.session {
             if (auth?.session.isValid())! {
@@ -58,8 +60,8 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
         } else {
             popLoginViewController()
         }
-
     }
+
     func getSession() -> Data? {
         let session = UserDefaults.standard.value(forKey: EQSpotifyClientInfo.sessionKey.rawValue)
         guard let data = session as? Data else {
@@ -67,7 +69,8 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
         }
         return data
     }
-    func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
+
+    func audioStreamingDidLogin(_: SPTAudioStreamingController!) {
         AppDelegate.shard?.switchToMainStoryBoard()
     }
 }
