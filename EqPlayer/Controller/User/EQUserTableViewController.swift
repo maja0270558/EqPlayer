@@ -10,7 +10,7 @@ import Foundation
 
 class EQUserTableViewController: EQTableViewController, ScrollableController {
     var icon: UIImage?
-    
+
     @IBOutlet var userTableView: UITableView!
 
     override func viewDidLoad() {
@@ -27,7 +27,6 @@ class EQUserTableViewController: EQTableViewController, ScrollableController {
     }
 
     func createSections() {
-        
     }
 
     func setupSession(sectionData: [EQTableViewSession]) {

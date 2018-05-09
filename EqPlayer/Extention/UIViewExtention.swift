@@ -9,16 +9,16 @@
 import Foundation
 extension UIView {
     @discardableResult
-    func fromNib<T : UIView>() -> T? {
+    func fromNib<T: UIView>() -> T? {
         guard let contentView = Bundle(for: type(of: self)).loadNibNamed(String(describing: type(of: self)), owner: self, options: nil)?.first as? T else {
             return nil
         }
-        self.addSubview(contentView)
+        addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         return contentView
-}
+    }
 }
