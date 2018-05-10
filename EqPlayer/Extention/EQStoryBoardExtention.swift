@@ -12,9 +12,11 @@ extension UIStoryboard {
     static func loginStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "Login", bundle: nil)
     }
-
     static func mainStoryBoard() -> UIStoryboard {
-        return UIStoryboard(name: "Player", bundle: nil)
+        return UIStoryboard(name: "Main", bundle: nil)
+    }
+    static func eqProjectStoryBoard() -> UIStoryboard {
+        return UIStoryboard(name: "EQProject", bundle: nil)
     }
 }
 

@@ -16,6 +16,9 @@ class EQMainViewController: UIViewController {
 
     @IBOutlet var iconCollectionView: UICollectionView!
 
+    @IBAction func addEQAction(_ sender: UIButton) {
+    
+    }
     var controllers = [UIViewController]()
 
     var insetEdge: CGFloat = 0

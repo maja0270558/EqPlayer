@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Playlist View Controller-->
+        <scene sceneID="Y1h-4D-hdo">
+            <objects>
+                <viewController storyboardIdentifier="EQSPTPlaylistViewController" id="BWf-pY-O8g" customClass="EQSPTPlaylistViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dbW-Aw-cl3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cre-l2-GcL">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="n37-58-Upi">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dso-It-6Wr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="urr-jf-gNs">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xkm-Bl-ONv">
+                                            <rect key="frame" x="0.0" y="52" width="375" height="56"/>
+                                            <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
+                                        </searchBar>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQ5-FI-gS2">
+                                            <rect key="frame" x="0.0" y="16" width="375" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="Sak-OU-di6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="IQ5-FI-gS2" firstAttribute="leading" secondItem="urr-jf-gNs" secondAttribute="leading" id="25M-ss-QHI"/>
+                                        <constraint firstItem="xkm-Bl-ONv" firstAttribute="leading" secondItem="urr-jf-gNs" secondAttribute="leading" id="C8E-lj-9Xe"/>
+                                        <constraint firstItem="IQ5-FI-gS2" firstAttribute="top" secondItem="urr-jf-gNs" secondAttribute="top" constant="16" id="cwV-f5-tkH"/>
+                                        <constraint firstItem="xkm-Bl-ONv" firstAttribute="top" secondItem="IQ5-FI-gS2" secondAttribute="bottom" id="jyu-kk-R16"/>
+                                        <constraint firstAttribute="trailing" secondItem="IQ5-FI-gS2" secondAttribute="trailing" id="k5p-lk-Olb"/>
+                                        <constraint firstAttribute="bottom" secondItem="xkm-Bl-ONv" secondAttribute="bottom" constant="8" id="l29-lZ-HGH"/>
+                                        <constraint firstAttribute="trailing" secondItem="xkm-Bl-ONv" secondAttribute="trailing" id="rac-Wy-8c7"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="116" id="BWY-7r-lDC"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cre-l2-GcL" firstAttribute="trailing" secondItem="YYv-Ip-nDH" secondAttribute="trailing" id="7Wc-4E-SRB"/>
+                            <constraint firstItem="Dso-It-6Wr" firstAttribute="leading" secondItem="YYv-Ip-nDH" secondAttribute="leading" id="Jb3-9a-ozP"/>
+                            <constraint firstItem="Cre-l2-GcL" firstAttribute="bottom" secondItem="YYv-Ip-nDH" secondAttribute="bottom" id="Ml7-ed-Nbi"/>
+                            <constraint firstItem="Cre-l2-GcL" firstAttribute="top" secondItem="Dso-It-6Wr" secondAttribute="bottom" id="P1v-kw-3cu"/>
+                            <constraint firstItem="Dso-It-6Wr" firstAttribute="top" secondItem="dbW-Aw-cl3" secondAttribute="top" id="RBh-Ax-gPp"/>
+                            <constraint firstItem="Dso-It-6Wr" firstAttribute="trailing" secondItem="YYv-Ip-nDH" secondAttribute="trailing" id="lj5-iI-pB5"/>
+                            <constraint firstItem="Cre-l2-GcL" firstAttribute="leading" secondItem="YYv-Ip-nDH" secondAttribute="leading" id="xCk-la-R63"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YYv-Ip-nDH"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oxQ-E4-lqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-103.2" y="-38.23088455772114"/>
+        </scene>
+    </scenes>
+</document>

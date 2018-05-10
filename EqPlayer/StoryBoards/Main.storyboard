@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HxL-yO-o7j">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8gU-ew-QVX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,19 +11,115 @@
     </dependencies>
     <scenes>
         <!--Main View Controller-->
-        <scene sceneID="8y7-Wb-iPm">
+        <scene sceneID="FVE-gD-uOT">
             <objects>
-                <viewController id="HxL-yO-o7j" customClass="EQMainViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8D4-ke-0ct">
+                <viewController storyboardIdentifier="EQMainViewController" id="8gU-ew-QVX" customClass="EQMainViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dlR-z5-rMN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95047329143019876" green="1" blue="0.50561228871312958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="kMW-Fo-480"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Vv-my-8Cj">
+                                <rect key="frame" x="0.0" y="20" width="375" height="63"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="T99-T4-ngh"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Dz8-SX-wlX" customClass="EQCollectionViewFlowLayout" customModule="EqPlayer" customModuleProvider="target">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qcz-Py-TjW">
+                                        <rect key="frame" x="0.0" y="6.5" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="8gU-ew-QVX" id="PHw-ve-cys"/>
+                                    <outlet property="delegate" destination="8gU-ew-QVX" id="UBW-p4-8mq"/>
+                                </connections>
+                            </collectionView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fk-hj-Ykd">
+                                <rect key="frame" x="0.0" y="91" width="375" height="576"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8gU-ew-QVX" id="rvn-bI-e9K"/>
+                                </connections>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-lp-g4p">
+                                <rect key="frame" x="315" y="547" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="RDd-fA-khL"/>
+                                    <constraint firstAttribute="height" constant="40" id="XfQ-pB-vYz"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="rounded-add-button"/>
+                                <connections>
+                                    <action selector="addEQAction:" destination="8gU-ew-QVX" eventType="touchUpInside" id="aqT-U3-rQb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="4Vv-my-8Cj" firstAttribute="top" secondItem="U0n-3j-ADt" secondAttribute="top" id="3q9-qS-K2p"/>
+                            <constraint firstItem="4Vv-my-8Cj" firstAttribute="trailing" secondItem="U0n-3j-ADt" secondAttribute="trailing" id="5ye-Mm-Ja7"/>
+                            <constraint firstItem="5fk-hj-Ykd" firstAttribute="bottom" secondItem="U0n-3j-ADt" secondAttribute="bottom" id="Dmx-Io-HI6"/>
+                            <constraint firstItem="4Vv-my-8Cj" firstAttribute="leading" secondItem="U0n-3j-ADt" secondAttribute="leading" id="Dqr-NH-3po"/>
+                            <constraint firstItem="5fk-hj-Ykd" firstAttribute="trailing" secondItem="U0n-3j-ADt" secondAttribute="trailing" id="FDc-cz-kOe"/>
+                            <constraint firstItem="U0n-3j-ADt" firstAttribute="trailing" secondItem="MhK-lp-g4p" secondAttribute="trailing" constant="20" id="SfB-t1-KiP"/>
+                            <constraint firstItem="U0n-3j-ADt" firstAttribute="bottom" secondItem="MhK-lp-g4p" secondAttribute="bottom" constant="80" id="Vdd-TN-0UO"/>
+                            <constraint firstItem="5fk-hj-Ykd" firstAttribute="top" secondItem="4Vv-my-8Cj" secondAttribute="bottom" constant="8" id="b26-ti-ckW"/>
+                            <constraint firstItem="5fk-hj-Ykd" firstAttribute="leading" secondItem="U0n-3j-ADt" secondAttribute="leading" id="ryF-Rp-dfz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="U0n-3j-ADt"/>
                     </view>
+                    <connections>
+                        <outlet property="iconCollectionView" destination="4Vv-my-8Cj" id="yBP-yY-rCS"/>
+                        <outlet property="mainScrollView" destination="5fk-hj-Ykd" id="r0R-ob-T7j"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dme-Jy-nTB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mdj-yt-1yP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="249" y="-64"/>
+            <point key="canvasLocation" x="453.60000000000002" y="14.842578710644679"/>
+        </scene>
+        <!--User Table View Controller-->
+        <scene sceneID="Otb-hd-MkP">
+            <objects>
+                <viewController storyboardIdentifier="EQUserTableViewController" id="brM-b9-dUm" customClass="EQUserTableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2td-oW-iXU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wTL-tG-9U5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wTL-tG-9U5" firstAttribute="top" secondItem="2td-oW-iXU" secondAttribute="top" id="WUE-LC-oBW"/>
+                            <constraint firstItem="wTL-tG-9U5" firstAttribute="leading" secondItem="m8p-cb-Xpl" secondAttribute="leading" id="pOo-pa-KwX"/>
+                            <constraint firstItem="wTL-tG-9U5" firstAttribute="trailing" secondItem="m8p-cb-Xpl" secondAttribute="trailing" id="uy5-WW-S7m"/>
+                            <constraint firstItem="wTL-tG-9U5" firstAttribute="bottom" secondItem="m8p-cb-Xpl" secondAttribute="bottom" id="wnq-Em-clz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m8p-cb-Xpl"/>
+                    </view>
+                    <connections>
+                        <outlet property="userTableView" destination="wTL-tG-9U5" id="vKL-Xy-vEr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tMc-qU-jV9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1242" y="15"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="rounded-add-button" width="128" height="128"/>
+    </resources>
+    <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
