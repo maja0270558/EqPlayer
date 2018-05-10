@@ -63,34 +63,33 @@ class EQMainViewController: UIViewController {
         var previousController: UIViewController?
         for controller in controllers {
             let containerView = UIView()
-            containerView.backgroundColor = UIColor.random()
             containerView.translatesAutoresizingMaskIntoConstraints = false
             mainScrollView.addSubview(containerView)
             if let preController = previousController {
                 if Int(index) >= controllers.count - 1 {
                     NSLayoutConstraint.activate([
                         containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor),
-                        containerView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor)
+                        containerView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor),
                     ])
                 } else {
                     NSLayoutConstraint.activate([
-                        containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor)
+                        containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor),
                     ])
                 }
                 NSLayoutConstraint.activate([
                     containerView.heightAnchor.constraint(equalTo: preController.view.heightAnchor),
-                    containerView.widthAnchor.constraint(equalTo: preController.view.widthAnchor)
+                    containerView.widthAnchor.constraint(equalTo: preController.view.widthAnchor),
                 ])
             } else {
                 NSLayoutConstraint.activate([
                     containerView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
                     containerView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor),
-                    containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
+                    containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor),
                 ])
             }
             NSLayoutConstraint.activate([
                 containerView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
-                containerView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor)
+                containerView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
             ])
             previousController = controller
             controller.view.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +99,7 @@ class EQMainViewController: UIViewController {
                 controller.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
                 controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
                 controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-                controller.view.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
+                controller.view.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor),
             ])
             controller.didMove(toParentViewController: self)
             index += 1

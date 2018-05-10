@@ -32,7 +32,6 @@ protocol EQTableViewSession {
 
 class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var sectionProviders: [EQTableViewSession] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -47,12 +46,11 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let keeper = sectionProviders[indexPath.section]
-
         guard let identifier = keeper.cellIdentifier else {
             guard let cell = keeper.cell else {
-                let emptyCell = UITableViewCell()
-                keeper.cellOperator(keeper.cellDatas[indexPath.row], emptyCell)
-                return emptyCell
+                let cell = UITableViewCell()
+                keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
+                return cell
             }
 
             keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
@@ -63,7 +61,6 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 
         keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
-        print("")
 
         return cell
     }

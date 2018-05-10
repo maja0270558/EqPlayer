@@ -18,21 +18,36 @@ class EQUserTableViewController: EQTableViewController, ScrollableController {
     }
 
     func setupTableView() {
+        userTableView.contentInsetAdjustmentBehavior = .never
         userTableView.delegate = self
         userTableView.dataSource = self
+        userTableView.separatorStyle = .none
         let sessionInfo = EQSectionProvider()
-        sessionInfo.headerData = 0
-        sessionInfo.headerHeight = UITableViewAutomaticDimension
-        sessionInfo.headerView = UserInfoHeaderView()
-        sessionInfo.cellDatas = [0, 2, 0]
+
+        userTableView.register(UINib(nibName: EQUserInfoTableViewCell.typeName, bundle: nil), forCellReuseIdentifier: EQUserInfoTableViewCell.typeName)
+        sessionInfo.cellIdentifier = EQUserInfoTableViewCell.typeName
+
+        sessionInfo.cellDatas = ["Django Free"]
         sessionInfo.cellHeight = UITableViewAutomaticDimension
-        sessionInfo.cellOperator = { data, cell in
-            guard let nay = data as? Int else {
+        sessionInfo.cellOperator = { data, _ in
+            guard let nay = data as? String else {
                 fatalError("")
             }
-            cell.textLabel?.text = "cell \(nay)"
+//            cell.textLabel?.text = "\(nay)"
         }
-        setupSession(sectionData: [sessionInfo])
+        
+        let sessionInfo2 = EQSectionProvider()
+        sessionInfo2.headerData = 0
+        sessionInfo2.headerHeight = UITableViewAutomaticDimension
+        sessionInfo2.headerView = UserInfoHeaderView()
+        sessionInfo2.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        sessionInfo2.cellHeight = 150
+        sessionInfo2.cellOperator = {
+            (data, cell) in
+            cell.textLabel?.text = "0"
+        }
+      
+        setupSession(sectionData: [sessionInfo, sessionInfo2])
     }
 
     func createSections() {
