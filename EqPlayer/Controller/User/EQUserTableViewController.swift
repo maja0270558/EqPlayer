@@ -10,7 +10,7 @@ import Foundation
 
 class EQUserTableViewController: EQTableViewController, ScrollableController {
     var icon: UIImage?
-
+    var barData = ["Posted", "Saved", "Liked"]
     @IBOutlet var userTableView: UITableView!
 
     override func viewDidLoad() {
@@ -26,7 +26,6 @@ class EQUserTableViewController: EQTableViewController, ScrollableController {
 
         userTableView.register(UINib(nibName: EQUserInfoTableViewCell.typeName, bundle: nil), forCellReuseIdentifier: EQUserInfoTableViewCell.typeName)
         sessionInfo.cellIdentifier = EQUserInfoTableViewCell.typeName
-
         sessionInfo.cellDatas = ["Django Free"]
         sessionInfo.cellHeight = UITableViewAutomaticDimension
         sessionInfo.cellOperator = { data, _ in
@@ -37,9 +36,17 @@ class EQUserTableViewController: EQTableViewController, ScrollableController {
         }
         
         let sessionInfo2 = EQSectionProvider()
-        sessionInfo2.headerData = 0
         sessionInfo2.headerHeight = UITableViewAutomaticDimension
-        sessionInfo2.headerView = UserInfoHeaderView()
+        sessionInfo2.headerView = EQCustomToolBarView()
+        sessionInfo2.headerData = barData
+        sessionInfo2.headerOperator = {
+            (data,view) in
+            if let toolBar = view as? EQCustomToolBarView {
+                toolBar.delegate = self
+                toolBar.datasource = self
+            }
+        }
+        
         sessionInfo2.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         sessionInfo2.cellHeight = 150
         sessionInfo2.cellOperator = {
@@ -56,4 +63,19 @@ class EQUserTableViewController: EQTableViewController, ScrollableController {
     func setupSession(sectionData: [EQTableViewSession]) {
         sectionProviders = sectionData
     }
+}
+extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
+    func eqToolBarNumberOfItem() -> Int {
+        return barData.count
+    }
+    
+    func eqToolBar(titleOfItemAt: Int) -> String {
+        return barData[titleOfItemAt]
+    }
+    
+    func eqToolBar(didSelectAt: Int) {
+        print("Selet at \(didSelectAt)")
+    }
+    
+    
 }

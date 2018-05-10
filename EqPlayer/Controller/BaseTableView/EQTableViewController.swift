@@ -86,6 +86,7 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
 
             guard let data = keeper.headerData else {
+                keeper.headerOperator("", view)
                 return view
             }
 
