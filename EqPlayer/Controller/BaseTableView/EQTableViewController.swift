@@ -49,6 +49,7 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard let identifier = keeper.cellIdentifier else {
             guard let cell = keeper.cell else {
                 let cell = UITableViewCell()
+                cell.backgroundColor = UIColor.clear
                 keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
                 return cell
             }

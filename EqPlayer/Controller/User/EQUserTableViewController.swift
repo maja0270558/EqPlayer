@@ -7,59 +7,31 @@
 //
 
 import Foundation
-
+enum EQUserPageTableViewSectionGenerator {
+    case userInfoCell
+    case toolBar
+}
 class EQUserTableViewController: EQTableViewController, ScrollableController {
     var icon: UIImage?
+    var sections:[EQUserPageTableViewSectionGenerator] = [.userInfoCell, .toolBar]
     var barData = ["Posted", "Saved", "Liked"]
     @IBOutlet var userTableView: UITableView!
-
+    
     override func viewDidLoad() {
         setupTableView()
     }
-
+    
     func setupTableView() {
         userTableView.contentInsetAdjustmentBehavior = .never
         userTableView.delegate = self
         userTableView.dataSource = self
         userTableView.separatorStyle = .none
-        let sessionInfo = EQSectionProvider()
-
-        userTableView.register(UINib(nibName: EQUserInfoTableViewCell.typeName, bundle: nil), forCellReuseIdentifier: EQUserInfoTableViewCell.typeName)
-        sessionInfo.cellIdentifier = EQUserInfoTableViewCell.typeName
-        sessionInfo.cellDatas = ["Django Free"]
-        sessionInfo.cellHeight = UITableViewAutomaticDimension
-        sessionInfo.cellOperator = { data, _ in
-            guard let nay = data as? String else {
-                fatalError("")
-            }
-//            cell.textLabel?.text = "\(nay)"
-        }
-        
-        let sessionInfo2 = EQSectionProvider()
-        sessionInfo2.headerHeight = UITableViewAutomaticDimension
-        sessionInfo2.headerView = EQCustomToolBarView()
-        sessionInfo2.headerData = barData
-        sessionInfo2.headerOperator = {
-            (data,view) in
-            if let toolBar = view as? EQCustomToolBarView {
-                toolBar.delegate = self
-                toolBar.datasource = self
-            }
-        }
-        
-        sessionInfo2.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        sessionInfo2.cellHeight = 150
-        sessionInfo2.cellOperator = {
-            (data, cell) in
-            cell.textLabel?.text = "0"
-        }
-      
-        setupSession(sectionData: [sessionInfo, sessionInfo2])
+        setupSession(sectionData: generateSectionAndCell(providerTypes: sections))
     }
-
+    
     func createSections() {
     }
-
+    
     func setupSession(sectionData: [EQTableViewSession]) {
         sectionProviders = sectionData
     }
@@ -76,6 +48,52 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
     func eqToolBar(didSelectAt: Int) {
         print("Selet at \(didSelectAt)")
     }
+}
+
+extension EQUserTableViewController {
+    private func createUserInfoHead() -> EQSectionProvider {
+        let section = EQSectionProvider()
+        userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
+        section.cellIdentifier = EQUserInfoTableViewCell.typeName
+        section.cellDatas = ["Django Free"]
+        section.cellHeight = UITableViewAutomaticDimension
+        section.cellOperator = { data, view in
+        }
+        return section
+    }
+    private func createCustomToolBarSectionWithCell() -> EQSectionProvider{
+        let section = EQSectionProvider()
+        section.headerHeight = UITableViewAutomaticDimension
+        section.headerView = EQCustomToolBarView()
+        section.headerData = barData
+        section.headerOperator = {
+            (data,view) in
+            if let toolBar = view as? EQCustomToolBarView {
+                toolBar.delegate = self
+                toolBar.datasource = self
+            }
+        }
+        section.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        section.cellHeight = 150
+        section.cellOperator = {
+            (data, cell) in
+            cell.textLabel?.text = "0"
+        }
+        
+        return section
+    }
     
-    
+    //Must call after get data
+    private func generateSectionAndCell(providerTypes: [EQUserPageTableViewSectionGenerator]) -> [EQSectionProvider]{
+        var providers = [EQSectionProvider]()
+        for sectionType in providerTypes {
+            switch sectionType {
+            case .toolBar:
+              providers.append(createCustomToolBarSectionWithCell())
+            case .userInfoCell:
+                providers.append(createUserInfoHead())
+            }
+        }
+        return providers
+    }
 }
