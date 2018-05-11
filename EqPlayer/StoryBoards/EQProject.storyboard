@@ -18,22 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cre-l2-GcL">
-                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="n37-58-Upi">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="dark"/>
-                            </visualEffectView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dso-It-6Wr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="urr-jf-gNs">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xkm-Bl-ONv">
+                                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xkm-Bl-ONv" customClass="EQCustomSearchBar" customModule="EqPlayer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="52" width="375" height="56"/>
+                                            <color key="barTintColor" red="0.78823529411764703" green="0.78823572397232056" blue="0.80771607160568237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                         </searchBar>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQ5-FI-gS2">
@@ -41,14 +34,27 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="Sak-OU-di6"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9F-Fo-qRJ">
+                                            <rect key="frame" x="350" y="27" width="15" height="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="15" id="KlH-lu-9AQ"/>
+                                                <constraint firstAttribute="height" constant="15" id="QiI-LQ-ck4"/>
+                                            </constraints>
+                                            <state key="normal" backgroundImage="close"/>
+                                            <connections>
+                                                <action selector="cancelAction:" destination="BWf-pY-O8g" eventType="touchUpInside" id="fgu-ld-GJb"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="IQ5-FI-gS2" firstAttribute="leading" secondItem="urr-jf-gNs" secondAttribute="leading" id="25M-ss-QHI"/>
                                         <constraint firstItem="xkm-Bl-ONv" firstAttribute="leading" secondItem="urr-jf-gNs" secondAttribute="leading" id="C8E-lj-9Xe"/>
+                                        <constraint firstItem="xkm-Bl-ONv" firstAttribute="top" secondItem="W9F-Fo-qRJ" secondAttribute="bottom" constant="10" id="Lk3-gZ-xdK"/>
+                                        <constraint firstAttribute="trailing" secondItem="W9F-Fo-qRJ" secondAttribute="trailing" constant="10" id="cGB-a3-lh7"/>
                                         <constraint firstItem="IQ5-FI-gS2" firstAttribute="top" secondItem="urr-jf-gNs" secondAttribute="top" constant="16" id="cwV-f5-tkH"/>
                                         <constraint firstItem="xkm-Bl-ONv" firstAttribute="top" secondItem="IQ5-FI-gS2" secondAttribute="bottom" id="jyu-kk-R16"/>
                                         <constraint firstAttribute="trailing" secondItem="IQ5-FI-gS2" secondAttribute="trailing" id="k5p-lk-Olb"/>
@@ -61,8 +67,28 @@
                                 </constraints>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cre-l2-GcL">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="n37-58-Upi">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5K7-g4-tB0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="551"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="5K7-g4-tB0" secondAttribute="bottom" id="QJS-qs-FQY"/>
+                                        <constraint firstAttribute="trailing" secondItem="5K7-g4-tB0" secondAttribute="trailing" id="Zt8-1T-UxF"/>
+                                        <constraint firstItem="5K7-g4-tB0" firstAttribute="top" secondItem="n37-58-Upi" secondAttribute="top" id="bpZ-g4-kT1"/>
+                                        <constraint firstItem="5K7-g4-tB0" firstAttribute="leading" secondItem="n37-58-Upi" secondAttribute="leading" id="raw-k4-4Ep"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Cre-l2-GcL" firstAttribute="trailing" secondItem="YYv-Ip-nDH" secondAttribute="trailing" id="7Wc-4E-SRB"/>
                             <constraint firstItem="Dso-It-6Wr" firstAttribute="leading" secondItem="YYv-Ip-nDH" secondAttribute="leading" id="Jb3-9a-ozP"/>
@@ -74,10 +100,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YYv-Ip-nDH"/>
                     </view>
+                    <connections>
+                        <outlet property="playlistTableView" destination="5K7-g4-tB0" id="OSw-rx-rEO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oxQ-E4-lqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-103.2" y="-38.23088455772114"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close" width="64" height="64"/>
+    </resources>
 </document>

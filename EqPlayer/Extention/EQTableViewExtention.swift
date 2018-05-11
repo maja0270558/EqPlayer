@@ -26,3 +26,7 @@ extension UITableViewCell {
         return String(describing: self)
     }
 }
+
+protocol TableViewDelegateAndDataSource: UITableViewDelegate, UITableViewDataSource {
+    
+}

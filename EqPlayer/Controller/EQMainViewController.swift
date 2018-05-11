@@ -17,7 +17,17 @@ class EQMainViewController: UIViewController {
     @IBOutlet var iconCollectionView: UICollectionView!
 
     @IBAction func addEQAction(_ sender: UIButton) {
-    
+        if let playListViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: "EQSPTPlaylistViewController") as? EQSPTPlaylistViewController {
+           playListViewController.modalPresentationStyle = .overCurrentContext
+            playListViewController.modalTransitionStyle = .crossDissolve
+//            let transition:CATransition = CATransition()
+//            transition.duration = 0.5
+//            transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//            transition.type = kCATransitionFade
+//            transition.subtype = kCATransitionFromBottom
+//            self.view.layer.add(transition, forKey: "fadeOut")
+            self.present(playListViewController, animated: true, completion: nil)
+        }
     }
     var controllers = [UIViewController]()
 
@@ -42,7 +52,7 @@ class EQMainViewController: UIViewController {
 
         setupScrollView()
 
-        AppDelegate.shard?.spotifyManager.player?.playSpotifyURI("spotify:track:4OCIut15DsVwJrK8s02LJp", startingWith: 0, startingWithPosition: 0, callback: nil)
+        AppDelegate.shard?.spotifyManager.player?.playSpotifyURI("spotify:album:7arx9qPJexCsDz67El4qvk", startingWith: 0, startingWithPosition: 0, callback: nil)
     }
 
     func setupCell() {

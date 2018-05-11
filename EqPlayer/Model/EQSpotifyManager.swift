@@ -9,13 +9,13 @@
 import Foundation
 import SafariServices
 class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate, SPTCoreAudioControllerDelegate {
+    static let shard :EQSpotifyManager = EQSpotifyManager()
     let userDefaults = UserDefaults.standard
     var player = SPTAudioStreamingController.sharedInstance()
     var auth = SPTAuth.defaultInstance()
     var authViewController: SFSafariViewController?
     var loginURL: URL?
 
-    var session: SPTSession!
     var coreAudioController = EQSpotifyCoreAudioController()
 
     func setupAuth() {

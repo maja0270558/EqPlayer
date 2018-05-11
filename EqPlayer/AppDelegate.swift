@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     static let shard = UIApplication.shared.delegate as? AppDelegate
-    let spotifyManager = EQSpotifyManager()
+    let spotifyManager = EQSpotifyManager.shard
     var window: UIWindow?
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
