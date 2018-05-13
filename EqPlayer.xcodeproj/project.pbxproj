@@ -133,6 +133,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EB17379520A823F300566F50 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				EB17379620A8241A00566F50 /* BaseScrollableViewController */,
+				EB1D910C20A2DA2000384869 /* BaseTableView */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		EB17379620A8241A00566F50 /* BaseScrollableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */,
+			);
+			path = BaseScrollableViewController;
+			sourceTree = "<group>";
+		};
 		EB1D910C20A2DA2000384869 /* BaseTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,12 +205,11 @@
 		EB4ABBEC209F01C5006D124D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EB1D910C20A2DA2000384869 /* BaseTableView */,
+				EB17379520A823F300566F50 /* Base */,
 				EBE65D8520A48373001A9E42 /* EQEdit */,
 				EBFCEAF820A2E11B00138D80 /* User */,
 				EB5B0B3620A006330056E8D6 /* EQLoginViewController.swift */,
 				EBB1C22320A7E14800D21788 /* EQMainScrollableViewController.swift */,
-				EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */,
 				EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */,
 			);
 			path = Controller;

@@ -11,45 +11,54 @@ enum EQScrollableViewID: Int {
     case topCollectionView = 100
     case mainScrollView = 101
 }
+
 struct ScrollableControllerDataModel {
     var topCellId: [String] = [String]()
     var mainController: [UIViewController] = [UIViewController]()
 }
+
 protocol EQScrollableViewControllerProtocol {
     func setupCell(cell: UICollectionViewCell)
     func setupCollectionLayout()
     func customizeTopItemWhenScrolling(_ currentIndex: CGFloat)
 }
+
 class EQScrollableViewController: UIViewController, EQScrollableViewControllerProtocol {
     var mainScrollView: UIScrollView! {
         return view.viewWithTag(EQScrollableViewID.mainScrollView.rawValue) as? UIScrollView
     }
+
     var topCollectionView: UICollectionView! {
         return view.viewWithTag(EQScrollableViewID.topCollectionView.rawValue) as? UICollectionView
     }
+
     var currentIndex: CGFloat {
         return mainScrollView.contentOffset.x / mainScrollView.frame.size.width
     }
+
     var topPageWidth: CGFloat = 0
-    var visiableItemCount:CGFloat = 3
+    var visiableItemCount: CGFloat = 3
     var data = ScrollableControllerDataModel()
-    
+
     var controllers = [UIViewController]()
     var cells = [String]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         topCollectionView.delegate = self
         topCollectionView.dataSource = self
         mainScrollView.delegate = self
     }
+
     override func viewDidAppear(_: Bool) {
         customizeTopItemWhenScrolling()
     }
+
     func controllerInit() {
         setupCollectionLayout()
         setupScrollView()
     }
+
     func setupScrollView() {
         var index: CGFloat = 0
         var previousController: UIViewController?
@@ -62,27 +71,27 @@ class EQScrollableViewController: UIViewController, EQScrollableViewControllerPr
                     NSLayoutConstraint.activate([
                         containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor),
                         containerView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor)
-                        ])
+                    ])
                 } else {
                     NSLayoutConstraint.activate([
                         containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor)
-                        ])
+                    ])
                 }
                 NSLayoutConstraint.activate([
                     containerView.heightAnchor.constraint(equalTo: preController.view.heightAnchor),
                     containerView.widthAnchor.constraint(equalTo: preController.view.widthAnchor)
-                    ])
+                ])
             } else {
                 NSLayoutConstraint.activate([
                     containerView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
                     containerView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor),
                     containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
-                    ])
+                ])
             }
             NSLayoutConstraint.activate([
                 containerView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
                 containerView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor)
-                ])
+            ])
             previousController = controller
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(controller.view)
@@ -92,15 +101,13 @@ class EQScrollableViewController: UIViewController, EQScrollableViewControllerPr
                 controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
                 controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
                 controller.view.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
-                ])
+            ])
             controller.didMove(toParentViewController: self)
             index += 1
         }
 
         mainScrollView.isPagingEnabled = true
     }
-
-    
 }
 
 extension EQScrollableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -117,7 +124,6 @@ extension EQScrollableViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.setContentOffset(CGPoint(x: CGFloat(indexPath.row) * topPageWidth, y: 0), animated: true)
     }
-
 }
 
 extension EQScrollableViewController: UIScrollViewDelegate {
@@ -167,14 +173,12 @@ extension EQScrollableViewController: UIScrollViewDelegate {
         }
     }
 
-    @objc func setupCell(cell: UICollectionViewCell) {
-
+    @objc func setupCell(cell _: UICollectionViewCell) {
     }
-    @objc func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
 
+    @objc func customizeTopItemWhenScrolling(_: CGFloat = 0) {
     }
+
     @objc func setupCollectionLayout() {
-       
     }
-
 }

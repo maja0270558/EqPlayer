@@ -14,9 +14,9 @@ class EQMainScrollableViewController: EQScrollableViewController {
         super.viewDidLoad()
         visiableItemCount = 3
         registerCollectionCell()
-        
-        for _ in 0...3 {
-             let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
+
+        for _ in 0 ... 3 {
+            let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
             controllers.append(userController)
             cells.append("IconCollectionViewCell")
         }
@@ -26,12 +26,15 @@ class EQMainScrollableViewController: EQScrollableViewController {
         )
         controllerInit()
     }
-    override func setupCell(cell: UICollectionViewCell) {
+
+    override func setupCell(cell _: UICollectionViewCell) {
     }
+
     func registerCollectionCell() {
         let iconNib = UINib(nibName: "IconCollectionViewCell", bundle: nil)
         topCollectionView.register(iconNib, forCellWithReuseIdentifier: "IconCollectionViewCell")
     }
+
     override func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
         let cells = topCollectionView.visibleCells
         for cell in cells {
@@ -41,11 +44,12 @@ class EQMainScrollableViewController: EQScrollableViewController {
             }
         }
     }
+
     override func setupCollectionLayout() {
         if let iconLayout = topCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            var spaceCount = visiableItemCount - 1
+            let spaceCount = visiableItemCount - 1
             iconLayout.itemSize = topItemSize
-            //Center the first icon
+            // Center the first icon
             let insetEdge = UIScreen.main.bounds.width / 2 - (iconLayout.itemSize.width / 2)
             let spacing = (UIScreen.main.bounds.width - iconLayout.itemSize.width * visiableItemCount) / spaceCount
             iconLayout.minimumInteritemSpacing = 0
@@ -56,7 +60,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
                 bottom: 0.0,
                 right: insetEdge
             )
-            topPageWidth = UIScreen.main.bounds.width / spaceCount - topItemSize.width/2
+            topPageWidth = UIScreen.main.bounds.width / spaceCount - topItemSize.width / 2
         }
     }
 }
