@@ -15,7 +15,12 @@ struct ScrollableControllerDataModel {
     var topCellId: [String] = [String]()
     var mainController: [UIViewController] = [UIViewController]()
 }
-class EQScrollableViewController: UIViewController {
+protocol EQScrollableViewControllerProtocol {
+    func setupCell(cell: UICollectionViewCell)
+    func setupCollectionLayout()
+    func customizeTopItemWhenScrolling(_ currentIndex: CGFloat)
+}
+class EQScrollableViewController: UIViewController, EQScrollableViewControllerProtocol {
     var mainScrollView: UIScrollView! {
         return view.viewWithTag(EQScrollableViewID.mainScrollView.rawValue) as? UIScrollView
     }
@@ -26,19 +31,25 @@ class EQScrollableViewController: UIViewController {
         return mainScrollView.contentOffset.x / mainScrollView.frame.size.width
     }
     var topPageWidth: CGFloat = 0
+    var visiableItemCount:CGFloat = 3
     var data = ScrollableControllerDataModel()
-
+    
+    var controllers = [UIViewController]()
+    var cells = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //set page width
-        setupCollectionLayout()
-        setupScrollView()
+        topCollectionView.delegate = self
+        topCollectionView.dataSource = self
+        mainScrollView.delegate = self
     }
-
     override func viewDidAppear(_: Bool) {
         customizeTopItemWhenScrolling()
     }
-
+    func controllerInit() {
+        setupCollectionLayout()
+        setupScrollView()
+    }
     func setupScrollView() {
         var index: CGFloat = 0
         var previousController: UIViewController?
@@ -89,22 +100,7 @@ class EQScrollableViewController: UIViewController {
         mainScrollView.isPagingEnabled = true
     }
 
-    func setupCollectionLayout() {
-        if let iconLayout = topCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            iconLayout.itemSize = CGSize(width: topCollectionView.bounds.size.height, height: topCollectionView.bounds.size.height)
-            let insetEdge = UIScreen.main.bounds.width / 2 - (iconLayout.itemSize.width / 2)
-            let spacing = (UIScreen.main.bounds.width - iconLayout.itemSize.width * 3) / 2
-            iconLayout.minimumInteritemSpacing = 0
-            iconLayout.minimumLineSpacing = spacing
-            iconLayout.sectionInset = UIEdgeInsets(
-                top: 0.0,
-                left: insetEdge,
-                bottom: 0.0,
-                right: insetEdge
-            )
-        }
-    }
-
+    
 }
 
 extension EQScrollableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -171,11 +167,14 @@ extension EQScrollableViewController: UIScrollViewDelegate {
         }
     }
 
-    func setupCell(cell: UICollectionViewCell) {
+    @objc func setupCell(cell: UICollectionViewCell) {
 
     }
-
-    func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
+    @objc func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
 
     }
+    @objc func setupCollectionLayout() {
+       
+    }
+
 }

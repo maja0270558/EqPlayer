@@ -10,15 +10,15 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Main Scrollable View Controller-->
         <scene sceneID="FVE-gD-uOT">
             <objects>
-                <viewController storyboardIdentifier="EQMainViewController" id="8gU-ew-QVX" customClass="EQMainViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EQMainScrollableViewController" id="8gU-ew-QVX" customClass="EQMainScrollableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dlR-z5-rMN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Vv-my-8Cj">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Vv-my-8Cj">
                                 <rect key="frame" x="0.0" y="20" width="375" height="63"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -40,16 +40,9 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="8gU-ew-QVX" id="PHw-ve-cys"/>
-                                    <outlet property="delegate" destination="8gU-ew-QVX" id="UBW-p4-8mq"/>
-                                </connections>
                             </collectionView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fk-hj-Ykd">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fk-hj-Ykd">
                                 <rect key="frame" x="0.0" y="91" width="375" height="576"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8gU-ew-QVX" id="rvn-bI-e9K"/>
-                                </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-lp-g4p">
                                 <rect key="frame" x="315" y="547" width="40" height="40"/>
@@ -77,10 +70,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U0n-3j-ADt"/>
                     </view>
-                    <connections>
-                        <outlet property="iconCollectionView" destination="4Vv-my-8Cj" id="yBP-yY-rCS"/>
-                        <outlet property="mainScrollView" destination="5fk-hj-Ykd" id="r0R-ob-T7j"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mdj-yt-1yP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
