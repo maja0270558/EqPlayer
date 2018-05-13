@@ -11,24 +11,26 @@ enum EQUserPageTableViewSectionGenerator {
     case userInfoCell
     case toolBar
 }
+
 extension EQUserTableViewController {
-     func createUserInfoHead() -> EQSectionProvider {
+    func createUserInfoHead() -> EQSectionProvider {
         let section = EQSectionProvider()
         userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
         section.cellIdentifier = EQUserInfoTableViewCell.typeName
         section.cellDatas = ["Django Free"]
         section.cellHeight = UITableViewAutomaticDimension
-        section.cellOperator = { data, view in
+        section.cellOperator = { _, _ in
         }
         return section
     }
-     func createCustomToolBarSectionWithCell() -> EQSectionProvider{
+
+    func createCustomToolBarSectionWithCell() -> EQSectionProvider {
         let section = EQSectionProvider()
         section.headerHeight = UITableViewAutomaticDimension
         section.headerView = EQCustomToolBarView()
         section.headerData = barData
         section.headerOperator = {
-            (data,view) in
+            _, view in
             if let toolBar = view as? EQCustomToolBarView {
                 toolBar.delegate = self
                 toolBar.datasource = self
@@ -37,15 +39,15 @@ extension EQUserTableViewController {
         section.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         section.cellHeight = 150
         section.cellOperator = {
-            (data, cell) in
+            _, cell in
             cell.textLabel?.text = "0"
         }
-        
+
         return section
     }
-    
-    //Must call after get data
-    func generateSectionAndCell(providerTypes: [EQUserPageTableViewSectionGenerator]) -> [EQSectionProvider]{
+
+    // Must call after get data
+    func generateSectionAndCell(providerTypes: [EQUserPageTableViewSectionGenerator]) -> [EQSectionProvider] {
         var providers = [EQSectionProvider]()
         for sectionType in providerTypes {
             switch sectionType {

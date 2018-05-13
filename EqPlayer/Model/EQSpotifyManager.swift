@@ -9,7 +9,7 @@
 import Foundation
 import SafariServices
 class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate, SPTCoreAudioControllerDelegate {
-    static let shard :EQSpotifyManager = EQSpotifyManager()
+    static let shard: EQSpotifyManager = EQSpotifyManager()
     let userDefaults = UserDefaults.standard
     var player = SPTAudioStreamingController.sharedInstance()
     var auth = SPTAuth.defaultInstance()

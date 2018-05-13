@@ -34,6 +34,7 @@
 		EBB1C21A20A544D700D21788 /* EQUserTableViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C21920A544D700D21788 /* EQUserTableViewGenerator.swift */; };
 		EBB1C21F20A5495E00D21788 /* EQPlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C21D20A5495E00D21788 /* EQPlaylistTableViewCell.swift */; };
 		EBB1C22020A5495E00D21788 /* EQPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBB1C21E20A5495E00D21788 /* EQPlaylistTableViewCell.xib */; };
+		EBB1C22220A5636B00D21788 /* EQScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */; };
 		EBD7955A20A2E2C10057A969 /* EQCustomToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD7955920A2E2C10057A969 /* EQCustomToolBarView.swift */; };
 		EBD7955C20A2E2E10057A969 /* EQCustomToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBD7955B20A2E2E10057A969 /* EQCustomToolBarView.xib */; };
 		EBD7955E20A2E4AE0057A969 /* UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD7955D20A2E4AE0057A969 /* UIViewExtention.swift */; };
@@ -80,6 +81,7 @@
 		EBB1C21920A544D700D21788 /* EQUserTableViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserTableViewGenerator.swift; sourceTree = "<group>"; };
 		EBB1C21D20A5495E00D21788 /* EQPlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		EBB1C21E20A5495E00D21788 /* EQPlaylistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPlaylistTableViewCell.xib; sourceTree = "<group>"; };
+		EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQScrollableViewController.swift; sourceTree = "<group>"; };
 		EBD7955920A2E2C10057A969 /* EQCustomToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomToolBarView.swift; sourceTree = "<group>"; };
 		EBD7955B20A2E2E10057A969 /* EQCustomToolBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQCustomToolBarView.xib; sourceTree = "<group>"; };
 		EBD7955D20A2E4AE0057A969 /* UIViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtention.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				EBFCEAF820A2E11B00138D80 /* User */,
 				EB5B0B3620A006330056E8D6 /* EQLoginViewController.swift */,
 				EB5B0B3820A0074C0056E8D6 /* EQMainViewController.swift */,
+				EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */,
 				EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */,
 			);
 			path = Controller;
@@ -431,6 +434,7 @@
 				EBD7955A20A2E2C10057A969 /* EQCustomToolBarView.swift in Sources */,
 				EBE65D7420A34115001A9E42 /* EQTableViewExtention.swift in Sources */,
 				EB1D910E20A2DDB500384869 /* EQUserTableViewController.swift in Sources */,
+				EBB1C22220A5636B00D21788 /* EQScrollableViewController.swift in Sources */,
 				EBE65D8720A483B2001A9E42 /* EQSPTPlaylistViewController.swift in Sources */,
 				EBE65D8020A3EFE3001A9E42 /* EQCircleImage.swift in Sources */,
 				EB1D910920A2CE8E00384869 /* EQTableViewController.swift in Sources */,

@@ -1,102 +1,77 @@
 //
-//  EQMainViewController.swift
+//  EQScrollableViewController.swift
 //  EqPlayer
 //
-//  Created by 大容 林 on 2018/5/7.
+//  Created by 大容 林 on 2018/5/11.
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
 import UIKit
-protocol ScrollableController: class {
-    var icon: UIImage? { get set }
+enum EQScrollableViewID: Int {
+    case topCollectionView = 100
+    case mainScrollView = 101
 }
-
-class EQMainViewController: UIViewController {
-    @IBOutlet var mainScrollView: UIScrollView!
-
-    @IBOutlet var iconCollectionView: UICollectionView!
-
-    @IBAction func addEQAction(_: UIButton) {
-        if let playListViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: "EQSPTPlaylistViewController") as? EQSPTPlaylistViewController {
-            playListViewController.modalPresentationStyle = .overCurrentContext
-            playListViewController.modalTransitionStyle = .crossDissolve
-            present(playListViewController, animated: true, completion: nil)
-        }
+struct ScrollableControllerDataModel {
+    var topCellId: [String] = [String]()
+    var mainController: [UIViewController] = [UIViewController]()
+}
+class EQScrollableViewController: UIViewController {
+    var mainScrollView: UIScrollView! {
+        return view.viewWithTag(EQScrollableViewID.mainScrollView.rawValue) as? UIScrollView
     }
-
-    var controllers = [UIViewController]()
-
-    var insetEdge: CGFloat = 0
-
-    var iconItemSize: CGSize {
-        return CGSize(width: iconCollectionView.bounds.height, height: iconCollectionView.bounds.height)
+    var topCollectionView: UICollectionView! {
+        return view.viewWithTag(EQScrollableViewID.topCollectionView.rawValue) as? UICollectionView
     }
-
     var currentIndex: CGFloat {
         return mainScrollView.contentOffset.x / mainScrollView.frame.size.width
     }
+    var topPageWidth: CGFloat = 0
+    var data = ScrollableControllerDataModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupCell()
-
+        //set page width
         setupCollectionLayout()
-
         setupScrollView()
-
-        AppDelegate.shard?.spotifyManager.player?.playSpotifyURI("spotify:album:7arx9qPJexCsDz67El4qvk", startingWith: 0, startingWithPosition: 0, callback: nil)
     }
 
-    func setupCell() {
-        let iconNib = UINib(nibName: "IconCollectionViewCell", bundle: nil)
-
-        iconCollectionView.register(iconNib, forCellWithReuseIdentifier: "MultiTaskCell")
+    override func viewDidAppear(_: Bool) {
+        customizeTopItemWhenScrolling()
     }
 
     func setupScrollView() {
-        let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
-        let userController2 = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
-        let userController3 = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
-        let userController4 = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
-
-        controllers.append(userController)
-        controllers.append(userController2)
-        controllers.append(userController3)
-        controllers.append(userController4)
-
         var index: CGFloat = 0
         var previousController: UIViewController?
-        for controller in controllers {
+        for controller in data.mainController {
             let containerView = UIView()
             containerView.translatesAutoresizingMaskIntoConstraints = false
             mainScrollView.addSubview(containerView)
             if let preController = previousController {
-                if Int(index) >= controllers.count - 1 {
+                if Int(index) >= data.mainController.count - 1 {
                     NSLayoutConstraint.activate([
                         containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor),
                         containerView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor)
-                    ])
+                        ])
                 } else {
                     NSLayoutConstraint.activate([
                         containerView.leadingAnchor.constraint(equalTo: preController.view.trailingAnchor)
-                    ])
+                        ])
                 }
                 NSLayoutConstraint.activate([
                     containerView.heightAnchor.constraint(equalTo: preController.view.heightAnchor),
                     containerView.widthAnchor.constraint(equalTo: preController.view.widthAnchor)
-                ])
+                    ])
             } else {
                 NSLayoutConstraint.activate([
                     containerView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
                     containerView.heightAnchor.constraint(equalTo: mainScrollView.heightAnchor),
                     containerView.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
-                ])
+                    ])
             }
             NSLayoutConstraint.activate([
                 containerView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
                 containerView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor)
-            ])
+                ])
             previousController = controller
             controller.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(controller.view)
@@ -106,7 +81,7 @@ class EQMainViewController: UIViewController {
                 controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
                 controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
                 controller.view.widthAnchor.constraint(equalTo: mainScrollView.widthAnchor)
-            ])
+                ])
             controller.didMove(toParentViewController: self)
             index += 1
         }
@@ -115,15 +90,12 @@ class EQMainViewController: UIViewController {
     }
 
     func setupCollectionLayout() {
-        if let iconLayout = iconCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            iconLayout.itemSize = CGSize(width: iconCollectionView.bounds.size.height, height: iconCollectionView.bounds.size.height)
-            insetEdge = UIScreen.main.bounds.width / 2 - (iconLayout.itemSize.width / 2)
+        if let iconLayout = topCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            iconLayout.itemSize = CGSize(width: topCollectionView.bounds.size.height, height: topCollectionView.bounds.size.height)
+            let insetEdge = UIScreen.main.bounds.width / 2 - (iconLayout.itemSize.width / 2)
             let spacing = (UIScreen.main.bounds.width - iconLayout.itemSize.width * 3) / 2
-
             iconLayout.minimumInteritemSpacing = 0
-
             iconLayout.minimumLineSpacing = spacing
-
             iconLayout.sectionInset = UIEdgeInsets(
                 top: 0.0,
                 left: insetEdge,
@@ -133,34 +105,28 @@ class EQMainViewController: UIViewController {
         }
     }
 
-    override func viewDidAppear(_: Bool) {
-        setupIconSize()
-    }
 }
 
-extension EQMainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension EQScrollableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        return controllers.count
+        return data.mainController.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiTaskCell", for: indexPath) as? IconCollectionViewCell else {
-            fatalError("")
-        }
-
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.topCellId[indexPath.row], for: indexPath)
+        setupCell(cell: cell)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let pageWidth: Float = Float(collectionView.bounds.width / 2 - (iconItemSize.width / 2))
-
-        collectionView.setContentOffset(CGPoint(x: CGFloat(Float(indexPath.row) * pageWidth), y: 0), animated: true)
+        collectionView.setContentOffset(CGPoint(x: CGFloat(indexPath.row) * topPageWidth, y: 0), animated: true)
     }
+
 }
 
-extension EQMainViewController: UIScrollViewDelegate {
+extension EQScrollableViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let iconsCollectionViewFlowLayout = iconCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+        guard let iconsCollectionViewFlowLayout = topCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             fatalError("icon")
         }
 
@@ -173,54 +139,43 @@ extension EQMainViewController: UIScrollViewDelegate {
         if scrollView === mainScrollView {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
 
-            iconCollectionView.contentOffset.x = xOffset / offsetFactor
+            topCollectionView.contentOffset.x = xOffset / offsetFactor
 
-        } else if scrollView === iconCollectionView {
+        } else if scrollView === topCollectionView {
             let xOffset = scrollView.contentOffset.x - scrollView.frame.origin.x
 
             mainScrollView.contentOffset.x = xOffset * offsetFactor
         }
-        setupIconSize(currentIndex)
+        customizeTopItemWhenScrolling(currentIndex)
     }
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity _: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        if scrollView === iconCollectionView {
-            let pageWidth: Float = Float(scrollView.bounds.width / 2 - (iconItemSize.width / 2))
-
+        if scrollView === topCollectionView {
             let currentOffSet: Float = Float(scrollView.contentOffset.x)
-
             let targetOffSet: Float = Float(targetContentOffset.pointee.x)
-
             var newTargetOffset: Float = 0
-
             if targetOffSet > currentOffSet {
-                newTargetOffset = ceilf(currentOffSet / pageWidth) * pageWidth
+                newTargetOffset = ceilf(currentOffSet / Float(topPageWidth)) * Float(topPageWidth)
 
             } else {
-                newTargetOffset = floorf(currentOffSet / pageWidth) * pageWidth
+                newTargetOffset = floorf(currentOffSet / Float(topPageWidth)) * Float(topPageWidth)
             }
-
             if newTargetOffset < 0 {
                 newTargetOffset = 0
 
             } else if newTargetOffset > Float(scrollView.contentSize.width) {
                 newTargetOffset = Float(scrollView.contentSize.width)
             }
-
             targetContentOffset.pointee.x = CGFloat(currentOffSet)
-
             scrollView.setContentOffset(CGPoint(x: CGFloat(newTargetOffset), y: 0), animated: true)
         }
     }
 
-    func setupIconSize(_ currentIndex: CGFloat = 0) {
-        let cells = iconCollectionView.visibleCells
-        for cell in cells {
-            if let iconCell = cell as? IconCollectionViewCell {
-                let row = CGFloat((iconCollectionView.indexPath(for: iconCell)?.row)!)
+    func setupCell(cell: UICollectionViewCell) {
 
-                iconCell.setupImageSize(size: iconItemSize, currentIndex: currentIndex, cellRow: row)
-            }
-        }
+    }
+
+    func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
+
     }
 }

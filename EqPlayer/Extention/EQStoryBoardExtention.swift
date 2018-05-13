@@ -12,9 +12,11 @@ extension UIStoryboard {
     static func loginStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "Login", bundle: nil)
     }
+
     static func mainStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "Main", bundle: nil)
     }
+
     static func eqProjectStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "EQProject", bundle: nil)
     }
@@ -34,6 +36,7 @@ extension UIColor {
                        alpha: 1.0)
     }
 }
+
 extension UIImage {
     class func imageWithColor(color: UIColor) -> UIImage {
         let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
@@ -44,6 +47,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+
     class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -53,13 +57,14 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+
     class func roundedImage(image: UIImage, cornerRadius: Int) -> UIImage {
-        let rect = CGRect(origin:CGPoint(x: 0, y: 0), size: image.size)
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: image.size)
         UIGraphicsBeginImageContextWithOptions(image.size, false, 1)
         UIBezierPath(
             roundedRect: rect,
             cornerRadius: CGFloat(cornerRadius)
-            ).addClip()
+        ).addClip()
         image.draw(in: rect)
         return UIGraphicsGetImageFromCurrentImageContext()!
     }

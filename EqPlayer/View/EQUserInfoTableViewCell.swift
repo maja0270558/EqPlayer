@@ -9,9 +9,8 @@
 import UIKit
 
 class EQUserInfoTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var userImage: EQCircleImage!
-    @IBOutlet weak var userName: UILabel!
+    @IBOutlet var userImage: EQCircleImage!
+    @IBOutlet var userName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

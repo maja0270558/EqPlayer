@@ -9,14 +9,14 @@
 import UIKit
 
 class EQPlaylistTableViewCell: UITableViewCell {
+    @IBOutlet var playlistNameLabel: UILabel!
+    @IBOutlet var numberOfTrackLabel: UILabel!
 
-    @IBOutlet weak var playlistNameLabel: UILabel!
-    @IBOutlet weak var numberOfTrackLabel: UILabel!
-    
     func setupCell(listname: String, numberOfTrack: Int) {
         playlistNameLabel.text = listname
         numberOfTrackLabel.text = "\(numberOfTrack) Tracks"
     }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

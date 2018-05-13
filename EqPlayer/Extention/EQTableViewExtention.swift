@@ -28,5 +28,4 @@ extension UITableViewCell {
 }
 
 protocol TableViewDelegateAndDataSource: UITableViewDelegate, UITableViewDataSource {
-    
 }
