@@ -43,7 +43,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="rounded-add-button"/>
                                 <connections>
-                                    <action selector="addEQAction:" destination="8gU-ew-QVX" eventType="touchUpInside" id="aqT-U3-rQb"/>
+                                    <action selector="addEQAction:" destination="8gU-ew-QVX" eventType="touchUpInside" id="akK-wp-3cJ"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -10,6 +10,15 @@ import Foundation
 
 class EQMainScrollableViewController: EQScrollableViewController {
     var topItemSize = CGSize(width: 50, height: 50)
+
+    @IBAction func addEQAction(_: Any) {
+        if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateInitialViewController() as? EQSPTPlaylistViewController {
+            playlistViewController.modalPresentationStyle = .overCurrentContext
+            playlistViewController.modalTransitionStyle = .crossDissolve
+            present(playlistViewController, animated: true, completion: nil)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         visiableItemCount = 3
@@ -27,7 +36,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
         controllerInit()
     }
 
-    override func setupCell(cell _: UICollectionViewCell) {
+    override func setupCell(cell _: UICollectionViewCell, atIndex: Int) {
     }
 
     func registerCollectionCell() {

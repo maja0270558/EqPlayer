@@ -9,113 +9,113 @@
 import UIKit
 
 class EQSPTPlaylistViewController: EQScrollableViewController {
-    var playlists = [SPTPartialPlaylist]()
-    var topItemSize: CGSize = CGSize.zero
-    
-    var playlistController: UIViewController {
-        return data.mainController[0]
+    lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
+    var titleLabels = ["Playlist", "Songs"]
+    var playlistController: EQPlaylistTableViewController? {
+        return data.mainController[0] as? EQPlaylistTableViewController
     }
-    var songlistController: UIViewController {
-        return data.mainController[1]
+
+    var songlistController: EQSonglistTableViewController? {
+        return data.mainController[1] as? EQSonglistTableViewController
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        visiableItemCount = 1
+        registerCollectionCell()
+        setupControllersAndCells()
+        controllerInit()
         // Do any additional setup after loading the view.
     }
-    override func setupCell(cell _: UICollectionViewCell) {
+
+    override func setupCell(cell: UICollectionViewCell, atIndex: Int) {
+        if let topCell = cell as? EQSPTListCollectionViewCell {
+            topCell.resetCell()
+            switch atIndex {
+            case 0:
+                topCell.backButton.isHidden = true
+            default:
+                break
+            }
+            topCell.delegate = self
+            topCell.titleLabel.text = titleLabels[atIndex]
+        }
+    }
+
+    func setupControllersAndCells() {
+        visiableItemCount = 1
+        data = ScrollableControllerDataModel(
+            topCellId: ["EQSPTListCollectionViewCell", "EQSPTListCollectionViewCell"],
+            mainController: [EQPlaylistTableViewController(), EQSonglistTableViewController()]
+        )
+        topCollectionView.allowsSelection = false
+        topCollectionView.isScrollEnabled = false
+        mainScrollView.isScrollEnabled = false
+        playlistController?.delegate = self
     }
 
     func registerCollectionCell() {
-        let iconNib = UINib(nibName: "IconCollectionViewCell", bundle: nil)
-        topCollectionView.register(iconNib, forCellWithReuseIdentifier: "IconCollectionViewCell")
+        let iconNib = UINib(nibName: "EQSPTListCollectionViewCell", bundle: nil)
+        topCollectionView.register(iconNib, forCellWithReuseIdentifier: "EQSPTListCollectionViewCell")
     }
 
     override func customizeTopItemWhenScrolling(_: CGFloat = 0) {
-        // MARK fadein and fade out code
+        let cells = topCollectionView.visibleCells
+        for cell in cells {
+            if let iconCell = cell as? EQSPTListCollectionViewCell {
+                let row = CGFloat((topCollectionView.indexPath(for: iconCell)?.row)!)
+                iconCell.setupAlpha(currentIndex: currentIndex, cellRow: row)
+            }
+        }
     }
 
     override func setupCollectionLayout() {
         if let iconLayout = topCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            let spaceCount = visiableItemCount - 1
             iconLayout.itemSize = topItemSize
-            // Center the first icon
-            var spacing = (UIScreen.main.bounds.width - iconLayout.itemSize.width * visiableItemCount)
-            if spaceCount > 0 {
-                spacing = 0
-            } else {
-                spacing /= spaceCount
-            }
-            iconLayout.minimumInteritemSpacing = 0
-            iconLayout.minimumLineSpacing = spacing
-            iconLayout.sectionInset = UIEdgeInsets(
-                top: 0.0,
-                left: 0.0,
-                bottom: 0.0,
-                right: 0.0
-            )
-            topPageWidth = UIScreen.main.bounds.width / spaceCount - topItemSize.width / 2
+            topPageWidth = UIScreen.main.bounds.width
         }
     }
 }
 
-// extension EQSPTPlaylistViewController: TableViewDelegateAndDataSource {
+extension EQSPTPlaylistViewController: EQSPTListCollectionViewCellProtocol {
+    func didCancelButtonClick() {
+        dismiss(animated: true, completion: nil)
+    }
 
-//MARK for spotifylistController
+    func didBackButtonClick() {
+        goTo(pageAt: 0)
+    }
+}
 
-//func fetchPlayList() {
+extension EQSPTPlaylistViewController: EQPlaylistTableViewControllerDelegate {
+    func didSelect(playlist: SPTPartialPlaylist) {
+        titleLabels[1] = playlist.name
+        topCollectionView.reloadData()
+        songlistController?.songlists.removeAll()
+        SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { error, snapshot in
+            if error != nil {
+                return
+            }
 
-//@IBAction func cancelAction(_: UIButton) {
-//    dismiss(animated: true, completion: nil)
-//}
+            if let snap = snapshot as? SPTPlaylistSnapshot, let trackListPage = snap.firstTrackPage.items as? [SPTPlaylistTrack] {
+                self.songlistController?.songlists = trackListPage
+                self.songlistController?.tableView.reloadData()
+                if snap.firstTrackPage.hasNextPage {
+                    self.getNextPageTrack(currentPage: snap.firstTrackPage)
+                }
+            }
+        }
+        goTo(pageAt: 1)
+    }
 
-
-//    SPTPlaylistList.playlists(forUser: EQSpotifyManager.shard.auth?.session.canonicalUsername, withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
-//        //            self.activityIndicator.stopAnimating()
-//        if let listPage = response as? SPTPlaylistList, let playlists = listPage.items as? [SPTPartialPlaylist] {
-//            self.playlists = playlists // or however you want to parse these
-//            self.playlistTableView.reloadData()
-//            if listPage.hasNextPage {
-//                self.getNextPlaylistPage(currentPage: listPage)
-//            }
-//        }
-//    })
-//}
-//
-//func getNextPlaylistPage(currentPage: SPTListPage) {
-//    currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
-//        if let page = response as? SPTListPage, let playlists = page.items as? [SPTPartialPlaylist] {
-//            self.playlists.append(contentsOf: playlists) // or parse these beforehand, if you need/want to
-//            self.playlistTableView.reloadData()
-//            if page.hasNextPage {
-//                self.getNextPlaylistPage(currentPage: page)
-//            }
-//        }
-//    })
-//}
-
-//    func numberOfSections(in _: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-//        return playlists.count
-//    }
-//
-//    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = playlistTableView.dequeueReusableCell(withIdentifier: EQPlaylistTableViewCell.typeName, for: indexPath) as? EQPlaylistTableViewCell else {
-//            return UITableViewCell()
-//        }
-//        cell.setupCell(listname: playlists[indexPath.row].name, numberOfTrack: Int(playlists[indexPath.row].trackCount))
-//        return cell
-//    }
-//
-//    func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
-//
-//    func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
-//        return 75
-//    }
-// }
+    func getNextPageTrack(currentPage: SPTListPage) {
+        currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
+            if let page = response as? SPTListPage, let trackList = page.items as? [SPTPlaylistTrack] {
+                self.songlistController?.songlists.append(contentsOf: trackList)
+                self.songlistController?.tableView.reloadData()
+                if page.hasNextPage {
+                    self.getNextPageTrack(currentPage: page)
+                }
+            }
+        })
+    }
+}

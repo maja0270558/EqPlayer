@@ -18,7 +18,7 @@ struct ScrollableControllerDataModel {
 }
 
 protocol EQScrollableViewControllerProtocol {
-    func setupCell(cell: UICollectionViewCell)
+    func setupCell(cell: UICollectionViewCell, atIndex: Int)
     func setupCollectionLayout()
     func customizeTopItemWhenScrolling(_ currentIndex: CGFloat)
 }
@@ -108,6 +108,10 @@ class EQScrollableViewController: UIViewController, EQScrollableViewControllerPr
 
         mainScrollView.isPagingEnabled = true
     }
+
+    func goTo(pageAt: Int) {
+        mainScrollView.setContentOffset(CGPoint(x: CGFloat(pageAt) * topPageWidth, y: 0), animated: true)
+    }
 }
 
 extension EQScrollableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -117,7 +121,7 @@ extension EQScrollableViewController: UICollectionViewDelegate, UICollectionView
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: data.topCellId[indexPath.row], for: indexPath)
-        setupCell(cell: cell)
+        setupCell(cell: cell, atIndex: indexPath.row)
         return cell
     }
 
@@ -173,7 +177,7 @@ extension EQScrollableViewController: UIScrollViewDelegate {
         }
     }
 
-    @objc func setupCell(cell _: UICollectionViewCell) {
+    @objc func setupCell(cell _: UICollectionViewCell, atIndex _: Int) {
     }
 
     @objc func customizeTopItemWhenScrolling(_: CGFloat = 0) {

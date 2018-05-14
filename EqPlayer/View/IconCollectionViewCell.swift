@@ -26,7 +26,6 @@ class IconCollectionViewCell: UICollectionViewCell {
         let cellWidth = originalIconSize.width
         let cellHeigh = originalIconSize.height
         let finalSize = CGSize(width: cellWidth - (cellWidth * scaleFactor), height: cellHeigh - (cellHeigh * scaleFactor))
-
         iconImageView.bounds.size = finalSize
         layoutIfNeeded()
     }
