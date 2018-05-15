@@ -12,7 +12,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     var topItemSize = CGSize(width: 50, height: 50)
 
     @IBAction func addEQAction(_: Any) {
-        if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateInitialViewController() as? EQSPTPlaylistViewController {
+        if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQEditViewController.self)) as? EQEditViewController {
             playlistViewController.modalPresentationStyle = .overCurrentContext
             playlistViewController.modalTransitionStyle = .crossDissolve
             present(playlistViewController, animated: true, completion: nil)

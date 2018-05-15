@@ -7,8 +7,8 @@
 //
 
 import SDWebImage
-import UIKit
 import SwipeCellKit
+import UIKit
 
 class EQSPTTrackTableViewCell: SwipeTableViewCell {
     @IBOutlet var albumImage: UIImageView!
@@ -16,9 +16,9 @@ class EQSPTTrackTableViewCell: SwipeTableViewCell {
     @IBOutlet var trackTitle: UILabel!
 
     @IBOutlet var artistLabel: UILabel!
-    
-    @IBOutlet weak var checkedWidthConstraint: NSLayoutConstraint!
-    
+
+    @IBOutlet var checkedWidthConstraint: NSLayoutConstraint!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         albumImage.layer.cornerRadius = 10

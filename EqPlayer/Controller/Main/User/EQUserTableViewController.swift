@@ -16,6 +16,7 @@ class EQUserTableViewController: EQTableViewController {
 
     override func viewDidLoad() {
         setupTableView()
+        setupSession(sectionData: generateSectionAndCell(providerTypes: sections))
     }
 
     func setupTableView() {
@@ -23,7 +24,6 @@ class EQUserTableViewController: EQTableViewController {
         userTableView.delegate = self
         userTableView.dataSource = self
         userTableView.separatorStyle = .none
-        setupSession(sectionData: generateSectionAndCell(providerTypes: sections))
     }
 
     func setupSession(sectionData: [EQTableViewSession]) {

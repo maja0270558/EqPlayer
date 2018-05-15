@@ -91,7 +91,7 @@ extension EQSPTPlaylistViewController: EQPlaylistTableViewControllerDelegate {
         titleLabels[1] = playlist.name
         topCollectionView.reloadData()
         songlistController?.songlists.removeAll()
-        self.songlistController?.tableView.reloadData()
+        songlistController?.tableView.reloadData()
         SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { error, snapshot in
             if error != nil {
                 return

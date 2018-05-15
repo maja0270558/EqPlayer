@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,6 +53,7 @@
                                             </cells>
                                         </collectionView>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="5Ke-aa-KPY" firstAttribute="leading" secondItem="urr-jf-gNs" secondAttribute="leading" id="7GV-du-teX"/>
                                         <constraint firstAttribute="trailing" secondItem="5Ke-aa-KPY" secondAttribute="trailing" id="DnC-qS-VRX"/>
@@ -104,20 +106,62 @@
             </objects>
             <point key="canvasLocation" x="-103.2" y="-38.23088455772114"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="QNM-sr-tOS">
             <objects>
-                <viewController id="hU9-H5-ky2" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EQEditViewController" id="hU9-H5-ky2" customClass="EQEditViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sWo-QT-Ui3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0Y-lw-Eeb">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HrF-ma-pFd">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z0i-n7-Mya">
+                                            <rect key="frame" x="0.0" y="333" width="375" height="667"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditChartView" customModule="EqPlayer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="25" width="375" height="300"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="iEJ-5W-KGO" secondAttribute="height" multiplier="5:4" id="JeH-Wo-eRv"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="z0i-n7-Mya" firstAttribute="height" secondItem="HrF-ma-pFd" secondAttribute="height" id="2W0-tb-8vO"/>
+                                        <constraint firstItem="z0i-n7-Mya" firstAttribute="top" secondItem="iEJ-5W-KGO" secondAttribute="bottom" constant="8" id="5od-Nd-j76"/>
+                                        <constraint firstAttribute="trailing" secondItem="z0i-n7-Mya" secondAttribute="trailing" id="8ed-i5-xt5"/>
+                                        <constraint firstItem="iEJ-5W-KGO" firstAttribute="top" secondItem="HrF-ma-pFd" secondAttribute="top" constant="25" id="BaJ-BW-4OP"/>
+                                        <constraint firstItem="z0i-n7-Mya" firstAttribute="leading" secondItem="HrF-ma-pFd" secondAttribute="leading" id="P92-Bl-fSx"/>
+                                        <constraint firstAttribute="trailing" secondItem="iEJ-5W-KGO" secondAttribute="trailing" id="Wiq-Ab-YC3"/>
+                                        <constraint firstItem="iEJ-5W-KGO" firstAttribute="leading" secondItem="HrF-ma-pFd" secondAttribute="leading" id="Zvm-30-rXA"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="top" secondItem="sWo-QT-Ui3" secondAttribute="top" id="GkR-pw-FS2"/>
+                            <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="leading" secondItem="ldw-c8-EyH" secondAttribute="leading" id="fcs-qx-qHe"/>
+                            <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="bottom" secondItem="ldw-c8-EyH" secondAttribute="bottom" id="vDM-Hr-0NF"/>
+                            <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="trailing" secondItem="ldw-c8-EyH" secondAttribute="trailing" id="vyy-iv-69Q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ldw-c8-EyH"/>
                     </view>
+                    <connections>
+                        <outlet property="editTableView" destination="z0i-n7-Mya" id="ume-Gv-fF7"/>
+                        <outlet property="editViewTopConstraint" destination="BaJ-BW-4OP" id="Tsw-3q-HfX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfG-fy-QSc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="-38"/>
+            <point key="canvasLocation" x="644" y="-38.23088455772114"/>
         </scene>
     </scenes>
 </document>

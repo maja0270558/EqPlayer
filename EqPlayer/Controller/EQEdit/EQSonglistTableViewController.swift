@@ -6,8 +6,8 @@
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import UIKit
 import SwipeCellKit
+import UIKit
 protocol EQSonglistTableViewControllerDelegate: class {
     func didSelect(playlist: SPTTrack)
 }
@@ -19,23 +19,23 @@ class EQSonglistTableViewController: UITableViewController {
     override func viewDidLoad() {
         setupTableView()
     }
-    
+
     func setupTableView() {
         tableView.registeCell(cellIdentifier: EQSPTTrackTableViewCell.typeName)
         tableView.backgroundColor = UIColor.clear
         tableView.separatorStyle = .none
     }
-    
+
     override func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return songlists.count
     }
-    
+
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let added = addedList.contains(where: {$0.identifier == songlists[indexPath.row].identifier})
+        let added = addedList.contains(where: { $0.identifier == songlists[indexPath.row].identifier })
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EQSPTTrackTableViewCell.typeName, for: indexPath) as? EQSPTTrackTableViewCell else {
             return UITableViewCell()
         }
@@ -54,29 +54,31 @@ class EQSonglistTableViewController: UITableViewController {
         cell.setupCell(albumPic: imageURL.imageURL, title: title, artist: artists)
         return cell
     }
-    
+
     override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
+
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         return 100
     }
-    
+
     override func tableView(_: UITableView, didSelectRowAt _: IndexPath) {
         //        delegate?.didSelect(playlist: songlists[indexPath.row])
     }
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.tableView.fadeTopCell()
+
+    override func scrollViewDidScroll(_: UIScrollView) {
+        tableView.fadeTopCell()
     }
 }
-extension EQSonglistTableViewController: SwipeTableViewCellDelegate{
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+
+extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
+    func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-        let added = addedList.contains(where: {$0.identifier == songlists[indexPath.row].identifier})
-        let swipeAction = SwipeAction(style: .default, title: "") { action, indexPath in
+        let added = addedList.contains(where: { $0.identifier == songlists[indexPath.row].identifier })
+        let swipeAction = SwipeAction(style: .default, title: "") { _, indexPath in
             if added {
-                if let index =   self.addedList.index(where: {
+                if let index = self.addedList.index(where: {
                     $0.identifier == self.songlists[indexPath.row].identifier
                 }) {
                     self.addedList.remove(at: index)
@@ -95,12 +97,12 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate{
         swipeAction.backgroundColor = UIColor.clear
         return [swipeAction]
     }
-    
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+
+    func tableView(_: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for _: SwipeActionsOrientation) -> SwipeTableOptions {
         var options = SwipeTableOptions()
-        let added = addedList.contains(where: {$0.identifier == songlists[indexPath.row].identifier})
+        let added = addedList.contains(where: { $0.identifier == songlists[indexPath.row].identifier })
         if added {
-            options.backgroundColor = UIColor(red: 1, green: 38/255, blue: 0, alpha: 0.3)
+            options.backgroundColor = UIColor(red: 1, green: 38 / 255, blue: 0, alpha: 0.3)
         } else {
             options.backgroundColor = UIColor(red: 0.3, green: 0.5, blue: 0, alpha: 0.3)
         }
