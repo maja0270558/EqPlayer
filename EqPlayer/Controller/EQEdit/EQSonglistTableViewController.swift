@@ -19,23 +19,23 @@ class EQSonglistTableViewController: UITableViewController {
     override func viewDidLoad() {
         setupTableView()
     }
-
+    
     func setupTableView() {
         tableView.registeCell(cellIdentifier: EQSPTTrackTableViewCell.typeName)
         tableView.backgroundColor = UIColor.clear
         tableView.separatorStyle = .none
     }
-
+    
     override func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return songlists.count
     }
-
+    
     override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- let added = addedList.contains(where: {$0.identifier == songlists[indexPath.row].identifier})
+        let added = addedList.contains(where: {$0.identifier == songlists[indexPath.row].identifier})
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EQSPTTrackTableViewCell.typeName, for: indexPath) as? EQSPTTrackTableViewCell else {
             return UITableViewCell()
         }
@@ -54,17 +54,20 @@ class EQSonglistTableViewController: UITableViewController {
         cell.setupCell(albumPic: imageURL.imageURL, title: title, artist: artists)
         return cell
     }
-
+    
     override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-
+    
     override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
         return 100
     }
-
+    
     override func tableView(_: UITableView, didSelectRowAt _: IndexPath) {
-//        delegate?.didSelect(playlist: songlists[indexPath.row])
+        //        delegate?.didSelect(playlist: songlists[indexPath.row])
+    }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.tableView.fadeTopCell()
     }
 }
 extension EQSonglistTableViewController: SwipeTableViewCellDelegate{

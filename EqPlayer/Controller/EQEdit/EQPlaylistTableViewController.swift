@@ -77,3 +77,8 @@ class EQPlaylistTableViewController: UITableViewController {
         delegate?.didSelect(playlist: playlists[indexPath.row])
     }
 }
+extension EQPlaylistTableViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       self.tableView.fadeTopCell()
+    }
+}
