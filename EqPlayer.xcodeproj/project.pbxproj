@@ -48,6 +48,7 @@
 		EBB1C22020A5495E00D21788 /* EQPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBB1C21E20A5495E00D21788 /* EQPlaylistTableViewCell.xib */; };
 		EBB1C22220A5636B00D21788 /* EQScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */; };
 		EBB1C22420A7E14800D21788 /* EQMainScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C22320A7E14800D21788 /* EQMainScrollableViewController.swift */; };
+		EBC4629620AD277800AE5FB9 /* EQCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC4629520AD277800AE5FB9 /* EQCustomButton.swift */; };
 		EBD7955A20A2E2C10057A969 /* EQCustomToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD7955920A2E2C10057A969 /* EQCustomToolBarView.swift */; };
 		EBD7955C20A2E2E10057A969 /* EQCustomToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBD7955B20A2E2E10057A969 /* EQCustomToolBarView.xib */; };
 		EBD7955E20A2E4AE0057A969 /* UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD7955D20A2E4AE0057A969 /* UIViewExtention.swift */; };
@@ -108,6 +109,7 @@
 		EBB1C21E20A5495E00D21788 /* EQPlaylistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPlaylistTableViewCell.xib; sourceTree = "<group>"; };
 		EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQScrollableViewController.swift; sourceTree = "<group>"; };
 		EBB1C22320A7E14800D21788 /* EQMainScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMainScrollableViewController.swift; sourceTree = "<group>"; };
+		EBC4629520AD277800AE5FB9 /* EQCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomButton.swift; sourceTree = "<group>"; };
 		EBD7955920A2E2C10057A969 /* EQCustomToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomToolBarView.swift; sourceTree = "<group>"; };
 		EBD7955B20A2E2E10057A969 /* EQCustomToolBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQCustomToolBarView.xib; sourceTree = "<group>"; };
 		EBD7955D20A2E4AE0057A969 /* UIViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtention.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				EB1737AF20AA8FE100566F50 /* EQConstant.swift */,
 				EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */,
 				EBE65D8820A48A47001A9E42 /* EQCustomSearchBar.swift */,
+				EBC4629520AD277800AE5FB9 /* EQCustomButton.swift */,
 				EBE65D7F20A3EFE3001A9E42 /* EQCircleImage.swift */,
 			);
 			path = Support;
@@ -476,6 +479,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -487,6 +491,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -536,6 +541,7 @@
 				EB17379920A92A3700566F50 /* EQSPTListCollectionViewCell.swift in Sources */,
 				EBB1C22420A7E14800D21788 /* EQMainScrollableViewController.swift in Sources */,
 				EB17379C20A92F2B00566F50 /* EQPlaylistTableViewController.swift in Sources */,
+				EBC4629620AD277800AE5FB9 /* EQCustomButton.swift in Sources */,
 				EBD7955A20A2E2C10057A969 /* EQCustomToolBarView.swift in Sources */,
 				EBE65D7420A34115001A9E42 /* EQTableViewExtention.swift in Sources */,
 				EB1D910E20A2DDB500384869 /* EQUserTableViewController.swift in Sources */,

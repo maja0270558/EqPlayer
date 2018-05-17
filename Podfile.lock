@@ -55,6 +55,8 @@ PODS:
   - Realm (3.3.2):
     - Realm/Headers (= 3.3.2)
   - Realm/Headers (3.3.2)
+  - RealmSwift (3.3.2):
+    - Realm (= 3.3.2)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
@@ -67,7 +69,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
-  - Realm
+  - RealmSwift
   - SDWebImage (~> 4.0)
   - SwiftLint
   - SwipeCellKit
@@ -87,6 +89,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Realm
+    - RealmSwift
     - SDWebImage
     - SwiftLint
     - SwipeCellKit
@@ -105,10 +108,11 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
+  RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   SwipeCellKit: 8ae09401e1137566b187980d824310129233c959
 
-PODFILE CHECKSUM: 16b2eeacef80442e8261bd7ae5e490831ac2c5a3
+PODFILE CHECKSUM: b02d4bfaf42fc827bfcfe476eeadf6888a470adf
 
 COCOAPODS: 1.5.0

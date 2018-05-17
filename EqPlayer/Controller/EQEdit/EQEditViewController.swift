@@ -13,7 +13,7 @@ class EQEditViewController: EQTableViewController {
     var sections: [EQEditTableViewGenerator] = [.addTrackHeader]
     var barData = [SPTTrack]()
     var oldContentOffset = CGPoint.zero
-    let topConstraintRange = (CGFloat(-295)..<CGFloat(25))
+    let topConstraintRange = (CGFloat(-315)..<CGFloat(25))
     
     @IBOutlet weak var editViewTopConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
