@@ -55,7 +55,6 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
 
             keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
-
             return cell
         }
 

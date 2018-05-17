@@ -12,21 +12,6 @@ enum EQEditTableViewGenerator {
 }
 
 extension EQEditViewController {
-    //    func createEditEQView() -> EQSectionProvider {
-    //        let section = EQSectionProvider()
-    //        editTableView.registeCell(cellIdentifier: EQEditChartCell.typeName)
-    //        section.cellIdentifier = EQEditChartCell.typeName
-    //        section.cellDatas = ["Django Free"]
-    //        section.cellHeight = UITableViewAutomaticDimension
-    //        section.cellOperator = { _, cell  in
-    //            guard let editCell = cell as? EQEditChartCell else {
-    //                return
-    //            }
-    //            editCell.lineChart.delegate = self
-    //        }
-    //        return section
-    //    }
-    //
     func createAddTrackHeader() -> EQSectionProvider {
         let section = EQSectionProvider()
         section.headerHeight = UITableViewAutomaticDimension
@@ -39,17 +24,21 @@ extension EQEditViewController {
                     if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateInitialViewController() as? EQSPTPlaylistViewController {
                         playlistViewController.modalPresentationStyle = .overCurrentContext
                         playlistViewController.modalTransitionStyle = .crossDissolve
+                        playlistViewController.eqSettingManager = (self?.eqSettingManager)!
                         self?.present(playlistViewController, animated: true, completion: nil)
                     }
                 }
             }
         }
-        section.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        section.cellHeight = 150
+        section.cellDatas = Array(eqSettingManager.tracks)
+        section.cellHeight = UITableViewAutomaticDimension
         editTableView.registeCell(cellIdentifier: EQSPTTrackTableViewCell.typeName)
         section.cellIdentifier = EQSPTTrackTableViewCell.typeName
         section.cellOperator = {
-            _, cell in
+            data, cell in
+            if let trackCell = cell as? EQSPTTrackTableViewCell,let track = data as? EQTrack {
+                trackCell.setupCell(coverURLString: track.coverURL, title: track.name, artist: track.artist)
+            }
         }
         return section
     }

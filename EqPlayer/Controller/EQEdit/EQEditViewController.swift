@@ -11,8 +11,8 @@ import Charts
 class EQEditViewController: EQTableViewController {
     @IBOutlet weak var editTableView: UITableView!
     @IBOutlet weak var eqEditView: EQEditChartView!
+    let eqSettingManager = EQProjectModel()
     var sections: [EQEditTableViewGenerator] = [.addTrackHeader]
-    var barData = [SPTTrack]()
     var oldContentOffset = CGPoint.zero
     let topConstraintRange = (CGFloat(-315)..<CGFloat(25))
     
@@ -21,7 +21,13 @@ class EQEditViewController: EQTableViewController {
         super.viewDidLoad()
         setupTableView()
         createSectionAndCells()
+        EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectDidModify), notification: Notification.Name.eqProjectTrackModifyNotification)
         eqEditView.delegate = self
+        
+    }
+    @objc func projectDidModify() {
+        sectionProviders[0].cellDatas = Array(eqSettingManager.tracks)
+        editTableView.reloadData()
     }
     func createSectionAndCells(){
         sectionProviders = generateSectionAndCell(providerTypes: sections)
@@ -36,7 +42,6 @@ class EQEditViewController: EQTableViewController {
 extension EQEditViewController: ChartViewDelegate {
     func chartEntryDrag(_ chartView: ChartViewBase, entry: ChartDataEntry) {
     }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let delta =  scrollView.contentOffset.y - oldContentOffset.y
         if delta < 0 && (editViewTopConstraint.constant) <= topConstraintRange.upperBound && scrollView.contentOffset.y < 0 {

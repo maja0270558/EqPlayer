@@ -26,18 +26,11 @@ class EQSPTTrackTableViewCell: SwipeTableViewCell {
         // Initialization code
     }
 
-    func setupCell(albumPic: URL?, title: String?, artist: [SPTPartialArtist]?) {
-        if albumPic != nil {
-            albumImage.sd_setImage(with: albumPic, completed: nil)
+    func setupCell(coverURLString: String?, title: String, artist: String) {
+        if let coverURL = coverURLString {
+            albumImage.sd_setImage(with:URL(string: coverURL), completed: nil)
         }
-        guard let artists = artist else {
-            return
-        }
-        var artistsString: String = ""
-        artists.forEach { artist in
-            artistsString += artist.name + " "
-        }
-        artistLabel.text = artistsString
-        trackTitle.text = title ?? ""
+        artistLabel.text = artist
+        trackTitle.text = title
     }
 }

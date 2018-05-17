@@ -11,14 +11,16 @@ import UIKit
 class EQSPTPlaylistViewController: EQScrollableViewController {
     lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
     var titleLabels = ["Playlist", "Songs"]
+    var eqSettingManager: EQProjectModel?
+
     var playlistController: EQPlaylistTableViewController? {
         return data.mainController[0] as? EQPlaylistTableViewController
     }
-
+    
     var songlistController: EQSonglistTableViewController? {
         return data.mainController[1] as? EQSonglistTableViewController
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCollectionCell()
@@ -26,7 +28,7 @@ class EQSPTPlaylistViewController: EQScrollableViewController {
         controllerInit()
         // Do any additional setup after loading the view.
     }
-
+    
     override func setupCell(cell: UICollectionViewCell, atIndex: Int) {
         if let topCell = cell as? EQSPTListCollectionViewCell {
             topCell.resetCell()
@@ -40,7 +42,7 @@ class EQSPTPlaylistViewController: EQScrollableViewController {
             topCell.titleLabel.text = titleLabels[atIndex]
         }
     }
-
+    
     func setupControllersAndCells() {
         visiableItemCount = 1
         data = ScrollableControllerDataModel(
@@ -51,13 +53,16 @@ class EQSPTPlaylistViewController: EQScrollableViewController {
         topCollectionView.isScrollEnabled = false
         mainScrollView.isScrollEnabled = false
         playlistController?.delegate = self
+        if let manager = self.eqSettingManager {
+            songlistController?.eqSettingManager = manager
+        }
     }
-
+    
     func registerCollectionCell() {
         let iconNib = UINib(nibName: "EQSPTListCollectionViewCell", bundle: nil)
         topCollectionView.register(iconNib, forCellWithReuseIdentifier: "EQSPTListCollectionViewCell")
     }
-
+    
     override func customizeTopItemWhenScrolling(_: CGFloat = 0) {
         let cells = topCollectionView.visibleCells
         for cell in cells {
@@ -67,7 +72,7 @@ class EQSPTPlaylistViewController: EQScrollableViewController {
             }
         }
     }
-
+    
     override func setupCollectionLayout() {
         if let iconLayout = topCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             iconLayout.itemSize = topItemSize
@@ -75,12 +80,11 @@ class EQSPTPlaylistViewController: EQScrollableViewController {
         }
     }
 }
-
 extension EQSPTPlaylistViewController: EQSPTListCollectionViewCellProtocol {
     func didCancelButtonClick() {
         dismiss(animated: true, completion: nil)
     }
-
+    
     func didBackButtonClick() {
         goTo(pageAt: 0)
     }
@@ -96,7 +100,7 @@ extension EQSPTPlaylistViewController: EQPlaylistTableViewControllerDelegate {
             if error != nil {
                 return
             }
-
+            
             if let snap = snapshot as? SPTPlaylistSnapshot, let trackListPage = snap.firstTrackPage.items as? [SPTPlaylistTrack] {
                 self.songlistController?.songlists = trackListPage
                 self.songlistController?.tableView.reloadData()
@@ -107,7 +111,7 @@ extension EQSPTPlaylistViewController: EQPlaylistTableViewControllerDelegate {
         }
         goTo(pageAt: 1)
     }
-
+    
     func getNextPageTrack(currentPage: SPTListPage) {
         currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
             if let page = response as? SPTListPage, let trackList = page.items as? [SPTPlaylistTrack] {
