@@ -41,7 +41,6 @@ extension EQEditViewController: ChartViewDelegate {
             editViewTopConstraint.constant = -delta + topConstraintRange.upperBound
             return
         }
-        
         if delta > 0 && (editViewTopConstraint.constant - delta) > topConstraintRange.lowerBound && scrollView.contentOffset.y > 0 {
             editViewTopConstraint.constant -= delta
             scrollView.contentOffset.y -= delta

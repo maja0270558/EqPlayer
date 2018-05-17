@@ -6,6 +6,7 @@ target 'EqPlayer' do
   use_frameworks!
 
   # Pods for EqPlayer
+  pod 'Realm'
   pod 'SwipeCellKit'
   pod 'Charts'
   pod 'SDWebImage', '~> 4.0'
