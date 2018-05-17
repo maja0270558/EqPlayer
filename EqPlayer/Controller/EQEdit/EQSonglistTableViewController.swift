@@ -51,6 +51,7 @@ class EQSonglistTableViewController: UITableViewController {
         } else {
             cell.checkedWidthConstraint.constant = 0
         }
+        cell.selectionStyle = .none
         cell.setupCell(albumPic: imageURL.imageURL, title: title, artist: artists)
         return cell
     }

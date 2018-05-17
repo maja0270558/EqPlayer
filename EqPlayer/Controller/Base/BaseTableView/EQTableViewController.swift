@@ -62,7 +62,7 @@ class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 
         keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
-
+        cell.selectionStyle = .none
         return cell
     }
 

@@ -104,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oxQ-E4-lqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-103.2" y="-38.23088455772114"/>
+            <point key="canvasLocation" x="332" y="-78"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="QNM-sr-tOS">
@@ -162,7 +162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfG-fy-QSc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="-38.23088455772114"/>
+            <point key="canvasLocation" x="-482" y="-79"/>
         </scene>
         <!--Edit Project Name View Controller-->
         <scene sceneID="73S-bf-SIf">
@@ -180,7 +180,7 @@
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IB3-fd-YFg" customClass="EQCustomUITextField" customModule="EqPlayer" customModuleProvider="target">
                                             <rect key="frame" x="20" y="142" width="335" height="50"/>
-                                            <color key="backgroundColor" red="0.78823369740000004" green="0.78823572399999997" blue="0.80771607160000003" alpha="0.45246138996138996" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.78823369740000004" green="0.78823572399999997" blue="0.80771607160000003" alpha="0.2538760859073359" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="GB6-uS-F9d"/>
                                             </constraints>
@@ -200,12 +200,18 @@
                                                     <state key="normal" title="Cancel">
                                                         <color key="titleColor" white="0.89340649319999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="cancelAction:" destination="kJd-gh-pQf" eventType="touchUpInside" id="3yN-i5-9B0"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvO-XX-gR4" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
                                                     <rect key="frame" x="130" y="0.0" width="100" height="50"/>
                                                     <state key="normal" title="Save">
                                                         <color key="titleColor" white="0.89340649319999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="saveAction:" destination="kJd-gh-pQf" eventType="touchUpInside" id="h3Y-Gk-U0k"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -235,10 +241,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SeW-JY-SYb"/>
                     </view>
+                    <connections>
+                        <outlet property="projectNameTextField" destination="IB3-fd-YFg" id="UNx-Jm-UlV"/>
+                        <outlet property="saveButton" destination="MvO-XX-gR4" id="j1B-Vn-0l8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Of-Rg-Ijl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1490.4000000000001" y="-38.23088455772114"/>
+            <point key="canvasLocation" x="1191" y="-79"/>
         </scene>
     </scenes>
 </document>

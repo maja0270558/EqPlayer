@@ -62,6 +62,7 @@ class EQPlaylistTableViewController: UITableViewController {
             return UITableViewCell()
         }
         cell.setupCell(listname: playlists[indexPath.row].name, numberOfTrack: Int(playlists[indexPath.row].trackCount))
+        cell.selectionStyle = .none
         return cell
     }
 
