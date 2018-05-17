@@ -8,17 +8,23 @@
 
 import UIKit
 import Charts
+protocol EQEditChartViewDelegate: class{
+    func saveButtonDidClick()
+    func postButtonDidClick()
+}
 class EQEditChartView: UIView {
+    weak var delegate: EQEditChartViewDelegate?
     @IBOutlet weak var lineChartView: LineChartView!
     
     @IBAction func saveAction(_ sender: UIButton) {
+        delegate?.saveButtonDidClick()
     }
     @IBAction func postAction(_ sender: UIButton) {
+        delegate?.postButtonDidClick()
     }
     @IBOutlet weak var saveButton: UIButton!
     
     @IBOutlet weak var postButton: UIButton!
-    
     func setupLineChart(){
         //MARK: Y axis
         lineChartView.leftAxis.drawGridLinesEnabled = false

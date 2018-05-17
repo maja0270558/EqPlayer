@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -156,16 +157,17 @@
                     <connections>
                         <outlet property="editTableView" destination="z0i-n7-Mya" id="ume-Gv-fF7"/>
                         <outlet property="editViewTopConstraint" destination="BaJ-BW-4OP" id="Tsw-3q-HfX"/>
+                        <outlet property="eqEditView" destination="iEJ-5W-KGO" id="Ezo-eN-iQH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfG-fy-QSc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="644" y="-38.23088455772114"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit Project Name View Controller-->
         <scene sceneID="73S-bf-SIf">
             <objects>
-                <viewController id="kJd-gh-pQf" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EQEditProjectNameViewController" id="kJd-gh-pQf" customClass="EQEditProjectNameViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6pa-qM-RvR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -176,29 +178,55 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IB3-fd-YFg">
-                                            <rect key="frame" x="49" y="240" width="277" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <nil key="textColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IB3-fd-YFg" customClass="EQCustomUITextField" customModule="EqPlayer" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="142" width="335" height="50"/>
+                                            <color key="backgroundColor" red="0.78823369740000004" green="0.78823572399999997" blue="0.80771607160000003" alpha="0.45246138996138996" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="GB6-uS-F9d"/>
+                                            </constraints>
+                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                         </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvO-XX-gR4">
-                                            <rect key="frame" x="98" y="428" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9A-db-gMl">
-                                            <rect key="frame" x="233" y="428" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
-                                        </button>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6v8-kI-YzC">
+                                            <rect key="frame" x="72.5" y="240" width="230" height="50"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9A-db-gMl">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="mzX-nr-UnR"/>
+                                                        <constraint firstAttribute="height" constant="50" id="tTp-ue-Hfs"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Cancel">
+                                                        <color key="titleColor" white="0.89340649319999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvO-XX-gR4" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
+                                                    <rect key="frame" x="130" y="0.0" width="100" height="50"/>
+                                                    <state key="normal" title="Save">
+                                                        <color key="titleColor" white="0.89340649319999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MvO-XX-gR4" firstAttribute="height" secondItem="P9A-db-gMl" secondAttribute="height" id="KhW-qp-gWa"/>
+                                                <constraint firstItem="MvO-XX-gR4" firstAttribute="width" secondItem="P9A-db-gMl" secondAttribute="width" id="VMH-E9-j7e"/>
+                                            </constraints>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="IB3-fd-YFg" firstAttribute="centerY" secondItem="7J2-f6-8i1" secondAttribute="centerY" multiplier="0.5" id="F6m-yL-NNL"/>
+                                        <constraint firstItem="6v8-kI-YzC" firstAttribute="centerX" secondItem="7J2-f6-8i1" secondAttribute="centerX" id="Par-Gv-JgM"/>
+                                        <constraint firstItem="IB3-fd-YFg" firstAttribute="leading" secondItem="7J2-f6-8i1" secondAttribute="leading" constant="20" id="WjA-UZ-1c2"/>
+                                        <constraint firstAttribute="trailing" secondItem="IB3-fd-YFg" secondAttribute="trailing" constant="20" id="Zln-8M-tWN"/>
+                                        <constraint firstItem="6v8-kI-YzC" firstAttribute="top" secondItem="IB3-fd-YFg" secondAttribute="bottom" constant="48" id="hEq-fc-LEX"/>
+                                        <constraint firstItem="IB3-fd-YFg" firstAttribute="centerX" secondItem="7J2-f6-8i1" secondAttribute="centerX" id="m86-fa-HZU"/>
+                                    </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="WeV-nh-JvK" firstAttribute="bottom" secondItem="SeW-JY-SYb" secondAttribute="bottom" id="2DT-k2-x3v"/>
                             <constraint firstItem="WeV-nh-JvK" firstAttribute="leading" secondItem="SeW-JY-SYb" secondAttribute="leading" id="2ku-c3-xv6"/>

@@ -10,6 +10,7 @@ import UIKit
 import Charts
 class EQEditViewController: EQTableViewController {
     @IBOutlet weak var editTableView: UITableView!
+    @IBOutlet weak var eqEditView: EQEditChartView!
     var sections: [EQEditTableViewGenerator] = [.addTrackHeader]
     var barData = [SPTTrack]()
     var oldContentOffset = CGPoint.zero
@@ -19,6 +20,10 @@ class EQEditViewController: EQTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        createSectionAndCells()
+        eqEditView.delegate = self
+    }
+    func createSectionAndCells(){
         sectionProviders = generateSectionAndCell(providerTypes: sections)
     }
     func setupTableView() {
@@ -47,5 +52,18 @@ extension EQEditViewController: ChartViewDelegate {
         }
         oldContentOffset = scrollView.contentOffset
         self.editTableView.fadeTopCell()
+    }
+}
+extension EQEditViewController: EQEditChartViewDelegate {
+    func saveButtonDidClick() {
+        if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQEditProjectNameViewController.self)) as? EQEditProjectNameViewController {
+            playlistViewController.modalPresentationStyle = .overCurrentContext
+            playlistViewController.modalTransitionStyle = .crossDissolve
+            present(playlistViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func postButtonDidClick() {
+        
     }
 }

@@ -40,16 +40,18 @@
                                 <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="postAction:" destination="-1" eventType="touchUpInside" id="9vu-KZ-doZ"/>
                                 <action selector="saveAction:" destination="-1" eventType="touchUpInside" id="iW7-2m-ZSF"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6q-NY-Vpd">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6q-NY-Vpd" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
                             <rect key="frame" x="135" y="0.0" width="70" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="Post">
                                 <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="postAction:" destination="-1" eventType="touchUpInside" id="OVo-fh-piG"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

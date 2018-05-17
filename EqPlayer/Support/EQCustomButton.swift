@@ -11,7 +11,7 @@ import UIKit
 class EQCustomButton: UIButton {
 
     func setupButton(_ button: UIButton) {
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = button.bounds.height/2
         button.clipsToBounds = true
         button.layer.borderWidth = 1.5
         button.layer.borderColor = UIColor.white.cgColor
