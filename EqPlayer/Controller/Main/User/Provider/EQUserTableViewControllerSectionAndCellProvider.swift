@@ -1,5 +1,5 @@
 //
-//  EQUserTableViewGenerator.swift
+//  EQUserTableViewControllerSectionAndCellProvider.swift
 //  EqPlayer
 //
 //  Created by 大容 林 on 2018/5/11.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum EQUserPageTableViewSectionGenerator {
+enum EQUserTableViewControllerSectionAndCellProvider:Int, EnumCollection {
     case userInfoCell
     case toolBar
 }
@@ -47,9 +47,9 @@ extension EQUserTableViewController {
     }
 
     // Must call after get data
-    func generateSectionAndCell(providerTypes: [EQUserPageTableViewSectionGenerator]) -> [EQSectionProvider] {
+    func generateSectionAndCell() {
         var providers = [EQSectionProvider]()
-        for sectionType in providerTypes {
+        for sectionType in Array(EQUserTableViewControllerSectionAndCellProvider.cases()) {
             switch sectionType {
             case .toolBar:
                 providers.append(createCustomToolBarSectionWithCell())
@@ -57,6 +57,6 @@ extension EQUserTableViewController {
                 providers.append(createUserInfoHead())
             }
         }
-        return providers
+      sectionProviders = providers
     }
 }

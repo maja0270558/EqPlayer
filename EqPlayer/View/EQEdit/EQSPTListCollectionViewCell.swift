@@ -9,19 +9,19 @@
 import UIKit
 
 protocol EQSPTListCollectionViewCellProtocol: class {
-    func didCancelButtonClick()
-    func didBackButtonClick()
+    func didClickCancelButton()
+    func didClickBackButton()
 }
 
 class EQSPTListCollectionViewCell: UICollectionViewCell {
     weak var delegate: EQSPTListCollectionViewCellProtocol?
 
     @IBAction func backAction(_: UIButton) {
-        delegate?.didBackButtonClick()
+        delegate?.didClickBackButton()
     }
 
     @IBAction func cancelAction(_: UIButton) {
-        delegate?.didCancelButtonClick()
+        delegate?.didClickCancelButton()
     }
 
     @IBOutlet var backButton: UIButton!

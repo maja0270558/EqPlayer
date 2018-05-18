@@ -9,8 +9,8 @@
 import UIKit
 import Charts
 protocol EQEditChartViewDelegate: class{
-    func saveButtonDidClick()
-    func postButtonDidClick()
+    func didClickSaveProjectButton()
+    func didClickPostProjectButton()
 }
 class EQEditChartView: UIView {
     @IBOutlet weak var projectNameLabel: UILabel!
@@ -18,10 +18,10 @@ class EQEditChartView: UIView {
     @IBOutlet weak var lineChartView: LineChartView!
     
     @IBAction func saveAction(_ sender: UIButton) {
-        delegate?.saveButtonDidClick()
+        delegate?.didClickSaveProjectButton()
     }
     @IBAction func postAction(_ sender: UIButton) {
-        delegate?.postButtonDidClick()
+        delegate?.didClickPostProjectButton()
     }
     @IBOutlet weak var saveButton: UIButton!
     

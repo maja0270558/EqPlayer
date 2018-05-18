@@ -13,7 +13,7 @@ class EQPannableViewController: UIViewController {
     public var minimumVelocityToHide = 1500 as CGFloat
     public var minimumScreenRatioToHide = 0.5 as CGFloat
     public var animationDuration = 0.2 as TimeInterval
-    public var canPan = false
+    private var canPan = false
     override func viewDidLoad() {
         super.viewDidLoad()
         // Listen for pan gesture
@@ -24,6 +24,10 @@ class EQPannableViewController: UIViewController {
     func slideViewVerticallyTo(_ yPosition: CGFloat) {
         self.view.alpha = 1 - (yPosition/self.view.bounds.height)
         self.view.frame.origin = CGPoint(x: 0, y: yPosition)
+    }
+    
+    func setCanPanToDismiss(_ canPan :Bool){
+        self.canPan = canPan
     }
     
     @objc func onPan(_ panGesture: UIPanGestureRecognizer) {

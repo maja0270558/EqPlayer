@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Playlist View Controller-->
+        <!--Select Track View Controller-->
         <scene sceneID="Y1h-4D-hdo">
             <objects>
-                <viewController storyboardIdentifier="EQSPTPlaylistViewController" id="BWf-pY-O8g" customClass="EQSPTPlaylistViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EQSelectTrackViewController" id="BWf-pY-O8g" customClass="EQSelectTrackViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dbW-Aw-cl3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,10 +106,10 @@
             </objects>
             <point key="canvasLocation" x="332" y="-78"/>
         </scene>
-        <!--Edit View Controller-->
+        <!--Project View Controller-->
         <scene sceneID="QNM-sr-tOS">
             <objects>
-                <viewController storyboardIdentifier="EQEditViewController" id="hU9-H5-ky2" customClass="EQEditViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EQProjectViewController" id="hU9-H5-ky2" customClass="EQProjectViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sWo-QT-Ui3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="-482.39999999999998" y="-79.610194902548727"/>
         </scene>
-        <!--Edit Project Name View Controller-->
+        <!--Save Project View Controller-->
         <scene sceneID="73S-bf-SIf">
             <objects>
-                <viewController storyboardIdentifier="EQEditProjectNameViewController" id="kJd-gh-pQf" customClass="EQEditProjectNameViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EQSaveProjectViewController" id="kJd-gh-pQf" customClass="EQSaveProjectViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6pa-qM-RvR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

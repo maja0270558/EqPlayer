@@ -10,13 +10,13 @@ import Foundation
 
 class EQUserTableViewController: EQTableViewController {
     var icon: UIImage?
-    var sections: [EQUserPageTableViewSectionGenerator] = [.userInfoCell, .toolBar]
+    var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
     var barData = ["Posted", "Saved", "Liked"]
     @IBOutlet var userTableView: UITableView!
 
     override func viewDidLoad() {
         setupTableView()
-        setupSession(sectionData: generateSectionAndCell(providerTypes: sections))
+        generateSectionAndCell()
     }
 
     func setupTableView() {
@@ -24,10 +24,6 @@ class EQUserTableViewController: EQTableViewController {
         userTableView.delegate = self
         userTableView.dataSource = self
         userTableView.separatorStyle = .none
-    }
-
-    func setupSession(sectionData: [EQTableViewSession]) {
-        sectionProviders = sectionData
     }
 }
 
