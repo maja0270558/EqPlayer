@@ -12,12 +12,13 @@ class EQNotifycationCenterManager {
     static func post(name: Notification.Name) {
         NotificationCenter.default.post(name: name, object: nil)
     }
-    static func addObserver(observer: AnyObject, selector: Selector, notification:  Notification.Name) {
+
+    static func addObserver(observer: AnyObject, selector: Selector, notification: Notification.Name) {
         NotificationCenter.default
             .addObserver(observer, selector: selector, name: notification, object: nil)
     }
 }
+
 extension Notification.Name {
     static let eqProjectTrackModifyNotification = Notification.Name("eqProjectTrackModifyNotification")
 }
-

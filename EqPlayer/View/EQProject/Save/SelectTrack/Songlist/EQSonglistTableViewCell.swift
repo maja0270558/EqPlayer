@@ -1,5 +1,5 @@
 //
-//  EQSPTTrackTableViewCell.swift
+//  EQSonglistTableViewCell.swift
 //  EqPlayer
 //
 //  Created by 大容 林 on 2018/5/14.
@@ -10,7 +10,7 @@ import SDWebImage
 import SwipeCellKit
 import UIKit
 
-class EQSPTTrackTableViewCell: SwipeTableViewCell {
+class EQSonglistTableViewCell: SwipeTableViewCell {
     @IBOutlet var albumImage: UIImageView!
 
     @IBOutlet var trackTitle: UILabel!
@@ -28,7 +28,7 @@ class EQSPTTrackTableViewCell: SwipeTableViewCell {
 
     func setupCell(coverURLString: String?, title: String, artist: String) {
         if let coverURL = coverURLString {
-            albumImage.sd_setImage(with:URL(string: coverURL), completed: nil)
+            albumImage.sd_setImage(with: URL(string: coverURL), completed: nil)
         }
         artistLabel.text = artist
         trackTitle.text = title

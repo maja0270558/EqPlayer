@@ -9,12 +9,13 @@
 import Foundation
 import RealmSwift
 
-class EQProjectModel: Object{
+class EQProjectModel: Object {
     @objc enum EQProjectStatus: Int {
         case new
         case saved
         case temp
     }
+
     @objc dynamic var uuid = UUID().uuidString
     @objc dynamic var name: String = ""
     @objc dynamic var status = EQProjectStatus.new
@@ -25,10 +26,7 @@ class EQProjectModel: Object{
 class EQTrack: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var uri: String = ""
-    @objc dynamic var artist:String = ""
+    @objc dynamic var artist: String = ""
     @objc dynamic var previewURL: String?
     @objc dynamic var coverURL: String?
 }
-
-
-

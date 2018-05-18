@@ -1,5 +1,5 @@
 //
-//  EQSPTListCollectionViewCell.swift
+//  EQSelectTrackTopCollectionViewCell.swift
 //  EqPlayer
 //
 //  Created by 大容 林 on 2018/5/14.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol EQSPTListCollectionViewCellProtocol: class {
+protocol EQSelectTrackTopCollectionViewCellProtocol: class {
     func didClickCancelButton()
     func didClickBackButton()
 }
 
-class EQSPTListCollectionViewCell: UICollectionViewCell {
-    weak var delegate: EQSPTListCollectionViewCellProtocol?
+class EQSelectTrackTopCollectionViewCell: UICollectionViewCell {
+    weak var delegate: EQSelectTrackTopCollectionViewCellProtocol?
 
     @IBAction func backAction(_: UIButton) {
         delegate?.didClickBackButton()
@@ -25,8 +25,8 @@ class EQSPTListCollectionViewCell: UICollectionViewCell {
     }
 
     @IBOutlet var backButton: UIButton!
-
     @IBOutlet var titleLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

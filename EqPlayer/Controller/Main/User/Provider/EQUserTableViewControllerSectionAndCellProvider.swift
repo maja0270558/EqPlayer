@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum EQUserTableViewControllerSectionAndCellProvider:Int, EnumCollection {
+enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
     case userInfoCell
     case toolBar
 }
@@ -46,7 +46,6 @@ extension EQUserTableViewController {
         return section
     }
 
-    // Must call after get data
     func generateSectionAndCell() {
         var providers = [EQSectionProvider]()
         for sectionType in Array(EQUserTableViewControllerSectionAndCellProvider.cases()) {
@@ -57,6 +56,6 @@ extension EQUserTableViewController {
                 providers.append(createUserInfoHead())
             }
         }
-      sectionProviders = providers
+        sectionProviders = providers
     }
 }

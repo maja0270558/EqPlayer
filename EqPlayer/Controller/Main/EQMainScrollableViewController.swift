@@ -27,7 +27,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
         for _ in 0 ... 3 {
             let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
             controllers.append(userController)
-            cells.append("IconCollectionViewCell")
+            cells.append("EQIconCollectionViewCell")
         }
         data = ScrollableControllerDataModel(
             topCellId: cells,
@@ -40,14 +40,14 @@ class EQMainScrollableViewController: EQScrollableViewController {
     }
 
     func registerCollectionCell() {
-        let iconNib = UINib(nibName: "IconCollectionViewCell", bundle: nil)
-        topCollectionView.register(iconNib, forCellWithReuseIdentifier: "IconCollectionViewCell")
+        let iconNib = UINib(nibName: "EQIconCollectionViewCell", bundle: nil)
+        topCollectionView.register(iconNib, forCellWithReuseIdentifier: "EQIconCollectionViewCell")
     }
 
     override func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
         let cells = topCollectionView.visibleCells
         for cell in cells {
-            if let iconCell = cell as? IconCollectionViewCell {
+            if let iconCell = cell as? EQIconCollectionViewCell {
                 let row = CGFloat((topCollectionView.indexPath(for: iconCell)?.row)!)
                 iconCell.setupImageSize(size: topItemSize, currentIndex: currentIndex, cellRow: row)
             }

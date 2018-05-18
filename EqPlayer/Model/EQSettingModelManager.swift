@@ -9,13 +9,13 @@
 import Foundation
 
 class EQSettingModelManager {
-    var tempModel:EQProjectModel
+    var tempModel: EQProjectModel
     init(model: EQProjectModel = EQProjectModel()) {
-        self.tempModel = EQProjectModel(value: model)
+        tempModel = EQProjectModel(value: model)
     }
-    
-    func saveObjectTo(status: EQProjectModel.EQProjectStatus){
-       let modelCopy = EQProjectModel(value: tempModel)
+
+    func saveObjectTo(status: EQProjectModel.EQProjectStatus) {
+        let modelCopy = EQProjectModel(value: tempModel)
         if modelCopy.status == .new {
             modelCopy.status = status
             tempModel.status = status
@@ -24,8 +24,8 @@ class EQSettingModelManager {
             modelCopy.status = status
             tempModel.status = status
             if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: modelCopy.uuid) {
-                let result:[EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: modelCopy.uuid)
-                var object = result.first!
+                let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: modelCopy.uuid)
+                let object = result.first!
                 EQRealmManager.shard.updateObject {
                     object.name = modelCopy.name
                     object.status = modelCopy.status

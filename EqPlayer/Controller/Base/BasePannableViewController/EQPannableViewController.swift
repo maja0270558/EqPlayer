@@ -18,18 +18,18 @@ class EQPannableViewController: UIViewController {
         super.viewDidLoad()
         // Listen for pan gesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        self.view.addGestureRecognizer(panGesture)
+        view.addGestureRecognizer(panGesture)
     }
-    
+
     func slideViewVerticallyTo(_ yPosition: CGFloat) {
-        self.view.alpha = 1 - (yPosition/self.view.bounds.height)
-        self.view.frame.origin = CGPoint(x: 0, y: yPosition)
+        view.alpha = 1 - (yPosition / view.bounds.height)
+        view.frame.origin = CGPoint(x: 0, y: yPosition)
     }
-    
-    func setCanPanToDismiss(_ canPan :Bool){
+
+    func setCanPanToDismiss(_ canPan: Bool) {
         self.canPan = canPan
     }
-    
+
     @objc func onPan(_ panGesture: UIPanGestureRecognizer) {
         if canPan {
             switch panGesture.state {
@@ -38,22 +38,21 @@ class EQPannableViewController: UIViewController {
                 // slide the view to follow the finger
                 let translation = panGesture.translation(in: view)
                 let yPosition = max(0, translation.y)
-                self.slideViewVerticallyTo(yPosition)
-                break
+                slideViewVerticallyTo(yPosition)
             case .ended:
                 // If pan ended, decide it we should close or reset the view
                 // based on the final position and the speed of the gesture
                 let translation = panGesture.translation(in: view)
                 let velocity = panGesture.velocity(in: view)
-                let closing = (translation.y > self.view.frame.size.height * minimumScreenRatioToHide) ||
+                let closing = (translation.y > view.frame.size.height * minimumScreenRatioToHide) ||
                     (velocity.y > minimumVelocityToHide)
-                
+
                 if closing {
                     UIView.animate(withDuration: animationDuration, animations: {
                         // If closing, animate to the bottom of the view
                         self.view.alpha = 0
                         self.slideViewVerticallyTo(self.view.frame.size.height)
-                    }, completion: { (isCompleted) in
+                    }, completion: { isCompleted in
                         if isCompleted {
                             // Dismiss the view when it dissapeared
                             self.dismiss(animated: false, completion: nil)
@@ -66,26 +65,24 @@ class EQPannableViewController: UIViewController {
                         self.view.alpha = 1
                     })
                 }
-                break
             default:
                 // If gesture state is undefined, reset the view to the top
                 UIView.animate(withDuration: animationDuration, animations: {
                     self.slideViewVerticallyTo(0)
                 })
-                break
             }
         }
     }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)   {
+
+    override init(nibName _: String?, bundle _: Bundle?) {
         super.init(nibName: nil, bundle: nil)
-        self.modalPresentationStyle = .overCurrentContext
-        self.modalTransitionStyle = .crossDissolve
+        modalPresentationStyle = .overCurrentContext
+        modalTransitionStyle = .crossDissolve
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.modalPresentationStyle = .overCurrentContext
-        self.modalTransitionStyle = .crossDissolve
+        modalPresentationStyle = .overCurrentContext
+        modalTransitionStyle = .crossDissolve
     }
 }

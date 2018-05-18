@@ -7,8 +7,8 @@
 //
 
 import Firebase
-import UIKit
 import IQKeyboardManager
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-        
+
         FirebaseApp.configure()
         spotifyManager.setupAuth()
         if let session = spotifyManager.auth?.session {

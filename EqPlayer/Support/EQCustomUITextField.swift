@@ -9,20 +9,19 @@
 import UIKit
 
 class EQCustomUITextField: UITextField {
-
-    func setupTextField (_ textField: UITextField) {
+    func setupTextField(_ textField: UITextField) {
         textField.borderStyle = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .default
         textField.returnKeyType = .done
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
-        textField.layer.cornerRadius = textField.bounds.height/2
+        textField.layer.cornerRadius = textField.bounds.height / 2
         textField.clipsToBounds = true
     }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         setupTextField(self)
     }
-
 }

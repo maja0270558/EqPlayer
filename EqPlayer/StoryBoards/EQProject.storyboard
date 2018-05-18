@@ -124,7 +124,7 @@
                                             <rect key="frame" x="0.0" y="348" width="375" height="667"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditChartView" customModule="EqPlayer" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditBandView" customModule="EqPlayer" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="25" width="375" height="315"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -155,9 +155,9 @@
                         <viewLayoutGuide key="safeArea" id="ldw-c8-EyH"/>
                     </view>
                     <connections>
+                        <outlet property="editBandView" destination="iEJ-5W-KGO" id="Ezo-eN-iQH"/>
                         <outlet property="editTableView" destination="z0i-n7-Mya" id="ume-Gv-fF7"/>
                         <outlet property="editViewTopConstraint" destination="BaJ-BW-4OP" id="Tsw-3q-HfX"/>
-                        <outlet property="eqEditView" destination="iEJ-5W-KGO" id="Ezo-eN-iQH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfG-fy-QSc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,7 +179,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IB3-fd-YFg" customClass="EQCustomUITextField" customModule="EqPlayer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="142" width="335" height="50"/>
+                                            <rect key="frame" x="20" y="142.5" width="335" height="50"/>
                                             <color key="backgroundColor" red="0.78823369740000004" green="0.78823572399999997" blue="0.80771607160000003" alpha="0.2538760859073359" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="GB6-uS-F9d"/>
@@ -189,7 +189,7 @@
                                             <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                         </textField>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6v8-kI-YzC">
-                                            <rect key="frame" x="72.5" y="240" width="230" height="50"/>
+                                            <rect key="frame" x="72.5" y="240.5" width="230" height="50"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9A-db-gMl">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
