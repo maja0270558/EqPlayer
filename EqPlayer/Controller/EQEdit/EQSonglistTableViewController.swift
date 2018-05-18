@@ -9,7 +9,7 @@
 import SwipeCellKit
 import UIKit
 class EQSonglistTableViewController: UITableViewController {
-    var eqSettingManager: EQProjectModel?
+    var eqSettingManager: EQSettingModelManager?
     var songlists = [SPTTrack]()
     
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class EQSonglistTableViewController: UITableViewController {
                 return UITableViewCell()
         }
         let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
-        if let added = eqSettingManager?.tracks.contains(where: { $0.uri == track.uri}){
+        if let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri}){
             if added {
                 cell.checkedWidthConstraint.constant = 20
             } else {
@@ -89,20 +89,20 @@ class EQSonglistTableViewController: UITableViewController {
 extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
     func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
-        guard orientation == .right, let added = eqSettingManager?.tracks.contains(where: { $0.uri == track.uri}) else {
+        guard orientation == .right, let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri}) else {
             return nil
         }
         let swipeAction = SwipeAction(style: .default, title: "") { _, indexPath in
             if added {
                 //remove
-                if let index = self.eqSettingManager?.tracks.index(where: {
+                if let index = self.eqSettingManager?.tempModel.tracks.index(where: {
                     $0.uri == track.uri
                 }) {
-                    self.eqSettingManager?.tracks.remove(at: index)
+                    self.eqSettingManager?.tempModel.tracks.remove(at: index)
                 }
             } else {
                 //add
-                self.eqSettingManager?.tracks.append(track)
+                self.eqSettingManager?.tempModel.tracks.append(track)
             }
             EQNotifycationCenterManager.post(name: Notification.Name.eqProjectTrackModifyNotification)
             self.tableView.reloadData()
@@ -119,7 +119,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
     func tableView(_: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for _: SwipeActionsOrientation) -> SwipeTableOptions {
         var options = SwipeTableOptions()
         let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
-        if let added = eqSettingManager?.tracks.contains(where: { $0.uri == track.uri}){
+        if let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri}){
             if added {
                 options.backgroundColor = UIColor(red: 1, green: 38 / 255, blue: 0, alpha: 0.3)
             } else {

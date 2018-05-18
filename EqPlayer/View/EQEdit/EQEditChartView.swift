@@ -13,6 +13,7 @@ protocol EQEditChartViewDelegate: class{
     func postButtonDidClick()
 }
 class EQEditChartView: UIView {
+    @IBOutlet weak var projectNameLabel: UILabel!
     weak var delegate: EQEditChartViewDelegate?
     @IBOutlet weak var lineChartView: LineChartView!
     

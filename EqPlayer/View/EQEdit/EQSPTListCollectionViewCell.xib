@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="405" height="78"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SvL-TW-dHF">
-                                <rect key="frame" x="8" y="27" width="25" height="25"/>
+                                <rect key="frame" x="8" y="26.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="9XH-eD-a5S"/>
                                     <constraint firstAttribute="height" constant="25" id="QYW-DR-NeN"/>
@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hZ-LY-wDJ">
-                                <rect key="frame" x="41" y="8" width="323" height="62"/>
+                                <rect key="frame" x="41" y="8" width="325" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="UN2-QQ-TYZ"/>
                                 </constraints>
@@ -43,8 +43,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uC5-Vt-Feu">
-                                <rect key="frame" x="372" y="27" width="25" height="25"/>
-                                <state key="normal" backgroundImage="close"/>
+                                <rect key="frame" x="374" y="16" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="LJm-m3-G3A"/>
+                                    <constraint firstAttribute="width" constant="15" id="xdC-MQ-rYb"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="arrow-down-sign-to-navigate"/>
                                 <connections>
                                     <action selector="cancelAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="xAr-JK-f1v"/>
                                 </connections>
@@ -53,12 +57,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="SvL-TW-dHF" firstAttribute="centerY" secondItem="gFt-kB-IUp" secondAttribute="centerY" id="1hM-gD-imU"/>
-                            <constraint firstItem="uC5-Vt-Feu" firstAttribute="height" secondItem="SvL-TW-dHF" secondAttribute="height" id="7GM-Rb-c3q"/>
-                            <constraint firstAttribute="trailing" secondItem="uC5-Vt-Feu" secondAttribute="trailing" constant="8" id="9rs-N7-amv"/>
-                            <constraint firstItem="uC5-Vt-Feu" firstAttribute="width" secondItem="SvL-TW-dHF" secondAttribute="width" id="D9R-Vm-LrG"/>
+                            <constraint firstAttribute="trailing" secondItem="uC5-Vt-Feu" secondAttribute="trailing" constant="16" id="9rs-N7-amv"/>
                             <constraint firstItem="8hZ-LY-wDJ" firstAttribute="top" secondItem="gFt-kB-IUp" secondAttribute="top" constant="8" id="MEX-eI-c1i"/>
                             <constraint firstItem="8hZ-LY-wDJ" firstAttribute="leading" secondItem="SvL-TW-dHF" secondAttribute="trailing" constant="8" id="NqY-Z1-1MP"/>
-                            <constraint firstItem="uC5-Vt-Feu" firstAttribute="centerY" secondItem="SvL-TW-dHF" secondAttribute="centerY" id="PZI-jJ-Hpc"/>
+                            <constraint firstItem="uC5-Vt-Feu" firstAttribute="top" secondItem="gFt-kB-IUp" secondAttribute="top" constant="16" id="e5Z-2D-tIS"/>
                             <constraint firstItem="uC5-Vt-Feu" firstAttribute="leading" secondItem="8hZ-LY-wDJ" secondAttribute="trailing" constant="8" id="eoo-eC-62q"/>
                             <constraint firstItem="SvL-TW-dHF" firstAttribute="leading" secondItem="gFt-kB-IUp" secondAttribute="leading" constant="8" id="euo-5C-hhP"/>
                             <constraint firstAttribute="bottom" secondItem="8hZ-LY-wDJ" secondAttribute="bottom" constant="8" id="sdf-w3-HUw"/>
@@ -82,7 +84,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="arrow-down-sign-to-navigate" width="32" height="32"/>
         <image name="back" width="64" height="64"/>
-        <image name="close" width="64" height="64"/>
     </resources>
 </document>

@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="lineChartView" destination="fuZ-rK-zGL" id="A5S-l1-cqv"/>
                 <outlet property="postButton" destination="P6q-NY-Vpd" id="5GR-at-sVH"/>
+                <outlet property="projectNameLabel" destination="zWL-Lc-7bR" id="8ka-H7-wRL"/>
                 <outlet property="saveButton" destination="MPM-kT-99z" id="SeO-yp-Fte"/>
             </connections>
         </placeholder>
@@ -73,6 +74,14 @@
                     <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnZ-2y-gdG">
+                    <rect key="frame" x="344" y="16" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="a9J-fQ-zoM"/>
+                        <constraint firstAttribute="width" constant="15" id="cYG-bI-Fc7"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="arrow-down-sign-to-navigate"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -81,14 +90,19 @@
                 <constraint firstItem="zWL-Lc-7bR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="BXq-cV-T3o"/>
                 <constraint firstItem="9mi-NP-nPW" firstAttribute="top" secondItem="fuZ-rK-zGL" secondAttribute="bottom" constant="16" id="D64-Rm-q1T"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zWL-Lc-7bR" secondAttribute="trailing" constant="16" id="EAq-ox-f8a"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lnZ-2y-gdG" secondAttribute="trailing" constant="16" id="Ep6-YN-e7u"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fuZ-rK-zGL" secondAttribute="trailing" constant="16" id="PFt-uK-ZrK"/>
                 <constraint firstItem="fuZ-rK-zGL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="afd-ix-0Dc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9mi-NP-nPW" secondAttribute="bottom" constant="30" id="hZr-LG-ey2"/>
+                <constraint firstItem="lnZ-2y-gdG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="mcz-yJ-18N"/>
                 <constraint firstItem="zWL-Lc-7bR" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="rWW-68-UVb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="81.5" y="-94"/>
+            <point key="canvasLocation" x="81.5" y="-94.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="arrow-down-sign-to-navigate" width="32" height="32"/>
+    </resources>
 </document>

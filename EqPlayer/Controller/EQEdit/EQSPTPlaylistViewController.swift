@@ -11,7 +11,7 @@ import UIKit
 class EQSPTPlaylistViewController: EQScrollableViewController {
     lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
     var titleLabels = ["Playlist", "Songs"]
-    var eqSettingManager: EQProjectModel?
+    var eqSettingManager: EQSettingModelManager?
 
     var playlistController: EQPlaylistTableViewController? {
         return data.mainController[0] as? EQPlaylistTableViewController
@@ -23,6 +23,7 @@ class EQSPTPlaylistViewController: EQScrollableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        canPan = true
         registerCollectionCell()
         setupControllersAndCells()
         controllerInit()

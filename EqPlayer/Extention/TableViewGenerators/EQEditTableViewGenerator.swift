@@ -30,7 +30,7 @@ extension EQEditViewController {
                 }
             }
         }
-        section.cellDatas = Array(eqSettingManager.tracks)
+        section.cellDatas = Array(eqSettingManager.tempModel.tracks)
         section.cellHeight = UITableViewAutomaticDimension
         editTableView.registeCell(cellIdentifier: EQSPTTrackTableViewCell.typeName)
         section.cellIdentifier = EQSPTTrackTableViewCell.typeName

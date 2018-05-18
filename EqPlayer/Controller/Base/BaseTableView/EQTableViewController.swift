@@ -30,7 +30,7 @@ protocol EQTableViewSession {
     var cellDatas: [Any] { get set }
 }
 
-class EQTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITableViewDataSource {
     var sectionProviders: [EQTableViewSession] = []
     override func viewDidLoad() {
         super.viewDidLoad()

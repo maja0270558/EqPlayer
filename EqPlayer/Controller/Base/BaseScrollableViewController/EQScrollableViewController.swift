@@ -23,7 +23,7 @@ protocol EQScrollableViewControllerProtocol {
     func customizeTopItemWhenScrolling(_ currentIndex: CGFloat)
 }
 
-class EQScrollableViewController: UIViewController, EQScrollableViewControllerProtocol {
+class EQScrollableViewController: EQPannableViewController, EQScrollableViewControllerProtocol {
     var mainScrollView: UIScrollView! {
         return view.viewWithTag(EQScrollableViewID.mainScrollView.rawValue) as? UIScrollView
     }

@@ -7,24 +7,27 @@
 //
 
 import UIKit
-
+protocol EQEditProjectNameViewControllerDelegate: class {
+    func saveOnClick(projectName: String)
+}
 class EQEditProjectNameViewController: UIViewController {
+    weak var delegate: EQEditProjectNameViewControllerDelegate?
+    var originalProjectName: String = ""
     @IBOutlet weak var projectNameTextField: EQCustomUITextField!
-   
-    @IBAction func saveAction(_ sender: EQCustomButton) {
-        
-    }
     @IBOutlet weak var saveButton: EQCustomButton!
+    @IBAction func saveAction(_ sender: EQCustomButton) {
+        delegate?.saveOnClick(projectName: projectNameTextField.text!)
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        saveButton.isEnabled = false
-        saveButton.alpha = 0.5
         projectNameTextField.delegate = self
         projectNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
+        projectNameTextField.becomeFirstResponder()
+        projectNameTextField.text = originalProjectName
         // Do any additional setup after loading the view.
     }
     @objc func textFieldDidChange(_ textField: UITextField) {
