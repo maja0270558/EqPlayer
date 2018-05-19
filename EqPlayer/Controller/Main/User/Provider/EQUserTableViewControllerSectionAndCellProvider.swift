@@ -38,6 +38,9 @@ extension EQUserTableViewController {
         }
         section.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         section.cellHeight = 150
+      userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
+
+        section.cellIdentifier = EQSaveProjectCell.typeName
         section.cellOperator = {
             _, cell in
             cell.textLabel?.text = "0"

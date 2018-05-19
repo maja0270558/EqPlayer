@@ -1,5 +1,5 @@
 //
-//  EQUserCollectTableViewCell.swift
+//  EQSaveProjectCell.swift
 //  EqPlayer
 //
 //  Created by 大容 林 on 2018/5/9.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EQUserCollectTableViewCell: UITableViewCell {
+class EQSaveProjectCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

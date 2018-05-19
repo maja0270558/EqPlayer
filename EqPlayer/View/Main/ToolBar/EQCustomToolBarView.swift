@@ -85,7 +85,7 @@ class EQCustomToolBarView: UIView {
         self.progressBarLayer = CAShapeLayer()
         guard let progressBarLayer = self.progressBarLayer else { return }
         progressBarLayer.path = progressBarPath?.cgPath
-        progressBarLayer.lineWidth = 8.0
+        progressBarLayer.lineWidth = 4.0
         progressBarLayer.strokeColor = strokeColor.cgColor
         progressBarLayer.fillColor = UIColor.clear.cgColor
         progressBarLayer.strokeEnd = 0
