@@ -12,10 +12,12 @@ class EQUserTableViewController: EQTableViewController {
   var icon: UIImage?
   var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
   var barData = ["Posted", "Saved", "Liked"]
+  var eqDatas = [EQProjectModel]()
   @IBOutlet var userTableView: UITableView!
   
   override func viewDidLoad() {
     setupTableView()
+    loadEQDatas()
     generateSectionAndCell()
   }
   
@@ -24,6 +26,10 @@ class EQUserTableViewController: EQTableViewController {
     userTableView.delegate = self
     userTableView.dataSource = self
     userTableView.separatorStyle = .none
+  }
+  func loadEQDatas() {
+    let data: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.saved.rawValue)
+    eqDatas = data
   }
 }
 

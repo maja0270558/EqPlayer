@@ -14,13 +14,16 @@ class EQProjectModel: Object {
         case new
         case saved
         case temp
+      func getValue() -> String {
+        return String(self.rawValue)
+      }
     }
 
     @objc dynamic var uuid = UUID().uuidString
     @objc dynamic var name: String = ""
     @objc dynamic var status = EQProjectStatus.new
     let tracks = List<EQTrack>()
-    let eqSetting = List<Float>()
+    let eqSetting = List<Double>()
 }
 
 class EQTrack: Object {

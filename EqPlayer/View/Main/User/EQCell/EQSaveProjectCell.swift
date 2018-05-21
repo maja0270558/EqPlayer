@@ -7,16 +7,17 @@
 //
 
 import UIKit
-
+import Charts
 class EQSaveProjectCell: UITableViewCell {
-    override func awakeFromNib() {
+  @IBOutlet weak var playlistCover: EQCircleImage!
+  @IBOutlet weak var cellEQChartView: LineChartView!
+  @IBOutlet weak var projectTitleLabel: UILabel!
+  
+  override func awakeFromNib() {
         super.awakeFromNib()
+        cellEQChartView.configStyle(.cell)
+        cellEQChartView.setChart(15, color: UIColor.green, style: .cell)
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 }

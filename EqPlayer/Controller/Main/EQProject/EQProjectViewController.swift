@@ -80,6 +80,7 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
     func didClickSaveButton(projectName: String) {
         print((Realm.Configuration.defaultConfiguration.fileURL?.absoluteString)! + "---------------")
         self.projectName = projectName
+        eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
         eqSettingManager.tempModel.name = projectName
         editBandView.projectNameLabel.text = projectName
         editBandView.saveButton.setTitle("Edit", for: .normal)

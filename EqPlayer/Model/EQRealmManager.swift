@@ -38,7 +38,7 @@ class EQRealmManager {
         return Array(realm!.objects(T.self))
     }
 
-    func findWithFilter<T: Object>(filter: String, value: String) -> [T] {
+    func findWithFilter<T: Object>(filter: String, value: Any) -> [T] {
         return realm!.objects(T.self).filter(filter, value).map { $0 }
     }
 

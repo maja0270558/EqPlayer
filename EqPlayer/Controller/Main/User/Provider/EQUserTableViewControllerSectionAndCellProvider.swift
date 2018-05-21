@@ -8,57 +8,60 @@
 
 import Foundation
 enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
-    case userInfoCell
-    case toolBar
+  case userInfoCell
+  case toolBar
 }
 
 extension EQUserTableViewController {
-    func createUserInfoHead() -> EQSectionProvider {
-        let section = EQSectionProvider()
-        userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
-        section.cellIdentifier = EQUserInfoTableViewCell.typeName
-        section.cellDatas = ["Django Free"]
-        section.cellHeight = UITableViewAutomaticDimension
-        section.cellOperator = { _, _ in
-        }
-        return section
+  func createUserInfoHead() -> EQSectionProvider {
+    let section = EQSectionProvider()
+    userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
+    section.cellIdentifier = EQUserInfoTableViewCell.typeName
+    section.cellDatas = ["Django Free"]
+    section.cellHeight = UITableViewAutomaticDimension
+    section.cellOperator = { _, _ in
     }
-
-    func createCustomToolBarSectionWithCell() -> EQSectionProvider {
-        let section = EQSectionProvider()
-        section.headerHeight = UITableViewAutomaticDimension
-        section.headerView = EQCustomToolBarView()
-        section.headerData = barData
-        section.headerOperator = {
-            _, view in
-            if let toolBar = view as? EQCustomToolBarView {
-                toolBar.delegate = self
-                toolBar.datasource = self
-            }
-        }
-        section.cellDatas = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        section.cellHeight = 150
-      userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
-
-        section.cellIdentifier = EQSaveProjectCell.typeName
-        section.cellOperator = {
-            _, cell in
-            cell.textLabel?.text = "0"
-        }
-
-        return section
+    return section
+  }
+  
+  func createCustomToolBarSectionWithCell() -> EQSectionProvider {
+    let section = EQSectionProvider()
+    section.headerHeight = UITableViewAutomaticDimension
+    section.headerView = EQCustomToolBarView()
+    section.headerData = barData
+    section.headerOperator = {
+      _, view in
+      if let toolBar = view as? EQCustomToolBarView {
+        toolBar.delegate = self
+        toolBar.datasource = self
+      }
     }
-
-    func generateSectionAndCell() {
-        var providers = [EQSectionProvider]()
-        for sectionType in Array(EQUserTableViewControllerSectionAndCellProvider.cases()) {
-            switch sectionType {
-            case .toolBar:
-                providers.append(createCustomToolBarSectionWithCell())
-            case .userInfoCell:
-                providers.append(createUserInfoHead())
-            }
-        }
-        sectionProviders = providers
+    section.cellDatas = eqDatas
+    section.cellHeight = UITableViewAutomaticDimension
+    userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
+    section.cellIdentifier = EQSaveProjectCell.typeName
+    section.cellOperator = {
+      data, cell in
+      guard let saveCell = cell as? EQSaveProjectCell,let eqModel = data as? EQProjectModel else {
+        return
+      }
+      saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
+      saveCell.projectTitleLabel.text = eqModel.name
+      saveCell.playlistCover.sd_setImage(with: URL(string: (eqModel.tracks.first?.coverURL!)!), completed: nil)
     }
+    return section
+  }
+  
+  func generateSectionAndCell() {
+    var providers = [EQSectionProvider]()
+    for sectionType in Array(EQUserTableViewControllerSectionAndCellProvider.cases()) {
+      switch sectionType {
+      case .toolBar:
+        providers.append(createCustomToolBarSectionWithCell())
+      case .userInfoCell:
+        providers.append(createUserInfoHead())
+      }
+    }
+    sectionProviders = providers
+  }
 }
