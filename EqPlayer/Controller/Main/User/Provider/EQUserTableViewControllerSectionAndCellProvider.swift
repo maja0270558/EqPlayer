@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIImageColors
 enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
   case userInfoCell
   case toolBar
@@ -45,11 +46,40 @@ extension EQUserTableViewController {
       guard let saveCell = cell as? EQSaveProjectCell,let eqModel = data as? EQProjectModel else {
         return
       }
-      saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
       saveCell.projectTitleLabel.text = eqModel.name
-      saveCell.playlistCover.sd_setImage(with: URL(string: (eqModel.tracks.first?.coverURL!)!), completed: nil)
+      saveCell.trackCountLabel.text = String(eqModel.tracks.count)
+      let imageURLs = eqModel.tracks.map {
+        $0.coverURL!
+      }
+      saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
+        saveCell.discImageLarge.image?.getColors(quality: UIImageColorsQuality.low, { (color) in
+          let colorArray = [color.background, color.detail]
+          var lightColor = self.getLightest(colors: colorArray)
+          saveCell.cellEQChartView.setChart(15, color: lightColor, style: .cell)
+          saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
+        })
+      }
+//      saveCell.playlistCover.sd_setImage(with:  URL(string: (eqModel.tracks.first?.coverURL!)!), completed: { (image, error, type, url) in
+//
+//      })
+      
     }
     return section
+  }
+  
+  func getLightest(colors: [UIColor?]) -> UIColor
+  {
+    var brightnessArray = [CGFloat]()
+    colors.forEach {
+      guard let components = $0?.cgColor.components else {
+        brightnessArray.append(0)
+        return
+      }
+      let brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000
+      brightnessArray.append(brightness)
+    }
+    var brightestIndex = brightnessArray.index(of: brightnessArray.max()!)
+    return colors[brightestIndex!]!
   }
   
   func generateSectionAndCell() {

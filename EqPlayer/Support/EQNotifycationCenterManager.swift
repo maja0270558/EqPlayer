@@ -9,16 +9,18 @@
 import Foundation
 
 class EQNotifycationCenterManager {
-    static func post(name: Notification.Name) {
-        NotificationCenter.default.post(name: name, object: nil)
-    }
-
-    static func addObserver(observer: AnyObject, selector: Selector, notification: Notification.Name) {
-        NotificationCenter.default
-            .addObserver(observer, selector: selector, name: notification, object: nil)
-    }
+  static func post(name: Notification.Name) {
+    NotificationCenter.default.post(name: name, object: nil)
+  }
+  
+  static func addObserver(observer: AnyObject, selector: Selector, notification: Notification.Name) {
+    NotificationCenter.default
+      .addObserver(observer, selector: selector, name: notification, object: nil)
+  }
 }
 
 extension Notification.Name {
-    static let eqProjectTrackModifyNotification = Notification.Name("eqProjectTrackModifyNotification")
+  static let eqProjectTrackModifyNotification = Notification.Name("eqProjectTrackModifyNotification")
+  static let eqProjectSave = Notification.Name("eqProjectSave")
+  static let eqProjectDidChangeUnsave = Notification.Name("eqProjectDidChangeUnsave")
 }

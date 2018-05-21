@@ -27,6 +27,7 @@ class EQProjectModel: Object {
 }
 
 class EQTrack: Object {
+    @objc dynamic var duration: TimeInterval = 0
     @objc dynamic var name: String = ""
     @objc dynamic var uri: String = ""
     @objc dynamic var artist: String = ""

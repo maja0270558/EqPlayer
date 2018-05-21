@@ -85,6 +85,7 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
         editBandView.projectNameLabel.text = projectName
         editBandView.saveButton.setTitle("Edit", for: .normal)
         eqSettingManager.saveObjectTo(status: .saved)
+        EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
     }
 
     func didClickSaveProjectButton() {

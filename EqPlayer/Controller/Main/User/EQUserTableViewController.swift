@@ -18,6 +18,7 @@ class EQUserTableViewController: EQTableViewController {
   override func viewDidLoad() {
     setupTableView()
     loadEQDatas()
+    subscribeNotification()
     generateSectionAndCell()
   }
   
@@ -30,6 +31,14 @@ class EQUserTableViewController: EQTableViewController {
   func loadEQDatas() {
     let data: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.saved.rawValue)
     eqDatas = data
+  }
+  func subscribeNotification() {
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectSave)
+  }
+  @objc func didSaveEQProject(){
+    loadEQDatas()
+    sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = eqDatas
+    userTableView.reloadData()
   }
 }
 

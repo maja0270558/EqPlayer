@@ -8,10 +8,10 @@
 
 import Foundation
 class EQCircleImage: UIImageView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let radius: CGFloat = bounds.size.width / 2.0
-        layer.cornerRadius = radius
-        clipsToBounds = true
-    }
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    let radius: CGFloat = bounds.size.width / 2.0
+    layer.cornerRadius = radius
+    clipsToBounds = true
+  }
 }

@@ -68,7 +68,7 @@ extension EQSonglistTableViewController {
 extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
     func convertSPTTrackToEQTrack(sptTrack: SPTTrack) -> EQTrack {
         let eqTrack = EQTrack()
-
+        
         if let previewURL = sptTrack.previewURL {
             eqTrack.previewURL = previewURL.absoluteString
         }
@@ -94,6 +94,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
 
         eqTrack.artist = artistsString
         eqTrack.uri = sptTrack.uri.absoluteString
+        eqTrack.duration = sptTrack.duration
         return eqTrack
     }
 

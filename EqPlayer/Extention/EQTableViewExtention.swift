@@ -17,7 +17,7 @@ extension UITableView {
 
     func fadeTopCell() {
         if visibleCells.count != 0 {
-            guard let topCell = self.visibleCells.first else {
+          guard let topCell = self.visibleCells.first, let indexPath = indexPath(for: topCell) else {
                 return
             }
             let modifier: CGFloat = 3
@@ -26,7 +26,7 @@ extension UITableView {
             }
             let cellHeight = topCell.frame.size.height
             let tableViewTopPosition = frame.origin.y
-            let topCellPositionInTableView = rectForRow(at: indexPath(for: topCell)!)
+            let topCellPositionInTableView = rectForRow(at: indexPath)
             let topCellPosition = convert(topCellPositionInTableView, to: superview!)
             let topCellOpacity = (1.0 - ((tableViewTopPosition - topCellPosition.origin.y) / cellHeight) * modifier)
             topCell.contentView.alpha = topCellOpacity

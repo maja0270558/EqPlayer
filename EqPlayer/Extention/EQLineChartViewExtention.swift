@@ -18,16 +18,11 @@ extension LineChartView {
       let val = Double(25)
       return ChartDataEntry(x: Double(index), y: val)
     })
+   
     let set = LineChartDataSet(values: value, label: "")
     let gradientColors = [color.cgColor, UIColor.clear.cgColor] as CFArray
-    let colorLocations: [CGFloat] = [0.8, 0]
-    let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)
-    set.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0)
-    set.drawFilledEnabled = true
-    set.mode = .cubicBezier
+    var colorLocations: [CGFloat] = [0.8, 0]
     set.setColor(NSUIColor(cgColor: color.cgColor))
-
-    let data = LineChartData(dataSets: [set])
     switch style {
     case .edit:
       set.drawValuesEnabled = true
@@ -40,8 +35,15 @@ extension LineChartView {
       set.drawValuesEnabled = false
       set.drawCircleHoleEnabled = false
       set.drawCirclesEnabled = false
+      set.lineWidth = 2
+      colorLocations = [0.3,0]
     }
-    
+    let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)
+    set.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0)
+    set.drawFilledEnabled = true
+    set.mode = .cubicBezier
+
+    let data = LineChartData(dataSets: [set])
     self.data = data
   }
   
@@ -51,6 +53,7 @@ extension LineChartView {
     guard let xCount = self.lineData?.dataSets.first?.entryCount else {
       return yValues
     }
+    
     for index in stride(from: 0, to: xCount, by: 1) {
       if let yValue = self.lineData?.dataSets.first?.entryForIndex(index)?.y {
         yValues.append(yValue)
@@ -101,7 +104,7 @@ extension LineChartView {
     case .cell:
       self.xAxis.labelCount = 0
       self.dragEnabled = false
-      self.alpha = 0.7
+      self.alpha = 1
 
     }
     // MARK: Global
@@ -111,9 +114,5 @@ extension LineChartView {
     self.scaleYEnabled = false
     self.chartDescription?.enabled = false
     self.legend.enabled = false
-    
- 
-    
-   
   }
 }
