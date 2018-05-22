@@ -22,10 +22,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ez-qG-52O">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ez-qG-52O">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="gZC-PL-Txf">
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gZC-PL-Txf">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -40,10 +39,13 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdV-Px-2ep">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdV-Px-2ep">
                                 <rect key="frame" x="53" y="585" width="268" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.11829950660467148" green="0.84225589036941528" blue="0.37868079543113708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="t9u-qF-D1x"/>
+                                    <constraint firstAttribute="width" constant="268" id="vgj-pO-9NC"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="-18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="LOG IN WITH SPOTIFY" image="spotify">
@@ -55,6 +57,15 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2nF-2E-Cf8" firstAttribute="trailing" secondItem="wdV-Px-2ep" secondAttribute="trailing" constant="54" id="Eqr-Xb-u39"/>
+                            <constraint firstItem="wdV-Px-2ep" firstAttribute="leading" secondItem="2nF-2E-Cf8" secondAttribute="leading" constant="53" id="Jft-oD-d4x"/>
+                            <constraint firstItem="2nF-2E-Cf8" firstAttribute="bottom" secondItem="wdV-Px-2ep" secondAttribute="bottom" constant="31" id="K0I-Tg-epe"/>
+                            <constraint firstItem="9Ez-qG-52O" firstAttribute="trailing" secondItem="2nF-2E-Cf8" secondAttribute="trailing" id="O7m-tV-x5z"/>
+                            <constraint firstItem="9Ez-qG-52O" firstAttribute="leading" secondItem="2nF-2E-Cf8" secondAttribute="leading" id="Omk-gO-WwU"/>
+                            <constraint firstItem="9Ez-qG-52O" firstAttribute="top" secondItem="RI1-oc-9dL" secondAttribute="top" id="Zi6-kU-Yyl"/>
+                            <constraint firstItem="9Ez-qG-52O" firstAttribute="bottom" secondItem="2nF-2E-Cf8" secondAttribute="bottom" id="yLn-El-ajd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2nF-2E-Cf8"/>
                     </view>
                     <connections>

@@ -77,6 +77,9 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     userTableView.fadeTopCell()
   }
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  
+  }
 }
 
 

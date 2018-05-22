@@ -11,6 +11,11 @@ import Foundation
 class EQMainScrollableViewController: EQScrollableViewController {
   var topItemSize = CGSize(width: 50, height: 50)
   let topIcon = [UIImage(named: "user")]
+  var blurView: UIVisualEffectView!
+  @IBOutlet weak var topScrollableViewBase: UIView!
+  
+  @IBOutlet weak var playerView: EQPlayerView!
+  
   @IBAction func addEQAction(_: Any) {
     if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
       eqProjectViewController.modalPresentationStyle = .overCurrentContext
@@ -22,6 +27,10 @@ class EQMainScrollableViewController: EQScrollableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     registerCollectionCell()
+    setupDelegate()
+    setupTopScrollableMainView()
+    addBlurEffect()
+    
     let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
     controllers.append(userController)
     cells.append("EQIconCollectionViewCell")
@@ -29,9 +38,29 @@ class EQMainScrollableViewController: EQScrollableViewController {
       topCellId: cells,
       mainController: controllers
     )
+    
     controllerInit()
   }
   
+  func setupTopScrollableMainView(){
+    topScrollableViewBase.layer.cornerRadius = 10
+    topScrollableViewBase.clipsToBounds = true
+  }
+  
+   func addBlurEffect(){
+    let blurEffectView = UIVisualEffectView(effect: nil)
+    blurEffectView.isUserInteractionEnabled = false
+    blurEffectView.alpha = 0.8
+    blurEffectView.frame = topScrollableViewBase.bounds
+    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    topScrollableViewBase.addSubview(blurEffectView)
+    blurView = blurEffectView
+  }
+  
+
+  func setupDelegate() {
+    playerView.delegate = self
+  }
   override func setupCell(cell: UICollectionViewCell, atIndex: Int) {
     if let iconCell = cell as? EQIconCollectionViewCell {
       iconCell.iconImageView.image = topIcon[atIndex]
@@ -70,5 +99,17 @@ class EQMainScrollableViewController: EQScrollableViewController {
       )
       topPageWidth = UIScreen.main.bounds.width / spaceCount - topItemSize.width / 2
     }
+  }
+}
+
+extension EQMainScrollableViewController: EQPlayerViewDelegate {
+  func didClapPlayer() {
+    self.topScrollableViewBase.transform = CGAffineTransform(scaleX: 1, y: 1)
+    blurView.effect = nil
+  }
+  
+  func didOpenPlayer() {
+    self.topScrollableViewBase.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+    blurView.effect = UIBlurEffect(style: .dark)
   }
 }

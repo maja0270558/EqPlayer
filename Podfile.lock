@@ -47,6 +47,7 @@ PODS:
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
   - GTMSessionFetcher/Core (1.1.15)
   - IQKeyboardManager (6.0.1)
+  - Lerp (2.0.0)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - IQKeyboardManager
+  - Lerp
   - RealmSwift
   - SDWebImage (~> 4.0)
   - SwiftLint
@@ -91,6 +93,7 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GTMSessionFetcher
     - IQKeyboardManager
+    - Lerp
     - leveldb-library
     - nanopb
     - Realm
@@ -112,6 +115,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   IQKeyboardManager: 118602feb2d0b8852cc7387c21db988f2ebdec6d
+  Lerp: fe0fd19edf08a7dab2283a3f250f2c840b6a97aa
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
@@ -121,6 +125,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: 8ae09401e1137566b187980d824310129233c959
   UIImageColors: 3ae0150e539342697808281a3975fe5dec2024ce
 
-PODFILE CHECKSUM: 1e0d2598157ddfeab66e3767dd63b54c3298e3b4
+PODFILE CHECKSUM: 4d5ddd71c84a9b48cbf76057a9e670a15740af4c
 
 COCOAPODS: 1.5.0

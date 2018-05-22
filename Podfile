@@ -6,6 +6,7 @@ target 'EqPlayer' do
   use_frameworks!
 
   # Pods for EqPlayer
+  pod 'Lerp'
   pod 'UIImageColors'
   pod 'IQKeyboardManager'
   pod 'RealmSwift'
