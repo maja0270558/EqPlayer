@@ -20,6 +20,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="213.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="TUy-Fd-LTE">
+                        <rect key="frame" x="196" y="97" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="9qD-63-dJd"/>
+                            <constraint firstAttribute="width" constant="20" id="f42-l9-c0J"/>
+                        </constraints>
+                    </activityIndicatorView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w5v-qT-JBN" customClass="LineChartView" customModule="Charts">
                         <rect key="frame" x="61" y="48" width="259" height="125"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,18 +114,21 @@
                     <constraint firstItem="XH5-Zb-1ad" firstAttribute="centerY" secondItem="WVt-At-Cwg" secondAttribute="centerY" id="j4r-FB-ON2"/>
                     <constraint firstItem="2e1-Bf-kSC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="jba-Z7-atd"/>
                     <constraint firstItem="2Ya-SF-aTy" firstAttribute="height" secondItem="5dU-Y9-Rpb" secondAttribute="height" multiplier="0.8" id="jcE-GJ-Vnz"/>
+                    <constraint firstItem="TUy-Fd-LTE" firstAttribute="centerY" secondItem="5dU-Y9-Rpb" secondAttribute="centerY" id="kLi-m4-gwQ"/>
                     <constraint firstItem="w5v-qT-JBN" firstAttribute="top" secondItem="2e1-Bf-kSC" secondAttribute="bottom" constant="11" id="oM9-zk-K6s"/>
                     <constraint firstItem="WVt-At-Cwg" firstAttribute="leading" secondItem="2e1-Bf-kSC" secondAttribute="leading" id="pIR-EW-qu1"/>
                     <constraint firstAttribute="bottom" secondItem="Bcb-tp-aTf" secondAttribute="bottom" constant="1" id="prE-0k-74a"/>
                     <constraint firstItem="XH5-Zb-1ad" firstAttribute="leading" secondItem="WVt-At-Cwg" secondAttribute="trailing" constant="8" id="qje-hl-rGe"/>
                     <constraint firstItem="5dU-Y9-Rpb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vYk-Mo-Xb1"/>
                     <constraint firstItem="tb1-ud-mee" firstAttribute="height" secondItem="2Ya-SF-aTy" secondAttribute="height" multiplier="0.8" id="xH7-HT-Mle"/>
+                    <constraint firstItem="TUy-Fd-LTE" firstAttribute="leading" secondItem="5dU-Y9-Rpb" secondAttribute="trailing" constant="90" id="zJw-ET-Xc0"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cellEQChartView" destination="w5v-qT-JBN" id="EPr-0i-7ma"/>
+                <outlet property="cellIndicator" destination="TUy-Fd-LTE" id="BCx-10-OIT"/>
                 <outlet property="playlistCover" destination="5dU-Y9-Rpb" id="QJ5-ta-bb0"/>
                 <outlet property="projectTitleLabel" destination="2e1-Bf-kSC" id="Q2F-Lk-EjS"/>
                 <outlet property="trackCountLabel" destination="XH5-Zb-1ad" id="AKb-Yc-XfP"/>

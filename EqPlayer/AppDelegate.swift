@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let spotifyManager = EQSpotifyManager.shard
     var window: UIWindow?
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectAccidentallyClose)
+    }
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true

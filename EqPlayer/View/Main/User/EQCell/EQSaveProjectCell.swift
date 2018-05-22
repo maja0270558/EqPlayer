@@ -15,6 +15,8 @@ class EQSaveProjectCell: UITableViewCell {
   @IBOutlet weak var cellEQChartView: LineChartView!
   @IBOutlet weak var projectTitleLabel: UILabel!
   @IBOutlet weak var trackCountLabel: UILabel!
+  @IBOutlet weak var cellIndicator: UIActivityIndicatorView!
+
   var discImageLarge: UIImageView! {
     return viewWithTag(1) as? UIImageView
   }

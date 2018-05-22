@@ -11,8 +11,11 @@ import Foundation
 class EQUserTableViewController: EQTableViewController {
   var icon: UIImage?
   var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
-  var barData = ["Posted", "Saved", "Liked"]
-  var eqDatas = [EQProjectModel]()
+  var barData = ["Saved", "Post", "Panding"]
+  var eqData = [EQProjectModel]()
+  var unsaveEQData = [EQProjectModel]()
+  var postedEQData = [EQProjectModel]()
+  var currentToolItemIndex: Int = 1
   @IBOutlet var userTableView: UITableView!
   
   override func viewDidLoad() {
@@ -30,15 +33,31 @@ class EQUserTableViewController: EQTableViewController {
   }
   func loadEQDatas() {
     let data: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.saved.rawValue)
-    eqDatas = data
+    let tempData: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.temp.rawValue)
+    unsaveEQData = tempData
+    eqData = data
   }
   func subscribeNotification() {
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectSave)
   }
   @objc func didSaveEQProject(){
+    reloadUserPageData()
+  }
+  func reloadUserPageData() {
     loadEQDatas()
-    sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = eqDatas
-    userTableView.reloadData()
+    switch currentToolItemIndex {
+    case 1:
+      sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = eqData
+    case 2:
+      sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = postedEQData
+    case 3:
+      sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = unsaveEQData
+    default:
+      break
+    }
+    let newCount = sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas.count
+    let oldCount = userTableView.numberOfRows(inSection: 1)
+    userTableView.reloadRowsInSection(section: 1, oldCount: oldCount, newCount: newCount)
   }
 }
 
@@ -52,9 +71,12 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
   }
   
   func eqToolBar(didSelectAt: Int) {
-    print("Selet at \(didSelectAt)")
+    currentToolItemIndex = didSelectAt+1
+    reloadUserPageData()
   }
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     userTableView.fadeTopCell()
   }
 }
+
+

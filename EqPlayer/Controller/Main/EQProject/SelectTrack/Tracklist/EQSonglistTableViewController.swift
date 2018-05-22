@@ -73,7 +73,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
             eqTrack.previewURL = previewURL.absoluteString
         }
 
-        if let imageURL = sptTrack.album.smallestCover {
+        if let imageURL = sptTrack.album.largestCover {
             eqTrack.coverURL = imageURL.imageURL.absoluteString
         }
 
@@ -118,7 +118,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
             }
 
             EQNotifycationCenterManager.post(name: Notification.Name.eqProjectTrackModifyNotification)
-            self.tableView.reloadData()
+          self.tableView.reloadDataUpdateFade()
         }
 
         if added {

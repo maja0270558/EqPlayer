@@ -34,6 +34,45 @@ extension UITableView {
     }
 }
 
+extension UITableView{
+  func reloadDataUpdateFade(){
+    self.reloadData()
+    self.fadeTopCell()
+  }
+  
+  func reloadRowsInSection(section: Int, oldCount:Int, newCount: Int){
+    
+    let maxCount = max(oldCount, newCount)
+    let minCount = min(oldCount, newCount)
+    
+    var changed = [IndexPath]()
+    
+    for index in minCount..<maxCount {
+      let indexPath = IndexPath(row: index, section: section)
+      changed.append(indexPath)
+    }
+    
+    var reload = [IndexPath]()
+    for index in 0..<minCount{
+      let indexPath = IndexPath(row: index, section: section)
+      reload.append(indexPath)
+    }
+    UIView.performWithoutAnimation {
+      beginUpdates()
+      if(newCount > oldCount){
+        insertRows(at: changed, with: .fade)
+      }else if(oldCount > newCount){
+        deleteRows(at: changed, with: .fade)
+      }
+      if(newCount > oldCount || newCount == oldCount){
+        reloadRows(at: reload, with: .fade)
+      }
+      endUpdates()
+    }
+    self.fadeTopCell()
+  }
+}
+
 extension UITableViewCell {
     var otherTypeName: String {
         let thisType = type(of: self)

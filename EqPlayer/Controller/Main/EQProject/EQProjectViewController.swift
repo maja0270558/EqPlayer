@@ -33,9 +33,18 @@ class EQProjectViewController: EQTableViewController {
         editBandView.projectNameLabel.text = projectName + " (unsave)"
         editTableView.reloadData()
     }
+    @objc func projectAccidentallyClose() {
+      if eqSettingManager.tempModel.tracks.count > 0 {
+        eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
+        eqSettingManager.tempModel.name = projectName
+        eqSettingManager.saveObjectTo(status: .temp)
+        EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
+      }
+    }
 
     func subscribeNotification() {
         EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectDidModify), notification: Notification.Name.eqProjectTrackModifyNotification)
+        EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectAccidentallyClose), notification: Notification.Name.eqProjectAccidentallyClose)
     }
 
     func setupEditBandView() {

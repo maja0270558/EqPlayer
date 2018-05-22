@@ -23,14 +23,9 @@ class EQSettingModelManager {
   
   func saveObjectTo(status: EQProjectModel.EQProjectStatus) {
     let modelCopy = EQProjectModel(value: tempModel)
-    if modelCopy.status == .new {
-      modelCopy.status = status
-      tempModel.status = status
-      EQRealmManager.shard.save(object: modelCopy)
-    } else {
-      modelCopy.status = status
-      tempModel.status = status
-      if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: modelCopy.uuid) {
+    modelCopy.status = status
+
+    if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: modelCopy.uuid) {
         let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: modelCopy.uuid)
         let object = result.first!
         EQRealmManager.shard.updateObject {
@@ -41,7 +36,8 @@ class EQSettingModelManager {
           object.eqSetting.removeAll()
           object.eqSetting.append(objectsIn: modelCopy.eqSetting)
         }
-      }
+    } else {
+      EQRealmManager.shard.save(object: modelCopy)
     }
   }
 }

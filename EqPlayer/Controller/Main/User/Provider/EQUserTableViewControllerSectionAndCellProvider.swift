@@ -37,7 +37,7 @@ extension EQUserTableViewController {
         toolBar.datasource = self
       }
     }
-    section.cellDatas = eqDatas
+    section.cellDatas = eqData
     section.cellHeight = UITableViewAutomaticDimension
     userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
     section.cellIdentifier = EQSaveProjectCell.typeName
@@ -46,7 +46,9 @@ extension EQUserTableViewController {
       guard let saveCell = cell as? EQSaveProjectCell,let eqModel = data as? EQProjectModel else {
         return
       }
+      saveCell.cellEQChartView.alpha = 0
       saveCell.projectTitleLabel.text = eqModel.name
+      saveCell.cellIndicator.startAnimating()
       saveCell.trackCountLabel.text = String(eqModel.tracks.count)
       let imageURLs = eqModel.tracks.map {
         $0.coverURL!
@@ -57,12 +59,12 @@ extension EQUserTableViewController {
           var lightColor = self.getLightest(colors: colorArray)
           saveCell.cellEQChartView.setChart(15, color: lightColor, style: .cell)
           saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
+          saveCell.cellIndicator.stopAnimating()
+          UIView.animate(withDuration: 0.3, animations: {
+            saveCell.cellEQChartView.alpha = 1
+          })
         })
       }
-//      saveCell.playlistCover.sd_setImage(with:  URL(string: (eqModel.tracks.first?.coverURL!)!), completed: { (image, error, type, url) in
-//
-//      })
-      
     }
     return section
   }

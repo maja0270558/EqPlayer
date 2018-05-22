@@ -30,7 +30,7 @@ class EQPlaylistTableViewController: UITableViewController {
         SPTPlaylistList.playlists(forUser: EQSpotifyManager.shard.auth?.session.canonicalUsername, withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
             if let listPage = response as? SPTPlaylistList, let playlists = listPage.items as? [SPTPartialPlaylist] {
                 self.playlists = playlists // or however you want to parse these
-                self.tableView.reloadData()
+              self.tableView.reloadDataUpdateFade()
                 if listPage.hasNextPage {
                     self.getNextPlaylistPage(currentPage: listPage)
                 }
@@ -42,7 +42,7 @@ class EQPlaylistTableViewController: UITableViewController {
         currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
             if let page = response as? SPTListPage, let playlists = page.items as? [SPTPartialPlaylist] {
                 self.playlists.append(contentsOf: playlists)
-                self.tableView.reloadData()
+                self.tableView.reloadDataUpdateFade()
                 if page.hasNextPage {
                     self.getNextPlaylistPage(currentPage: page)
                 }
