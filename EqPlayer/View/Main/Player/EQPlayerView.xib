@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,22 +33,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="teL-bX-D1v">
                     <rect key="frame" x="0.0" y="55" width="375" height="612"/>
                     <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QAf-K9-dHh">
-                            <rect key="frame" x="0.0" y="321" width="375" height="298"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QAf-K9-dHh">
+                            <rect key="frame" x="8" y="304" width="359" height="300"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Adventure Time Jack Song" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PoL-Rq-hI1">
                                     <rect key="frame" x="65" y="54" width="245" height="24"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jack" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bM8-PP-dRo">
-                                    <rect key="frame" x="65" y="86" width="245" height="28"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
-                                    <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-bk-MhQ">
@@ -60,19 +53,21 @@
                                     <state key="normal" backgroundImage="pre"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fou-zS-Txx">
-                                    <rect key="frame" x="280" y="175" width="32" height="32"/>
+                                    <rect key="frame" x="247" y="175" width="32" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" backgroundImage="next"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j84-7d-hDm">
-                                    <rect key="frame" x="161" y="167" width="52" height="48"/>
+                                    <rect key="frame" x="153" y="167" width="52" height="48"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" backgroundImage="play"/>
                                 </button>
-                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000149011612" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="B21-oj-zV5" customClass="EQCustomSlider" customModule="EqPlayer" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="0.0" width="319" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000149011612" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="B21-oj-zV5" customClass="EQCustomSlider" customModule="EqPlayer" customModuleProvider="target">
+                                    <rect key="frame" x="28" y="0.0" width="303" height="30"/>
                                     <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="29" id="glM-fi-LN1"/>
+                                    </constraints>
                                     <color key="thumbTintColor" red="0.95686274770000002" green="0.57377792601320154" blue="0.28626645527653383" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="circle"/>
@@ -81,11 +76,29 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </slider>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jack" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bM8-PP-dRo">
+                                    <rect key="frame" x="57" y="86" width="245" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                    <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="B21-oj-zV5" firstAttribute="leading" secondItem="QAf-K9-dHh" secondAttribute="leading" constant="30" id="WFs-q4-WDA"/>
+                                <constraint firstAttribute="trailing" secondItem="B21-oj-zV5" secondAttribute="trailing" constant="30" id="bw5-NT-cG6"/>
+                                <constraint firstAttribute="height" constant="300" id="cyR-h9-7ib"/>
+                                <constraint firstItem="B21-oj-zV5" firstAttribute="top" secondItem="QAf-K9-dHh" secondAttribute="top" id="y4E-y7-VLp"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailingMargin" secondItem="QAf-K9-dHh" secondAttribute="trailing" id="DoI-cT-rNO"/>
+                        <constraint firstItem="QAf-K9-dHh" firstAttribute="leading" secondItem="teL-bX-D1v" secondAttribute="leadingMargin" id="HI3-kh-opU"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="QAf-K9-dHh" secondAttribute="bottom" id="fOs-Bx-LeP"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AI-x5-p0g">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -139,7 +152,7 @@
                         <constraint firstItem="bbv-UT-7Sw" firstAttribute="leading" secondItem="8AI-x5-p0g" secondAttribute="leading" constant="10" id="woC-id-zcs"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad" translatesAutoresizingMaskIntoConstraints="NO" id="kqZ-pQ-f5p">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad" translatesAutoresizingMaskIntoConstraints="NO" id="kqZ-pQ-f5p">
                     <rect key="frame" x="75" y="87.5" width="225" height="225"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="225" id="I1J-bH-Bak"/>

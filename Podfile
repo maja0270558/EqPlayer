@@ -6,6 +6,8 @@ target 'EqPlayer' do
   use_frameworks!
 
   # Pods for EqPlayer
+  pod 'GPUImage'
+  pod 'GPUImage2', :podspec => './GPUImage2.podspec' 
   pod 'Lerp'
   pod 'UIImageColors'
   pod 'IQKeyboardManager'

@@ -661,6 +661,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
+				"${BUILT_PRODUCTS_DIR}/GPUImage2/GPUImage2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
@@ -676,6 +678,8 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GPUImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GPUImage2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
@@ -905,10 +909,7 @@
 					"$(PROJECT_DIR)/EqPlayer/Support",
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -932,10 +933,7 @@
 					"$(PROJECT_DIR)/EqPlayer/Support",
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
