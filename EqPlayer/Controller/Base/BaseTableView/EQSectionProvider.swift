@@ -17,6 +17,6 @@ class EQSectionProvider: EQTableViewSession {
     var cellIdentifier: String?
     var cell: UITableViewCell?
     var cellHeight: CGFloat = 0
-    var cellOperator: (Any, UITableViewCell) -> Void = { _, _ in return }
+    var cellOperator: (Any, UITableViewCell, IndexPath) -> Void = { _, _, _ in return }
     var cellDatas: [Any] = []
 }

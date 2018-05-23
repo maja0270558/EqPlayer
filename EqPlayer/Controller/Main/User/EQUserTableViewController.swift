@@ -16,6 +16,9 @@ class EQUserTableViewController: EQTableViewController {
   var unsaveEQData = [EQProjectModel]()
   var postedEQData = [EQProjectModel]()
   var currentToolItemIndex: Int = 1
+  var operationDictionary: [IndexPath: BlockOperation] =  [IndexPath: BlockOperation]()
+  let queue = OperationQueue()
+
   @IBOutlet var userTableView: UITableView!
   
   override func viewDidLoad() {
@@ -78,7 +81,24 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
     userTableView.fadeTopCell()
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  
+    switch currentToolItemIndex {
+    case 1:
+      //pop player
+      break
+    case 2:
+      //nothing
+      break
+    case 3:
+      //pop setter
+      if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+        eqProjectViewController.modalPresentationStyle = .overCurrentContext
+        eqProjectViewController.modalTransitionStyle = .crossDissolve
+        eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: unsaveEQData[indexPath.row])
+        self.parent?.present(eqProjectViewController, animated: true, completion: nil)
+      }
+    default:
+      break
+    }
   }
 }
 

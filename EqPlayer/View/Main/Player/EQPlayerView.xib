@@ -71,9 +71,6 @@
                                     <color key="thumbTintColor" red="0.95686274770000002" green="0.57377792601320154" blue="0.28626645527653383" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="circle"/>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="thumbSize">
-                                            <real key="value" value="10"/>
-                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </slider>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sv-nr-Dsh">

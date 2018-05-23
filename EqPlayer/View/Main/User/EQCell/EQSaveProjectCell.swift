@@ -21,8 +21,6 @@ class EQSaveProjectCell: UITableViewCell {
   var discImageLarge: UIImageView! {
     return viewWithTag(1) as? UIImageView
   }
-  let dispatchGroup = DispatchGroup()
-
   @IBAction func moreOptionButton(_ sender: UIButton) {
     
   }
@@ -34,11 +32,14 @@ class EQSaveProjectCell: UITableViewCell {
   func setDiscsImage(imageURLs: [String], completion: @escaping () -> Void = { return } ) {
     var clampedURLsCount = (imageURLs.count >= 3) ? 3 : imageURLs.count
     resetDiscImage()
-    for index in stride(from: 1, through: clampedURLsCount, by: 1) {
-      setDiscImage(index: index, url: imageURLs[index-1])
+    if let disc = viewWithTag(1) as? UIImageView {
+      disc.sd_setImage(with: URL(string: imageURLs[0])) { (_, _, _, _) in
+        disc.isHidden = false
+        completion()
+      }
     }
-    dispatchGroup.notify(queue: .main) {
-      completion()
+    for index in stride(from: 2, through: clampedURLsCount, by: 1) {
+      setDiscImage(index: index, url: imageURLs[index-1])
     }
   }
   
@@ -53,10 +54,8 @@ class EQSaveProjectCell: UITableViewCell {
   
   private func setDiscImage(index: Int, url: String){
     if let disc = viewWithTag(index) as? UIImageView, let imageURL = URL(string: url) {
-      dispatchGroup.enter()
       disc.sd_setImage(with: imageURL) { (_, _, _, _) in
         disc.isHidden = false
-        self.dispatchGroup.leave()
       }
     }
   }

@@ -17,7 +17,7 @@ protocol EQTableViewSession: class {
     var cellIdentifier: String? { get }
     var cell: UITableViewCell? { get }
     var cellHeight: CGFloat { get }
-    var cellOperator: (Any, UITableViewCell) -> Void { get }
+    var cellOperator: (Any, UITableViewCell, IndexPath) -> Void { get }
     var cellDatas: [Any] { get set }
 }
 
@@ -46,16 +46,16 @@ class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITa
             guard let cell = keeper.cell else {
                 let cell = UITableViewCell()
                 cell.backgroundColor = UIColor.clear
-                keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
+                keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
                 return cell
             }
 
-            keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
+            keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
             return cell
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        keeper.cellOperator(keeper.cellDatas[indexPath.row], cell)
+        keeper.cellOperator(keeper.cellDatas[indexPath.row], cell,indexPath)
         cell.selectionStyle = .none
         return cell
     }

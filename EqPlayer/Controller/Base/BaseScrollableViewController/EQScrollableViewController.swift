@@ -63,6 +63,7 @@ class EQScrollableViewController: EQPannableViewController, EQScrollableViewCont
         var index: CGFloat = 0
         var previousController: UIViewController?
         for controller in data.mainController {
+          self.addChildViewController(controller)
             let containerView = UIView()
             containerView.translatesAutoresizingMaskIntoConstraints = false
             mainScrollView.addSubview(containerView)

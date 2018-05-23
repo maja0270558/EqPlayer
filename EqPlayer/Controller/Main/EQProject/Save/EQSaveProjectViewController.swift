@@ -19,8 +19,9 @@ class EQSaveProjectViewController: UIViewController {
     var originalProjectName: String = ""
 
     @IBAction func saveAction(_: EQCustomButton) {
-        delegate?.didClickSaveButton(projectName: projectNameTextField.text!)
-        dismiss(animated: true, completion: nil)
+      dismiss(animated: true) {
+        self.delegate?.didClickSaveButton(projectName: self.projectNameTextField.text!)
+      }
     }
 
     @IBAction func cancelAction(_: UIButton) {

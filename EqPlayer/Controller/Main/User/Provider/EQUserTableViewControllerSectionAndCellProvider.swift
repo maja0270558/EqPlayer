@@ -7,20 +7,20 @@
 //
 
 import Foundation
-import UIImageColors
 enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
   case userInfoCell
   case toolBar
 }
 
 extension EQUserTableViewController {
+  
   func createUserInfoHead() -> EQSectionProvider {
     let section = EQSectionProvider()
     userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
     section.cellIdentifier = EQUserInfoTableViewCell.typeName
     section.cellDatas = ["Django Free"]
     section.cellHeight = UITableViewAutomaticDimension
-    section.cellOperator = { _, _ in
+    section.cellOperator = { _, _, _ in
     }
     return section
   }
@@ -42,7 +42,7 @@ extension EQUserTableViewController {
     userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
     section.cellIdentifier = EQSaveProjectCell.typeName
     section.cellOperator = {
-      data, cell in
+      data, cell, indexPath in
       guard let saveCell = cell as? EQSaveProjectCell,let eqModel = data as? EQProjectModel else {
         return
       }
@@ -54,37 +54,27 @@ extension EQUserTableViewController {
       let imageURLs = eqModel.tracks.map {
         $0.coverURL!
       }
+      saveCell.cellEQChartView.alpha = 0
+      saveCell.cellEQChartView.isUserInteractionEnabled = false
       saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
-        saveCell.discImageLarge.image?.getColors(quality: UIImageColorsQuality.low, { (color) in
-          let colorArray = [color.background, color.detail]
-          var lightColor = self.getLightest(colors: colorArray)
-          saveCell.cellEQChartView.setChart(15, color: lightColor, style: .cell)
-          saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
-          saveCell.cellIndicator.stopAnimating()
-          UIView.animate(withDuration: 0.3, animations: {
-            saveCell.cellEQChartView.alpha = 1
-          })
+        let color = self.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
+        saveCell.cellEQChartView.setChart(15, color: color, style: .cell)
+        saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
+        saveCell.cellIndicator.stopAnimating()
+        UIView.animate(withDuration: 0.3, animations: {
+          saveCell.cellEQChartView.alpha = 1
         })
       }
-      saveCell.cellEQChartView.alpha = 0
-
     }
     return section
   }
   
-  func getLightest(colors: [UIColor?]) -> UIColor
-  {
-    var brightnessArray = [CGFloat]()
-    colors.forEach {
-      guard let components = $0?.cgColor.components else {
-        brightnessArray.append(0)
-        return
-      }
-      let brightness = ((components[0] * 299) + (components[1] * 587) + (components[2] * 114)) / 1000
-      brightnessArray.append(brightness)
+  func getProperColor(color: UIColor) -> UIColor {
+  
+    if color.isLightColor() {
+      return color
     }
-    var brightestIndex = brightnessArray.index(of: brightnessArray.max()!)
-    return colors[brightestIndex!]!
+    return color.lighter(by: 60)!
   }
   
   func generateSectionAndCell() {
