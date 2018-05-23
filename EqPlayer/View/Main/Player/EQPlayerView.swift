@@ -8,8 +8,6 @@
 
 import UIKit
 import Lerp
-import GPUImage
-import CoreImage
 
 public protocol EQPlayerViewDelegate: class {
   func didClapPlayer()
@@ -55,75 +53,13 @@ class EQPlayerView: EQPlayerPannableView {
     setupCover()
   }
   
-  func photoshopBlur(image: UIImage) -> UIImage {
-   
-//    let exposureFilter = ExposureAdjustment()
-//    let blurFilter = GaussianBlur()
-//    blurFilter.blurRadiusInPixels = 15
-//    exposureFilter.exposure = 2
-//
-//
-//    let filteredImage = image.filterWithPipeline { (input, output) in
-//      input --> exposureFilter --> blurFilter --> output
-//    }
-//    return filteredImage
-    
-    /*
-     UIImage sourceImage = ...
-     GPUImagePicture *imageSource = [[GPUImagePicture alloc] initWithImage:sourceImage];
-     GPUImageTransformFilter *transformFilter = [GPUImageTransformFilter new];
-     GPUImageFastBlurFilter *blurFilter = [GPUImageFastBlurFilter new];
-     
-     //Force processing at scale factor 1.4 and affine scale with scale factor 1 / 1.4 = 0.7
-     [transformFilter forceProcessingAtSize:CGSizeMake(SOURCE_WIDTH * 1.4, SOURCE_WIDTH * 1.4)];
-     [transformFilter setAffineTransform:CGAffineTransformMakeScale(0.7, 0.7)];
-     
-     //Setup desired blur filter
-     [blurFilter setBlurSize:3.0f];
-     [blurFilter setBlurPasses:20];
-     
-     //Chain Image->Transform->Blur->Output
-     [imageSource addTarget:transformFilter];
-     [transformFilter addTarget:blurFilter];
-     [imageSource processImage];
-     
-     UIImage *blurredImage = [blurFilter imageFromCurrentlyProcessedOutputWithOrientation:UIImageOrientationUp];
-     */
-    let imageSource = GPUImagePicture(cgImage: image.cgImage!)!
-    
-    let filter = GPUImageTransformFilter()
-    
-    filter.forceProcessing(at: CGSize(width:200 * 1.4, height: 200 * 1.4))
-    
-    filter.affineTransform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-    
-    let blurFilter = GPUImageGaussianBlurFilter()
-    
-    blurFilter.blurRadiusInPixels = 3
-    
-    blurFilter.blurPasses = 3
-    
-    imageSource.addTarget(filter)
-    
-    filter.addTarget(blurFilter)
-    
-    blurFilter.useNextFrameForImageCapture()
-    
-    imageSource.processImage()
-    
-    let result = blurFilter.imageFromCurrentFramebuffer(with: .up)
-    
-    return result!
-  }
-  
+ 
   func setupCover(){
     self.coverWidthConstraint.constant = self.minCoverWidth
     self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
     self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
     self.largePlayerCoverImage.image =  blur(image: self.largePlayerCoverImage.image!)
   
-    
-    
     let maskLayer = CAGradientLayer()
     maskLayer.frame = largePlayerCoverImage.bounds
     maskLayer.shadowRadius = 20
@@ -148,22 +84,22 @@ class EQPlayerView: EQPlayerPannableView {
     currentSize = self.frame.size.height
     currentOrigin = self.frame.origin
   }
+  
   override func onBegan() {
     resetCurrentRect()
   }
+  
   override func onChanged(translation: CGFloat) {
     var newOrigin = currentOrigin
     var newSize = currentSize
     newOrigin.y += translation
     var factorScale = max(0, newOrigin.y/(UIScreen.main.bounds.height * 0.9))
-    
     coverWidthConstraint.constant = lerp(factorScale, min: maxCoverWidth , max: minCoverWidth )
     coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxVerticleMultiplier, max: minVerticleMultiplier))
     coverHorizontalConstraint = coverHorizontalConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxHorizontalMultiplier, max: minHorizontalMultiplier))
     miniPlayerBar.alpha = factorScale * 3
     largePlayerView.layer.cornerRadius = 1 - 10 * factorScale * 3
     playerControllView.alpha = 1 - factorScale
-    
     newSize -= translation
     self.frame.origin = newOrigin
   }
@@ -216,25 +152,11 @@ class EQPlayerView: EQPlayerPannableView {
     blurfilter!.setValue(70, forKey:kCIInputRadiusKey);
     let resultBlurImage = blurfilter!.value(forKey: "outputImage") as? CIImage
     let context = CIContext(options: nil)
-//    let blurredImage = UIImage(cgImage: context.createCGImage(resultBlurImage!, from: (imageToBlur?.extent)!)!)
     let exposureFilter = CIFilter(name: "CIExposureAdjust")
     exposureFilter?.setValue(resultBlurImage, forKey: kCIInputImageKey)
     exposureFilter?.setValue(10, forKey: kCIInputEVKey)
     let resultBlurAndExposureImage = blurfilter!.value(forKey: "outputImage") as? CIImage
     let blurredAndExposuredImage = UIImage(cgImage: context.createCGImage(resultBlurAndExposureImage!, from: (imageToBlur?.extent)!)!)
-
-
-    
-//
-//    let radius: CGFloat = 200
-//    let context = CIContext(options: nil)
-//
-//    let inputImage = CIImage(cgImage: image.cgImage!)
-//    let filter = CIFilter(name: "CIGaussianBlur")
-//      filter?.setValue(inputImage, forKey: kCIInputImageKey)
-//      filter?.setValue(radius, forKey:kCIInputRadiusKey)
-//    let result = filter?.value(forKey: kCIOutputImageKey) as? CIImage
-
     return blurredAndExposuredImage
   }
 }
