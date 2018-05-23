@@ -16,7 +16,8 @@ class EQSaveProjectCell: UITableViewCell {
   @IBOutlet weak var projectTitleLabel: UILabel!
   @IBOutlet weak var trackCountLabel: UILabel!
   @IBOutlet weak var cellIndicator: UIActivityIndicatorView!
-
+  @IBOutlet weak var playbutton: UIButton!
+  
   var discImageLarge: UIImageView! {
     return viewWithTag(1) as? UIImageView
   }
@@ -26,8 +27,11 @@ class EQSaveProjectCell: UITableViewCell {
     
   }
   
+  @IBAction func playPlaylistAction(_ sender: UIButton) {
+    
+    
+  }
   func setDiscsImage(imageURLs: [String], completion: @escaping () -> Void = { return } ) {
-    //1  up
     var clampedURLsCount = (imageURLs.count >= 3) ? 3 : imageURLs.count
     resetDiscImage()
     for index in stride(from: 1, through: clampedURLsCount, by: 1) {
@@ -62,6 +66,9 @@ class EQSaveProjectCell: UITableViewCell {
         self.backgroundColor = UIColor.clear
         cellEQChartView.configStyle(.cell)
         cellEQChartView.setChart(15, color: UIColor.green, style: .cell)
-        // Initialization code
+        playbutton.layer.shadowOffset = CGSize(width: 1, height: 1)
+        playbutton.layer.shadowRadius = 5
+        playbutton.layer.shadowOpacity = 1
+        playbutton.layer.shadowColor = UIColor.black.cgColor
     }
 }

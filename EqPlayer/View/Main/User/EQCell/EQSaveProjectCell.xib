@@ -91,9 +91,21 @@
                             <constraint firstAttribute="height" constant="90" id="suE-Uu-00N"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDz-82-low">
+                        <rect key="frame" x="41" y="87" width="40" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="11R-BJ-okl"/>
+                            <constraint firstAttribute="width" constant="40" id="iFe-fs-N98"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="play"/>
+                        <connections>
+                            <action selector="playPlaylistAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ONV-hA-KIO"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="RDz-82-low" firstAttribute="centerX" secondItem="5dU-Y9-Rpb" secondAttribute="centerX" id="0Fc-J8-SBw"/>
                     <constraint firstItem="WVt-At-Cwg" firstAttribute="top" secondItem="w5v-qT-JBN" secondAttribute="bottom" constant="15" id="Eo7-g6-zfk"/>
                     <constraint firstAttribute="trailing" secondItem="Bcb-tp-aTf" secondAttribute="trailing" constant="32" id="JVG-GK-fNW"/>
                     <constraint firstItem="2Ya-SF-aTy" firstAttribute="bottom" secondItem="5dU-Y9-Rpb" secondAttribute="bottom" id="Jev-Bo-eyG"/>
@@ -102,6 +114,7 @@
                     <constraint firstItem="tb1-ud-mee" firstAttribute="width" secondItem="2Ya-SF-aTy" secondAttribute="width" multiplier="0.8" id="VZU-xJ-Rls"/>
                     <constraint firstItem="Rwy-JA-rWK" firstAttribute="leading" secondItem="2e1-Bf-kSC" secondAttribute="trailing" constant="8" id="VlP-Ac-nLN"/>
                     <constraint firstItem="2Ya-SF-aTy" firstAttribute="width" secondItem="5dU-Y9-Rpb" secondAttribute="width" multiplier="0.8" id="aFn-hh-PjC"/>
+                    <constraint firstItem="5dU-Y9-Rpb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bVT-sm-9lv"/>
                     <constraint firstAttribute="trailing" secondItem="w5v-qT-JBN" secondAttribute="trailing" id="cWV-ts-UYt"/>
                     <constraint firstItem="tb1-ud-mee" firstAttribute="leading" secondItem="2Ya-SF-aTy" secondAttribute="trailing" constant="-30" id="cYu-wa-gpu"/>
                     <constraint firstItem="5dU-Y9-Rpb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cbz-jj-2fZ"/>
@@ -119,6 +132,7 @@
                     <constraint firstItem="WVt-At-Cwg" firstAttribute="leading" secondItem="2e1-Bf-kSC" secondAttribute="leading" id="pIR-EW-qu1"/>
                     <constraint firstAttribute="bottom" secondItem="Bcb-tp-aTf" secondAttribute="bottom" constant="1" id="prE-0k-74a"/>
                     <constraint firstItem="XH5-Zb-1ad" firstAttribute="leading" secondItem="WVt-At-Cwg" secondAttribute="trailing" constant="8" id="qje-hl-rGe"/>
+                    <constraint firstItem="RDz-82-low" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rLr-nc-TrZ"/>
                     <constraint firstItem="5dU-Y9-Rpb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vYk-Mo-Xb1"/>
                     <constraint firstItem="tb1-ud-mee" firstAttribute="height" secondItem="2Ya-SF-aTy" secondAttribute="height" multiplier="0.8" id="xH7-HT-Mle"/>
                     <constraint firstItem="TUy-Fd-LTE" firstAttribute="leading" secondItem="5dU-Y9-Rpb" secondAttribute="trailing" constant="90" id="zJw-ET-Xc0"/>
@@ -129,6 +143,7 @@
             <connections>
                 <outlet property="cellEQChartView" destination="w5v-qT-JBN" id="EPr-0i-7ma"/>
                 <outlet property="cellIndicator" destination="TUy-Fd-LTE" id="BCx-10-OIT"/>
+                <outlet property="playbutton" destination="RDz-82-low" id="cty-GT-FgS"/>
                 <outlet property="playlistCover" destination="5dU-Y9-Rpb" id="QJ5-ta-bb0"/>
                 <outlet property="projectTitleLabel" destination="2e1-Bf-kSC" id="Q2F-Lk-EjS"/>
                 <outlet property="trackCountLabel" destination="XH5-Zb-1ad" id="AKb-Yc-XfP"/>
@@ -139,6 +154,7 @@
     <resources>
         <image name="compact-disc" width="24" height="24"/>
         <image name="more-options" width="24" height="24"/>
+        <image name="play" width="64" height="64"/>
         <image name="vinyl" width="512" height="512"/>
     </resources>
 </document>

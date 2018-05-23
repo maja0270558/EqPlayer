@@ -46,10 +46,11 @@ extension EQUserTableViewController {
       guard let saveCell = cell as? EQSaveProjectCell,let eqModel = data as? EQProjectModel else {
         return
       }
-      saveCell.cellEQChartView.alpha = 0
+      let buttonImage = eqModel.status == EQProjectModel.EQProjectStatus.saved ? UIImage(named: "play") : UIImage(named: "wrench")
       saveCell.projectTitleLabel.text = eqModel.name
       saveCell.cellIndicator.startAnimating()
       saveCell.trackCountLabel.text = String(eqModel.tracks.count)
+      saveCell.playbutton.setBackgroundImage(buttonImage, for: .normal)
       let imageURLs = eqModel.tracks.map {
         $0.coverURL!
       }
@@ -65,6 +66,8 @@ extension EQUserTableViewController {
           })
         })
       }
+      saveCell.cellEQChartView.alpha = 0
+
     }
     return section
   }

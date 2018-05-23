@@ -38,7 +38,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
       topCellId: cells,
       mainController: controllers
     )
-    
     controllerInit()
   }
   

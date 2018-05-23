@@ -61,7 +61,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         // 10 -band [32, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
         // 15 -band [25,40, 63, 100, 250, 400, 640, 1000, 1600, 2500, 4000,6300,10000,16000]
 
-        var eqBypass = Array(repeating: 0, count: eqFreq.count) // [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var eqBypass = Array(repeating: 0, count: eqFreq.count)
         var noBands: UInt32 = UInt32(eqFreq.count)
 
         // 設定幾個band
@@ -85,7 +85,6 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
                 0,
                 AudioUnitParameterValue(eqFreq[Int(index)]),
                 0)
-//            print("\(kAUNBandEQParam_Frequency+UInt32(index))" + "-----^^^^^^")
         }
         // 設定bypass
         for index in stride(from: 0, to: noBands, by: 1) {

@@ -27,14 +27,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="691"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="teL-bX-D1v">
-                    <rect key="frame" x="0.0" y="55" width="375" height="612"/>
+                    <rect key="frame" x="0.0" y="55" width="375" height="636"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QAf-K9-dHh">
-                            <rect key="frame" x="8" y="298" width="359" height="306"/>
+                            <rect key="frame" x="8" y="310" width="359" height="318"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Adventure Time Jack SongAdventure Time Jack Song" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PoL-Rq-hI1">
                                     <rect key="frame" x="0.0" y="47.5" width="359" height="38.5"/>
@@ -43,7 +43,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="volumeOff" maximumValueImage="volumeOn" translatesAutoresizingMaskIntoConstraints="NO" id="lfK-bk-MhQ" customClass="EQCustomSlider" customModule="EqPlayer" customModuleProvider="target">
-                                    <rect key="frame" x="6" y="257" width="347" height="30"/>
+                                    <rect key="frame" x="6" y="269" width="347" height="30"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="29" id="Yuv-xJ-n5F"/>
@@ -55,11 +55,11 @@
                                     </userDefinedRuntimeAttributes>
                                 </slider>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUS-Xe-nmJ">
-                                    <rect key="frame" x="69.5" y="212" width="25" height="25"/>
+                                    <rect key="frame" x="69.5" y="224" width="25" height="25"/>
                                     <state key="normal" backgroundImage="pre"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fou-zS-Txx">
-                                    <rect key="frame" x="264.5" y="212" width="25" height="25"/>
+                                    <rect key="frame" x="264.5" y="224" width="25" height="25"/>
                                     <state key="normal" backgroundImage="next"/>
                                 </button>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000149011612" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="B21-oj-zV5" customClass="EQCustomSlider" customModule="EqPlayer" customModuleProvider="target">
@@ -89,7 +89,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j84-7d-hDm">
-                                    <rect key="frame" x="154.5" y="187" width="50" height="50"/>
+                                    <rect key="frame" x="154.5" y="199" width="50" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="50" id="OJ6-6R-Tur"/>
                                         <constraint firstAttribute="height" constant="50" id="dIg-3e-9bX"/>
@@ -109,7 +109,7 @@
                                 <constraint firstAttribute="trailing" secondItem="B21-oj-zV5" secondAttribute="trailing" constant="30" id="99b-Us-rRD"/>
                                 <constraint firstItem="9sv-nr-Dsh" firstAttribute="top" secondItem="B21-oj-zV5" secondAttribute="bottom" constant="-6" id="A7e-1x-9rF"/>
                                 <constraint firstItem="B21-oj-zV5" firstAttribute="top" secondItem="QAf-K9-dHh" secondAttribute="top" id="APA-rh-JQD"/>
-                                <constraint firstItem="lfK-bk-MhQ" firstAttribute="top" secondItem="j84-7d-hDm" secondAttribute="bottom" constant="20" id="Aab-P7-bH1"/>
+                                <constraint firstItem="lfK-bk-MhQ" firstAttribute="top" secondItem="j84-7d-hDm" secondAttribute="bottom" priority="750" constant="20" id="Aab-P7-bH1"/>
                                 <constraint firstItem="j84-7d-hDm" firstAttribute="leading" secondItem="JUS-Xe-nmJ" secondAttribute="trailing" constant="60" id="BXb-rE-Aho"/>
                                 <constraint firstItem="j84-7d-hDm" firstAttribute="centerX" secondItem="QAf-K9-dHh" secondAttribute="centerX" id="EAD-OR-De9"/>
                                 <constraint firstAttribute="trailing" secondItem="PoL-Rq-hI1" secondAttribute="trailing" id="Lg9-YC-81A"/>
@@ -129,7 +129,7 @@
                                 <constraint firstItem="Fou-zS-Txx" firstAttribute="height" secondItem="JUS-Xe-nmJ" secondAttribute="height" id="h8r-dU-OTD"/>
                                 <constraint firstItem="bM8-PP-dRo" firstAttribute="top" secondItem="PoL-Rq-hI1" secondAttribute="bottom" constant="10" id="nA1-x8-p6T"/>
                                 <constraint firstItem="PoL-Rq-hI1" firstAttribute="leading" secondItem="QAf-K9-dHh" secondAttribute="leading" id="nPQ-Fb-Twa"/>
-                                <constraint firstItem="j84-7d-hDm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bM8-PP-dRo" secondAttribute="bottom" constant="10" id="ouc-Vd-ymc"/>
+                                <constraint firstItem="j84-7d-hDm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="bM8-PP-dRo" secondAttribute="bottom" constant="5" id="ouc-Vd-ymc"/>
                                 <constraint firstItem="RKN-gD-U86" firstAttribute="top" secondItem="B21-oj-zV5" secondAttribute="bottom" constant="-6" id="pLG-YH-e1G"/>
                                 <constraint firstAttribute="bottom" secondItem="lfK-bk-MhQ" secondAttribute="bottom" priority="750" constant="20" id="qvt-ps-EhT"/>
                                 <constraint firstItem="Fou-zS-Txx" firstAttribute="width" secondItem="JUS-Xe-nmJ" secondAttribute="width" id="vdM-VK-VUO"/>
@@ -197,14 +197,14 @@
                     </constraints>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad" translatesAutoresizingMaskIntoConstraints="NO" id="kqZ-pQ-f5p">
-                    <rect key="frame" x="87.5" y="100" width="200" height="200"/>
+                    <rect key="frame" x="87.5" y="107.5" width="200" height="200"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="I1J-bH-Bak"/>
                         <constraint firstAttribute="width" secondItem="kqZ-pQ-f5p" secondAttribute="height" multiplier="1:1" id="iJa-Ez-xkm"/>
                     </constraints>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad" translatesAutoresizingMaskIntoConstraints="NO" id="tRC-9b-bDW">
-                    <rect key="frame" x="107.5" y="120" width="160.5" height="160"/>
+                    <rect key="frame" x="107.5" y="127.5" width="160.5" height="160"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -226,7 +226,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="66.5" y="53.5"/>
+            <point key="canvasLocation" x="66.5" y="65.5"/>
         </view>
     </objects>
     <resources>

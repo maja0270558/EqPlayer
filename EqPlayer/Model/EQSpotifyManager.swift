@@ -15,8 +15,23 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     var auth = SPTAuth.defaultInstance()
     var authViewController: SFSafariViewController?
     var loginURL: URL?
-
     var coreAudioController = EQSpotifyCoreAudioController()
+    private var trackList: [String] = [String]()
+  
+    func setGain(value: Float, atBand: UInt32) {
+        coreAudioController.setGain(value: value, forBandAt: atBand)
+    }
+    func setGain(withModel model: EQProjectModel) {
+      let bandValues = Array(model.eqSetting).map {
+        return Float($0)
+      }
+      for index in 0..<bandValues.count {
+        coreAudioController.setGain(value: bandValues[index], forBandAt: UInt32(index))
+      }
+    }
+    func queuePlaylist(playlistURI: [String]) {
+      trackList = playlistURI
+    }
 
     func setupAuth() {
         auth?.clientID = EQSpotifyClientInfo.clientID.rawValue
@@ -69,7 +84,9 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
         }
         return data
     }
-
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
+      //PlayNextSong
+    }
     func audioStreamingDidLogin(_: SPTAudioStreamingController!) {
         AppDelegate.shard?.switchToMainStoryBoard()
     }

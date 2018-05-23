@@ -34,7 +34,7 @@ class EQProjectViewController: EQTableViewController {
         editTableView.reloadData()
     }
     @objc func projectAccidentallyClose() {
-      if eqSettingManager.tempModel.tracks.count > 0 {
+      if eqSettingManager.tempModel.tracks.count > 0 && eqSettingManager.tempModel.status != EQProjectModel.EQProjectStatus.saved {
         eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
         eqSettingManager.tempModel.name = projectName
         eqSettingManager.saveObjectTo(status: .temp)

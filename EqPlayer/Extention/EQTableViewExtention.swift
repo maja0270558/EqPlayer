@@ -59,14 +59,14 @@ extension UITableView{
     }
     UIView.performWithoutAnimation {
       beginUpdates()
-      if(newCount > oldCount){
+      if (newCount > oldCount){
         insertRows(at: changed, with: .fade)
-      }else if(oldCount > newCount){
+      } else if(oldCount > newCount){
         deleteRows(at: changed, with: .fade)
       }
-      if(newCount > oldCount || newCount == oldCount){
+      
         reloadRows(at: reload, with: .fade)
-      }
+      
       endUpdates()
     }
     self.fadeTopCell()
