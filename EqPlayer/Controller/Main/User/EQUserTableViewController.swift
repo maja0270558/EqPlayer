@@ -7,8 +7,14 @@
 //
 
 import Foundation
+protocol EQUserTableViewControllerDelegate: class {
+  func didSelectTempEQCellRow(at: IndexPath, data: EQProjectModel)
+  func didSelectSavedEQCellRow(at: IndexPath, data: EQProjectModel)
+  func didSelectPostedEQCellRow(at: IndexPath, data: EQProjectModel)
+}
 
 class EQUserTableViewController: EQTableViewController {
+  weak var delegate: EQUserTableViewControllerDelegate?
   var icon: UIImage?
   var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
   var barData = ["Saved", "Post", "Panding"]
@@ -81,21 +87,22 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
     userTableView.fadeTopCell()
   }
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   tableView.deselectRow(at: indexPath, animated: true)
+    if indexPath.section != 1 {
+      return
+    }
     switch currentToolItemIndex {
     case 1:
       //pop player
+      delegate?.didSelectSavedEQCellRow(at: indexPath, data: EQProjectModel(value: eqData[indexPath.row]))
       break
     case 2:
       //nothing
+      delegate?.didSelectPostedEQCellRow(at: indexPath, data: EQProjectModel(value: postedEQData[indexPath.row]))
       break
     case 3:
       //pop setter
-      if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
-        eqProjectViewController.modalPresentationStyle = .overCurrentContext
-        eqProjectViewController.modalTransitionStyle = .crossDissolve
-        eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: unsaveEQData[indexPath.row])
-        self.parent?.present(eqProjectViewController, animated: true, completion: nil)
-      }
+     delegate?.didSelectTempEQCellRow(at: indexPath, data: EQProjectModel(value: unsaveEQData[indexPath.row]))
     default:
       break
     }

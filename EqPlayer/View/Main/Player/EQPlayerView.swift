@@ -8,7 +8,7 @@
 
 import UIKit
 import Lerp
-
+import MediaPlayer
 public protocol EQPlayerViewDelegate: class {
   func didClapPlayer()
   func didOpenPlayer()
@@ -24,9 +24,40 @@ class EQPlayerView: EQPlayerPannableView {
   let minVerticleMultiplier: CGFloat = 0.2
   let maxHorizontalMultiplier: CGFloat = 0.6
   let minHorizontalMultiplier: CGFloat = 0.1
-  
-  @IBOutlet weak var miniPlayerCoverImagePosition: UIView!
+  //main
+  @IBOutlet weak var coverImageView: UIImageView!
   @IBOutlet weak var largePlayerCoverImage: UIImageView!
+  @IBOutlet weak var trackNameLabel: UILabel!
+  @IBOutlet weak var artistNameLabel: UILabel!
+  @IBOutlet weak var maxDurationLabel: UILabel!
+  @IBOutlet weak var currentPositionLabel: UILabel!
+  //actions
+  @IBOutlet weak var playButton: UIButton!
+  @IBAction func playOrPauseAction(_ sender: UIButton) {
+    let isPlay = !sender.isSelected
+    
+    EQSpotifyManager.shard.player?.setIsPlaying(isPlay, callback: { (error) in
+      if error != nil {
+        return
+      }
+    })
+    sender.isSelected = isPlay
+  }
+  @IBOutlet weak var volumeSlider: EQCustomSlider!
+  
+  @IBOutlet weak var durationSlider: EQCustomSlider!
+  
+  @IBAction func skipTrackAction(_ sender: UIButton) {
+    EQSpotifyManager.shard.skip()
+  }
+  @IBAction func previousTrackAction(_ sender: UIButton) {
+    EQSpotifyManager.shard.previous()
+  }
+  @IBAction func durationSliderAction(_ sender: EQCustomSlider) {
+ 
+  }
+  
+  //effect
   @IBOutlet weak var playerControllView: UIView!
   @IBOutlet weak var coverWidthConstraint: NSLayoutConstraint!
   @IBOutlet weak var coverHorizontalConstraint: NSLayoutConstraint!
@@ -35,7 +66,7 @@ class EQPlayerView: EQPlayerPannableView {
   var minPlayerViewSize: CGFloat = 60
   var currentOrigin: CGPoint = CGPoint.zero
   var currentSize: CGFloat = 60
-  
+  var systemVolumeView: UISlider?
   @IBOutlet weak var miniPlayerBar: UIView!
   @IBOutlet weak var largePlayerView: UIView!
   
@@ -44,6 +75,7 @@ class EQPlayerView: EQPlayerPannableView {
     fromNib()
     setupLayer()
     setupCover()
+    setupVolumeView()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -51,8 +83,69 @@ class EQPlayerView: EQPlayerPannableView {
     fromNib()
     setupLayer()
     setupCover()
+   setupVolumeView()
   }
   
+  func  setupVolumeView() {
+    var mpVolumeView = MPVolumeView(frame:volumeSlider.frame)
+    mpVolumeView.showsRouteButton = false
+    self.playerControllView.addSubview(mpVolumeView)
+    for subview in mpVolumeView.subviews {
+      if NSStringFromClass(subview.classForCoder) != "MPVolumeSlider" {
+        subview.isHidden = true
+        subview.removeFromSuperview()
+      } else {
+        guard let volumeSlider = subview as? UISlider else {
+          return
+        }
+        systemVolumeView = volumeSlider
+      }
+    }
+    systemVolumeView?.maximumValueImage = #imageLiteral(resourceName: "volumeOn")
+    systemVolumeView?.minimumValueImage = #imageLiteral(resourceName: "volumeOff")
+    volumeSlider.isHidden = true
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+ 
+  }
+  
+  func openPlayer(){
+    UIView.animate(withDuration: animationDuration, animations: {
+      self.frame.origin = CGPoint(x: 0, y: 0 )
+      self.largePlayerView.layer.cornerRadius = 10
+      self.miniPlayerBar.alpha = 0
+      self.coverWidthConstraint.constant = self.maxCoverWidth
+      self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.maxVerticleMultiplier)
+      self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.maxHorizontalMultiplier)
+      self.playerControllView.alpha = 1
+      self.layoutIfNeeded()
+      self.delegate?.didOpenPlayer()
+    }, completion: { isCompleted in
+      if isCompleted {
+        self.resetCurrentRect()
+      }
+    })
+  }
+  
+  func folderPlayer(){
+    UIView.animate(withDuration: animationDuration, animations: {
+      self.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.height * 0.9)
+      self.largePlayerView.layer.cornerRadius = 0
+      self.miniPlayerBar.alpha = 1
+      
+      self.coverWidthConstraint.constant = self.minCoverWidth
+      self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
+      self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
+      self.layoutIfNeeded()
+      self.delegate?.didClapPlayer()
+    }, completion: { isCompleted in
+      if isCompleted {
+        self.resetCurrentRect()
+      }
+    })
+  }
  
   func setupCover(){
     self.coverWidthConstraint.constant = self.minCoverWidth
@@ -103,41 +196,15 @@ class EQPlayerView: EQPlayerPannableView {
     newSize -= translation
     self.frame.origin = newOrigin
   }
+  
   override func onEnded(isClap: Bool) {
     if isClap {
-      UIView.animate(withDuration: animationDuration, animations: {
-        self.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.height * 0.9)
-        self.largePlayerView.layer.cornerRadius = 0
-        self.miniPlayerBar.alpha = 1
-        
-        self.coverWidthConstraint.constant = self.minCoverWidth
-        self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
-        self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
-        self.layoutIfNeeded()
-        self.delegate?.didClapPlayer()
-      }, completion: { isCompleted in
-        if isCompleted {
-          self.resetCurrentRect()
-        }
-      })
+     folderPlayer()
     } else {
-      UIView.animate(withDuration: animationDuration, animations: {
-        self.frame.origin = CGPoint(x: 0, y: 0 )
-        self.largePlayerView.layer.cornerRadius = 10
-        self.miniPlayerBar.alpha = 0
-        self.coverWidthConstraint.constant = self.maxCoverWidth
-        self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.maxVerticleMultiplier)
-        self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.maxHorizontalMultiplier)
-        self.playerControllView.alpha = 1
-        self.layoutIfNeeded()
-        self.delegate?.didOpenPlayer()
-      }, completion: { isCompleted in
-        if isCompleted {
-          self.resetCurrentRect()
-        }
-      })
+     openPlayer()
     }
   }
+  
   func transformFromRect(from source: CGRect, toRect destination: CGRect) -> CGAffineTransform {
     return CGAffineTransform.identity
       .translatedBy(x: destination.midX - source.midX, y: destination.midY - source.midY)
@@ -145,7 +212,6 @@ class EQPlayerView: EQPlayerPannableView {
   }
   
   func blur(image image: UIImage) -> UIImage {
- 
     let imageToBlur = CIImage(image: image)
     let blurfilter = CIFilter(name: "CIGaussianBlur")
     blurfilter!.setValue(imageToBlur, forKey: "inputImage")

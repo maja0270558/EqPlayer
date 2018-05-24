@@ -16,5 +16,20 @@ class EQCustomSlider: UISlider {
       setThumbImage(image, for: .highlighted)
     }
   }
-
+//  override func layoutSubviews() {
+//    super.layoutSubviews()
+//    self.addTarget(nil, action: #selector(resize), for: .touchUpOutside)
+//    self.addTarget(nil, action: #selector(resize), for: .touchUpInside)
+//    self.addTarget(nil, action: #selector(scale), for: .touchDown)
+//  }
+//  @objc func scale() {
+//    UIView.animate(withDuration: 0.3) {
+//      self.subviews[2].transform = CGAffineTransform(scaleX: 3, y: 3)
+//    }
+//  }
+//  @objc func resize() {
+//    UIView.animate(withDuration: 0.3) {
+//      self.subviews[2].transform = CGAffineTransform.identity
+//    }
+//  }
 }

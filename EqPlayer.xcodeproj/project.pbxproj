@@ -51,6 +51,7 @@
 		EB5B0B4820A072550056E8D6 /* EQCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */; };
 		EB6F33A020AD3B9C00EA3E85 /* EQSaveProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F339F20AD3B9C00EA3E85 /* EQSaveProjectViewController.swift */; };
 		EB6F33A220AD411000EA3E85 /* EQCustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */; };
+		EB79C95D20B6AC520063565D /* +EQTimeIntervalExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */; };
 		EB7AD7C320B264B70046BDB2 /* EQLineChartViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */; };
 		EB7AD7C620B415580046BDB2 /* EQPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C520B415580046BDB2 /* EQPlayerViewController.swift */; };
 		EB7AD7C820B415920046BDB2 /* EQPlayerPannableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */; };
@@ -128,6 +129,7 @@
 		EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		EB6F339F20AD3B9C00EA3E85 /* EQSaveProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSaveProjectViewController.swift; sourceTree = "<group>"; };
 		EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomUITextField.swift; sourceTree = "<group>"; };
+		EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQTimeIntervalExtention.swift"; sourceTree = "<group>"; };
 		EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQLineChartViewExtention.swift; sourceTree = "<group>"; };
 		EB7AD7C520B415580046BDB2 /* EQPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerViewController.swift; sourceTree = "<group>"; };
 		EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerPannableView.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				EB24596D20B4859400387E3C /* EQConstraintExtention.swift */,
 				EBE65D7320A34115001A9E42 /* EQTableViewExtention.swift */,
 				EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */,
+				EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */,
 				EBD7955D20A2E4AE0057A969 /* UIViewExtention.swift */,
 				EBB0265020B465B80017CA98 /* EQImageExtention.swift */,
 			);
@@ -754,6 +757,7 @@
 				EB1D910E20A2DDB500384869 /* EQUserTableViewController.swift in Sources */,
 				EB17379E20A92F3900566F50 /* EQSonglistTableViewController.swift in Sources */,
 				EBB1C22220A5636B00D21788 /* EQScrollableViewController.swift in Sources */,
+				EB79C95D20B6AC520063565D /* +EQTimeIntervalExtention.swift in Sources */,
 				EB1737B420AABDE100566F50 /* EQSaveProjectPageAddTrackHeader.swift in Sources */,
 				EBE65D8720A483B2001A9E42 /* EQSelectTrackViewController.swift in Sources */,
 				EBE65D8020A3EFE3001A9E42 /* EQCircleImage.swift in Sources */,
@@ -909,7 +913,10 @@
 					"$(PROJECT_DIR)/EqPlayer/Support",
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -933,7 +940,10 @@
 					"$(PROJECT_DIR)/EqPlayer/Support",
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

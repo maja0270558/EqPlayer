@@ -56,7 +56,7 @@ class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITa
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         keeper.cellOperator(keeper.cellDatas[indexPath.row], cell,indexPath)
-        cell.selectionStyle = .none
+//        cell.selectionStyle = .none
         return cell
     }
 

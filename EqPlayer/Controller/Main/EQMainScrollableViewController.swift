@@ -7,13 +7,12 @@
 //
 
 import Foundation
-
+import MediaPlayer
 class EQMainScrollableViewController: EQScrollableViewController {
   var topItemSize = CGSize(width: 50, height: 50)
   let topIcon = [UIImage(named: "user")]
   var blurView: UIVisualEffectView!
   @IBOutlet weak var topScrollableViewBase: UIView!
-  
   @IBOutlet weak var playerView: EQPlayerView!
   
   @IBAction func addEQAction(_: Any) {
@@ -26,12 +25,15 @@ class EQMainScrollableViewController: EQScrollableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    EQSpotifyManager.shard.delegate = self
     registerCollectionCell()
     setupDelegate()
     setupTopScrollableMainView()
     addBlurEffect()
-    
-    let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController")
+    guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
+      return
+    }
+    userController.delegate = self
     controllers.append(userController)
     cells.append("EQIconCollectionViewCell")
     data = ScrollableControllerDataModel(
@@ -101,6 +103,28 @@ class EQMainScrollableViewController: EQScrollableViewController {
   }
 }
 
+extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
+  func didSelectTempEQCellRow(at: IndexPath, data: EQProjectModel) {
+    if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+      eqProjectViewController.modalPresentationStyle = .overCurrentContext
+      eqProjectViewController.modalTransitionStyle = .crossDissolve
+      eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
+      self.present(eqProjectViewController, animated: true, completion: nil)
+    }
+  }
+  
+  func didSelectSavedEQCellRow(at: IndexPath, data: EQProjectModel) {
+    let uris = Array(data.tracks.map{return $0.uri})
+    EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
+    EQSpotifyManager.shard.playTrack()
+//    self.playerView.openPlayer()
+  }
+  
+  func didSelectPostedEQCellRow(at: IndexPath, data: EQProjectModel) {
+    
+  }
+}
+
 extension EQMainScrollableViewController: EQPlayerViewDelegate {
   func didClapPlayer() {
     self.topScrollableViewBase.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -111,4 +135,24 @@ extension EQMainScrollableViewController: EQPlayerViewDelegate {
     self.topScrollableViewBase.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
     blurView.effect = UIBlurEffect(style: .dark)
   }
+}
+
+extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
+  func didChangePlaybackStatus(isPlaying: Bool) {
+    playerView.playButton.isSelected = isPlaying
+  }
+  
+  func didChangeTrack(track: SPTPlaybackTrack) {
+    playerView.durationSlider.maximumValue = Float(track.duration)
+    playerView.maxDurationLabel.text = "-"+track.duration.stringFromTimeInterval()
+    playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: [])
+    playerView.artistNameLabel.text = track.artistName
+    playerView.trackNameLabel.text = track.name
+  }
+  func didPositionChange(position: TimeInterval) {
+    playerView.durationSlider.value = Float(position)
+    playerView.currentPositionLabel.text = position.stringFromTimeInterval()
+  }
+  
+  
 }

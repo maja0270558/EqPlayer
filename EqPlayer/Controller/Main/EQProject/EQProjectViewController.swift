@@ -47,6 +47,9 @@ class EQProjectViewController: EQTableViewController {
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectDidModify), notification: Notification.Name.eqProjectTrackModifyNotification)
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectAccidentallyClose), notification: Notification.Name.eqProjectAccidentallyClose)
   }
+  func removeObseve() {
+    
+  }
   
   func setupEditBandView() {
     editBandView.delegate = self

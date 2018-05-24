@@ -9,6 +9,7 @@
 import Firebase
 import IQKeyboardManager
 import UIKit
+import MediaPlayer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,9 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     IQKeyboardManager.shared().isEnabled = true
     IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-    
     FirebaseApp.configure()
     spotifyManager.setupAuth()
+    self.window?.insertSubview(MPVolumeView(), at: 0)
+
     if let session = spotifyManager.auth?.session {
       if session.isValid() {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
