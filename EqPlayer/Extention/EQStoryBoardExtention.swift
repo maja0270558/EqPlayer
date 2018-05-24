@@ -91,6 +91,19 @@ extension UIColor {
   
 }
 
+extension UIImageView {
+  func addShadow(offset: CGSize = CGSize(width: 0, height: 0),
+                 radius: CGFloat = 10,
+                 opacity: Float = 1,
+                 color: CGColor = UIColor.black.cgColor){
+    self.layer.shadowOffset = offset
+    self.layer.shadowRadius = radius
+    self.layer.shadowOpacity = opacity
+    self.layer.shadowColor = color
+    self.layer.masksToBounds = false
+  }
+}
+
 extension UIImage {
  
   var averageColor: UIColor? {
@@ -128,7 +141,6 @@ extension UIImage {
     case expectedLengthRGBA:
       return UIColor(red: CGFloat(data[4*index])/255.0, green: CGFloat(data[4*index+1])/255.0, blue: CGFloat(data[4*index+2])/255.0, alpha: CGFloat(data[4*index+3])/255.0)
     default:
-      // unsupported format
       return UIColor.clear
     }
   }

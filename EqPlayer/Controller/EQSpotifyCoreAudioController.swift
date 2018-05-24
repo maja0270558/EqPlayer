@@ -52,6 +52,21 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         )
         AUGraphAddNode(graph, &desc, &eqNode)
         AUGraphNodeInfo(graph, eqNode, nil, &eqUnit)
+     
+      var maxFPS: UInt32 = 4096
+      //要在出初始化之前不然會報錯
+      //設定最大Ｆrame
+      let status2 = AudioUnitSetProperty(
+        eqUnit!,
+        kAudioUnitProperty_MaximumFramesPerSlice,
+        kAudioUnitScope_Global,
+        0,
+        &maxFPS,
+        UInt32(MemoryLayout.size(ofValue: maxFPS))
+      )
+      if status2 != noErr {
+        print(status2.description)
+      }
         AudioUnitInitialize(eqUnit!)
 
         // 幾個band

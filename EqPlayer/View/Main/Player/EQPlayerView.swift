@@ -24,51 +24,66 @@ class EQPlayerView: EQPlayerPannableView {
   let minVerticleMultiplier: CGFloat = 0.2
   let maxHorizontalMultiplier: CGFloat = 0.6
   let minHorizontalMultiplier: CGFloat = 0.1
-  //main
+  
   @IBOutlet weak var coverImageView: UIImageView!
   @IBOutlet weak var largePlayerCoverImage: UIImageView!
+  
+  
+  @IBOutlet weak var miniBarTrackNameLabel: UILabel!
   @IBOutlet weak var trackNameLabel: UILabel!
   @IBOutlet weak var artistNameLabel: UILabel!
+  
   @IBOutlet weak var maxDurationLabel: UILabel!
   @IBOutlet weak var currentPositionLabel: UILabel!
-  //actions
+  
   @IBOutlet weak var playButton: UIButton!
+  @IBOutlet weak var miniBarPlayButton: UIButton!
+  
+  @IBOutlet weak var volumeSlider: EQCustomSlider!
+  @IBOutlet weak var durationSlider: EQCustomSlider!
+  
+  @IBOutlet weak var miniPlayerBar: UIView!
+  @IBOutlet weak var largePlayerView: UIView!
+  
+  @IBOutlet weak var playerControllView: UIView!
+  
+  @IBOutlet weak var coverWidthConstraint: NSLayoutConstraint!
+  @IBOutlet weak var coverHorizontalConstraint: NSLayoutConstraint!
+  @IBOutlet weak var coverVerticleConstraint: NSLayoutConstraint!
+  
+  
+  
+  
+  @IBAction func miniBarSkipButton(_ sender: UIButton) {
+    EQSpotifyManager.shard.skip()
+  }
+  @IBAction func skipTrackAction(_ sender: UIButton) {
+    EQSpotifyManager.shard.skip()
+  }
+  @IBAction func miniBarPlayOrPauseAction(_ sender: UIButton) {
+    let isPlay = !sender.isSelected
+    
+    playOrPause(isPlay: isPlay) {
+      sender.isSelected = isPlay
+    }
+
+  }
   @IBAction func playOrPauseAction(_ sender: UIButton) {
     let isPlay = !sender.isSelected
     
-    EQSpotifyManager.shard.player?.setIsPlaying(isPlay, callback: { (error) in
-      if error != nil {
-        return
-      }
-    })
-    sender.isSelected = isPlay
-  }
-  @IBOutlet weak var volumeSlider: EQCustomSlider!
-  
-  @IBOutlet weak var durationSlider: EQCustomSlider!
-  
-  @IBAction func skipTrackAction(_ sender: UIButton) {
-    EQSpotifyManager.shard.skip()
+    playOrPause(isPlay: isPlay){
+      sender.isSelected = isPlay
+    }
   }
   @IBAction func previousTrackAction(_ sender: UIButton) {
     EQSpotifyManager.shard.previous()
   }
-  @IBAction func durationSliderAction(_ sender: EQCustomSlider) {
- 
-  }
-  
-  //effect
-  @IBOutlet weak var playerControllView: UIView!
-  @IBOutlet weak var coverWidthConstraint: NSLayoutConstraint!
-  @IBOutlet weak var coverHorizontalConstraint: NSLayoutConstraint!
-  @IBOutlet weak var coverVerticleConstraint: NSLayoutConstraint!
   
   var minPlayerViewSize: CGFloat = 60
   var currentOrigin: CGPoint = CGPoint.zero
   var currentSize: CGFloat = 60
   var systemVolumeView: UISlider?
-  @IBOutlet weak var miniPlayerBar: UIView!
-  @IBOutlet weak var largePlayerView: UIView!
+  
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -76,6 +91,7 @@ class EQPlayerView: EQPlayerPannableView {
     setupLayer()
     setupCover()
     setupVolumeView()
+    setupDurationTarget()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -83,10 +99,35 @@ class EQPlayerView: EQPlayerPannableView {
     fromNib()
     setupLayer()
     setupCover()
-   setupVolumeView()
+    setupVolumeView()
+    setupDurationTarget()
   }
   
-  func  setupVolumeView() {
+  func playOrPause(isPlay: Bool,completion: @escaping () -> Void) {
+    EQSpotifyManager.shard.player?.setIsPlaying(isPlay, callback: { (error) in
+      if error != nil {
+        return
+      }
+      completion()
+    })
+  }
+  
+  func setupDurationTarget(){
+    durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpInside)
+    durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpOutside)
+  }
+  
+  @objc func touchUpEvent(sender: UISlider){
+    if EQSpotifyManager.shard.player?.metadata != nil {
+      EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: { (error) in
+        
+      })
+    } else {
+      sender.value = 0
+    }
+  }
+  
+  func setupVolumeView() {
     var mpVolumeView = MPVolumeView(frame:volumeSlider.frame)
     mpVolumeView.showsRouteButton = false
     self.playerControllView.addSubview(mpVolumeView)
@@ -148,21 +189,27 @@ class EQPlayerView: EQPlayerPannableView {
   }
  
   func setupCover(){
-    self.coverWidthConstraint.constant = self.minCoverWidth
-    self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
-    self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
-    self.largePlayerCoverImage.image =  blur(image: self.largePlayerCoverImage.image!)
-  
+    coverWidthConstraint.constant = self.minCoverWidth
+    coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
+    coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
+    coverImageView.addShadow()
+    coverImageView.layer.cornerRadius = 10
+//    coverImageView.clipsToBounds = true
+    largePlayerCoverImage.image = blur(image: self.largePlayerCoverImage.image!)
+    largePlayerCoverImage.layer.masksToBounds = false
+//    largePlayerCoverImage.clipsToBounds = true
     let maskLayer = CAGradientLayer()
     maskLayer.frame = largePlayerCoverImage.bounds
-    maskLayer.shadowRadius = 20
+    maskLayer.shadowRadius = 10
     maskLayer.shadowPath = CGPath(roundedRect: largePlayerCoverImage.bounds.insetBy(dx: 20, dy: 20), cornerWidth: 20, cornerHeight: 20, transform: nil)
     maskLayer.shadowOpacity = 0.8
     maskLayer.shadowOffset = CGSize.zero
     maskLayer.shadowColor = UIColor.white.cgColor
     largePlayerCoverImage.layer.mask = maskLayer
-    largePlayerCoverImage.clipsToBounds = false
-    
+
+  }
+  func blurCoverBackground(source: UIImage) {
+    largePlayerCoverImage.image = blur(image: source)
   }
   
   func setupLayer() {
@@ -215,12 +262,12 @@ class EQPlayerView: EQPlayerPannableView {
     let imageToBlur = CIImage(image: image)
     let blurfilter = CIFilter(name: "CIGaussianBlur")
     blurfilter!.setValue(imageToBlur, forKey: "inputImage")
-    blurfilter!.setValue(70, forKey:kCIInputRadiusKey);
+    blurfilter!.setValue(30, forKey:kCIInputRadiusKey);
     let resultBlurImage = blurfilter!.value(forKey: "outputImage") as? CIImage
     let context = CIContext(options: nil)
     let exposureFilter = CIFilter(name: "CIExposureAdjust")
     exposureFilter?.setValue(resultBlurImage, forKey: kCIInputImageKey)
-    exposureFilter?.setValue(10, forKey: kCIInputEVKey)
+    exposureFilter?.setValue(15, forKey: kCIInputEVKey)
     let resultBlurAndExposureImage = blurfilter!.value(forKey: "outputImage") as? CIImage
     let blurredAndExposuredImage = UIImage(cgImage: context.createCGImage(resultBlurAndExposureImage!, from: (imageToBlur?.extent)!)!)
     return blurredAndExposuredImage

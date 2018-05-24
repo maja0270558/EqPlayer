@@ -32,6 +32,8 @@ extension LineChartView {
       set.circleRadius = 6
       set.circleHoleRadius = set.circleRadius/3
     case .cell:
+      set.drawHorizontalHighlightIndicatorEnabled = false
+      set.drawVerticalHighlightIndicatorEnabled = false
       set.drawValuesEnabled = false
       set.drawCircleHoleEnabled = false
       set.drawCirclesEnabled = false
@@ -87,7 +89,7 @@ extension LineChartView {
     self.rightAxis.drawLabelsEnabled = false
     self.xAxis.drawGridLinesEnabled = false
     self.xAxis.drawAxisLineEnabled = false
-    
+    self.xAxis.drawLabelsEnabled = false
     switch style {
     case .edit:
       let xValueLabels = ["25", "40", "63", "100", "160", "250", "400", "640", "1k", "1.6k", "2.5k", "4k", "6.3k", "10k", "16k"]
@@ -103,6 +105,8 @@ extension LineChartView {
       self.dragEnabled = true
     case .cell:
       self.xAxis.labelCount = 0
+      self.xAxis.drawLabelsEnabled = false
+      self.xAxis.labelPosition = .bottom
       self.dragEnabled = false
       self.alpha = 1
 

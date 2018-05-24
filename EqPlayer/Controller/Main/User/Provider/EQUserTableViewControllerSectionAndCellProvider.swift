@@ -46,6 +46,8 @@ extension EQUserTableViewController {
       guard let saveCell = cell as? EQSaveProjectCell,let eqModel = data as? EQProjectModel else {
         return
       }
+      saveCell.delegate = self
+      saveCell.cellIndexPath = indexPath
       let buttonImage = eqModel.status == EQProjectModel.EQProjectStatus.saved ? UIImage(named: "play") : UIImage(named: "wrench")
       saveCell.projectTitleLabel.text = eqModel.name
       saveCell.cellIndicator.startAnimating()

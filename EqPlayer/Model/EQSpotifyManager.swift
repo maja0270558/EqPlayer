@@ -27,6 +27,8 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
   var loginURL: URL?
   var coreAudioController = EQSpotifyCoreAudioController()
   var currentPlayIndex:Int = 0
+  var playing = false
+  var playbackBackgroundTask =  UIBackgroundTaskIdentifier()
   private var trackList: [String] = [String]()
   
   func setupAuth() {
@@ -54,8 +56,10 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
       print("error")
     }
     player!.login(withAccessToken: authSession.accessToken)
+//    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(screenLock), notification: Notification.Name.screenLock)
   }
-
+  @objc func screenLock(){
+  }
   func popLoginViewController() {
     authViewController = SFSafariViewController(url: loginURL!)
     UIApplication.shared.keyWindow?.rootViewController?.present(authViewController!, animated: true, completion: nil)
@@ -84,12 +88,26 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
 }
 
 extension EQSpotifyManager {
-  func playTrack(){
-    player?.playSpotifyURI(trackList[currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { (error) in
-      
-    })
+  
+  func setupLockScreen(){
+    let commandCenter = MPRemoteCommandCenter.shared()
+    commandCenter.nextTrackCommand.isEnabled = true
+    commandCenter.nextTrackCommand.addTarget(self, action: #selector(skip))
+    commandCenter.previousTrackCommand.addTarget(self, action: #selector(previous))
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = [MPMediaItemPropertyTitle: "TESTING"]
   }
-  func skip(){
+  
+  func playFirstTrack(){
+    currentPlayIndex = 0
+    playTrack()
+  }
+  
+  func playTrack(){
+      self.player?.playSpotifyURI(self.trackList[self.currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { (error) in
+        
+      })
+  }
+  @objc func skip(){
     currentPlayIndex+=1
     if currentPlayIndex >= trackList.count {
       currentPlayIndex = trackList.count-1
@@ -98,14 +116,14 @@ extension EQSpotifyManager {
     playTrack()
   }
   
-  func previous(){
+  @objc func previous(){
     currentPlayIndex-=1
     if currentPlayIndex < 0 {
       currentPlayIndex = 0
       return
     }
     playTrack()
-  
+    
   }
   
   func queuePlaylist(playlistURI: [String]) {
@@ -125,7 +143,7 @@ extension EQSpotifyManager {
     }
   }
   
-  
+ 
 }
 
 extension EQSpotifyManager {
@@ -141,10 +159,31 @@ extension EQSpotifyManager {
     skip()
     print("stop")
   }
- 
+  
   func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
     delegate?.didChangePlaybackStatus(isPlaying: isPlaying)
+   
+    let app = UIApplication.shared
+    if isPlaying {
+     self.playbackBackgroundTask = app.beginBackgroundTask(expirationHandler: {
+      app.endBackgroundTask(self.playbackBackgroundTask)
+      self.playbackBackgroundTask = UIBackgroundTaskInvalid
+      })
+    }
+    else if !playing && self.playbackBackgroundTask != UIBackgroundTaskInvalid {
+      app.endBackgroundTask(self.playbackBackgroundTask)
+    }
   }
+  
+  func activateAudioSession() {
+    try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [.allowAirPlay, .mixWithOthers])
+    try? AVAudioSession.sharedInstance().setActive(true)
+  }
+  
+  func deactivateAudioSession() {
+    try? AVAudioSession.sharedInstance().setActive(false)
+  }
+  
   func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
     delegate?.didPositionChange(position: position)
   }

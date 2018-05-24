@@ -17,7 +17,10 @@ class EQRealmManager {
     let realm = try? Realm()
 
     func remove(object: Object) {
+      try? realm!.write {
         realm!.delete(object)
+      }
+
     }
 
     func save(object: Object) {

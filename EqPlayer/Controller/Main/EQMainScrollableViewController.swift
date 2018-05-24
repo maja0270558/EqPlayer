@@ -23,13 +23,19 @@ class EQMainScrollableViewController: EQScrollableViewController {
     }
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    becomeFirstResponder()
+    UIApplication.shared.beginReceivingRemoteControlEvents()
+  }
   override func viewDidLoad() {
     super.viewDidLoad()
     EQSpotifyManager.shard.delegate = self
     registerCollectionCell()
     setupDelegate()
     setupTopScrollableMainView()
-    addBlurEffect()
+    setupBlurEffect()
+    setupPlayerView()
     guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
       return
     }
@@ -41,6 +47,69 @@ class EQMainScrollableViewController: EQScrollableViewController {
       mainController: controllers
     )
     controllerInit()
+    playingBackground()
+  }
+  func playingBackground() {
+    let session = AVAudioSession.sharedInstance()
+    try? session.setCategory(AVAudioSessionCategoryPlayback)
+    try? session.setActive(true)
+  }
+ 
+  func setLockScreenDisplay(model: SPTPlaybackTrack,cover: UIImage) {
+    var info = Dictionary<String, Any>()
+    info[MPMediaItemPropertyTitle] = model.name//歌名
+    info[MPMediaItemPropertyArtist] = model.artistName //作者
+    info[MPMediaItemPropertyAlbumArtist] = model.artistName//专辑作者
+    info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)//显示的图片
+    info[MPMediaItemPropertyPlaybackDuration] = model.duration//总时长
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+  }
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    resignFirstResponder()
+    UIApplication.shared.endReceivingRemoteControlEvents()
+  }
+  override func remoteControlReceived(with event: UIEvent?) {
+    let type = event?.subtype
+    switch type! {
+    case .remoteControlPlay:
+      //播放
+      EQSpotifyManager.shard.player?.setIsPlaying(true, callback: { (error) in
+        if error != nil {
+          return
+        }
+      })
+    case .remoteControlPause:
+      EQSpotifyManager.shard.player?.setIsPlaying(false, callback: { (error) in
+        if error != nil {
+          return
+        }
+      })
+      //暂停
+    case .remoteControlStop: break
+    //停止
+    case .remoteControlTogglePlayPause: break
+    //切换播放暂停（耳机线控）
+    case .remoteControlNextTrack:
+      EQSpotifyManager.shard.skip()
+      //下一首
+    case .remoteControlPreviousTrack:
+      EQSpotifyManager.shard.previous()
+      //上一首
+    case .remoteControlBeginSeekingBackward: break
+    //开始快退
+    case .remoteControlEndSeekingBackward: break
+    //结束快退
+    case .remoteControlBeginSeekingForward: break
+    //开始快进
+    case .remoteControlEndSeekingForward: break
+    //结束快进
+    default:
+      break
+    }
+  }
+  func setupPlayerView() {
+    playerView.frame = CGRect(x: 0, y: topScrollableViewBase.bounds.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
   
   func setupTopScrollableMainView(){
@@ -48,7 +117,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     topScrollableViewBase.clipsToBounds = true
   }
   
-   func addBlurEffect(){
+   func setupBlurEffect(){
     let blurEffectView = UIVisualEffectView(effect: nil)
     blurEffectView.isUserInteractionEnabled = false
     blurEffectView.alpha = 0.8
@@ -104,6 +173,24 @@ class EQMainScrollableViewController: EQScrollableViewController {
 }
 
 extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
+  func didPressMoreOptionEditButton(at: IndexPath, data: EQProjectModel) {
+    if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+      eqProjectViewController.modalPresentationStyle = .overCurrentContext
+      eqProjectViewController.modalTransitionStyle = .crossDissolve
+      eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
+      self.present(eqProjectViewController, animated: true, completion: nil)
+    }
+  }
+  
+  func didPressMoreOptionDeleteButton(at: IndexPath, data: EQProjectModel) {
+    if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: data.uuid) {
+      let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: data.uuid)
+      let object = result.first!
+      EQRealmManager.shard.remove(object: object)
+      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
+    }
+  }
+  
   func didSelectTempEQCellRow(at: IndexPath, data: EQProjectModel) {
     if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
       eqProjectViewController.modalPresentationStyle = .overCurrentContext
@@ -116,8 +203,9 @@ extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
   func didSelectSavedEQCellRow(at: IndexPath, data: EQProjectModel) {
     let uris = Array(data.tracks.map{return $0.uri})
     EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
-    EQSpotifyManager.shard.playTrack()
-//    self.playerView.openPlayer()
+    EQSpotifyManager.shard.setGain(withModel: data)
+    EQSpotifyManager.shard.playFirstTrack()
+    self.playerView.openPlayer()
   }
   
   func didSelectPostedEQCellRow(at: IndexPath, data: EQProjectModel) {
@@ -140,19 +228,22 @@ extension EQMainScrollableViewController: EQPlayerViewDelegate {
 extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
   func didChangePlaybackStatus(isPlaying: Bool) {
     playerView.playButton.isSelected = isPlaying
+    playerView.miniBarPlayButton.isSelected = isPlaying
   }
   
   func didChangeTrack(track: SPTPlaybackTrack) {
     playerView.durationSlider.maximumValue = Float(track.duration)
     playerView.maxDurationLabel.text = "-"+track.duration.stringFromTimeInterval()
-    playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: [])
+    playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: []) { image, _, _, _ in
+      self.playerView.blurCoverBackground(source: image!)
+      self.setLockScreenDisplay(model: track,cover: image!)
+    }
     playerView.artistNameLabel.text = track.artistName
     playerView.trackNameLabel.text = track.name
+    playerView.miniBarTrackNameLabel.text = track.name
   }
   func didPositionChange(position: TimeInterval) {
     playerView.durationSlider.value = Float(position)
     playerView.currentPositionLabel.text = position.stringFromTimeInterval()
-  }
-  
-  
+  }  
 }

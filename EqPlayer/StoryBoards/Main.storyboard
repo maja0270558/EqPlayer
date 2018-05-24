@@ -60,22 +60,18 @@
                                     <action selector="addEQAction:" destination="8gU-ew-QVX" eventType="touchUpInside" id="akK-wp-3cJ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gII-kN-WXg" customClass="EQPlayerView" customModule="EqPlayer" customModuleProvider="target">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gII-kN-WXg" customClass="EQPlayerView" customModule="EqPlayer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="600.5" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="height" secondItem="dlR-z5-rMN" secondAttribute="height" multiplier="0.9" id="9Mv-TH-VyF"/>
-                            <constraint firstItem="gII-kN-WXg" firstAttribute="top" secondItem="9Ma-Mj-6oe" secondAttribute="bottom" id="B0E-am-qbr"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="top" secondItem="dlR-z5-rMN" secondAttribute="top" id="B0c-8e-rKv"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="trailing" secondItem="U0n-3j-ADt" secondAttribute="trailing" id="OwP-Ln-rF8"/>
-                            <constraint firstItem="gII-kN-WXg" firstAttribute="height" secondItem="dlR-z5-rMN" secondAttribute="height" id="eNL-9c-RZ6"/>
-                            <constraint firstItem="gII-kN-WXg" firstAttribute="trailing" secondItem="U0n-3j-ADt" secondAttribute="trailing" id="fgL-rt-NKn"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="leading" secondItem="U0n-3j-ADt" secondAttribute="leading" id="pt4-6k-nPc"/>
-                            <constraint firstItem="gII-kN-WXg" firstAttribute="leading" secondItem="U0n-3j-ADt" secondAttribute="leading" id="vcJ-4h-Ris"/>
-                            <constraint firstItem="gII-kN-WXg" firstAttribute="width" secondItem="dlR-z5-rMN" secondAttribute="width" id="xGk-a2-upm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U0n-3j-ADt"/>
                     </view>

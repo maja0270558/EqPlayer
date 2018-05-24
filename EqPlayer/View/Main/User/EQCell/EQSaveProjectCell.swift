@@ -10,19 +10,25 @@ import UIKit
 import Charts
 import UIImageColors
 
+protocol EQSaveProjectCellDelegate : class {
+  func didClickMoreOptionButton(indexPath: IndexPath)
+}
+
 class EQSaveProjectCell: UITableViewCell {
+  weak var delegate: EQSaveProjectCellDelegate?
   @IBOutlet weak var playlistCover: EQCircleImage!
   @IBOutlet weak var cellEQChartView: LineChartView!
   @IBOutlet weak var projectTitleLabel: UILabel!
   @IBOutlet weak var trackCountLabel: UILabel!
   @IBOutlet weak var cellIndicator: UIActivityIndicatorView!
   @IBOutlet weak var playbutton: UIButton!
+  var cellIndexPath: IndexPath?
   
   var discImageLarge: UIImageView! {
     return viewWithTag(1) as? UIImageView
   }
   @IBAction func moreOptionButton(_ sender: UIButton) {
-    
+    delegate?.didClickMoreOptionButton(indexPath: cellIndexPath!)
   }
   
   @IBAction func playPlaylistAction(_ sender: UIButton) {

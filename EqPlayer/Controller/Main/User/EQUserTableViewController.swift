@@ -11,6 +11,9 @@ protocol EQUserTableViewControllerDelegate: class {
   func didSelectTempEQCellRow(at: IndexPath, data: EQProjectModel)
   func didSelectSavedEQCellRow(at: IndexPath, data: EQProjectModel)
   func didSelectPostedEQCellRow(at: IndexPath, data: EQProjectModel)
+  func didPressMoreOptionEditButton(at: IndexPath, data: EQProjectModel)
+  func didPressMoreOptionDeleteButton(at: IndexPath, data: EQProjectModel)
+
 }
 
 class EQUserTableViewController: EQTableViewController {
@@ -33,7 +36,9 @@ class EQUserTableViewController: EQTableViewController {
     subscribeNotification()
     generateSectionAndCell()
   }
-  
+  override func viewWillDisappear(_ animated: Bool) {
+    removeNotification()
+  }
   func setupTableView() {
     userTableView.contentInsetAdjustmentBehavior = .never
     userTableView.delegate = self
@@ -48,6 +53,9 @@ class EQUserTableViewController: EQTableViewController {
   }
   func subscribeNotification() {
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectSave)
+  }
+  func removeNotification() {
+    EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectSave)
   }
   @objc func didSaveEQProject(){
     reloadUserPageData()
@@ -86,6 +94,22 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     userTableView.fadeTopCell()
   }
+  func getTargetModelCopy(at: IndexPath) -> EQProjectModel{
+    if at.section != 1 {
+      return EQProjectModel()
+    }
+    switch currentToolItemIndex {
+    case 1:
+      return EQProjectModel(value:eqData[at.row])
+    case 2:
+      return EQProjectModel(value:postedEQData[at.row])
+    case 3:
+      return EQProjectModel(value:unsaveEQData[at.row])
+    default:
+      return EQProjectModel()
+    }
+  }
+  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
    tableView.deselectRow(at: indexPath, animated: true)
     if indexPath.section != 1 {
@@ -94,19 +118,30 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
     switch currentToolItemIndex {
     case 1:
       //pop player
-      delegate?.didSelectSavedEQCellRow(at: indexPath, data: EQProjectModel(value: eqData[indexPath.row]))
+      delegate?.didSelectSavedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
       break
     case 2:
       //nothing
-      delegate?.didSelectPostedEQCellRow(at: indexPath, data: EQProjectModel(value: postedEQData[indexPath.row]))
+      delegate?.didSelectPostedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
       break
     case 3:
       //pop setter
-     delegate?.didSelectTempEQCellRow(at: indexPath, data: EQProjectModel(value: unsaveEQData[indexPath.row]))
+     delegate?.didSelectTempEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
     default:
       break
     }
   }
 }
 
+extension EQUserTableViewController: EQSaveProjectCellDelegate {
+  func didClickMoreOptionButton(indexPath: IndexPath) {
+    self.moreOptionAlert(
+      delete: { [weak self] (action)  in
+        self?.delegate?.didPressMoreOptionDeleteButton(at: indexPath, data: (self?.getTargetModelCopy(at: indexPath))!)
+    } ,edit: { [weak self] (action) in
+      self?.delegate?.didPressMoreOptionEditButton(at: indexPath, data: (self?.getTargetModelCopy(at: indexPath))!)
+    })
+    
+  }
+}
 

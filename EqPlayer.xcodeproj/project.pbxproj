@@ -52,6 +52,7 @@
 		EB6F33A020AD3B9C00EA3E85 /* EQSaveProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F339F20AD3B9C00EA3E85 /* EQSaveProjectViewController.swift */; };
 		EB6F33A220AD411000EA3E85 /* EQCustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */; };
 		EB79C95D20B6AC520063565D /* +EQTimeIntervalExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */; };
+		EB79C96220B735CC0063565D /* +EQUIViewControllerExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79C96120B735CC0063565D /* +EQUIViewControllerExtention.swift */; };
 		EB7AD7C320B264B70046BDB2 /* EQLineChartViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */; };
 		EB7AD7C620B415580046BDB2 /* EQPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C520B415580046BDB2 /* EQPlayerViewController.swift */; };
 		EB7AD7C820B415920046BDB2 /* EQPlayerPannableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */; };
@@ -130,6 +131,7 @@
 		EB6F339F20AD3B9C00EA3E85 /* EQSaveProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSaveProjectViewController.swift; sourceTree = "<group>"; };
 		EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomUITextField.swift; sourceTree = "<group>"; };
 		EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQTimeIntervalExtention.swift"; sourceTree = "<group>"; };
+		EB79C96120B735CC0063565D /* +EQUIViewControllerExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQUIViewControllerExtention.swift"; sourceTree = "<group>"; };
 		EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQLineChartViewExtention.swift; sourceTree = "<group>"; };
 		EB7AD7C520B415580046BDB2 /* EQPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerViewController.swift; sourceTree = "<group>"; };
 		EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerPannableView.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			children = (
 				EB5B0B3420A004CE0056E8D6 /* EQStoryBoardExtention.swift */,
 				EBF3264A20AEDE410007526B /* EQEnumExtention.swift */,
+				EB79C96120B735CC0063565D /* +EQUIViewControllerExtention.swift */,
 				EB24596D20B4859400387E3C /* EQConstraintExtention.swift */,
 				EBE65D7320A34115001A9E42 /* EQTableViewExtention.swift */,
 				EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */,
@@ -590,6 +593,14 @@
 					EB4ABBD3209EF92D006D124D = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 0930;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -753,6 +764,7 @@
 				EBC4629620AD277800AE5FB9 /* EQCustomButton.swift in Sources */,
 				EB24596E20B4859400387E3C /* EQConstraintExtention.swift in Sources */,
 				EBD7955A20A2E2C10057A969 /* EQCustomToolBarView.swift in Sources */,
+				EB79C96220B735CC0063565D /* +EQUIViewControllerExtention.swift in Sources */,
 				EBE65D7420A34115001A9E42 /* EQTableViewExtention.swift in Sources */,
 				EB1D910E20A2DDB500384869 /* EQUserTableViewController.swift in Sources */,
 				EB17379E20A92F3900566F50 /* EQSonglistTableViewController.swift in Sources */,
@@ -913,6 +925,7 @@
 					"$(PROJECT_DIR)/EqPlayer/Support",
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -940,6 +953,7 @@
 					"$(PROJECT_DIR)/EqPlayer/Support",
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -17,6 +17,9 @@ class EQNotifycationCenterManager {
     NotificationCenter.default
       .addObserver(observer, selector: selector, name: notification, object: nil)
   }
+  static func removeObseve(observer: AnyObject, name: Notification.Name){
+    NotificationCenter.default.removeObserver(observer, name: name, object: nil)
+  }
 }
 
 extension Notification.Name {
@@ -24,4 +27,5 @@ extension Notification.Name {
   static let eqProjectSave = Notification.Name("eqProjectSave")
   static let eqProjectDidChangeUnsave = Notification.Name("eqProjectDidChangeUnsave")
   static let eqProjectAccidentallyClose = Notification.Name("eqProjectAccidentallyClose")
+  static let screenLock = Notification.Name("screenLock")
 }
