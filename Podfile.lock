@@ -45,8 +45,6 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.3)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
-  - GPUImage (0.1.7)
-  - GPUImage2 (0.1.0)
   - GTMSessionFetcher/Core (1.1.15)
   - IQKeyboardManager (6.0.1)
   - Lerp (2.0.0)
@@ -74,8 +72,6 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
-  - GPUImage
-  - GPUImage2 (from `./GPUImage2.podspec`)
   - IQKeyboardManager
   - Lerp
   - RealmSwift
@@ -95,7 +91,6 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseStorage
     - GoogleToolboxForMac
-    - GPUImage
     - GTMSessionFetcher
     - IQKeyboardManager
     - Lerp
@@ -108,10 +103,6 @@ SPEC REPOS:
     - SwipeCellKit
     - UIImageColors
 
-EXTERNAL SOURCES:
-  GPUImage2:
-    :podspec: "./GPUImage2.podspec"
-
 SPEC CHECKSUMS:
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
@@ -122,8 +113,6 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebaseStorage: 0c223481c8f89ed300cf1239ddd2d9833622c65f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  GPUImage2: 944e94cc5a331a60c299d1a620e2b535903b8458
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   IQKeyboardManager: 118602feb2d0b8852cc7387c21db988f2ebdec6d
   Lerp: fe0fd19edf08a7dab2283a3f250f2c840b6a97aa
@@ -136,6 +125,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: 8ae09401e1137566b187980d824310129233c959
   UIImageColors: 3ae0150e539342697808281a3975fe5dec2024ce
 
-PODFILE CHECKSUM: 954b6d8ce106128b3ca5dc8391b065fb6600050c
+PODFILE CHECKSUM: 85e23f8f8a61ca5ee3d50c2655919d234b9b3840
 
 COCOAPODS: 1.5.0

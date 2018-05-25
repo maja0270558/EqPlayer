@@ -9,12 +9,13 @@
 import Foundation
 
 class EQUserProvider {
- static func getUserName() -> String {
-    let name = UserDefaults.standard.string(forKey: "userName") ?? ""
-    return name
-  }
- static func getUserPhotoURL() -> URL? {
-    let url = UserDefaults.standard.string(forKey: "userPhotoURL") ?? ""
-    return URL(string: url)
-  }
+    static func getUserName() -> String {
+        let name = UserDefaults.standard.string(forKey: "userName") ?? ""
+        return name
+    }
+
+    static func getUserPhotoURL() -> URL? {
+        let url = UserDefaults.standard.string(forKey: "userPhotoURL") ?? ""
+        return URL(string: url)
+    }
 }

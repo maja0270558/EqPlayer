@@ -30,7 +30,7 @@ class EQPlaylistTableViewController: UITableViewController {
         SPTPlaylistList.playlists(forUser: EQSpotifyManager.shard.auth?.session.canonicalUsername, withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
             if let listPage = response as? SPTPlaylistList, let playlists = listPage.items as? [SPTPartialPlaylist] {
                 self.playlists = playlists // or however you want to parse these
-              self.tableView.reloadDataUpdateFade()
+                self.tableView.reloadDataUpdateFade()
                 if listPage.hasNextPage {
                     self.getNextPlaylistPage(currentPage: listPage)
                 }

@@ -6,285 +6,283 @@
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import UIKit
 import Lerp
 import MediaPlayer
+import UIKit
 public protocol EQPlayerViewDelegate: class {
-  func didClapPlayer()
-  func didOpenPlayer()
+    func didClapPlayer()
+    func didOpenPlayer()
 }
+
 class EQPlayerView: EQPlayerPannableView {
-  weak var delegate: EQPlayerViewDelegate?
-  
-  var maxCoverWidth: CGFloat {
-    return UIScreen.main.bounds.width * 0.6
-  }
-  let minCoverWidth: CGFloat = 40
-  let maxVerticleMultiplier: CGFloat = 1
-  let minVerticleMultiplier: CGFloat = 0.2
-  let maxHorizontalMultiplier: CGFloat = 0.6
-  let minHorizontalMultiplier: CGFloat = 0.1
-  
-  @IBOutlet weak var coverImageView: UIImageView!
-  @IBOutlet weak var largePlayerCoverImage: UIImageView!
-  
-  
-  @IBOutlet weak var miniBarTrackNameLabel: UILabel!
-  @IBOutlet weak var trackNameLabel: UILabel!
-  @IBOutlet weak var artistNameLabel: UILabel!
-  
-  @IBOutlet weak var maxDurationLabel: UILabel!
-  @IBOutlet weak var currentPositionLabel: UILabel!
-  
-  @IBOutlet weak var playButton: UIButton!
-  @IBOutlet weak var miniBarPlayButton: UIButton!
-  
-  @IBOutlet weak var volumeSlider: EQCustomSlider!
-  @IBOutlet weak var durationSlider: EQCustomSlider!
-  
-  @IBOutlet weak var miniPlayerBar: UIView!
-  @IBOutlet weak var largePlayerView: UIView!
-  
-  @IBOutlet weak var playerControllView: UIView!
-  
-  @IBOutlet weak var coverWidthConstraint: NSLayoutConstraint!
-  @IBOutlet weak var coverHorizontalConstraint: NSLayoutConstraint!
-  @IBOutlet weak var coverVerticleConstraint: NSLayoutConstraint!
-  
-  
-  
-  
-  @IBAction func miniBarSkipButton(_ sender: UIButton) {
-    EQSpotifyManager.shard.skip()
-  }
-  @IBAction func skipTrackAction(_ sender: UIButton) {
-    EQSpotifyManager.shard.skip()
-  }
-  @IBAction func miniBarPlayOrPauseAction(_ sender: UIButton) {
-    let isPlay = !sender.isSelected
-    
-    playOrPause(isPlay: isPlay) {
-      sender.isSelected = isPlay
+    weak var delegate: EQPlayerViewDelegate?
+
+    var maxCoverWidth: CGFloat {
+        return UIScreen.main.bounds.width * 0.6
     }
-    
-  }
-  @IBAction func playOrPauseAction(_ sender: UIButton) {
-    let isPlay = !sender.isSelected
-    
-    playOrPause(isPlay: isPlay){
-      sender.isSelected = isPlay
+
+    let minCoverWidth: CGFloat = 40
+    let maxVerticleMultiplier: CGFloat = 1
+    let minVerticleMultiplier: CGFloat = 0.2
+    let maxHorizontalMultiplier: CGFloat = 0.6
+    let minHorizontalMultiplier: CGFloat = 0.1
+
+    @IBOutlet var coverImageView: UIImageView!
+    @IBOutlet var largePlayerCoverImage: UIImageView!
+
+    @IBOutlet var miniBarTrackNameLabel: UILabel!
+    @IBOutlet var trackNameLabel: UILabel!
+    @IBOutlet var artistNameLabel: UILabel!
+
+    @IBOutlet var maxDurationLabel: UILabel!
+    @IBOutlet var currentPositionLabel: UILabel!
+
+    @IBOutlet var playButton: UIButton!
+    @IBOutlet var miniBarPlayButton: UIButton!
+
+    @IBOutlet var volumeSlider: EQCustomSlider!
+    @IBOutlet var durationSlider: EQCustomSlider!
+
+    @IBOutlet var miniPlayerBar: UIView!
+    @IBOutlet var largePlayerView: UIView!
+
+    @IBOutlet var playerControllView: UIView!
+
+    @IBOutlet var coverWidthConstraint: NSLayoutConstraint!
+    @IBOutlet var coverHorizontalConstraint: NSLayoutConstraint!
+    @IBOutlet var coverVerticleConstraint: NSLayoutConstraint!
+
+    @IBAction func miniBarSkipButton(_: UIButton) {
+        EQSpotifyManager.shard.skip()
     }
-  }
-  @IBAction func previousTrackAction(_ sender: UIButton) {
-    EQSpotifyManager.shard.previous()
-  }
-  
-  var minPlayerViewSize: CGFloat = 60
-  var currentOrigin: CGPoint = CGPoint.zero
-  var currentSize: CGFloat = 60
-  var systemVolumeView: UISlider?
-  
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    fromNib()
-    setupLayer()
-    setupCover()
-    setupVolumeView()
-    setupDurationTarget()
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    fromNib()
-    setupLayer()
-    setupCover()
-    setupVolumeView()
-    setupDurationTarget()
-  }
-  
-  func playOrPause(isPlay: Bool,completion: @escaping () -> Void) {
-    EQSpotifyManager.shard.player?.setIsPlaying(isPlay, callback: { (error) in
-      if error != nil {
-        return
-      }
-      completion()
-    })
-  }
-  
-  func setupDurationTarget(){
-    durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpInside)
-    durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpOutside)
-  }
-  
-  func resetPlayer(){
-    playButton.isSelected = false
-    miniBarPlayButton.isSelected = false
-    durationSlider.maximumValue = 1
-    maxDurationLabel.text = "-0:00"
-    currentPositionLabel.text = "0:00"
-    coverImageView.image = #imageLiteral(resourceName: "vinyl")
-    blurCoverBackground(source: coverImageView.image!)
-    artistNameLabel.text = "無"
-    trackNameLabel.text = "尚未播放"
-    miniBarTrackNameLabel.text = "尚未播放"
-    durationSlider.value = 0
-  }
-  
-  @objc func touchUpEvent(sender: UISlider){
-    if EQSpotifyManager.shard.player?.metadata != nil {
-      EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: { (error) in
-        
-      })
-    } else {
-      sender.value = 0
+
+    @IBAction func skipTrackAction(_: UIButton) {
+        EQSpotifyManager.shard.skip()
     }
-  }
-  
-  func setupVolumeView() {
-    var mpVolumeView = MPVolumeView(frame:volumeSlider.frame)
-    mpVolumeView.showsRouteButton = false
-    self.playerControllView.addSubview(mpVolumeView)
-    for subview in mpVolumeView.subviews {
-      if NSStringFromClass(subview.classForCoder) != "MPVolumeSlider" {
-        subview.isHidden = true
-        subview.removeFromSuperview()
-      } else {
-        guard let volumeSlider = subview as? UISlider else {
-          return
+
+    @IBAction func miniBarPlayOrPauseAction(_ sender: UIButton) {
+        let isPlay = !sender.isSelected
+
+        playOrPause(isPlay: isPlay) {
+            sender.isSelected = isPlay
         }
-        systemVolumeView = volumeSlider
-      }
     }
-    systemVolumeView?.maximumValueImage = #imageLiteral(resourceName: "volumeOn")
-    systemVolumeView?.minimumValueImage = #imageLiteral(resourceName: "volumeOff")
-    volumeSlider.isHidden = true
-  }
-  
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    
-  }
-  
-  func openPlayer(){
-    UIView.animate(withDuration: animationDuration, animations: {
-      self.frame.origin = CGPoint(x: 0, y: 0 )
-      self.largePlayerView.layer.cornerRadius = 10
-      self.miniPlayerBar.alpha = 0
-      self.coverWidthConstraint.constant = self.maxCoverWidth
-      self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.maxVerticleMultiplier)
-      self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.maxHorizontalMultiplier)
-      self.playerControllView.alpha = 1
-      self.layoutIfNeeded()
-      self.delegate?.didOpenPlayer()
-    }, completion: { isCompleted in
-      if isCompleted {
-        self.resetCurrentRect()
-      }
-    })
-  }
-  
-  func folderPlayer(){
-    UIView.animate(withDuration: animationDuration, animations: {
-      self.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.height * 0.9)
-      self.largePlayerView.layer.cornerRadius = 0
-      self.miniPlayerBar.alpha = 1
-      
-      self.coverWidthConstraint.constant = self.minCoverWidth
-      self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
-      self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
-      self.layoutIfNeeded()
-      self.delegate?.didClapPlayer()
-    }, completion: { isCompleted in
-      if isCompleted {
-        self.resetCurrentRect()
-      }
-    })
-  }
-  
-  func setupCover(){
-    coverWidthConstraint.constant = self.minCoverWidth
-    coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
-    coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
-    coverImageView.addShadow()
-    coverImageView.layer.cornerRadius = 10
-    //    coverImageView.clipsToBounds = true
-    largePlayerCoverImage.image = blur(image: self.largePlayerCoverImage.image!)
-    largePlayerCoverImage.layer.masksToBounds = false
-    //    largePlayerCoverImage.clipsToBounds = true
-    let maskLayer = CAGradientLayer()
-    maskLayer.frame = largePlayerCoverImage.bounds
-    maskLayer.shadowRadius = 10
-    maskLayer.shadowPath = CGPath(roundedRect: largePlayerCoverImage.bounds.insetBy(dx: 20, dy: 20), cornerWidth: 20, cornerHeight: 20, transform: nil)
-    maskLayer.shadowOpacity = 0.8
-    maskLayer.shadowOffset = CGSize.zero
-    maskLayer.shadowColor = UIColor.white.cgColor
-    largePlayerCoverImage.layer.mask = maskLayer
-    
-  }
-  func blurCoverBackground(source: UIImage) {
-    largePlayerCoverImage.image = blur(image: source)
-  }
-  
-  func setupLayer() {
-    self.backgroundColor = UIColor.clear
-    miniPlayerBar.layer.cornerRadius = 10
-    miniPlayerBar.clipsToBounds = true
-    miniPlayerBar.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-    
-  }
-  
-  func resetCurrentRect(){
-    currentSize = self.frame.size.height
-    currentOrigin = self.frame.origin
-  }
-  
-  override func onBegan() {
-    resetCurrentRect()
-  }
-  
-  override func onChanged(translation: CGFloat) {
-    var newOrigin = currentOrigin
-    var newSize = currentSize
-    newOrigin.y += translation
-    newOrigin.y = max(0,newOrigin.y)
-    var factorScale = max(0, newOrigin.y/(UIScreen.main.bounds.height * 0.9))
-    coverWidthConstraint.constant = lerp(factorScale, min: maxCoverWidth , max: minCoverWidth )
-    coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxVerticleMultiplier, max: minVerticleMultiplier))
-    coverHorizontalConstraint = coverHorizontalConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxHorizontalMultiplier, max: minHorizontalMultiplier))
-    miniPlayerBar.alpha = factorScale * 3
-    largePlayerView.layer.cornerRadius = 1 - 10 * factorScale * 3
-    playerControllView.alpha = 1 - factorScale
-    newSize -= translation
-    self.frame.origin = newOrigin
-  }
-  
-  override func onEnded(isClap: Bool) {
-    if isClap {
-      folderPlayer()
-    } else {
-      openPlayer()
+
+    @IBAction func playOrPauseAction(_ sender: UIButton) {
+        let isPlay = !sender.isSelected
+
+        playOrPause(isPlay: isPlay) {
+            sender.isSelected = isPlay
+        }
     }
-  }
-  
-  func transformFromRect(from source: CGRect, toRect destination: CGRect) -> CGAffineTransform {
-    return CGAffineTransform.identity
-      .translatedBy(x: destination.midX - source.midX, y: destination.midY - source.midY)
-      .scaledBy(x: destination.width / source.width, y: destination.height / source.height)
-  }
-  
-  func blur(image image: UIImage) -> UIImage {
-    let imageToBlur = CIImage(image: image)
-    let blurfilter = CIFilter(name: "CIGaussianBlur")
-    blurfilter!.setValue(imageToBlur, forKey: "inputImage")
-    blurfilter!.setValue(30, forKey:kCIInputRadiusKey);
-    let resultBlurImage = blurfilter!.value(forKey: "outputImage") as? CIImage
-    let context = CIContext(options: nil)
-    let exposureFilter = CIFilter(name: "CIExposureAdjust")
-    exposureFilter?.setValue(resultBlurImage, forKey: kCIInputImageKey)
-    exposureFilter?.setValue(15, forKey: kCIInputEVKey)
-    let resultBlurAndExposureImage = blurfilter!.value(forKey: "outputImage") as? CIImage
-    let blurredAndExposuredImage = UIImage(cgImage: context.createCGImage(resultBlurAndExposureImage!, from: (imageToBlur?.extent)!)!)
-    return blurredAndExposuredImage
-  }
+
+    @IBAction func previousTrackAction(_: UIButton) {
+        EQSpotifyManager.shard.previous()
+    }
+
+    var minPlayerViewSize: CGFloat = 60
+    var currentOrigin: CGPoint = CGPoint.zero
+    var currentSize: CGFloat = 60
+    var systemVolumeView: UISlider?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        fromNib()
+        setupLayer()
+        setupCover()
+        setupVolumeView()
+        setupDurationTarget()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        fromNib()
+        setupLayer()
+        setupCover()
+        setupVolumeView()
+        setupDurationTarget()
+    }
+
+    func playOrPause(isPlay: Bool, completion: @escaping () -> Void) {
+        EQSpotifyManager.shard.player?.setIsPlaying(isPlay, callback: { error in
+            if error != nil {
+                return
+            }
+            completion()
+        })
+    }
+
+    func setupDurationTarget() {
+        durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpInside)
+        durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpOutside)
+    }
+
+    func resetPlayer() {
+        playButton.isSelected = false
+        miniBarPlayButton.isSelected = false
+        durationSlider.maximumValue = 1
+        maxDurationLabel.text = "-0:00"
+        currentPositionLabel.text = "0:00"
+        coverImageView.image = #imageLiteral(resourceName: "vinyl")
+        blurCoverBackground(source: coverImageView.image!)
+        artistNameLabel.text = "無"
+        trackNameLabel.text = "尚未播放"
+        miniBarTrackNameLabel.text = "尚未播放"
+        durationSlider.value = 0
+    }
+
+    @objc func touchUpEvent(sender: UISlider) {
+        if EQSpotifyManager.shard.player?.metadata != nil {
+            EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: { _ in
+
+            })
+        } else {
+            sender.value = 0
+        }
+    }
+
+    func setupVolumeView() {
+        var mpVolumeView = MPVolumeView(frame: volumeSlider.frame)
+        mpVolumeView.showsRouteButton = false
+        playerControllView.addSubview(mpVolumeView)
+        for subview in mpVolumeView.subviews {
+            if NSStringFromClass(subview.classForCoder) != "MPVolumeSlider" {
+                subview.isHidden = true
+                subview.removeFromSuperview()
+            } else {
+                guard let volumeSlider = subview as? UISlider else {
+                    return
+                }
+                systemVolumeView = volumeSlider
+            }
+        }
+        systemVolumeView?.maximumValueImage = #imageLiteral(resourceName: "volumeOn")
+        systemVolumeView?.minimumValueImage = #imageLiteral(resourceName: "volumeOff")
+        volumeSlider.isHidden = true
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+
+    func openPlayer() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.frame.origin = CGPoint(x: 0, y: 0)
+            self.largePlayerView.layer.cornerRadius = 10
+            self.miniPlayerBar.alpha = 0
+            self.coverWidthConstraint.constant = self.maxCoverWidth
+            self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.maxVerticleMultiplier)
+            self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.maxHorizontalMultiplier)
+            self.playerControllView.alpha = 1
+            self.layoutIfNeeded()
+            self.delegate?.didOpenPlayer()
+        }, completion: { isCompleted in
+            if isCompleted {
+                self.resetCurrentRect()
+            }
+        })
+    }
+
+    func folderPlayer() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.frame.origin = CGPoint(x: 0, y: UIScreen.main.bounds.height * 0.9)
+            self.largePlayerView.layer.cornerRadius = 0
+            self.miniPlayerBar.alpha = 1
+
+            self.coverWidthConstraint.constant = self.minCoverWidth
+            self.coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
+            self.coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
+            self.layoutIfNeeded()
+            self.delegate?.didClapPlayer()
+        }, completion: { isCompleted in
+            if isCompleted {
+                self.resetCurrentRect()
+            }
+        })
+    }
+
+    func setupCover() {
+        coverWidthConstraint.constant = minCoverWidth
+        coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: minVerticleMultiplier)
+        coverHorizontalConstraint = coverHorizontalConstraint.setMultiplier(multiplier: minHorizontalMultiplier)
+        coverImageView.addShadow()
+        coverImageView.layer.cornerRadius = 10
+        //    coverImageView.clipsToBounds = true
+        largePlayerCoverImage.image = blur(image: largePlayerCoverImage.image!)
+        largePlayerCoverImage.layer.masksToBounds = false
+        //    largePlayerCoverImage.clipsToBounds = true
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = largePlayerCoverImage.bounds
+        maskLayer.shadowRadius = 10
+        maskLayer.shadowPath = CGPath(roundedRect: largePlayerCoverImage.bounds.insetBy(dx: 20, dy: 20), cornerWidth: 20, cornerHeight: 20, transform: nil)
+        maskLayer.shadowOpacity = 0.8
+        maskLayer.shadowOffset = CGSize.zero
+        maskLayer.shadowColor = UIColor.white.cgColor
+        largePlayerCoverImage.layer.mask = maskLayer
+    }
+
+    func blurCoverBackground(source: UIImage) {
+        largePlayerCoverImage.image = blur(image: source)
+    }
+
+    func setupLayer() {
+        backgroundColor = UIColor.clear
+        miniPlayerBar.layer.cornerRadius = 10
+        miniPlayerBar.clipsToBounds = true
+        miniPlayerBar.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+    }
+
+    func resetCurrentRect() {
+        currentSize = frame.size.height
+        currentOrigin = frame.origin
+    }
+
+    override func onBegan() {
+        resetCurrentRect()
+    }
+
+    override func onChanged(translation: CGFloat) {
+        var newOrigin = currentOrigin
+        var newSize = currentSize
+        newOrigin.y += translation
+        newOrigin.y = max(0, newOrigin.y)
+        var factorScale = max(0, newOrigin.y / (UIScreen.main.bounds.height * 0.9))
+        coverWidthConstraint.constant = lerp(factorScale, min: maxCoverWidth, max: minCoverWidth)
+        coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxVerticleMultiplier, max: minVerticleMultiplier))
+        coverHorizontalConstraint = coverHorizontalConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxHorizontalMultiplier, max: minHorizontalMultiplier))
+        miniPlayerBar.alpha = factorScale * 3
+        largePlayerView.layer.cornerRadius = 1 - 10 * factorScale * 3
+        playerControllView.alpha = 1 - factorScale
+        newSize -= translation
+        frame.origin = newOrigin
+    }
+
+    override func onEnded(isClap: Bool) {
+        if isClap {
+            folderPlayer()
+        } else {
+            openPlayer()
+        }
+    }
+
+    func transformFromRect(from source: CGRect, toRect destination: CGRect) -> CGAffineTransform {
+        return CGAffineTransform.identity
+            .translatedBy(x: destination.midX - source.midX, y: destination.midY - source.midY)
+            .scaledBy(x: destination.width / source.width, y: destination.height / source.height)
+    }
+
+    func blur(image image: UIImage) -> UIImage {
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter!.setValue(imageToBlur, forKey: "inputImage")
+        blurfilter!.setValue(30, forKey: kCIInputRadiusKey)
+        let resultBlurImage = blurfilter!.value(forKey: "outputImage") as? CIImage
+        let context = CIContext(options: nil)
+        let exposureFilter = CIFilter(name: "CIExposureAdjust")
+        exposureFilter?.setValue(resultBlurImage, forKey: kCIInputImageKey)
+        exposureFilter?.setValue(15, forKey: kCIInputEVKey)
+        let resultBlurAndExposureImage = blurfilter!.value(forKey: "outputImage") as? CIImage
+        let blurredAndExposuredImage = UIImage(cgImage: context.createCGImage(resultBlurAndExposureImage!, from: (imageToBlur?.extent)!)!)
+        return blurredAndExposuredImage
+    }
 }

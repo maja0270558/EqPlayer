@@ -49,14 +49,13 @@ class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITa
                 keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
                 return cell
             }
-
+          
             keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
             return cell
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        keeper.cellOperator(keeper.cellDatas[indexPath.row], cell,indexPath)
-//        cell.selectionStyle = .none
+        keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
         return cell
     }
 

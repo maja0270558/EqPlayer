@@ -19,6 +19,7 @@ class EQPlaylistTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setSelectedColor()
         // Initialization code
     }
 }

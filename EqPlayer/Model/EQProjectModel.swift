@@ -14,9 +14,9 @@ class EQProjectModel: Object {
         case new
         case saved
         case temp
-      func getValue() -> String {
-        return String(self.rawValue)
-      }
+        func getValue() -> String {
+            return String(rawValue)
+        }
     }
 
     @objc dynamic var uuid = UUID().uuidString

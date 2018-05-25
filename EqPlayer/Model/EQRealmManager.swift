@@ -17,10 +17,9 @@ class EQRealmManager {
     let realm = try? Realm()
 
     func remove(object: Object) {
-      try? realm!.write {
-        realm!.delete(object)
-      }
-
+        try? realm!.write {
+            realm!.delete(object)
+        }
     }
 
     func save(object: Object) {
@@ -30,7 +29,7 @@ class EQRealmManager {
     }
 
     func checkModelExist(filter: String, value: String) -> Bool {
-      if realm!.objects(EQProjectModel.self).filter(filter, value).first != nil {
+        if realm!.objects(EQProjectModel.self).filter(filter, value).first != nil {
             return true
         } else {
             return false

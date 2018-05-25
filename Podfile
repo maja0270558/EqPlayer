@@ -5,9 +5,7 @@ target 'EqPlayer' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for EqPlayer
-  pod 'GPUImage'
-  pod 'GPUImage2', :podspec => './GPUImage2.podspec' 
+  # Pods for EqPlayer 
   pod 'Lerp'
   pod 'UIImageColors'
   pod 'IQKeyboardManager'

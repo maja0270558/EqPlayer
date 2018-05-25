@@ -63,7 +63,7 @@ class EQScrollableViewController: EQPannableViewController, EQScrollableViewCont
         var index: CGFloat = 0
         var previousController: UIViewController?
         for controller in data.mainController {
-          self.addChildViewController(controller)
+            addChildViewController(controller)
             let containerView = UIView()
             containerView.translatesAutoresizingMaskIntoConstraints = false
             mainScrollView.addSubview(containerView)
@@ -178,7 +178,7 @@ extension EQScrollableViewController: UIScrollViewDelegate {
         }
     }
 
-    @objc func setupCell(cell topCell: UICollectionViewCell, atIndex at: Int) {
+    @objc func setupCell(cell _: UICollectionViewCell, atIndex _: Int) {
     }
 
     @objc func customizeTopItemWhenScrolling(_: CGFloat = 0) {

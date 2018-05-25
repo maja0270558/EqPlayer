@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -40,6 +39,7 @@
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="tintColor" red="0.96508653764592789" green="0.97152044789690073" blue="0.95865262739495505" alpha="0.17647502413127414" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="1zf-Gh-orL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="DeI-iW-dQd"/>
                     <constraint firstAttribute="bottomMargin" secondItem="kGc-n4-W7w" secondAttribute="bottom" constant="3" id="HfE-6M-Ich"/>

@@ -9,11 +9,11 @@
 import UIKit
 
 class EQPlayerViewController: UIViewController {
-  @IBOutlet weak var backgroundView: UIView!
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    backgroundView.layer.cornerRadius = 10
-    backgroundView.clipsToBounds = true
-  }
+    @IBOutlet var backgroundView: UIView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        backgroundView.layer.cornerRadius = 10
+        backgroundView.clipsToBounds = true
+    }
 }

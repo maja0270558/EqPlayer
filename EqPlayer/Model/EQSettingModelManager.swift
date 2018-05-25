@@ -9,35 +9,35 @@
 import Foundation
 
 class EQSettingModelManager {
-  var tempModel: EQProjectModel
-  init(model: EQProjectModel = EQProjectModel()) {
-    tempModel = EQProjectModel(value: model)
-  }
-  
-  func setEQSetting(values: [Double]){
-    tempModel.eqSetting.removeAll()
-    values.forEach(){
-      tempModel.eqSetting.append($0)
+    var tempModel: EQProjectModel
+    init(model: EQProjectModel = EQProjectModel()) {
+        tempModel = EQProjectModel(value: model)
     }
-  }
-  
-  func saveObjectTo(status: EQProjectModel.EQProjectStatus) {
-    let modelCopy = EQProjectModel(value: tempModel)
-    modelCopy.status = status
 
-    if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: modelCopy.uuid) {
-        let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: modelCopy.uuid)
-        let object = result.first!
-        EQRealmManager.shard.updateObject {
-          object.name = modelCopy.name
-          object.status = modelCopy.status
-          object.tracks.removeAll()
-          object.tracks.append(objectsIn: modelCopy.tracks)
-          object.eqSetting.removeAll()
-          object.eqSetting.append(objectsIn: modelCopy.eqSetting)
+    func setEQSetting(values: [Double]) {
+        tempModel.eqSetting.removeAll()
+        values.forEach {
+            tempModel.eqSetting.append($0)
         }
-    } else {
-      EQRealmManager.shard.save(object: modelCopy)
     }
-  }
+
+    func saveObjectTo(status: EQProjectModel.EQProjectStatus) {
+        let modelCopy = EQProjectModel(value: tempModel)
+        modelCopy.status = status
+
+        if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: modelCopy.uuid) {
+            let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: modelCopy.uuid)
+            let object = result.first!
+            EQRealmManager.shard.updateObject {
+                object.name = modelCopy.name
+                object.status = modelCopy.status
+                object.tracks.removeAll()
+                object.tracks.append(objectsIn: modelCopy.tracks)
+                object.eqSetting.removeAll()
+                object.eqSetting.append(objectsIn: modelCopy.eqSetting)
+            }
+        } else {
+            EQRealmManager.shard.save(object: modelCopy)
+        }
+    }
 }

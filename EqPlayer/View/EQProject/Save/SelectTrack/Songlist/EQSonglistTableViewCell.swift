@@ -21,6 +21,7 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setSelectedColor()
         albumImage.layer.cornerRadius = 10
         albumImage.clipsToBounds = true
         // Initialization code

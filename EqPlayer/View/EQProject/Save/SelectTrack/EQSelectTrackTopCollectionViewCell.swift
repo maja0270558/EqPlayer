@@ -29,7 +29,6 @@ class EQSelectTrackTopCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func resetCell() {
