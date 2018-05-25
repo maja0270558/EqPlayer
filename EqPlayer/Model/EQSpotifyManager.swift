@@ -29,7 +29,10 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
   var currentPlayIndex:Int = 0
   var playing = false
   var playbackBackgroundTask =  UIBackgroundTaskIdentifier()
+  
+  var eqSettingForPreview: [Float] = Array(repeating: 0, count: 15)
   private var trackList: [String] = [String]()
+  
   
   func setupAuth() {
     auth?.clientID = EQSpotifyClientInfo.clientID.rawValue
@@ -55,11 +58,19 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     } catch {
       print("error")
     }
+    SPTUser.requestCurrentUser(withAccessToken:(SPTAuth.defaultInstance().session.accessToken)!) { (error, data) in
+      guard let user = data as? SPTUser else {
+        print("Couldn't cast as SPTUser")
+        return
+      }
+      let userId = user.displayName
+      let userPhotoURL = user.largestImage.imageURL.absoluteString
+      UserDefaults.standard.set(userId, forKey: "userName")
+      UserDefaults.standard.set(userPhotoURL, forKey: "userPhotoURL")
+    }
     player!.login(withAccessToken: authSession.accessToken)
-//    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(screenLock), notification: Notification.Name.screenLock)
   }
-  @objc func screenLock(){
-  }
+  
   func popLoginViewController() {
     authViewController = SFSafariViewController(url: loginURL!)
     UIApplication.shared.keyWindow?.rootViewController?.present(authViewController!, animated: true, completion: nil)
@@ -84,7 +95,6 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     }
     return data
   }
-  
 }
 
 extension EQSpotifyManager {
@@ -106,6 +116,9 @@ extension EQSpotifyManager {
       self.player?.playSpotifyURI(self.trackList[self.currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { (error) in
         
       })
+  }
+  func checkIsModifyCurrentModel(){
+    
   }
   @objc func skip(){
     currentPlayIndex+=1
@@ -142,6 +155,7 @@ extension EQSpotifyManager {
       coreAudioController.setGain(value: bandValues[index], forBandAt: UInt32(index))
     }
   }
+  
   
  
 }

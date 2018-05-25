@@ -27,5 +27,5 @@ extension Notification.Name {
   static let eqProjectSave = Notification.Name("eqProjectSave")
   static let eqProjectDidChangeUnsave = Notification.Name("eqProjectDidChangeUnsave")
   static let eqProjectAccidentallyClose = Notification.Name("eqProjectAccidentallyClose")
-  static let screenLock = Notification.Name("screenLock")
+  static let eqProjectDelete = Notification.Name("eqProjectDelete")
 }

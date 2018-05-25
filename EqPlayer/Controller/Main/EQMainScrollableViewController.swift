@@ -22,7 +22,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
       present(eqProjectViewController, animated: true, completion: nil)
     }
   }
-  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     becomeFirstResponder()
@@ -32,6 +31,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     super.viewDidLoad()
     EQSpotifyManager.shard.delegate = self
     registerCollectionCell()
+    subscribeNotification()
     setupDelegate()
     setupTopScrollableMainView()
     setupBlurEffect()
@@ -54,20 +54,38 @@ class EQMainScrollableViewController: EQScrollableViewController {
     try? session.setCategory(AVAudioSessionCategoryPlayback)
     try? session.setActive(true)
   }
- 
+  func subscribeNotification() {
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectDelete), notification: Notification.Name.eqProjectDelete)
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectSave), notification: Notification.Name.eqProjectSave)
+  }
+  func removeNotification() {
+    EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectTrackModifyNotification)
+    EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectAccidentallyClose)
+  }
+  
+  @objc func eqProjectDelete() {
+    EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
+    playerView.resetPlayer()
+  }
+  
+  @objc func eqProjectSave() {
+    
+  }
+  
   func setLockScreenDisplay(model: SPTPlaybackTrack,cover: UIImage) {
     var info = Dictionary<String, Any>()
-    info[MPMediaItemPropertyTitle] = model.name//歌名
-    info[MPMediaItemPropertyArtist] = model.artistName //作者
-    info[MPMediaItemPropertyAlbumArtist] = model.artistName//专辑作者
-    info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)//显示的图片
-    info[MPMediaItemPropertyPlaybackDuration] = model.duration//总时长
+    info[MPMediaItemPropertyTitle] = model.name
+    info[MPMediaItemPropertyArtist] = model.artistName
+    info[MPMediaItemPropertyAlbumArtist] = model.artistName
+    info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)
+    info[MPMediaItemPropertyPlaybackDuration] = model.duration
     MPNowPlayingInfoCenter.default().nowPlayingInfo = info
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     resignFirstResponder()
     UIApplication.shared.endReceivingRemoteControlEvents()
+    removeNotification()
   }
   override func remoteControlReceived(with event: UIEvent?) {
     let type = event?.subtype
@@ -187,7 +205,7 @@ extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
       let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: data.uuid)
       let object = result.first!
       EQRealmManager.shard.remove(object: object)
-      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
+      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectDelete)
     }
   }
   

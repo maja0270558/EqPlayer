@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -35,7 +34,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2e1-Bf-kSC">
-                        <rect key="frame" x="16" y="8" width="264" height="29"/>
+                        <rect key="frame" x="16" y="8" width="255" height="29"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="29" id="evN-Gp-7VF"/>
                         </constraints>
@@ -44,10 +43,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rwy-JA-rWK">
-                        <rect key="frame" x="288" y="8" width="16" height="16"/>
+                        <rect key="frame" x="279" y="8" width="25" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="16" id="clw-bW-1Uu"/>
-                            <constraint firstAttribute="width" constant="16" id="svF-l7-DdT"/>
+                            <constraint firstAttribute="height" constant="25" id="clw-bW-1Uu"/>
+                            <constraint firstAttribute="width" constant="25" id="svF-l7-DdT"/>
                         </constraints>
                         <state key="normal" backgroundImage="more-options"/>
                         <connections>

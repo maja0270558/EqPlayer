@@ -53,6 +53,7 @@
 		EB6F33A220AD411000EA3E85 /* EQCustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */; };
 		EB79C95D20B6AC520063565D /* +EQTimeIntervalExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */; };
 		EB79C96220B735CC0063565D /* +EQUIViewControllerExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79C96120B735CC0063565D /* +EQUIViewControllerExtention.swift */; };
+		EB79C96520B750B10063565D /* EQUserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB79C96420B750B10063565D /* EQUserProvider.swift */; };
 		EB7AD7C320B264B70046BDB2 /* EQLineChartViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */; };
 		EB7AD7C620B415580046BDB2 /* EQPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C520B415580046BDB2 /* EQPlayerViewController.swift */; };
 		EB7AD7C820B415920046BDB2 /* EQPlayerPannableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */; };
@@ -132,6 +133,7 @@
 		EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomUITextField.swift; sourceTree = "<group>"; };
 		EB79C95C20B6AC510063565D /* +EQTimeIntervalExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQTimeIntervalExtention.swift"; sourceTree = "<group>"; };
 		EB79C96120B735CC0063565D /* +EQUIViewControllerExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQUIViewControllerExtention.swift"; sourceTree = "<group>"; };
+		EB79C96420B750B10063565D /* EQUserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserProvider.swift; sourceTree = "<group>"; };
 		EB7AD7C220B264B70046BDB2 /* EQLineChartViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQLineChartViewExtention.swift; sourceTree = "<group>"; };
 		EB7AD7C520B415580046BDB2 /* EQPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerViewController.swift; sourceTree = "<group>"; };
 		EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerPannableView.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			children = (
 				EB04335B209FF86C00616EB9 /* EQSpotifyManager.swift */,
 				EB52374420ADB1330017FA1F /* EQRealmManager.swift */,
+				EB79C96420B750B10063565D /* EQUserProvider.swift */,
 				EB52374620AEA0280017FA1F /* EQSettingModelManager.swift */,
 				EB52374020AD77200017FA1F /* EQProjectModel.swift */,
 			);
@@ -377,6 +380,14 @@
 			path = Extention;
 			sourceTree = "<group>";
 		};
+		EB79C96320B743350063565D /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				EB1737A920AA88B600566F50 /* EQProjectViewControllerSectionAndCellProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		EB7AD7C120AF067B0046BDB2 /* EQCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,8 +427,8 @@
 			children = (
 				EBF3264F20AEE1540007526B /* Save */,
 				EBF3264C20AEE0FF0007526B /* SelectTrack */,
+				EB79C96320B743350063565D /* Provider */,
 				EB1737A720AA84A400566F50 /* EQProjectViewController.swift */,
-				EB1737A920AA88B600566F50 /* EQProjectViewControllerSectionAndCellProvider.swift */,
 			);
 			path = EQProject;
 			sourceTree = "<group>";
@@ -775,6 +786,7 @@
 				EBE65D8020A3EFE3001A9E42 /* EQCircleImage.swift in Sources */,
 				EB1D910920A2CE8E00384869 /* EQTableViewController.swift in Sources */,
 				EB52374320AD9A6E0017FA1F /* EQNotifycationCenterManager.swift in Sources */,
+				EB79C96520B750B10063565D /* EQUserProvider.swift in Sources */,
 				EB5B0B3720A006330056E8D6 /* EQLoginViewController.swift in Sources */,
 				EB04335E209FF96A00616EB9 /* EQSpotifyClientInfo.swift in Sources */,
 				EB7AD7C320B264B70046BDB2 /* EQLineChartViewExtention.swift in Sources */,

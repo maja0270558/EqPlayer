@@ -9,6 +9,7 @@
 import Charts
 import RealmSwift
 import UIKit
+
 class EQProjectViewController: EQTableViewController {
   @IBOutlet var editTableView: UITableView!
   @IBOutlet var editBandView: EQEditBandView!
@@ -26,6 +27,10 @@ class EQProjectViewController: EQTableViewController {
     setCanPanToDismiss(true)
     generateSectionAndCell()
     subscribeNotification()
+  }
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    removeNotification()
   }
   
   @objc func projectDidModify() {
@@ -47,12 +52,15 @@ class EQProjectViewController: EQTableViewController {
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectDidModify), notification: Notification.Name.eqProjectTrackModifyNotification)
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectAccidentallyClose), notification: Notification.Name.eqProjectAccidentallyClose)
   }
-  func removeObseve() {
-    
+  func removeNotification() {
+    EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectTrackModifyNotification)
+    EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectAccidentallyClose)
   }
   
   func setupEditBandView() {
     editBandView.delegate = self
+    editBandView.lineChartView.delegate = self
+
     editBandView.projectNameLabel.text = projectName
   }
   
@@ -65,7 +73,10 @@ class EQProjectViewController: EQTableViewController {
 }
 
 extension EQProjectViewController: ChartViewDelegate {
-  func chartEntryDrag(_: ChartViewBase, entry _: ChartDataEntry) {
+  func chartEntryDrag(_: ChartViewBase, entry dragEntry: ChartDataEntry) {
+    //Set band
+    print(dragEntry.y)
+    EQSpotifyManager.shard.setGain(value: Float(dragEntry.y), atBand: UInt32(dragEntry.x))
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -92,6 +103,9 @@ extension EQProjectViewController: ChartViewDelegate {
 extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewControllerDelegate {
   func didClickSaveButton(projectName: String) {
     print((Realm.Configuration.defaultConfiguration.fileURL?.absoluteString)! + "---------------")
+    if eqSettingManager.tempModel.tracks.count <= 0 {
+      return
+    }
     self.projectName = projectName
     eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
     eqSettingManager.tempModel.name = projectName

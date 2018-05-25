@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,10 +22,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="405" height="78"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SvL-TW-dHF">
-                                <rect key="frame" x="8" y="26.5" width="25" height="25"/>
+                                <rect key="frame" x="16" y="29" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="9XH-eD-a5S"/>
-                                    <constraint firstAttribute="height" constant="25" id="QYW-DR-NeN"/>
+                                    <constraint firstAttribute="width" constant="20" id="9XH-eD-a5S"/>
+                                    <constraint firstAttribute="height" constant="20" id="QYW-DR-NeN"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="back"/>
                                 <connections>
@@ -34,7 +33,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hZ-LY-wDJ">
-                                <rect key="frame" x="41" y="8" width="325" height="62"/>
+                                <rect key="frame" x="44" y="8" width="317" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="UN2-QQ-TYZ"/>
                                 </constraints>
@@ -43,10 +42,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uC5-Vt-Feu">
-                                <rect key="frame" x="374" y="16" width="15" height="15"/>
+                                <rect key="frame" x="369" y="16" width="20" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="LJm-m3-G3A"/>
-                                    <constraint firstAttribute="width" constant="15" id="xdC-MQ-rYb"/>
+                                    <constraint firstAttribute="width" constant="20" id="xdC-MQ-rYb"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="arrow-down-sign-to-navigate"/>
                                 <connections>
@@ -62,7 +61,7 @@
                             <constraint firstItem="8hZ-LY-wDJ" firstAttribute="leading" secondItem="SvL-TW-dHF" secondAttribute="trailing" constant="8" id="NqY-Z1-1MP"/>
                             <constraint firstItem="uC5-Vt-Feu" firstAttribute="top" secondItem="gFt-kB-IUp" secondAttribute="top" constant="16" id="e5Z-2D-tIS"/>
                             <constraint firstItem="uC5-Vt-Feu" firstAttribute="leading" secondItem="8hZ-LY-wDJ" secondAttribute="trailing" constant="8" id="eoo-eC-62q"/>
-                            <constraint firstItem="SvL-TW-dHF" firstAttribute="leading" secondItem="gFt-kB-IUp" secondAttribute="leading" constant="8" id="euo-5C-hhP"/>
+                            <constraint firstItem="SvL-TW-dHF" firstAttribute="leading" secondItem="gFt-kB-IUp" secondAttribute="leading" constant="16" id="euo-5C-hhP"/>
                             <constraint firstAttribute="bottom" secondItem="8hZ-LY-wDJ" secondAttribute="bottom" constant="8" id="sdf-w3-HUw"/>
                         </constraints>
                     </view>

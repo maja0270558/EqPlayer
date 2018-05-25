@@ -66,7 +66,7 @@ class EQPlayerView: EQPlayerPannableView {
     playOrPause(isPlay: isPlay) {
       sender.isSelected = isPlay
     }
-
+    
   }
   @IBAction func playOrPauseAction(_ sender: UIButton) {
     let isPlay = !sender.isSelected
@@ -117,6 +117,20 @@ class EQPlayerView: EQPlayerPannableView {
     durationSlider.addTarget(self, action: #selector(touchUpEvent(sender:)), for: .touchUpOutside)
   }
   
+  func resetPlayer(){
+    playButton.isSelected = false
+    miniBarPlayButton.isSelected = false
+    durationSlider.maximumValue = 1
+    maxDurationLabel.text = "-0:00"
+    currentPositionLabel.text = "0:00"
+    coverImageView.image = #imageLiteral(resourceName: "vinyl")
+    blurCoverBackground(source: coverImageView.image!)
+    artistNameLabel.text = "無"
+    trackNameLabel.text = "尚未播放"
+    miniBarTrackNameLabel.text = "尚未播放"
+    durationSlider.value = 0
+  }
+  
   @objc func touchUpEvent(sender: UISlider){
     if EQSpotifyManager.shard.player?.metadata != nil {
       EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: { (error) in
@@ -149,7 +163,7 @@ class EQPlayerView: EQPlayerPannableView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
- 
+    
   }
   
   func openPlayer(){
@@ -187,17 +201,17 @@ class EQPlayerView: EQPlayerPannableView {
       }
     })
   }
- 
+  
   func setupCover(){
     coverWidthConstraint.constant = self.minCoverWidth
     coverVerticleConstraint = self.coverVerticleConstraint.setMultiplier(multiplier: self.minVerticleMultiplier)
     coverHorizontalConstraint = self.coverHorizontalConstraint.setMultiplier(multiplier: self.minHorizontalMultiplier)
     coverImageView.addShadow()
     coverImageView.layer.cornerRadius = 10
-//    coverImageView.clipsToBounds = true
+    //    coverImageView.clipsToBounds = true
     largePlayerCoverImage.image = blur(image: self.largePlayerCoverImage.image!)
     largePlayerCoverImage.layer.masksToBounds = false
-//    largePlayerCoverImage.clipsToBounds = true
+    //    largePlayerCoverImage.clipsToBounds = true
     let maskLayer = CAGradientLayer()
     maskLayer.frame = largePlayerCoverImage.bounds
     maskLayer.shadowRadius = 10
@@ -206,7 +220,7 @@ class EQPlayerView: EQPlayerPannableView {
     maskLayer.shadowOffset = CGSize.zero
     maskLayer.shadowColor = UIColor.white.cgColor
     largePlayerCoverImage.layer.mask = maskLayer
-
+    
   }
   func blurCoverBackground(source: UIImage) {
     largePlayerCoverImage.image = blur(image: source)
@@ -233,6 +247,7 @@ class EQPlayerView: EQPlayerPannableView {
     var newOrigin = currentOrigin
     var newSize = currentSize
     newOrigin.y += translation
+    newOrigin.y = max(0,newOrigin.y)
     var factorScale = max(0, newOrigin.y/(UIScreen.main.bounds.height * 0.9))
     coverWidthConstraint.constant = lerp(factorScale, min: maxCoverWidth , max: minCoverWidth )
     coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxVerticleMultiplier, max: minVerticleMultiplier))
@@ -246,9 +261,9 @@ class EQPlayerView: EQPlayerPannableView {
   
   override func onEnded(isClap: Bool) {
     if isClap {
-     folderPlayer()
+      folderPlayer()
     } else {
-     openPlayer()
+      openPlayer()
     }
   }
   

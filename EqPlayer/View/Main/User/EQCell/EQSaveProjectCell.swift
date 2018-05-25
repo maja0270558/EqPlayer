@@ -38,6 +38,10 @@ class EQSaveProjectCell: UITableViewCell {
   func setDiscsImage(imageURLs: [String], completion: @escaping () -> Void = { return } ) {
     var clampedURLsCount = (imageURLs.count >= 3) ? 3 : imageURLs.count
     resetDiscImage()
+    if  imageURLs.count < 0 {
+      completion()
+      return
+    }
     if let disc = viewWithTag(1) as? UIImageView {
       disc.sd_setImage(with: URL(string: imageURLs[0])) { (_, _, _, _) in
         disc.isHidden = false

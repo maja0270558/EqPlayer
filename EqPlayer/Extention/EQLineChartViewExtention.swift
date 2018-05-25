@@ -15,7 +15,7 @@ enum EQChartViewStyle {
 extension LineChartView {
   func setChart(_ count: Int, color: UIColor, style: EQChartViewStyle = .edit) {
     let value = (0 ..< count).map({ index -> ChartDataEntry in
-      let val = Double(25)
+      let val = Double(0)
       return ChartDataEntry(x: Double(index), y: val)
     })
    

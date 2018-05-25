@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -75,10 +74,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnZ-2y-gdG">
-                    <rect key="frame" x="344" y="16" width="15" height="15"/>
+                    <rect key="frame" x="339" y="16" width="20" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="15" id="a9J-fQ-zoM"/>
-                        <constraint firstAttribute="width" constant="15" id="cYG-bI-Fc7"/>
+                        <constraint firstAttribute="height" constant="20" id="a9J-fQ-zoM"/>
+                        <constraint firstAttribute="width" constant="20" id="cYG-bI-Fc7"/>
                     </constraints>
                     <state key="normal" backgroundImage="arrow-down-sign-to-navigate"/>
                 </button>

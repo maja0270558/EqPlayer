@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
   case userInfoCell
   case toolBar
@@ -20,7 +21,12 @@ extension EQUserTableViewController {
     section.cellIdentifier = EQUserInfoTableViewCell.typeName
     section.cellDatas = ["Django Free"]
     section.cellHeight = UITableViewAutomaticDimension
-    section.cellOperator = { _, _, _ in
+    section.cellOperator = { data, cell, indexPath in
+      guard let infoCell = cell as? EQUserInfoTableViewCell else {
+        return
+      }
+      infoCell.userName.text = EQUserProvider.getUserName()
+      infoCell.userImage.sd_setImage(with: EQUserProvider.getUserPhotoURL(), completed: nil)
     }
     return section
   }

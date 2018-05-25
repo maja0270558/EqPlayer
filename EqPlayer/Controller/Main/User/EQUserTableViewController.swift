@@ -53,9 +53,11 @@ class EQUserTableViewController: EQTableViewController {
   }
   func subscribeNotification() {
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectSave)
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectDelete)
   }
   func removeNotification() {
     EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectSave)
+    EQNotifycationCenterManager.removeObseve(observer: self, name:  Notification.Name.eqProjectDelete)
   }
   @objc func didSaveEQProject(){
     reloadUserPageData()
