@@ -10,7 +10,7 @@ import UIKit
 
 class EQSelectTrackViewController: EQScrollableViewController {
     lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
-    var titleLabels = ["Playlist", "Songs"]
+    var titleLabels = ["播放列表", "歌單"]
     var eqSettingManager: EQSettingModelManager?
     var playlistController: EQPlaylistTableViewController? {
         return data.mainController[0] as? EQPlaylistTableViewController

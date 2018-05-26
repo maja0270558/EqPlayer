@@ -83,6 +83,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
         info[MPMediaItemPropertyAlbumArtist] = model.artistName
         info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)
         info[MPMediaItemPropertyPlaybackDuration] = model.duration
+      
         MPNowPlayingInfoCenter.default().nowPlayingInfo = info
     }
 
@@ -143,9 +144,9 @@ class EQMainScrollableViewController: EQScrollableViewController {
     }
 
     func setupBlurEffect() {
-        let blurEffectView = UIVisualEffectView(effect: nil)
+        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         blurEffectView.isUserInteractionEnabled = false
-        blurEffectView.alpha = 0.8
+        blurEffectView.alpha = 0
         blurEffectView.frame = topScrollableViewBase.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         topScrollableViewBase.addSubview(blurEffectView)
@@ -238,19 +239,28 @@ extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
 }
 
 extension EQMainScrollableViewController: EQPlayerViewDelegate {
+  
+    func didDragPlayer(factor: CGFloat) {
+      var finalScale = 0.1 * (1-factor)
+      topScrollableViewBase.transform = CGAffineTransform(scaleX: 1 - finalScale, y: 1 - finalScale)
+      blurView.alpha = (1-factor)
+      print(finalScale)
+    }
+  
     func didClapPlayer() {
         topScrollableViewBase.transform = CGAffineTransform(scaleX: 1, y: 1)
-        blurView.effect = nil
+      blurView.alpha = 0
     }
 
     func didOpenPlayer() {
-        topScrollableViewBase.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        blurView.effect = UIBlurEffect(style: .dark)
+        topScrollableViewBase.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+      blurView.alpha = 1
     }
 }
 
 extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
     func didChangePlaybackStatus(isPlaying: Bool) {
+        MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0
         playerView.playButton.isSelected = isPlaying
         playerView.miniBarPlayButton.isSelected = isPlaying
     }
@@ -269,6 +279,7 @@ extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
 
     func didPositionChange(position: TimeInterval) {
         playerView.durationSlider.value = Float(position)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = Float(position)
         playerView.currentPositionLabel.text = position.stringFromTimeInterval()
     }
 }

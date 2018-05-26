@@ -38,6 +38,7 @@ extension EQUserTableViewController {
         section.headerOperator = {
             _, view in
             if let toolBar = view as? EQCustomToolBarView {
+                toolBar.backgroundColor = UIColor.clear
                 toolBar.delegate = self
                 toolBar.datasource = self
             }

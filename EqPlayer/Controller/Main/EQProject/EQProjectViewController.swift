@@ -15,7 +15,7 @@ class EQProjectViewController: EQTableViewController {
     @IBOutlet var editBandView: EQEditBandView!
     @IBOutlet var editViewTopConstraint: NSLayoutConstraint!
     let eqSettingManager = EQSettingModelManager()
-    var projectName: String = "Project"
+    var projectName: String = "專案"
     var oldContentOffset = CGPoint.zero
     let topConstraintRange = (CGFloat(-315) ..< CGFloat(25))
     //For reorder cell
@@ -24,7 +24,7 @@ class EQProjectViewController: EQTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        projectName = eqSettingManager.tempModel.name == "" ? "Project" : eqSettingManager.tempModel.name
+        projectName = eqSettingManager.tempModel.name == "" ? "專案" : eqSettingManager.tempModel.name
         setupTableView()
         setupEditBandView()
         setCanPanToDismiss(true)
@@ -40,8 +40,8 @@ class EQProjectViewController: EQTableViewController {
 
     @objc func projectDidModify() {
         sessionOf(EQProjectSectionCell.trackHeaderWithCell.rawValue).cellDatas = Array(eqSettingManager.tempModel.tracks)
-        editBandView.saveButton.setTitle("Save", for: .normal)
-        editBandView.projectNameLabel.text = projectName + " (unsave)"
+        editBandView.saveButton.setTitle("儲存", for: .normal)
+        editBandView.projectNameLabel.text = projectName + " (未儲存)"
         editTableView.reloadData()
     }
 
@@ -209,7 +209,7 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
         eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
         eqSettingManager.tempModel.name = projectName
         editBandView.projectNameLabel.text = projectName
-        editBandView.saveButton.setTitle("Edit", for: .normal)
+        editBandView.saveButton.setTitle("編輯", for: .normal)
         eqSettingManager.saveObjectTo(status: .saved)
         EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
         dismiss(animated: true, completion: nil)

@@ -12,6 +12,7 @@ import UIKit
 public protocol EQPlayerViewDelegate: class {
     func didClapPlayer()
     func didOpenPlayer()
+    func didDragPlayer(factor: CGFloat)
 }
 
 class EQPlayerView: EQPlayerPannableView {
@@ -247,6 +248,7 @@ class EQPlayerView: EQPlayerPannableView {
         newOrigin.y += translation
         newOrigin.y = max(0, newOrigin.y)
         var factorScale = max(0, newOrigin.y / (UIScreen.main.bounds.height * 0.9))
+        delegate?.didDragPlayer(factor: factorScale)
         coverWidthConstraint.constant = lerp(factorScale, min: maxCoverWidth, max: minCoverWidth)
         coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxVerticleMultiplier, max: minVerticleMultiplier))
         coverHorizontalConstraint = coverHorizontalConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxHorizontalMultiplier, max: minHorizontalMultiplier))

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -66,7 +65,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.092212701610000003" green="0.090592064060000005" blue="0.079844906879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="height" secondItem="dlR-z5-rMN" secondAttribute="height" multiplier="0.9" id="9Mv-TH-VyF"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="top" secondItem="dlR-z5-rMN" secondAttribute="top" id="B0c-8e-rKv"/>

@@ -19,7 +19,7 @@ class EQUserTableViewController: EQTableViewController {
     weak var delegate: EQUserTableViewControllerDelegate?
     var icon: UIImage?
     var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
-    var barData = ["以儲存", "發布", "施工中"]
+    var barData = ["已儲存", "已發布", "施工中"]
     var eqData = [EQProjectModel]()
     var unsaveEQData = [EQProjectModel]()
     var postedEQData = [EQProjectModel]()

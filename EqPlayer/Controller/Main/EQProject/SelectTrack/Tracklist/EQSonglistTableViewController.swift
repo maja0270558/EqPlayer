@@ -150,7 +150,26 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
     }
 
     override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-        EQSpotifyManager.shard.queuePlaylist(playlistURI: [songlists[indexPath.row].uri.absoluteString])
-        EQSpotifyManager.shard.playFirstTrack()
+      //換成加歌減歌
+      let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
+
+      guard let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri }) else {
+        return
+      }
+      
+      if added {
+        if let index = self.eqSettingManager?.tempModel.tracks.index(where: {
+          $0.uri == track.uri
+        }) {
+          self.eqSettingManager?.tempModel.tracks.remove(at: index)
+        }
+      } else {
+        self.eqSettingManager?.tempModel.tracks.append(track)
+      }
+      
+      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectTrackModifyNotification)
+      self.tableView.reloadDataUpdateFade()
+//        EQSpotifyManager.shard.queuePlaylist(playlistURI: [songlists[indexPath.row].uri.absoluteString])
+//        EQSpotifyManager.shard.playFirstTrack()
     }
 }
