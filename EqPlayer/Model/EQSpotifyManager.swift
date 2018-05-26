@@ -15,10 +15,16 @@ protocol EQSpotifyManagerDelegate: class {
     func didChangePlaybackStatus(isPlaying: Bool)
     func didPositionChange(position: TimeInterval)
 }
+enum EQPlayingType {
+  case project
+  case preview
+  case none
+}
 
 class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate, SPTCoreAudioControllerDelegate {
     static let shard: EQSpotifyManager = EQSpotifyManager()
     weak var delegate: EQSpotifyManagerDelegate?
+    let durationObseve = EQPlayerDurationObseveModel()
     var obsever: NSKeyValueObservation?
     let userDefaults = UserDefaults.standard
     var player = SPTAudioStreamingController.sharedInstance()
@@ -27,10 +33,9 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     var loginURL: URL?
     var coreAudioController = EQSpotifyCoreAudioController()
     var currentPlayIndex: Int = 0
-    var playing = false
     var playbackBackgroundTask = UIBackgroundTaskIdentifier()
-
     var eqSettingForPreview: [Float] = Array(repeating: 0, count: 15)
+    var currentPlayingType: EQPlayingType = .none
     private var trackList: [String] = [String]()
 
     func setupAuth() {
@@ -105,12 +110,21 @@ extension EQSpotifyManager {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [MPMediaItemPropertyTitle: "TESTING"]
     }
 
+  func playPreview(uri :String,duration: Double) {
+        currentPlayingType = .preview
+        player?.playSpotifyURI(uri, startingWith: 0, startingWithPosition: duration/2, callback: { _ in
+          
+        })
+    }
+  
     func playFirstTrack() {
+        currentPlayingType = .project
         currentPlayIndex = 0
         playTrack()
     }
 
     func playTrack() {
+        currentPlayingType = .project
         player?.playSpotifyURI(trackList[self.currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { _ in
 
         })
@@ -172,16 +186,6 @@ extension EQSpotifyManager {
 
     func audioStreaming(_: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
         delegate?.didChangePlaybackStatus(isPlaying: isPlaying)
-
-        let app = UIApplication.shared
-        if isPlaying {
-            playbackBackgroundTask = app.beginBackgroundTask(expirationHandler: {
-                app.endBackgroundTask(self.playbackBackgroundTask)
-                self.playbackBackgroundTask = UIBackgroundTaskInvalid
-            })
-        } else if !playing && playbackBackgroundTask != UIBackgroundTaskInvalid {
-            app.endBackgroundTask(playbackBackgroundTask)
-        }
     }
 
     func activateAudioSession() {

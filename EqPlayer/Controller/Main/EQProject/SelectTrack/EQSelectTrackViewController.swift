@@ -87,6 +87,7 @@ extension EQSelectTrackViewController: EQSelectTrackTopCollectionViewCellProtoco
     }
 
     func didClickBackButton() {
+        songlistController?.previousPreviewIndex = nil
         goTo(pageAt: 0)
     }
 }
