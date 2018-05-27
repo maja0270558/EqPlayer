@@ -286,8 +286,9 @@ extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
   }
   
   func didPositionChange(position: TimeInterval) {
-    if EQSpotifyManager.shard.currentPlayingType == .preview{
-      EQSpotifyManager.shard.durationObseve.previewCurrentDuration = EQSpotifyManager.shard.durationObseve.maxDuration/2 - position
+    if EQSpotifyManager.shard.currentPlayingType == .preview {
+      let previewCurrentDuration = EQSpotifyManager.shard.durationObseve.maxDuration/2 - position
+      EQSpotifyManager.shard.durationObseve.previewCurrentDuration = previewCurrentDuration
     }
     if EQSpotifyManager.shard.currentPlayingType != .project {
       return

@@ -51,8 +51,18 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
   
     @objc func obsevePreviewDuration() {
       let maxDuration = EQSpotifyManager.shard.durationObseve.maxPreviewDuration
-      let duration = (maxDuration + EQSpotifyManager.shard.durationObseve.previewCurrentDuration)/maxDuration
-      previewProgressBar.progress = Float(1 - duration)
+      let duration =  fabs(EQSpotifyManager.shard.durationObseve.previewCurrentDuration)
+      print(duration)
+      let progress = duration/maxDuration
+      if duration > maxDuration {
+        EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
+        previewButton.isSelected = false
+        previewProgressBar.progress = 0
+        timer?.invalidate()
+        return
+      }
+      previewProgressBar.progress = Float(progress)
+      
     }
 
     func setupCell(coverURLString: String?, title: String, artist: String) {
