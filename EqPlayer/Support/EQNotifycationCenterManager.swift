@@ -29,4 +29,5 @@ extension Notification.Name {
     static let eqProjectDidChangeUnsave = Notification.Name("eqProjectDidChangeUnsave")
     static let eqProjectAccidentallyClose = Notification.Name("eqProjectAccidentallyClose")
     static let eqProjectDelete = Notification.Name("eqProjectDelete")
+    static let eqProjectPlayPreviewTrack = Notification.Name("eqProjectPlayPreviewTrack")
 }

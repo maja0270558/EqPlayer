@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -80,8 +79,10 @@
                                         </scrollView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="0OB-f9-XCC" firstAttribute="height" secondItem="n37-58-Upi" secondAttribute="height" id="CVV-E5-1rk"/>
                                         <constraint firstAttribute="bottom" secondItem="0OB-f9-XCC" secondAttribute="bottom" id="GWn-yv-O1v"/>
                                         <constraint firstItem="0OB-f9-XCC" firstAttribute="top" secondItem="n37-58-Upi" secondAttribute="top" id="UZ4-3V-aci"/>
+                                        <constraint firstItem="0OB-f9-XCC" firstAttribute="width" secondItem="n37-58-Upi" secondAttribute="width" id="VsG-WL-jdi"/>
                                         <constraint firstAttribute="trailing" secondItem="0OB-f9-XCC" secondAttribute="trailing" id="dvd-f5-iq7"/>
                                         <constraint firstItem="0OB-f9-XCC" firstAttribute="leading" secondItem="n37-58-Upi" secondAttribute="leading" id="lWH-xc-zVy"/>
                                     </constraints>

@@ -17,24 +17,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="????????" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxC-hH-LNb">
-                                <rect key="frame" x="154" y="323" width="67" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="eRl-K9-XRp">
+                                <rect key="frame" x="138" y="281" width="99" height="105"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="99" id="5uZ-3c-rFD"/>
+                                    <constraint firstAttribute="height" constant="105" id="B6e-Gy-WWn"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.21943044354838714" green="0.21943044354838714" blue="0.21943044354838714" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint firstItem="FxC-hH-LNb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EpU-bo-7U9"/>
-                            <constraint firstItem="FxC-hH-LNb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SkL-LG-Rjo"/>
+                            <constraint firstItem="eRl-K9-XRp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="O1D-aD-YiQ"/>
+                            <constraint firstItem="eRl-K9-XRp" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="m6J-0L-fMs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon" width="99" height="105"/>
+    </resources>
 </document>

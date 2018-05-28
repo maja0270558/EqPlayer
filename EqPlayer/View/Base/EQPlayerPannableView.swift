@@ -60,26 +60,9 @@ class EQPlayerPannableView: UIView {
                 let isClap = (translation.y > frame.size.height * minimumScreenRatioToHide) ||
                     (velocity.y > minimumVelocityToHide)
                 onEnded(isClap: isClap)
-            //        if closing {
-            //          UIView.animate(withDuration: animationDuration, animations: {
-            //            self.slideViewVerticallyTo(self.frame.size.height - 25)
-            //          }, completion: { isCompleted in
-            //            if isCompleted {
-            //              self.originalPosition =  self.frame.origin
-            //            }
-            //          })
-            //        } else {
-            //          UIView.animate(withDuration: animationDuration, animations: {
-            //            self.slideViewVerticallyTo(0)
-            //            self.originalPosition = CGPoint.zero
-            //          })
-            //        }
             default:
                 break
-//        UIView.animate(withDuration: animationDuration, animations: {
-//          self.slideViewVerticallyTo(0)
-//          self.originalPosition = CGPoint.zero
-//        })
+
             }
         }
     }

@@ -80,7 +80,7 @@
                         </connections>
                     </button>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="pHY-DV-eyi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="3ly-iC-j0Y"/>
                     <constraint firstItem="h7S-b6-VXE" firstAttribute="leading" secondItem="hbm-1K-tvt" secondAttribute="leading" id="8Ja-gj-Fvc"/>
@@ -119,6 +119,6 @@
         <image name="checked" width="32" height="32"/>
         <image name="headphones" width="64" height="64"/>
         <image name="quaver-outline" width="64" height="64"/>
-        <image name="stop" width="32" height="32"/>
+        <image name="stop" width="16" height="16"/>
     </resources>
 </document>

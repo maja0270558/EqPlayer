@@ -6,6 +6,9 @@ target 'EqPlayer' do
   use_frameworks!
 
   # Pods for EqPlayer 
+  pod 'NVActivityIndicatorView'
+  pod 'Fabric'
+  pod 'Crashlytics'
   pod 'Lerp'
   pod 'UIImageColors'
   pod 'IQKeyboardManager'

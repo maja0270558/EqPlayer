@@ -2,6 +2,9 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.6)
   - Firebase/Auth (4.13.0):
     - Firebase/Core
     - FirebaseAuth (= 4.6.1)
@@ -54,6 +57,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NVActivityIndicatorView (4.2.0):
+    - NVActivityIndicatorView/Presenter (= 4.2.0)
+  - NVActivityIndicatorView/Presenter (4.2.0)
   - Realm (3.3.2):
     - Realm/Headers (= 3.3.2)
   - Realm/Headers (3.3.2)
@@ -68,12 +74,15 @@ PODS:
 
 DEPENDENCIES:
   - Charts
+  - Crashlytics
+  - Fabric
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
   - IQKeyboardManager
   - Lerp
+  - NVActivityIndicatorView
   - RealmSwift
   - SDWebImage (~> 4.0)
   - SwiftLint
@@ -83,6 +92,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Charts
+    - Crashlytics
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -96,6 +107,7 @@ SPEC REPOS:
     - Lerp
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - Realm
     - RealmSwift
     - SDWebImage
@@ -105,6 +117,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
   FirebaseAuth: bf22cacf22c60ab454bf2636f556d8892b10b53f
@@ -118,6 +132,7 @@ SPEC CHECKSUMS:
   Lerp: fe0fd19edf08a7dab2283a3f250f2c840b6a97aa
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NVActivityIndicatorView: 75c9634073e03b31d7e2748cd2417feab1206195
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
   RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
@@ -125,6 +140,6 @@ SPEC CHECKSUMS:
   SwipeCellKit: 8ae09401e1137566b187980d824310129233c959
   UIImageColors: 3ae0150e539342697808281a3975fe5dec2024ce
 
-PODFILE CHECKSUM: 85e23f8f8a61ca5ee3d50c2655919d234b9b3840
+PODFILE CHECKSUM: 93fcf917ea13bcd4aa555fdc6b73174d3989f4d8
 
 COCOAPODS: 1.5.0

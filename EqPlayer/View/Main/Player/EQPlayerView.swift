@@ -58,6 +58,9 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     @IBAction func skipTrackAction(_: UIButton) {
+      if EQSpotifyManager.shard.currentPlayingType == .preview {
+        return
+      }
         EQSpotifyManager.shard.skip()
     }
 
@@ -78,6 +81,9 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     @IBAction func previousTrackAction(_: UIButton) {
+      if EQSpotifyManager.shard.currentPlayingType == .preview {
+        return
+      }
         EQSpotifyManager.shard.previous()
     }
 
@@ -105,12 +111,9 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     func playOrPause(isPlay: Bool, completion: @escaping () -> Void) {
-        EQSpotifyManager.shard.player?.setIsPlaying(isPlay, callback: { error in
-            if error != nil {
-                return
-            }
-            completion()
-        })
+      EQSpotifyManager.shard.playOrPause(isPlay: isPlay) {
+        completion()
+      }
     }
 
     func setupDurationTarget() {
@@ -133,13 +136,16 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     @objc func touchUpEvent(sender: UISlider) {
-        if EQSpotifyManager.shard.player?.metadata != nil {
-            EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: { _ in
-
-            })
-        } else {
-            sender.value = 0
+        if EQSpotifyManager.shard.currentPlayingType == .preview {
+          sender.value = Float(EQSpotifyManager.shard.durationObseve.currentDuration)
+          return
         }
+      
+      guard let metadata = EQSpotifyManager.shard.player?.metadata else {
+          sender.value = 0
+          return
+      }
+      EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: nil)
     }
 
     func setupVolumeView() {

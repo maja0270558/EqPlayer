@@ -8,8 +8,9 @@
 
 import Foundation
 class EQPlayerDurationObseveModel: NSObject {
-  @objc dynamic var currentDuration: Double = 0
-  @objc dynamic var previewCurrentDuration: Double = 0
+   var currentDuration: Double = 0
+  var previewCurrentDuration: Double = 0
   var maxPreviewDuration: Double = 0
   var maxDuration: Double = 0
+  var currentPlayingURI: String = ""
 }

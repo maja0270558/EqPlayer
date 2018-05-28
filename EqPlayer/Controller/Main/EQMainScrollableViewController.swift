@@ -14,7 +14,8 @@ class EQMainScrollableViewController: EQScrollableViewController {
   var blurView: UIVisualEffectView!
   @IBOutlet var topScrollableViewBase: UIView!
   @IBOutlet var playerView: EQPlayerView!
-  
+  var info = [String: Any]()
+
   @IBAction func addEQAction(_: Any) {
     if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
       eqProjectViewController.modalPresentationStyle = .overCurrentContext
@@ -27,6 +28,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     super.viewWillAppear(animated)
     becomeFirstResponder()
     UIApplication.shared.beginReceivingRemoteControlEvents()
+    setupPlayerView()
   }
   
   override func viewDidLoad() {
@@ -37,7 +39,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
     setupDelegate()
     setupTopScrollableMainView()
     setupBlurEffect()
-    setupPlayerView()
     guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
       return
     }
@@ -57,36 +58,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     try? session.setCategory(AVAudioSessionCategoryPlayback)
     try? session.setActive(true)
   }
-  
-  func subscribeNotification() {
-    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectDelete), notification: Notification.Name.eqProjectDelete)
-    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectSave), notification: Notification.Name.eqProjectSave)
-  }
-  
-  func removeNotification() {
-    EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectTrackModifyNotification)
-    EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectAccidentallyClose)
-  }
-  
-  @objc func eqProjectDelete() {
-    EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
-    playerView.resetPlayer()
-  }
-  
-  @objc func eqProjectSave() {
-  }
-  
-  func setLockScreenDisplay(model: SPTPlaybackTrack, cover: UIImage) {
-    var info = [String: Any]()
-    info[MPMediaItemPropertyTitle] = model.name
-    info[MPMediaItemPropertyArtist] = model.artistName
-    info[MPMediaItemPropertyAlbumArtist] = model.artistName
-    info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)
-    info[MPMediaItemPropertyPlaybackDuration] = model.duration
-    
-    MPNowPlayingInfoCenter.default().nowPlayingInfo = info
-  }
-  
+ 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     resignFirstResponder()
@@ -99,17 +71,13 @@ class EQMainScrollableViewController: EQScrollableViewController {
     switch type! {
     case .remoteControlPlay:
       // 播放
-      EQSpotifyManager.shard.player?.setIsPlaying(true, callback: { error in
-        if error != nil {
-          return
-        }
-      })
+      EQSpotifyManager.shard.playOrPause(isPlay: true) {
+        
+      }
     case .remoteControlPause:
-      EQSpotifyManager.shard.player?.setIsPlaying(false, callback: { error in
-        if error != nil {
-          return
-        }
-      })
+      EQSpotifyManager.shard.playOrPause(isPlay: false) {
+        
+      }
     // 暂停
     case .remoteControlStop: break
     // 停止
@@ -135,7 +103,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
   }
   
   func setupPlayerView() {
-    playerView.frame = CGRect(x: 0, y: topScrollableViewBase.bounds.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+    playerView.frame = CGRect(x: 0, y: UIScreen.main.bounds.height * 0.9, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
   
   func setupTopScrollableMainView() {
@@ -259,43 +227,103 @@ extension EQMainScrollableViewController: EQPlayerViewDelegate {
 }
 
 extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
+  
+  func setLockScreenDisplay(model: SPTPlaybackTrack, cover: UIImage) {
+    info[MPMediaItemPropertyTitle] = model.name
+    info[MPMediaItemPropertyArtist] = model.artistName
+    info[MPMediaItemPropertyAlbumArtist] = model.artistName
+    info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)
+    info[MPMediaItemPropertyPlaybackDuration] = model.duration
+    info[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+  }
+  
+  func updateMPMediaProperty (){
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+  }
+  
   func didChangePlaybackStatus(isPlaying: Bool) {
-    if EQSpotifyManager.shard.currentPlayingType != .project {
-      return
+    switch EQSpotifyManager.shard.currentPlayingType {
+    case .preview:
+      info[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
+      break
+    case .project:
+      playerView.playButton.isSelected = isPlaying
+      playerView.miniBarPlayButton.isSelected = isPlaying
+      info[MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0
+    default:
+      break
     }
-    MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0
-    playerView.playButton.isSelected = isPlaying
-    playerView.miniBarPlayButton.isSelected = isPlaying
+    updateMPMediaProperty()
   }
   
   func didChangeTrack(track: SPTPlaybackTrack) {
-    EQSpotifyManager.shard.durationObseve.maxPreviewDuration = track.duration/2 > 30 ? 30 : track.duration/2
-    EQSpotifyManager.shard.durationObseve.maxDuration = track.duration
-    if EQSpotifyManager.shard.currentPlayingType != .project {
-      return
+    
+    switch EQSpotifyManager.shard.currentPlayingType {
+    case .preview:
+      EQSpotifyManager.shard.durationObseve.maxPreviewDuration = track.duration/2 > 30 ? 30 : track.duration/2
+      EQSpotifyManager.shard.durationObseve.maxDuration = track.duration
+     
+    case .project:
+      playerView.durationSlider.maximumValue = Float(track.duration)
+      playerView.maxDurationLabel.text = "-" + track.duration.stringFromTimeInterval()
+      playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: []) { image, _, _, _ in
+        self.playerView.blurCoverBackground(source: image!)
+        self.info[MPNowPlayingInfoPropertyPlaybackRate] = 1
+        self.setLockScreenDisplay(model: track, cover: image!)
+      }
+      playerView.artistNameLabel.text = track.artistName
+      playerView.trackNameLabel.text = track.name
+      playerView.miniBarTrackNameLabel.text = track.name
+      EQSpotifyManager.shard.durationObseve.currentPlayingURI = track.uri
+    default:
+      break
     }
-    playerView.durationSlider.maximumValue = Float(track.duration)
-    playerView.maxDurationLabel.text = "-" + track.duration.stringFromTimeInterval()
-    playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: []) { image, _, _, _ in
-      self.playerView.blurCoverBackground(source: image!)
-      self.setLockScreenDisplay(model: track, cover: image!)
-    }
-    playerView.artistNameLabel.text = track.artistName
-    playerView.trackNameLabel.text = track.name
-    playerView.miniBarTrackNameLabel.text = track.name
   }
   
   func didPositionChange(position: TimeInterval) {
-    if EQSpotifyManager.shard.currentPlayingType == .preview {
+    switch EQSpotifyManager.shard.currentPlayingType {
+    case .preview:
       let previewCurrentDuration = EQSpotifyManager.shard.durationObseve.maxDuration/2 - position
       EQSpotifyManager.shard.durationObseve.previewCurrentDuration = previewCurrentDuration
+    case .project:
+      EQSpotifyManager.shard.durationObseve.currentDuration = position
+      playerView.durationSlider.value = Float(position)
+      playerView.currentPositionLabel.text = position.stringFromTimeInterval()
+      info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Float(position)
+      updateMPMediaProperty()
+    default:
+      break
     }
-    if EQSpotifyManager.shard.currentPlayingType != .project {
-      return
-    }
-    EQSpotifyManager.shard.durationObseve.currentDuration = position
-    playerView.durationSlider.value = Float(position)
-    MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = Float(position)
-    playerView.currentPositionLabel.text = position.stringFromTimeInterval()
+  }
+}
+
+extension EQMainScrollableViewController {
+  
+  func subscribeNotification() {
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectDelete), notification: Notification.Name.eqProjectDelete)
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectSave), notification: Notification.Name.eqProjectSave)
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(eqProjectPlayPreviewTrack), notification: Notification.Name.eqProjectPlayPreviewTrack)
+  }
+  
+  func removeNotification() {
+    EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectTrackModifyNotification)
+    EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectAccidentallyClose)
+    EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectPlayPreviewTrack)
+  }
+  
+  @objc func eqProjectDelete() {
+    EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
+    playerView.resetPlayer()
+  }
+  
+  @objc func eqProjectSave() {
+  }
+  
+  @objc func eqProjectPlayPreviewTrack() {
+    info[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
+    updateMPMediaProperty()
+    playerView.playButton.isSelected = false
+    playerView.miniBarPlayButton.isSelected = false
   }
 }

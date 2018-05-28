@@ -13,6 +13,7 @@ class EQPannableViewController: UIViewController {
     public var minimumVelocityToHide = 1500 as CGFloat
     public var minimumScreenRatioToHide = 0.5 as CGFloat
     public var animationDuration = 0.2 as TimeInterval
+    var handler: ()-> Void = {return}
     private var canPan = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +55,9 @@ class EQPannableViewController: UIViewController {
                         self.slideViewVerticallyTo(self.view.frame.size.height)
                     }, completion: { isCompleted in
                         if isCompleted {
-                            // Dismiss the view when it dissapeared
-                            self.dismiss(animated: false, completion: nil)
+                          self.dismiss(animated: false, completion: {
+                            self.handler()
+                          })
                         }
                     })
                 } else {

@@ -31,6 +31,7 @@ class EQProjectViewController: EQTableViewController {
         generateSectionAndCell()
         subscribeNotification()
         setupLongPressOrderCell()
+        setupDismissFuncTion()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -54,6 +55,12 @@ class EQProjectViewController: EQTableViewController {
         }
     }
 
+    func setupDismissFuncTion() {
+      handler = {
+        EQSpotifyManager.shard.playFromLastDuration()
+      }
+    }
+  
     func setupLongPressOrderCell() {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(longPress:)))
         self.editTableView.addGestureRecognizer(longPress)

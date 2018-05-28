@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="600.5"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Vv-my-8Cj">
-                                        <rect key="frame" x="0.0" y="20" width="375" height="63"/>
+                                        <rect key="frame" x="0.0" y="30" width="375" height="63"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="63" id="Xj6-Ok-Xjv"/>
@@ -36,7 +36,7 @@
                                         <cells/>
                                     </collectionView>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fk-hj-Ykd">
-                                        <rect key="frame" x="0.0" y="91" width="375" height="509.5"/>
+                                        <rect key="frame" x="0.0" y="101" width="375" height="499.5"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -44,16 +44,19 @@
                                     <constraint firstAttribute="trailing" secondItem="5fk-hj-Ykd" secondAttribute="trailing" id="8L9-77-yHY"/>
                                     <constraint firstItem="4Vv-my-8Cj" firstAttribute="leading" secondItem="9Ma-Mj-6oe" secondAttribute="leading" id="QAo-at-SSL"/>
                                     <constraint firstAttribute="bottom" secondItem="5fk-hj-Ykd" secondAttribute="bottom" id="WGO-X2-9Iy"/>
-                                    <constraint firstItem="4Vv-my-8Cj" firstAttribute="top" secondItem="9Ma-Mj-6oe" secondAttribute="top" constant="20" id="Yu1-Tc-pNj"/>
+                                    <constraint firstItem="4Vv-my-8Cj" firstAttribute="top" secondItem="9Ma-Mj-6oe" secondAttribute="top" constant="30" id="Yu1-Tc-pNj"/>
                                     <constraint firstAttribute="trailing" secondItem="4Vv-my-8Cj" secondAttribute="trailing" id="lx3-IJ-LMw"/>
                                     <constraint firstItem="5fk-hj-Ykd" firstAttribute="leading" secondItem="9Ma-Mj-6oe" secondAttribute="leading" id="mxJ-o7-Eek"/>
                                     <constraint firstItem="5fk-hj-Ykd" firstAttribute="top" secondItem="4Vv-my-8Cj" secondAttribute="bottom" constant="8" id="wmk-hi-Bkr"/>
                                     <constraint firstAttribute="width" constant="375" id="xLq-6U-HCe"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-lp-g4p">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-lp-g4p">
                                 <rect key="frame" x="315" y="547" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Ifu-Mu-8eT"/>
+                                    <constraint firstAttribute="height" constant="40" id="qau-xo-PDf"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="rounded-add-button"/>
                                 <connections>
                                     <action selector="addEQAction:" destination="8gU-ew-QVX" eventType="touchUpInside" id="akK-wp-3cJ"/>
@@ -70,7 +73,9 @@
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="height" secondItem="dlR-z5-rMN" secondAttribute="height" multiplier="0.9" id="9Mv-TH-VyF"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="top" secondItem="dlR-z5-rMN" secondAttribute="top" id="B0c-8e-rKv"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="trailing" secondItem="U0n-3j-ADt" secondAttribute="trailing" id="OwP-Ln-rF8"/>
+                            <constraint firstItem="U0n-3j-ADt" firstAttribute="trailing" secondItem="MhK-lp-g4p" secondAttribute="trailing" constant="20" id="gRj-zB-xLY"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="leading" secondItem="U0n-3j-ADt" secondAttribute="leading" id="pt4-6k-nPc"/>
+                            <constraint firstItem="MhK-lp-g4p" firstAttribute="centerY" secondItem="dlR-z5-rMN" secondAttribute="centerY" multiplier="1.7" id="z3F-Vb-8s1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U0n-3j-ADt"/>
                     </view>

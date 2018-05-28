@@ -8,6 +8,7 @@
 
 import SDWebImage
 import SwipeCellKit
+import MediaPlayer
 import UIKit
 
 protocol EQSonglistTableViewCellDelegate: class {
@@ -30,8 +31,10 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
     var indexPath: IndexPath?
   
     @IBAction func previewAction(_ sender: UIButton) {
-      previewButton.isSelected = !previewButton.isSelected
-      cellDelegate?.didPreviewButtonClick(indexPath: indexPath!)
+      self.previewButton.isSelected = !self.previewButton.isSelected
+      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectPlayPreviewTrack)
+      self.cellDelegate?.didPreviewButtonClick(indexPath: self.indexPath!)
+
     }
     var track: EQTrack?
   
@@ -52,7 +55,6 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
     @objc func obsevePreviewDuration() {
       let maxDuration = EQSpotifyManager.shard.durationObseve.maxPreviewDuration
       let duration =  fabs(EQSpotifyManager.shard.durationObseve.previewCurrentDuration)
-      print(duration)
       let progress = duration/maxDuration
       if duration > maxDuration {
         EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
@@ -61,9 +63,8 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
         timer?.invalidate()
         return
       }
-      previewProgressBar.progress = Float(progress)
-      
-    }
+        self.previewProgressBar.progress = Float(progress)
+      }
 
     func setupCell(coverURLString: String?, title: String, artist: String) {
         if let coverURL = coverURLString {

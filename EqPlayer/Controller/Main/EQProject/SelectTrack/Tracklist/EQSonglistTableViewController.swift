@@ -191,16 +191,23 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
     }
     let track = songlists[indexPath.row]
     if previousPreviewIndex != indexPath {
+      //按別的cell
       resetCell(indexPath: previousPreviewIndex)
     }
     if cell.previewButton.isSelected {
+      //試聽的那個
       previousPreviewIndex = indexPath
       previousPreviewURLString = track.uri.absoluteString
+      EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
       EQSpotifyManager.shard.playPreview(uri: track.uri.absoluteString, duration: track.duration)
-      
-      cell.obsevePreviewDuration()
-      cell.startObseve()
+      {
+        cell.obsevePreviewDuration()
+        cell.startObseve()
+        self.tableView.reloadDataUpdateFade()
+      }
+
     } else {
+      //按自己
       resetCell(indexPath: indexPath)
       EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
     }

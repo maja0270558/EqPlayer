@@ -7,6 +7,8 @@
 //
 
 import Firebase
+import Fabric
+import Crashlytics
 import IQKeyboardManager
 import MediaPlayer
 import UIKit
@@ -22,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        Fabric.with([Crashlytics.self])
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         FirebaseApp.configure()
