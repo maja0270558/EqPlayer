@@ -62,6 +62,8 @@
 		EB7AD7C820B415920046BDB2 /* EQPlayerPannableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */; };
 		EB7AD7CE20B425C40046BDB2 /* EQPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB7AD7CD20B425C30046BDB2 /* EQPlayerView.xib */; };
 		EB7AD7D020B425D40046BDB2 /* EQPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD7CF20B425D40046BDB2 /* EQPlayerView.swift */; };
+		EBA56A9120BBE5090080B3E4 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBA56A9020BBE5090080B3E4 /* Loading.storyboard */; };
+		EBA56A9320BBE5AF0080B3E4 /* EQLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA56A9220BBE5AF0080B3E4 /* EQLoadingViewController.swift */; };
 		EBB0264F20B4615A0017CA98 /* EQCustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0264E20B4615A0017CA98 /* EQCustomSlider.swift */; };
 		EBB0265120B465B80017CA98 /* EQImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0265020B465B80017CA98 /* EQImageExtention.swift */; };
 		EBB1C21A20A544D700D21788 /* EQUserTableViewControllerSectionAndCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C21920A544D700D21788 /* EQUserTableViewControllerSectionAndCellProvider.swift */; };
@@ -147,6 +149,8 @@
 		EB7AD7C720B415920046BDB2 /* EQPlayerPannableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerPannableView.swift; sourceTree = "<group>"; };
 		EB7AD7CD20B425C30046BDB2 /* EQPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPlayerView.xib; sourceTree = "<group>"; };
 		EB7AD7CF20B425D40046BDB2 /* EQPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlayerView.swift; sourceTree = "<group>"; };
+		EBA56A9020BBE5090080B3E4 /* Loading.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
+		EBA56A9220BBE5AF0080B3E4 /* EQLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQLoadingViewController.swift; sourceTree = "<group>"; };
 		EBB0264E20B4615A0017CA98 /* EQCustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomSlider.swift; sourceTree = "<group>"; };
 		EBB0265020B465B80017CA98 /* EQImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQImageExtention.swift; sourceTree = "<group>"; };
 		EBB1C21920A544D700D21788 /* EQUserTableViewControllerSectionAndCellProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserTableViewControllerSectionAndCellProvider.swift; sourceTree = "<group>"; };
@@ -330,6 +334,7 @@
 				EB17379520A823F300566F50 /* Base */,
 				EB1737A620AA845900566F50 /* Main */,
 				EB5B0B3620A006330056E8D6 /* EQLoginViewController.swift */,
+				EBA56A9220BBE5AF0080B3E4 /* EQLoadingViewController.swift */,
 				EB5B0B3A20A008820056E8D6 /* EQSpotifyCoreAudioController.swift */,
 			);
 			path = Controller;
@@ -371,6 +376,7 @@
 			children = (
 				EB5B0B2F20A004780056E8D6 /* Login.storyboard */,
 				EB5B0B3120A004840056E8D6 /* Main.storyboard */,
+				EBA56A9020BBE5090080B3E4 /* Loading.storyboard */,
 				EBE65D8320A47A26001A9E42 /* EQProject.storyboard */,
 			);
 			path = StoryBoards;
@@ -665,6 +671,7 @@
 				EB17379A20A92A3700566F50 /* EQSelectTrackTopCollectionViewCell.xib in Resources */,
 				EB4ABBE2209EF92F006D124D /* LaunchScreen.storyboard in Resources */,
 				EB4ABBEA209EFCB5006D124D /* GoogleService-Info.plist in Resources */,
+				EBA56A9120BBE5090080B3E4 /* Loading.storyboard in Resources */,
 				EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */,
 				EBE65D7820A342F3001A9E42 /* EQSaveProjectCell.xib in Resources */,
 				EB5B0B3220A004840056E8D6 /* Main.storyboard in Resources */,
@@ -807,6 +814,7 @@
 				EB52374520ADB1330017FA1F /* EQRealmManager.swift in Sources */,
 				EB17379920A92A3700566F50 /* EQSelectTrackTopCollectionViewCell.swift in Sources */,
 				EB6F33A220AD411000EA3E85 /* EQCustomUITextField.swift in Sources */,
+				EBA56A9320BBE5AF0080B3E4 /* EQLoadingViewController.swift in Sources */,
 				EBB1C22420A7E14800D21788 /* EQMainScrollableViewController.swift in Sources */,
 				EB7AD7C620B415580046BDB2 /* EQPlayerViewController.swift in Sources */,
 				EB7AD7D020B425D40046BDB2 /* EQPlayerView.swift in Sources */,
@@ -978,7 +986,10 @@
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1003,7 +1014,10 @@
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

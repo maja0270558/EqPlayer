@@ -214,16 +214,6 @@ extension EQSpotifyManager {
   func audioStreaming(_: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
     delegate?.didChangePlaybackStatus(isPlaying: isPlaying)
   }
-  
-  func activateAudioSession() {
-    try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [.allowAirPlay, .mixWithOthers])
-    try? AVAudioSession.sharedInstance().setActive(true)
-  }
-  
-  func deactivateAudioSession() {
-    try? AVAudioSession.sharedInstance().setActive(false)
-  }
-  
   func audioStreaming(_: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
     delegate?.didPositionChange(position: position)
   }

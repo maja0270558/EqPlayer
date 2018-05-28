@@ -7,14 +7,16 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class EQLoginViewController: UIViewController {
     weak var appDelegate = UIApplication.shared.delegate
 
     @IBOutlet var loginButton: UIButton!
-
+    @IBOutlet weak var loginProgress: NVActivityIndicatorView!
+  
     @IBAction func loginAction(_: UIButton) {
         if let delegate = appDelegate as? AppDelegate {
+            loginProgress.startAnimating()
             delegate.spotifyManager.login()
         }
     }
