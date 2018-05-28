@@ -11,6 +11,7 @@ import UIKit
 protocol EQEditBandViewDelegate: class {
     func didClickSaveProjectButton()
     func didClickPostProjectButton()
+    func didClickDismissButton()
 }
 
 class EQEditBandView: UIView {
@@ -25,7 +26,11 @@ class EQEditBandView: UIView {
     @IBAction func postAction(_: UIButton) {
         delegate?.didClickPostProjectButton()
     }
-
+  
+  @IBAction func dismissAction(_ sender: UIButton) {
+    delegate?.didClickDismissButton()
+  }
+  
     @IBOutlet var saveButton: UIButton!
 
     @IBOutlet var postButton: UIButton!

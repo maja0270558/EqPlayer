@@ -19,7 +19,11 @@ class EQSelectTrackViewController: EQScrollableViewController {
     var songlistController: EQSonglistTableViewController? {
         return data.mainController[1] as? EQSonglistTableViewController
     }
-
+    override func onDismiss() {
+      dismiss(animated: true) {
+        
+      }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setCanPanToDismiss(true)

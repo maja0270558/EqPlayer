@@ -6,6 +6,7 @@ target 'EqPlayer' do
   use_frameworks!
 
   # Pods for EqPlayer 
+  pod 'PopupDialog', '~> 0.7'
   pod 'NVActivityIndicatorView'
   pod 'Fabric'
   pod 'Crashlytics'

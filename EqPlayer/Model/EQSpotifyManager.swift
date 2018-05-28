@@ -150,9 +150,11 @@ extension EQSpotifyManager {
   }
   
   func playFromLastDuration() {
+    if currentPlayingType != .project && trackList.count > 0 {
     currentPlayingType = .project
     player?.playSpotifyURI(durationObseve.currentPlayingURI, startingWith: 0, startingWithPosition: durationObseve.currentDuration, callback: nil)
-  }
+    }
+    }
   
   func checkIsModifyCurrentModel() {
   }
@@ -204,7 +206,6 @@ extension EQSpotifyManager {
   
   func audioStreaming(_: SPTAudioStreamingController!, didStopPlayingTrack _: String!) {
     skip()
-    print("stop")
   }
   
   func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {

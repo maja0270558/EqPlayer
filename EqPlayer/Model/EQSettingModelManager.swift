@@ -9,6 +9,7 @@
 import Foundation
 
 class EQSettingModelManager {
+    var isModify: Bool = false
     var tempModel: EQProjectModel
     init(model: EQProjectModel = EQProjectModel()) {
         tempModel = EQProjectModel(value: model)
