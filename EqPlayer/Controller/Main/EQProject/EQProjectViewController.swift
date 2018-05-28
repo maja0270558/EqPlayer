@@ -10,6 +10,7 @@ import Charts
 import RealmSwift
 import UIKit
 import PopupDialog
+import SwipeCellKit
 
 class EQProjectViewController: EQTableViewController {
   @IBOutlet var editTableView: UITableView!
@@ -71,7 +72,7 @@ class EQProjectViewController: EQTableViewController {
   
   func popupAskUserToSave() {
     setDarkMode()
-    if eqSettingManager.isModify {
+    if eqSettingManager.isModify && eqSettingManager.tempModel.tracks.count > 0 {
       let title = "尚未儲存"
       let message = "您的專案尚未儲存，確定直接關閉嗎。"
       
@@ -325,3 +326,28 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
     }
   }
 }
+extension EQProjectViewController: SwipeTableViewCellDelegate{
+  func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+    let track = eqSettingManager.tempModel.tracks[indexPath.row]
+    guard orientation == .right else {
+      return nil
+    }
+    let swipeAction = SwipeAction(style: .default, title: "") { _, _ in
+      self.eqSettingManager.tempModel.tracks.remove(at: indexPath.row)
+      self.eqSettingManager.isModify = true
+      EQNotifycationCenterManager.post(name: Notification.Name.eqProjectTrackModifyNotification)
+    }
+    swipeAction.image = UIImage(named: "remove")
+    swipeAction.backgroundColor = UIColor.clear
+    return [swipeAction]
+  }
+  func tableView(_: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for _: SwipeActionsOrientation) -> SwipeTableOptions {
+    var options = SwipeTableOptions()
+    options.backgroundColor = UIColor(red: 1, green: 38 / 255, blue: 0, alpha: 0.3)
+    options.expansionStyle = .selection
+    options.transitionStyle = .reveal
+    options.buttonVerticalAlignment = .center
+    return options
+  }
+}
+

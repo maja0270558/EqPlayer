@@ -29,6 +29,7 @@ extension EQProjectViewController {
             data, cell, _ in
             if let trackCell = cell as? EQSonglistTableViewCell, let track = data as? EQTrack {
                 trackCell.setupCell(coverURLString: track.coverURL, title: track.name, artist: track.artist)
+                trackCell.delegate = self
             }
         }
         return section

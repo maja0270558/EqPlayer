@@ -131,7 +131,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
       } else {
         self.eqSettingManager?.tempModel.tracks.append(track)
       }
-      
+      self.eqSettingManager?.isModify = true
       EQNotifycationCenterManager.post(name: Notification.Name.eqProjectTrackModifyNotification)
       self.tableView.reloadDataUpdateFade()
     }
@@ -157,7 +157,6 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
         options.backgroundColor = UIColor(red: 0.3, green: 0.5, blue: 0, alpha: 0.3)
       }
     }
-    eqSettingManager?.isModify = true
     options.expansionStyle = .selection
     options.transitionStyle = .reveal
     options.buttonVerticalAlignment = .center

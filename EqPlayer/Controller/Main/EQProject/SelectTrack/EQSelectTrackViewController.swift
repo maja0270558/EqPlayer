@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 class EQSelectTrackViewController: EQScrollableViewController {
     lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
@@ -130,3 +131,5 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
         })
     }
 }
+
+
