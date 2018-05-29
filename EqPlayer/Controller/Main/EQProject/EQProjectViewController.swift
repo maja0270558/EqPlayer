@@ -19,12 +19,15 @@ class EQProjectViewController: EQTableViewController {
   let eqSettingManager = EQSettingModelManager()
   var projectName: String = "專案"
   var oldContentOffset = CGPoint.zero
-  let topConstraintRange = (CGFloat(-315) ..< CGFloat(25))
+  let topConstraintRange = (CGFloat(-323) ..< CGFloat(25))
   var previousPreviewIndex: IndexPath?
   var reorderIndex: IndexPath?
   //For reorder cell
   fileprivate var sourceIndexPath: IndexPath?
   fileprivate var snapshot: UIView?
+  var cellDatas: [EQTrack]? {
+    return sectionProviders[0].cellDatas as? [EQTrack]
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -89,7 +92,7 @@ class EQProjectViewController: EQTableViewController {
       
       switch eqSettingManager.tempModel.status {
       case .saved:
-       
+        
         let temp = DefaultButton(title: "儲存", height: 60) {
           self.save()
         }
@@ -98,7 +101,7 @@ class EQProjectViewController: EQTableViewController {
         let temp = DefaultButton(title: "儲存施工專案", height: 60) {
           self.backToAppear()
           self.showSavePage()
-
+          
         }
         popup.addButtons([cancel,temp,close])
       case .new:
@@ -110,8 +113,8 @@ class EQProjectViewController: EQTableViewController {
       }
       self.present(popup, animated: true, completion: nil)
     } else {
-        backToMain()
-      }
+      backToMain()
+    }
   }
   
   func backToMain() {
@@ -143,6 +146,7 @@ class EQProjectViewController: EQTableViewController {
       snapshot.center = center
       snapshot.alpha = 0.0
       self.editTableView.addSubview(snapshot)
+      cell.isHidden = true
       UIView.animate(withDuration: 0.25, animations: {
         center.y = location.y
         snapshot.center = center
@@ -150,7 +154,6 @@ class EQProjectViewController: EQTableViewController {
         snapshot.alpha = 0.98
         cell.alpha = 0.0
       }, completion: { (finished) in
-        cell.isHidden = true
       })
       
     case .changed:
@@ -160,27 +163,38 @@ class EQProjectViewController: EQTableViewController {
       var center = snapshot.center
       center.y = location.y
       snapshot.center = center
-      guard let sourceIndexPath = self.sourceIndexPath, let reorderIndex = self.reorderIndex  else {
+      guard let sourceIndexPath = self.sourceIndexPath else {
         return
+        
       }
       if indexPath != sourceIndexPath {
-        
+        //重設試聽index
         if let preIndex = previousPreviewIndex {
-          if reorderIndex.row == preIndex.row {
+          if sourceIndexPath == preIndex {
             previousPreviewIndex = indexPath
+          } else if indexPath == preIndex {
+            previousPreviewIndex = sourceIndexPath
           }
         }
         guard let sourceCell = self.editTableView.cellForRow(at: sourceIndexPath) as? EQSonglistTableViewCell , let targetCell = self.editTableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
           return
         }
+        
         sourceCell.indexPath = indexPath
         targetCell.indexPath = sourceIndexPath
-        print("source: \(sourceCell.indexPath?.row), target\(targetCell.indexPath?.row)")
         swap(&eqSettingManager.tempModel.tracks[indexPath.row], &eqSettingManager.tempModel.tracks[sourceIndexPath.row])
-        print("to: \(eqSettingManager.tempModel.tracks[indexPath.row].name)\n from: \(eqSettingManager.tempModel.tracks[sourceIndexPath.row].name)")
-        self.editTableView.moveRow(at: sourceIndexPath, to: indexPath)
-        self.sourceIndexPath = indexPath
+        sessionOf(EQProjectSectionCell.trackHeaderWithCell.rawValue).cellDatas = Array(eqSettingManager.tempModel.tracks)
+        
+//        swap(&sectionProviders[indexPath.section].cellDatas[indexPath.row], &sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row])
+//        let temp = sectionProviders[indexPath.section].cellDatas[indexPath.row]
+//        sectionProviders[indexPath.section].cellDatas[indexPath.row] = sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row]
+//        sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row] = temp
 
+        UIView.performWithoutAnimation {
+           self.editTableView.moveRow(at: sourceIndexPath, to: indexPath)
+        }
+        self.sourceIndexPath = indexPath
+        
       }
     default:
       guard let cell = self.editTableView.cellForRow(at: indexPath) else {
@@ -392,7 +406,6 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
       EQSpotifyManager.shard.previousPreviewURLString = track.uri
       EQSpotifyManager.shard.playPreview(uri: track.uri, duration: track.duration)
       {
-        
         EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
         cell.startObseve()
       }
@@ -421,12 +434,12 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
     cell.previewProgressBar.progress = 0
     cell.previewButton.isSelected = false
   }
+  
   func resetCell(indexPath: IndexPath?) {
     guard let resetIndexPath = indexPath,
       let cell = editTableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell else {
         return
     }
-    
     cell.timer?.invalidate()
     cell.previewProgressBar.progress = 0
     cell.previewButton.isSelected = false
