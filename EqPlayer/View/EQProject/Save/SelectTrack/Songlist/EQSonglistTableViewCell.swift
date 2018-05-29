@@ -27,14 +27,15 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
     @IBOutlet var artistLabel: UILabel!
 
     @IBOutlet var checkedWidthConstraint: NSLayoutConstraint!
-
+  
+    var previewCurrentDuration:Double = 0
+  
     var indexPath: IndexPath?
   
     @IBAction func previewAction(_ sender: UIButton) {
       self.previewButton.isSelected = !self.previewButton.isSelected
       EQNotifycationCenterManager.post(name: Notification.Name.eqProjectPlayPreviewTrack)
       self.cellDelegate?.didPreviewButtonClick(indexPath: self.indexPath!)
-
     }
     var track: EQTrack?
   
@@ -54,11 +55,13 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
   
     @objc func obsevePreviewDuration() {
       let maxDuration = EQSpotifyManager.shard.durationObseve.maxPreviewDuration
-      let duration =  fabs(EQSpotifyManager.shard.durationObseve.previewCurrentDuration)
+      EQSpotifyManager.shard.durationObseve.previewCurrentDuration += 0.25
+      let duration = EQSpotifyManager.shard.durationObseve.previewCurrentDuration
       let progress = duration/maxDuration
       if duration > maxDuration {
         EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
         previewButton.isSelected = false
+        previewCurrentDuration = 0
         previewProgressBar.progress = 0
         timer?.invalidate()
         return

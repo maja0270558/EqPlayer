@@ -285,7 +285,8 @@ extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
     switch EQSpotifyManager.shard.currentPlayingType {
     case .preview:
       let previewCurrentDuration = EQSpotifyManager.shard.durationObseve.maxDuration/2 - position
-      EQSpotifyManager.shard.durationObseve.previewCurrentDuration = previewCurrentDuration
+      print("\(EQSpotifyManager.shard.durationObseve.maxDuration/2) - \(position)" )
+//      EQSpotifyManager.shard.durationObseve.previewCurrentDuration = previewCurrentDuration
     case .project:
       EQSpotifyManager.shard.durationObseve.currentDuration = position
       playerView.durationSlider.value = Float(position)

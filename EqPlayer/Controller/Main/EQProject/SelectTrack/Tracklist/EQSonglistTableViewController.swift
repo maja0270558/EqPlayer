@@ -12,8 +12,6 @@ class EQSonglistTableViewController: UITableViewController {
   var eqSettingManager: EQSettingModelManager?
   var songlists = [SPTTrack]()
   var previousPreviewIndex: IndexPath?
-  var previousPreviewURLString: String = ""
-  
   override func viewDidLoad() {
     setupTableView()
   }
@@ -51,13 +49,13 @@ extension EQSonglistTableViewController {
       }
     }
     
-    cell.indexPath = indexPath
-    cell.track = track
     cell.delegate = self
     cell.cellDelegate = self
+    cell.indexPath = indexPath
+    cell.track = track
     cell.selectionStyle = .none
     cell.setupCell(coverURLString: track.coverURL, title: track.name, artist: track.artist)
-    if previousPreviewURLString == cell.track?.uri {
+    if EQSpotifyManager.shard.previousPreviewURLString == cell.track?.uri {
       cell.obsevePreviewDuration()
       cell.previewButton.isSelected = true
       cell.startObseve()
@@ -197,13 +195,11 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
     if cell.previewButton.isSelected {
       //試聽的那個
       previousPreviewIndex = indexPath
-      previousPreviewURLString = track.uri.absoluteString
-      EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
+      EQSpotifyManager.shard.previousPreviewURLString = track.uri.absoluteString
       EQSpotifyManager.shard.playPreview(uri: track.uri.absoluteString, duration: track.duration)
       {
-        cell.obsevePreviewDuration()
+        EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
         cell.startObseve()
-        self.tableView.reloadDataUpdateFade()
       }
 
     } else {

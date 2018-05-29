@@ -26,10 +26,19 @@ extension EQProjectViewController {
         editTableView.registeCell(cellIdentifier: EQSonglistTableViewCell.typeName)
         section.cellIdentifier = EQSonglistTableViewCell.typeName
         section.cellOperator = {
-            data, cell, _ in
+            data, cell, indexPath in
             if let trackCell = cell as? EQSonglistTableViewCell, let track = data as? EQTrack {
                 trackCell.setupCell(coverURLString: track.coverURL, title: track.name, artist: track.artist)
                 trackCell.delegate = self
+                trackCell.cellDelegate = self
+              trackCell.indexPath = indexPath
+              trackCell.track = track
+              trackCell.selectionStyle = .none
+              if EQSpotifyManager.shard.previousPreviewURLString == trackCell.track?.uri {
+                trackCell.obsevePreviewDuration()
+                trackCell.previewButton.isSelected = true
+                trackCell.startObseve()
+              }
             }
         }
         return section
@@ -46,3 +55,4 @@ extension EQProjectViewController {
         sectionProviders = providers
     }
 }
+

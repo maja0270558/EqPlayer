@@ -20,6 +20,8 @@ class EQProjectViewController: EQTableViewController {
   var projectName: String = "專案"
   var oldContentOffset = CGPoint.zero
   let topConstraintRange = (CGFloat(-315) ..< CGFloat(25))
+  var previousPreviewIndex: IndexPath?
+  var reorderIndex: IndexPath?
   //For reorder cell
   fileprivate var sourceIndexPath: IndexPath?
   fileprivate var snapshot: UIView?
@@ -66,8 +68,7 @@ class EQProjectViewController: EQTableViewController {
     editBandView.saveButton.setTitle("編輯", for: .normal)
     eqSettingManager.saveObjectTo(status: .saved)
     EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
-    dismiss(animated: true, completion: nil)
-    
+    backToMain()
   }
   
   func popupAskUserToSave() {
@@ -83,7 +84,7 @@ class EQProjectViewController: EQTableViewController {
         self.backToAppear()
       }
       let close = DefaultButton(title: "直接關閉", height: 60) {
-        self.dismiss(animated: true, completion: nil)
+        self.backToMain()
       }
       
       switch eqSettingManager.tempModel.status {
@@ -109,11 +110,15 @@ class EQProjectViewController: EQTableViewController {
       }
       self.present(popup, animated: true, completion: nil)
     } else {
-      dismiss(animated: true) {
-        EQSpotifyManager.shard.playFromLastDuration()
+        backToMain()
       }
+  }
+  
+  func backToMain() {
+    dismiss(animated: true) {
+      EQSpotifyManager.shard.resetPreviewURL()
+      EQSpotifyManager.shard.playFromLastDuration()
     }
-    
   }
   
   func setupLongPressOrderCell() {
@@ -129,6 +134,7 @@ class EQProjectViewController: EQTableViewController {
     }
     switch state {
     case .began:
+      reorderIndex = indexPath
       sourceIndexPath = indexPath
       guard let cell = self.editTableView.cellForRow(at: indexPath) else { return }
       snapshot = self.customSnapshotFromView(inputView: cell)
@@ -154,13 +160,27 @@ class EQProjectViewController: EQTableViewController {
       var center = snapshot.center
       center.y = location.y
       snapshot.center = center
-      guard let sourceIndexPath = self.sourceIndexPath  else {
+      guard let sourceIndexPath = self.sourceIndexPath, let reorderIndex = self.reorderIndex  else {
         return
       }
       if indexPath != sourceIndexPath {
+        
+        if let preIndex = previousPreviewIndex {
+          if reorderIndex.row == preIndex.row {
+            previousPreviewIndex = indexPath
+          }
+        }
+        guard let sourceCell = self.editTableView.cellForRow(at: sourceIndexPath) as? EQSonglistTableViewCell , let targetCell = self.editTableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
+          return
+        }
+        sourceCell.indexPath = indexPath
+        targetCell.indexPath = sourceIndexPath
+        print("source: \(sourceCell.indexPath?.row), target\(targetCell.indexPath?.row)")
         swap(&eqSettingManager.tempModel.tracks[indexPath.row], &eqSettingManager.tempModel.tracks[sourceIndexPath.row])
+        print("to: \(eqSettingManager.tempModel.tracks[indexPath.row].name)\n from: \(eqSettingManager.tempModel.tracks[sourceIndexPath.row].name)")
         self.editTableView.moveRow(at: sourceIndexPath, to: indexPath)
         self.sourceIndexPath = indexPath
+
       }
     default:
       guard let cell = self.editTableView.cellForRow(at: indexPath) else {
@@ -237,7 +257,7 @@ class EQProjectViewController: EQTableViewController {
 extension EQProjectViewController: ChartViewDelegate {
   func chartEntryDrag(_: ChartViewBase, entry dragEntry: ChartDataEntry) {
     // Set band
-    print(dragEntry.y)
+    eqSettingManager.isModify = true
     EQSpotifyManager.shard.setGain(value: Float(dragEntry.y), atBand: UInt32(dragEntry.x))
   }
   
@@ -348,6 +368,68 @@ extension EQProjectViewController: SwipeTableViewCellDelegate{
     options.transitionStyle = .reveal
     options.buttonVerticalAlignment = .center
     return options
+  }
+}
+
+extension EQProjectViewController: EQSonglistTableViewCellDelegate {
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    resetCell(indexPath: indexPath)
+  }
+  func didPreviewButtonClick(indexPath: IndexPath) {
+    guard  let cell = editTableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
+      return
+    }
+    print(indexPath.row)
+    let track = eqSettingManager.tempModel.tracks[indexPath.row]
+    if previousPreviewIndex != indexPath {
+      //按別的cell
+      resetCell(indexPath: previousPreviewIndex)
+    }
+    if cell.previewButton.isSelected {
+      //試聽的那個
+      previousPreviewIndex = indexPath
+      EQSpotifyManager.shard.previousPreviewURLString = track.uri
+      EQSpotifyManager.shard.playPreview(uri: track.uri, duration: track.duration)
+      {
+        
+        EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
+        cell.startObseve()
+      }
+      
+    } else {
+      //按自己
+      EQSpotifyManager.shard.player?.setIsPlaying(false, callback: {error in
+        if error != nil {
+          return
+        }
+        self.resetCell(indexPath: indexPath)
+      })
+    }
+  }
+  
+  func resetCell(indexPath: IndexPath?, currentIndex: IndexPath) {
+    guard let resetIndexPath = indexPath,
+      let cell = editTableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell,
+      let currentCell = editTableView.cellForRow(at: currentIndex) as? EQSonglistTableViewCell  else {
+        return
+    }
+    if currentCell.previewButton.isSelected {
+      return
+    }
+    cell.timer?.invalidate()
+    cell.previewProgressBar.progress = 0
+    cell.previewButton.isSelected = false
+  }
+  func resetCell(indexPath: IndexPath?) {
+    guard let resetIndexPath = indexPath,
+      let cell = editTableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell else {
+        return
+    }
+    
+    cell.timer?.invalidate()
+    cell.previewProgressBar.progress = 0
+    cell.previewButton.isSelected = false
   }
 }
 

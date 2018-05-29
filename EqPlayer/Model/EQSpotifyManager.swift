@@ -36,6 +36,7 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
   var playbackBackgroundTask = UIBackgroundTaskIdentifier()
   var eqSettingForPreview: [Float] = Array(repeating: 0, count: 15)
   var currentPlayingType: EQPlayingType = .none
+  var previousPreviewURLString: String = ""
   private var trackList: [String] = [String]()
   
   func setupAuth() {
@@ -150,11 +151,17 @@ extension EQSpotifyManager {
   }
   
   func playFromLastDuration() {
-    if currentPlayingType != .project && trackList.count > 0 {
-    currentPlayingType = .project
-    player?.playSpotifyURI(durationObseve.currentPlayingURI, startingWith: 0, startingWithPosition: durationObseve.currentDuration, callback: nil)
+    if currentPlayingType != .project{
+      currentPlayingType = .project
+      if  trackList.count > 0  {
+        player?.playSpotifyURI(durationObseve.currentPlayingURI, startingWith: 0, startingWithPosition: durationObseve.currentDuration, callback: nil)
+      } else {
+        playOrPause(isPlay: false) {
+          
+        }
+      }
     }
-    }
+  }
   
   func checkIsModifyCurrentModel() {
   }
@@ -192,6 +199,9 @@ extension EQSpotifyManager {
     for index in 0 ..< bandValues.count {
       coreAudioController.setGain(value: bandValues[index], forBandAt: UInt32(index))
     }
+  }
+  func resetPreviewURL(){
+    previousPreviewURLString = ""
   }
 }
 
