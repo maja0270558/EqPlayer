@@ -63,16 +63,6 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     } catch {
       print("error")
     }
-    SPTUser.requestCurrentUser(withAccessToken: (SPTAuth.defaultInstance().session.accessToken)!) { _, data in
-      guard let user = data as? SPTUser else {
-        print("Couldn't cast as SPTUser")
-        return
-      }
-      let userId = user.displayName
-      let userPhotoURL = user.largestImage.imageURL.absoluteString
-      UserDefaults.standard.set(userId, forKey: "userName")
-      UserDefaults.standard.set(userPhotoURL, forKey: "userPhotoURL")
-    }
     player!.login(withAccessToken: authSession.accessToken)
   }
   

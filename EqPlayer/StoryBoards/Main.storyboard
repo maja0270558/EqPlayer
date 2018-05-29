@@ -80,6 +80,7 @@
                         <viewLayoutGuide key="safeArea" id="U0n-3j-ADt"/>
                     </view>
                     <connections>
+                        <outlet property="addEQProjectButton" destination="MhK-lp-g4p" id="B14-B4-7Oa"/>
                         <outlet property="playerView" destination="gII-kN-WXg" id="ugq-M3-T3v"/>
                         <outlet property="topScrollableViewBase" destination="9Ma-Mj-6oe" id="k58-zR-jg1"/>
                     </connections>

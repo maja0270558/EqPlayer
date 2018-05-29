@@ -14,6 +14,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
   var blurView: UIVisualEffectView!
   @IBOutlet var topScrollableViewBase: UIView!
   @IBOutlet var playerView: EQPlayerView!
+  @IBOutlet weak var addEQProjectButton: UIButton!
   var info = [String: Any]()
 
   @IBAction func addEQAction(_: Any) {
@@ -39,6 +40,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     setupDelegate()
     setupTopScrollableMainView()
     setupBlurEffect()
+    setupAddEQProjectButton()
     guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
       return
     }
@@ -51,6 +53,12 @@ class EQMainScrollableViewController: EQScrollableViewController {
     )
     controllerInit()
     playingBackground()
+  }
+  
+  func setupAddEQProjectButton(){
+    if EQUserManager.shard.userStatus == .guest {
+      addEQProjectButton.isHidden = true
+    }
   }
   
   func playingBackground() {

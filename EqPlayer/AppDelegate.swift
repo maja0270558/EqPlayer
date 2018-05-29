@@ -48,7 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("error!")
                 }
                 self.spotifyManager.authViewController?.dismiss(animated: true, completion: nil)
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+                EQUserManager.shard.saveUserInfo() {
+                  NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+                }
             })
             return true
         }

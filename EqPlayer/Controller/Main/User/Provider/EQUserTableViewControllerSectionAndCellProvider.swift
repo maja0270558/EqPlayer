@@ -18,23 +18,25 @@ extension EQUserTableViewController {
         let section = EQSectionProvider()
         userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
         section.cellIdentifier = EQUserInfoTableViewCell.typeName
-        section.cellDatas = ["Django Free"]
+        section.cellDatas = [EQUserManager.shard.getUser()]
         section.cellHeight = UITableViewAutomaticDimension
-        section.cellOperator = { _, cell, _ in
-            guard let infoCell = cell as? EQUserInfoTableViewCell else {
+        section.cellOperator = { data, cell, indexPath in
+            guard let infoCell = cell as? EQUserInfoTableViewCell, let userArray = data as? EQUserModel else {
                 return
             }
-            infoCell.userName.text = EQUserProvider.getUserName()
-            infoCell.userImage.sd_setImage(with: EQUserProvider.getUserPhotoURL(), completed: nil)
+            infoCell.userName.text = userArray.name
+            infoCell.userImage.sd_setImage(with: userArray.photoURL, placeholderImage: #imageLiteral(resourceName: "dark-1920956_1280"), options: [], completed: nil)
         }
         return section
     }
 
     func createCustomToolBarSectionWithCell() -> EQSectionProvider {
         let section = EQSectionProvider()
+        var toolBarTitleData = ["已儲存", "已發布", "施工中"]
+      
         section.headerHeight = UITableViewAutomaticDimension
         section.headerView = EQCustomToolBarView()
-        section.headerData = barData
+        section.headerData = toolBarTitleData
         section.headerOperator = {
             _, view in
             if let toolBar = view as? EQCustomToolBarView {
@@ -43,6 +45,26 @@ extension EQUserTableViewController {
                 toolBar.datasource = self
             }
         }
+      
+        if EQUserManager.shard.userStatus == .guest {
+          section.headerData = ["已儲存"]
+          section.cellDatas = [{ return }]
+          section.cellHeight = UITableViewAutomaticDimension
+          userTableView.registeCell(cellIdentifier: EQGusetTableViewCell.typeName)
+          section.cellIdentifier = EQGusetTableViewCell.typeName
+          section.cellOperator = {
+            data, cell, indexPath in
+            guard let hintCell = cell as? EQGusetTableViewCell else {
+              return
+            }
+            hintCell.backToLogin = {
+              AppDelegate.shard?.switchToLoginStoryBoard()
+            }
+            hintCell.selectionStyle = .none
+          }
+          return section
+        }
+      
         section.cellDatas = eqData
         section.cellHeight = UITableViewAutomaticDimension
         userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
@@ -97,3 +119,43 @@ extension EQUserTableViewController {
         sectionProviders = providers
     }
 }
+
+extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
+  func eqToolBarNumberOfItem() -> Int {
+    let toobarHeaderData: [String] = getHeaderData(1)!
+    return toobarHeaderData.count
+  }
+  
+  func eqToolBar(titleOfItemAt: Int) -> String {
+    let toobarHeaderData: [String] = getHeaderData(1)!
+    return toobarHeaderData[titleOfItemAt]
+  }
+  
+  func eqToolBar(didSelectAt: Int) {
+    currentToolItemIndex = didSelectAt + 1
+    reloadUserPageData()
+  }
+  
+  func scrollViewDidScroll(_: UIScrollView) {
+    userTableView.fadeTopCell()
+  }
+  
+  func getTargetModelCopy(at: IndexPath) -> EQProjectModel {
+    
+    if at.section != 1 {
+      return EQProjectModel()
+    }
+    switch currentToolItemIndex {
+    case 1:
+      return EQProjectModel(value: eqData[at.row])
+    case 2:
+      return EQProjectModel(value: postedEQData[at.row])
+    case 3:
+      return EQProjectModel(value: unsaveEQData[at.row])
+    default:
+      return EQProjectModel()
+    }
+  }
+
+}
+

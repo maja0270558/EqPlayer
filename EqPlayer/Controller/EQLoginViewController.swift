@@ -13,7 +13,9 @@ class EQLoginViewController: UIViewController {
 
     @IBOutlet var loginButton: UIButton!
     @IBOutlet weak var loginProgress: NVActivityIndicatorView!
-  
+    @IBAction func guestLogin(_ sender: EQCustomButton) {
+      AppDelegate.shard?.switchToMainStoryBoard()
+    }
     @IBAction func loginAction(_: UIButton) {
         if let delegate = appDelegate as? AppDelegate {
             loginProgress.startAnimating()

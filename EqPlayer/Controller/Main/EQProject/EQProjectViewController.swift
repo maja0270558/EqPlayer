@@ -119,8 +119,8 @@ class EQProjectViewController: EQTableViewController {
   
   func backToMain() {
     dismiss(animated: true) {
-      EQSpotifyManager.shard.resetPreviewURL()
-      EQSpotifyManager.shard.playFromLastDuration()
+//      EQSpotifyManager.shard.resetPreviewURL()
+//      EQSpotifyManager.shard.playFromLastDuration()
     }
   }
   

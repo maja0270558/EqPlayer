@@ -8,7 +8,7 @@
 
 import Foundation
 class EQPlayerDurationObseveModel: NSObject {
-   var currentDuration: Double = 0
+  var currentDuration: Double = 0
   var previewCurrentDuration: Double = 0
   var maxPreviewDuration: Double = 0
   var maxDuration: Double = 0

@@ -19,7 +19,6 @@ class EQUserTableViewController: EQTableViewController {
     weak var delegate: EQUserTableViewControllerDelegate?
     var icon: UIImage?
     var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
-    var barData = ["已儲存", "已發布", "施工中"]
     var eqData = [EQProjectModel]()
     var unsaveEQData = [EQProjectModel]()
     var postedEQData = [EQProjectModel]()
@@ -86,63 +85,9 @@ class EQUserTableViewController: EQTableViewController {
     }
 }
 
-extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
-    func eqToolBarNumberOfItem() -> Int {
-        return barData.count
-    }
-
-    func eqToolBar(titleOfItemAt: Int) -> String {
-        return barData[titleOfItemAt]
-    }
-
-    func eqToolBar(didSelectAt: Int) {
-        currentToolItemIndex = didSelectAt + 1
-        reloadUserPageData()
-    }
-
-    func scrollViewDidScroll(_: UIScrollView) {
-        userTableView.fadeTopCell()
-    }
-
-    func getTargetModelCopy(at: IndexPath) -> EQProjectModel {
-        if at.section != 1 {
-            return EQProjectModel()
-        }
-        switch currentToolItemIndex {
-        case 1:
-            return EQProjectModel(value: eqData[at.row])
-        case 2:
-            return EQProjectModel(value: postedEQData[at.row])
-        case 3:
-            return EQProjectModel(value: unsaveEQData[at.row])
-        default:
-            return EQProjectModel()
-        }
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section != 1 {
-            return
-        }
-        switch currentToolItemIndex {
-        case 1:
-            // pop player
-            delegate?.didSelectSavedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
-        case 2:
-            // nothing
-            delegate?.didSelectPostedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
-        case 3:
-            // pop setter
-            delegate?.didSelectTempEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
-        default:
-            break
-        }
-    }
-}
 
 extension EQUserTableViewController: EQSaveProjectCellDelegate {
-    func didClickMoreOptionButton(indexPath: IndexPath) {
+  func didClickMoreOptionButton(indexPath: IndexPath) {
         moreOptionAlert(
             delete: { [weak self] _ in
                 self?.delegate?.didPressMoreOptionDeleteButton(at: indexPath, data: (self?.getTargetModelCopy(at: indexPath))!)
@@ -150,4 +95,25 @@ extension EQUserTableViewController: EQSaveProjectCellDelegate {
                 self?.delegate?.didPressMoreOptionEditButton(at: indexPath, data: (self?.getTargetModelCopy(at: indexPath))!)
         })
     }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    if indexPath.section != 1 || EQUserManager.shard.userStatus == .guest {
+      return
+    }
+    switch currentToolItemIndex {
+    case 1:
+      // pop player
+      delegate?.didSelectSavedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
+    case 2:
+      // nothing
+      delegate?.didSelectPostedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
+    case 3:
+      // pop setter
+      delegate?.didSelectTempEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
+    default:
+      break
+    }
+  }
 }
