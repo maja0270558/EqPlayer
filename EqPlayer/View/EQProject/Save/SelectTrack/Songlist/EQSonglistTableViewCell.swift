@@ -60,6 +60,7 @@ class EQSonglistTableViewCell: SwipeTableViewCell {
       let progress = duration/maxDuration
       if duration > maxDuration {
         EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
+        EQSpotifyManager.shard.currentPlayingType = .project
         previewButton.isSelected = false
         previewCurrentDuration = 0
         previewProgressBar.progress = 0

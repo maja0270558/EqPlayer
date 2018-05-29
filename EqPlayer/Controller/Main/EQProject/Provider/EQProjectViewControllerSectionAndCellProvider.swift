@@ -34,7 +34,7 @@ extension EQProjectViewController {
               trackCell.indexPath = indexPath
               trackCell.track = track
               trackCell.selectionStyle = .none
-              if EQSpotifyManager.shard.previousPreviewURLString == trackCell.track?.uri {
+              if EQSpotifyManager.shard.previousPreviewURLString == trackCell.track?.uri && EQSpotifyManager.shard.currentPlayingType == .preview {
                 trackCell.obsevePreviewDuration()
                 trackCell.previewButton.isSelected = true
                 trackCell.startObseve()

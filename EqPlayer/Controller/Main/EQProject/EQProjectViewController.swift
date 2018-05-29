@@ -37,7 +37,7 @@ class EQProjectViewController: EQTableViewController {
     setCanPanToDismiss(true)
     generateSectionAndCell()
     subscribeNotification()
-    setupLongPressOrderCell()
+//    setupLongPressOrderCell()
   }
   
   override func onDismiss() {
@@ -189,6 +189,8 @@ class EQProjectViewController: EQTableViewController {
 //        let temp = sectionProviders[indexPath.section].cellDatas[indexPath.row]
 //        sectionProviders[indexPath.section].cellDatas[indexPath.row] = sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row]
 //        sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row] = temp
+        editTableView.estimatedRowHeight = UITableViewAutomaticDimension
+      
 
         UIView.performWithoutAnimation {
            self.editTableView.moveRow(at: sourceIndexPath, to: indexPath)
@@ -394,7 +396,6 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
     guard  let cell = editTableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
       return
     }
-    print(indexPath.row)
     let track = eqSettingManager.tempModel.tracks[indexPath.row]
     if previousPreviewIndex != indexPath {
       //按別的cell
@@ -416,6 +417,7 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
         if error != nil {
           return
         }
+        EQSpotifyManager.shard.currentPlayingType = .project
         self.resetCell(indexPath: indexPath)
       })
     }

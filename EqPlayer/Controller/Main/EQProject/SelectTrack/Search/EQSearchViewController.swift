@@ -1,46 +1,78 @@
 //
-//  EQSonglistTableViewController.swift
+//  EQSearchViewController.swift
 //  EqPlayer
 //
-//  Created by 大容 林 on 2018/5/14.
+//  Created by 大容 林 on 2018/5/29.
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import SwipeCellKit
 import UIKit
+import SwipeCellKit
 
-class EQSonglistTableViewController: UITableViewController {
+protocol EQSearchViewControllerDelegate: class {
+  func didDismiss()
+}
+
+class EQSearchViewController: UIViewController {
+  weak var delegate: EQSearchViewControllerDelegate?
   var eqSettingManager: EQSettingModelManager?
-  var songlists = [SPTTrack]()
+  var songlists = [SPTPartialTrack]()
   var previousPreviewIndex: IndexPath?
-  override func viewDidLoad() {
-    setupTableView()
+
+  @IBOutlet weak var searchBar: EQCustomSearchBar!
+  
+  @IBOutlet weak var cancelButton: UIButton!
+  
+  @IBOutlet weak var tableView: UITableView!
+  
+  @IBAction func cancelAction(_ sender: UIButton) {
+    dismiss(animated: true) {
+      self.delegate?.didDismiss()
+    }
   }
   
+  
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupTableView()
+    setupSearchBar()
+  }
   func setupTableView() {
+    tableView.delegate = self
+    tableView.dataSource = self
     tableView.registeCell(cellIdentifier: EQSonglistTableViewCell.typeName)
     tableView.backgroundColor = UIColor.clear
     tableView.separatorStyle = .none
   }
+  func setupSearchBar(){
+    let searchBarBackground = UIImage.roundedImage(image: UIImage.imageWithColor(color: UIColor.clear, size: CGSize(width: 28, height: 28)), cornerRadius: 2)
+    searchBar.setSearchFieldBackgroundImage(searchBarBackground, for: .normal)
+    cancelButton.alpha = 0
+    UIView.animate(withDuration: 0.4) {
+      self.cancelButton.alpha = 1
+      }
+    searchBar.becomeFirstResponder()
+    searchBar.delegate = self
+  }
 }
 
-extension EQSonglistTableViewController {
-  
-  override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+extension EQSearchViewController: TableViewDelegateAndDataSource {
+   func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
     return songlists.count
   }
   
-  override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+   func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     resetCell(indexPath: indexPath)
   }
   
-  override func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: EQSonglistTableViewCell.typeName, for: indexPath) as?
       EQSonglistTableViewCell else {
         return UITableViewCell()
     }
     
-    let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
+    let track = convertSPTTrackToEQTrack(sptPartialTrack: songlists[indexPath.row])
     
     if let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri }) {
       if added {
@@ -64,34 +96,35 @@ extension EQSonglistTableViewController {
     return cell
   }
   
-  override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+   func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
     return UITableViewAutomaticDimension
   }
   
-  override func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+   func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
     return 100
   }
 }
 
-extension EQSonglistTableViewController {
-  override func scrollViewDidScroll(_: UIScrollView) {
+
+extension EQSearchViewController {
+   func scrollViewDidScroll(_: UIScrollView) {
     tableView.fadeTopCell()
   }
 }
 
-extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
-  func convertSPTTrackToEQTrack(sptTrack: SPTTrack) -> EQTrack {
+extension EQSearchViewController: SwipeTableViewCellDelegate {
+  func convertSPTTrackToEQTrack(sptPartialTrack: SPTPartialTrack) -> EQTrack {
     let eqTrack = EQTrack()
     
-    if let previewURL = sptTrack.previewURL {
+    if let previewURL = sptPartialTrack.previewURL {
       eqTrack.previewURL = previewURL.absoluteString
     }
     
-    if let imageURL = sptTrack.album.largestCover {
+    if let imageURL = sptPartialTrack.album.largestCover {
       eqTrack.coverURL = imageURL.imageURL.absoluteString
     }
     
-    guard let title = sptTrack.name, let artists = sptTrack.artists as? [SPTPartialArtist] else {
+    guard let title = sptPartialTrack.name, let artists = sptPartialTrack.artists as? [SPTPartialArtist] else {
       return eqTrack
     }
     
@@ -107,13 +140,13 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
     }
     
     eqTrack.artist = artistsString
-    eqTrack.uri = sptTrack.uri.absoluteString
-    eqTrack.duration = sptTrack.duration
+    eqTrack.uri = sptPartialTrack.uri.absoluteString
+    eqTrack.duration = sptPartialTrack.duration
     return eqTrack
   }
   
   func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-    let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
+    let track = convertSPTTrackToEQTrack(sptPartialTrack: songlists[indexPath.row])
     
     guard orientation == .right, let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri }) else {
       return nil
@@ -147,7 +180,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
   
   func tableView(_: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for _: SwipeActionsOrientation) -> SwipeTableOptions {
     var options = SwipeTableOptions()
-    let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
+    let track = convertSPTTrackToEQTrack(sptPartialTrack: songlists[indexPath.row])
     
     if let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri }) {
       if added {
@@ -162,8 +195,8 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
     return options
   }
   
-  override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let track = convertSPTTrackToEQTrack(sptTrack: songlists[indexPath.row])
+   func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let track = convertSPTTrackToEQTrack(sptPartialTrack: songlists[indexPath.row])
     
     guard let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri }) else {
       return
@@ -183,7 +216,7 @@ extension EQSonglistTableViewController: SwipeTableViewCellDelegate {
   }
 }
 
-extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
+extension EQSearchViewController: EQSonglistTableViewCellDelegate {
   func didPreviewButtonClick(indexPath: IndexPath) {
     guard  let cell = tableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
       return
@@ -202,7 +235,7 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
         EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
         cell.startObseve()
       }
-
+      
     } else {
       //按自己
       EQSpotifyManager.shard.player?.setIsPlaying(false, callback: {error in
@@ -219,7 +252,7 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
     guard let resetIndexPath = indexPath,
       let cell = tableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell,
       let currentCell = tableView.cellForRow(at: currentIndex) as? EQSonglistTableViewCell  else {
-      return
+        return
     }
     if currentCell.previewButton.isSelected {
       return
@@ -237,5 +270,32 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
     cell.timer?.invalidate()
     cell.previewProgressBar.progress = 0
     cell.previewButton.isSelected = false
+  }
+}
+
+extension EQSearchViewController: UISearchBarDelegate {
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    if (searchBar.text?.isEmpty)! {
+      dismiss(animated: true) {
+        self.delegate?.didDismiss()
+      }
+    }
+    searchBar.resignFirstResponder()
+  }
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    if searchText.isEmpty {
+      songlists.removeAll()
+      tableView.reloadData()
+    }
+    fetchTrack(query: searchText)
+  }
+  
+  func fetchTrack(query: String) {
+    SPTSearch.perform(withQuery: query, queryType: .queryTypeTrack, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { (error, listPage) in
+      guard let listPage = listPage as? SPTListPage else { return }
+      guard let tracks = listPage.items as? [SPTPartialTrack] else { return }
+      self.songlists = tracks
+      self.tableView.reloadData()
+    }
   }
 }

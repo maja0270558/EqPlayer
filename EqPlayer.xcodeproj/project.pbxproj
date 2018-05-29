@@ -28,6 +28,7 @@
 		EB1737B420AABDE100566F50 /* EQSaveProjectPageAddTrackHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1737B320AABDE100566F50 /* EQSaveProjectPageAddTrackHeader.swift */; };
 		EB1737B620AAC7E200566F50 /* EQEditBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1737B520AAC7E200566F50 /* EQEditBandView.swift */; };
 		EB1737B820AAC7F000566F50 /* EQEditBandView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB1737B720AAC7F000566F50 /* EQEditBandView.xib */; };
+		EB1CB15B20BD4F9100B14D49 /* EQSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1CB15A20BD4F9100B14D49 /* EQSearchViewController.swift */; };
 		EB1D910920A2CE8E00384869 /* EQTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D910820A2CE8E00384869 /* EQTableViewController.swift */; };
 		EB1D910B20A2D70A00384869 /* EQSectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D910A20A2D70A00384869 /* EQSectionProvider.swift */; };
 		EB1D910E20A2DDB500384869 /* EQUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1D910D20A2DDB500384869 /* EQUserTableViewController.swift */; };
@@ -113,6 +114,7 @@
 		EB1737B320AABDE100566F50 /* EQSaveProjectPageAddTrackHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSaveProjectPageAddTrackHeader.swift; sourceTree = "<group>"; };
 		EB1737B520AAC7E200566F50 /* EQEditBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQEditBandView.swift; sourceTree = "<group>"; };
 		EB1737B720AAC7F000566F50 /* EQEditBandView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQEditBandView.xib; sourceTree = "<group>"; };
+		EB1CB15A20BD4F9100B14D49 /* EQSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSearchViewController.swift; sourceTree = "<group>"; };
 		EB1D910820A2CE8E00384869 /* EQTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQTableViewController.swift; sourceTree = "<group>"; };
 		EB1D910A20A2D70A00384869 /* EQSectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSectionProvider.swift; sourceTree = "<group>"; };
 		EB1D910D20A2DDB500384869 /* EQUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserTableViewController.swift; sourceTree = "<group>"; };
@@ -268,6 +270,14 @@
 				EBB1C22320A7E14800D21788 /* EQMainScrollableViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		EB1CB15920BD4F6D00B14D49 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				EB1CB15A20BD4F9100B14D49 /* EQSearchViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		EB1D910C20A2DA2000384869 /* BaseTableView */ = {
@@ -481,6 +491,7 @@
 		EBF3264C20AEE0FF0007526B /* SelectTrack */ = {
 			isa = PBXGroup;
 			children = (
+				EB1CB15920BD4F6D00B14D49 /* Search */,
 				EBF3264D20AEE1110007526B /* Playlist */,
 				EBF3264E20AEE11A0007526B /* Tracklist */,
 				EBE65D8620A483B2001A9E42 /* EQSelectTrackViewController.swift */,
@@ -816,6 +827,7 @@
 				EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */,
 				EB1737B620AAC7E200566F50 /* EQEditBandView.swift in Sources */,
 				EB52374520ADB1330017FA1F /* EQRealmManager.swift in Sources */,
+				EB1CB15B20BD4F9100B14D49 /* EQSearchViewController.swift in Sources */,
 				EB17379920A92A3700566F50 /* EQSelectTrackTopCollectionViewCell.swift in Sources */,
 				EB6F33A220AD411000EA3E85 /* EQCustomUITextField.swift in Sources */,
 				EBA56A9320BBE5AF0080B3E4 /* EQLoadingViewController.swift in Sources */,
@@ -994,6 +1006,81 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"Charts\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"DynamicBlurView\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseNanoPB\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"Lerp\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"NVActivityIndicatorView\"",
+					"-framework",
+					"\"PopupDialog\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SwipeCellKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIImageColors\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"leveldb\"",
+					"-framework",
+					"\"nanopb\"",
+					"\"-all_load\"",
+				);
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1021,6 +1108,81 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"Charts\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"DynamicBlurView\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseNanoPB\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-framework",
+					"\"Lerp\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"NVActivityIndicatorView\"",
+					"-framework",
+					"\"PopupDialog\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SwipeCellKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIImageColors\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"leveldb\"",
+					"-framework",
+					"\"nanopb\"",
+					"\"-all_load\"",
 				);
 				OTHER_LIBTOOLFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayer;

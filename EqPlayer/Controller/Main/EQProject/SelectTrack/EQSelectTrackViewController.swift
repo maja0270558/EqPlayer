@@ -10,7 +10,10 @@ import UIKit
 import SwipeCellKit
 
 class EQSelectTrackViewController: EQScrollableViewController {
-    lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
+  
+  
+  @IBOutlet weak var searchBar: EQCustomSearchBar!
+  lazy var topItemSize: CGSize! = CGSize(width: UIScreen.main.bounds.width, height: topCollectionView.bounds.height)
     var titleLabels = ["播放列表", "歌單"]
     var eqSettingManager: EQSettingModelManager?
     var playlistController: EQPlaylistTableViewController? {
@@ -21,19 +24,22 @@ class EQSelectTrackViewController: EQScrollableViewController {
         return data.mainController[1] as? EQSonglistTableViewController
     }
     override func onDismiss() {
-      dismiss(animated: true) {
-        
-      }
+      dismiss(animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setCanPanToDismiss(true)
+      setupSearchBar()
         registerCollectionCell()
         setupControllersAndCells()
         controllerInit()
         // Do any additional setup after loading the view.
     }
 
+      func setupSearchBar(){
+      searchBar.delegate = self
+      }
+  
     override func setupCell(cell: UICollectionViewCell, atIndex: Int) {
         if let topCell = cell as? EQSelectTrackTopCollectionViewCell {
             topCell.resetCell()
@@ -103,6 +109,7 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
         topCollectionView.reloadData()
         songlistController?.songlists.removeAll()
         songlistController?.tableView.reloadData()
+      
         SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { error, snapshot in
             if error != nil {
                 return
@@ -131,5 +138,37 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
         })
     }
 }
+extension EQSelectTrackViewController: UISearchBarDelegate, EQSearchViewControllerDelegate{
+  func didDismiss() {
+    UIView.animate(withDuration: 0.25, animations: {
+      self.identityAnimation()
+    }, completion: {(finished) in
+     self.resignFirstResponder()
+    })
+  }
+  
+  func moveUpAnimation() {
+    searchBar.transform = CGAffineTransform(translationX: 0, y: -self.topCollectionView.bounds.height)
+    topCollectionView.transform = CGAffineTransform(translationX: 0, y: -self.topCollectionView.bounds.height*2)
+  }
+  func identityAnimation () {
+    searchBar.transform = CGAffineTransform.identity
+    topCollectionView.transform = CGAffineTransform.identity
+  }
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    searchBar.endEditing(true)
 
+    UIView.animate(withDuration: 0.25, animations: {
+       self.moveUpAnimation()
+    }, completion: {(finished) in
+      if let searchViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQSearchViewController.self)) as? EQSearchViewController {
+        searchViewController.modalPresentationStyle = .overCurrentContext
+        searchViewController.modalTransitionStyle = .crossDissolve
+        searchViewController.delegate = self
+        searchViewController.eqSettingManager = (self.eqSettingManager)!
+        self.present(searchViewController, animated: true, completion: nil)
+      }
+    })
+  }
+}
 
