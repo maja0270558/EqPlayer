@@ -173,6 +173,26 @@ class EQMainScrollableViewController: EQScrollableViewController {
 }
 
 extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
+  func didSelectUserCell(type: UserToolBarProvider, data: EQProjectModel) {
+    switch type {
+    case .posted:
+      break
+    case .saved:
+      let uris = Array(data.tracks.map { $0.uri })
+      EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
+      EQSpotifyManager.shard.setGain(withModel: data)
+      EQSpotifyManager.shard.playFirstTrack()
+      playerView.openPlayer()
+    case .temp:
+      if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+        eqProjectViewController.modalPresentationStyle = .overCurrentContext
+        eqProjectViewController.modalTransitionStyle = .crossDissolve
+        eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
+        present(eqProjectViewController, animated: true, completion: nil)
+      }
+    }
+  }
+  
   func didPressMoreOptionEditButton(at _: IndexPath, data: EQProjectModel) {
     if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
       eqProjectViewController.modalPresentationStyle = .overCurrentContext
@@ -189,26 +209,6 @@ extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
       EQRealmManager.shard.remove(object: object)
       EQNotifycationCenterManager.post(name: Notification.Name.eqProjectDelete)
     }
-  }
-  
-  func didSelectTempEQCellRow(at _: IndexPath, data: EQProjectModel) {
-    if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
-      eqProjectViewController.modalPresentationStyle = .overCurrentContext
-      eqProjectViewController.modalTransitionStyle = .crossDissolve
-      eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
-      present(eqProjectViewController, animated: true, completion: nil)
-    }
-  }
-  
-  func didSelectSavedEQCellRow(at _: IndexPath, data: EQProjectModel) {
-    let uris = Array(data.tracks.map { $0.uri })
-    EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
-    EQSpotifyManager.shard.setGain(withModel: data)
-    EQSpotifyManager.shard.playFirstTrack()
-    playerView.openPlayer()
-  }
-  
-  func didSelectPostedEQCellRow(at _: IndexPath, data _: EQProjectModel) {
   }
 }
 

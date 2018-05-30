@@ -13,6 +13,25 @@ enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
     case toolBar
 }
 
+enum UserToolBarProvider: Int {
+  case saved = 1
+  case temp = 2
+  case posted = 3
+  
+  func getName() -> String{
+    switch self {
+    case .saved:
+      return "已儲存"
+    case .temp:
+      return "施工中"
+    case .posted:
+      return "已發布"
+    default:
+      break
+    }
+  }
+}
+
 extension EQUserTableViewController {
     func createUserInfoHead() -> EQSectionProvider {
         let section = EQSectionProvider()
@@ -32,8 +51,7 @@ extension EQUserTableViewController {
 
     func createCustomToolBarSectionWithCell() -> EQSectionProvider {
         let section = EQSectionProvider()
-        var toolBarTitleData = ["已儲存", "已發布", "施工中"]
-      
+        var toolBarTitleData = [UserToolBarProvider.saved.getName(), UserToolBarProvider.temp.getName()]
         section.headerHeight = UITableViewAutomaticDimension
         section.headerView = EQCustomToolBarView()
         section.headerData = toolBarTitleData
@@ -47,7 +65,7 @@ extension EQUserTableViewController {
         }
       
         if EQUserManager.shard.userStatus == .guest {
-          section.headerData = ["已儲存"]
+          section.headerData = ["已儲存的專案"]
           section.cellDatas = [{ return }]
           section.cellHeight = UITableViewAutomaticDimension
           userTableView.registeCell(cellIdentifier: EQGusetTableViewCell.typeName)
@@ -139,23 +157,5 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
   func scrollViewDidScroll(_: UIScrollView) {
     userTableView.fadeTopCell()
   }
-  
-  func getTargetModelCopy(at: IndexPath) -> EQProjectModel {
-    
-    if at.section != 1 {
-      return EQProjectModel()
-    }
-    switch currentToolItemIndex {
-    case 1:
-      return EQProjectModel(value: eqData[at.row])
-    case 2:
-      return EQProjectModel(value: postedEQData[at.row])
-    case 3:
-      return EQProjectModel(value: unsaveEQData[at.row])
-    default:
-      return EQProjectModel()
-    }
-  }
-
 }
 

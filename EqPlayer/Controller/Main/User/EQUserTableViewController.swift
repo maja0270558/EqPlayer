@@ -8,9 +8,7 @@
 
 import Foundation
 protocol EQUserTableViewControllerDelegate: class {
-    func didSelectTempEQCellRow(at: IndexPath, data: EQProjectModel)
-    func didSelectSavedEQCellRow(at: IndexPath, data: EQProjectModel)
-    func didSelectPostedEQCellRow(at: IndexPath, data: EQProjectModel)
+    func didSelectUserCell(type: UserToolBarProvider, data: EQProjectModel)
     func didPressMoreOptionEditButton(at: IndexPath, data: EQProjectModel)
     func didPressMoreOptionDeleteButton(at: IndexPath, data: EQProjectModel)
 }
@@ -19,9 +17,13 @@ class EQUserTableViewController: EQTableViewController {
     weak var delegate: EQUserTableViewControllerDelegate?
     var icon: UIImage?
     var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
+  
     var eqData = [EQProjectModel]()
     var unsaveEQData = [EQProjectModel]()
     var postedEQData = [EQProjectModel]()
+  
+    var userPageData = [UserToolBarProvider: [EQProjectModel]]()
+  
     var currentToolItemIndex: Int = 1
     var operationDictionary: [IndexPath: BlockOperation] = [IndexPath: BlockOperation]()
     let queue = OperationQueue()
@@ -49,6 +51,8 @@ class EQUserTableViewController: EQTableViewController {
     func loadEQDatas() {
         let data: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.saved.rawValue)
         let tempData: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.temp.rawValue)
+        userPageData[UserToolBarProvider.saved] = data
+        userPageData[UserToolBarProvider.temp] = tempData
         unsaveEQData = tempData
         eqData = data
     }
@@ -65,23 +69,6 @@ class EQUserTableViewController: EQTableViewController {
 
     @objc func didSaveEQProject() {
         reloadUserPageData()
-    }
-
-    func reloadUserPageData() {
-        loadEQDatas()
-        switch currentToolItemIndex {
-        case 1:
-            sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = eqData
-        case 2:
-            sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = postedEQData
-        case 3:
-            sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = unsaveEQData
-        default:
-            break
-        }
-        let newCount = sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas.count
-        let oldCount = userTableView.numberOfRows(inSection: 1)
-        userTableView.reloadRowsInSection(section: 1, oldCount: oldCount, newCount: newCount)
     }
 }
 
@@ -102,18 +89,28 @@ extension EQUserTableViewController: EQSaveProjectCellDelegate {
     if indexPath.section != 1 || EQUserManager.shard.userStatus == .guest {
       return
     }
-    switch currentToolItemIndex {
-    case 1:
-      // pop player
-      delegate?.didSelectSavedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
-    case 2:
-      // nothing
-      delegate?.didSelectPostedEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
-    case 3:
-      // pop setter
-      delegate?.didSelectTempEQCellRow(at: indexPath, data: getTargetModelCopy(at: indexPath))
-    default:
-      break
+    guard let indexType = UserToolBarProvider(rawValue: currentToolItemIndex) else {
+      return
     }
+    delegate?.didSelectUserCell(type: indexType, data: getTargetModelCopy(at: indexPath))
+  }
+  
+  func getTargetModelCopy(at: IndexPath) -> EQProjectModel {
+    
+    guard let indexType = UserToolBarProvider(rawValue: currentToolItemIndex), let datas = userPageData[indexType] else {
+      return EQProjectModel()
+    }
+    return EQProjectModel(value: datas[at.row])
+    }
+  
+  func reloadUserPageData() {
+    loadEQDatas()
+    guard let indexType = UserToolBarProvider(rawValue: currentToolItemIndex), let datas = userPageData[indexType] else {
+      return
+    }
+    sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = datas
+    let newCount = sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas.count
+    let oldCount = userTableView.numberOfRows(inSection: 1)
+    userTableView.reloadRowsInSection(section: 1, oldCount: oldCount, newCount: newCount)
   }
 }
