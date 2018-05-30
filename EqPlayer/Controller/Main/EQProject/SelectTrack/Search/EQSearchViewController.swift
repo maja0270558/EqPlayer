@@ -18,7 +18,7 @@ class EQSearchViewController: UIViewController {
   var eqSettingManager: EQSettingModelManager?
   var songlists = [SPTPartialTrack]()
   var previousPreviewIndex: IndexPath?
-
+  
   @IBOutlet weak var searchBar: EQCustomSearchBar!
   
   @IBOutlet weak var cancelButton: UIButton!
@@ -51,22 +51,22 @@ class EQSearchViewController: UIViewController {
     cancelButton.alpha = 0
     UIView.animate(withDuration: 0.4) {
       self.cancelButton.alpha = 1
-      }
+    }
     searchBar.becomeFirstResponder()
     searchBar.delegate = self
   }
 }
 
 extension EQSearchViewController: TableViewDelegateAndDataSource {
-   func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
     return songlists.count
   }
   
-   func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     resetCell(indexPath: indexPath)
   }
   
-   func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: EQSonglistTableViewCell.typeName, for: indexPath) as?
       EQSonglistTableViewCell else {
         return UITableViewCell()
@@ -96,18 +96,18 @@ extension EQSearchViewController: TableViewDelegateAndDataSource {
     return cell
   }
   
-   func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
+  func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
     return UITableViewAutomaticDimension
   }
   
-   func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
+  func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
     return 100
   }
 }
 
 
 extension EQSearchViewController {
-   func scrollViewDidScroll(_: UIScrollView) {
+  func scrollViewDidScroll(_: UIScrollView) {
     tableView.fadeTopCell()
   }
 }
@@ -195,7 +195,7 @@ extension EQSearchViewController: SwipeTableViewCellDelegate {
     return options
   }
   
-   func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
     let track = convertSPTTrackToEQTrack(sptPartialTrack: songlists[indexPath.row])
     
     guard let added = eqSettingManager?.tempModel.tracks.contains(where: { $0.uri == track.uri }) else {
@@ -222,18 +222,17 @@ extension EQSearchViewController: EQSonglistTableViewCellDelegate {
       return
     }
     let track = songlists[indexPath.row]
-    if previousPreviewIndex != indexPath {
-      //按別的cell
-      resetCell(indexPath: previousPreviewIndex)
-    }
     if cell.previewButton.isSelected {
       //試聽的那個
+      resetAllVisibleCell()
       previousPreviewIndex = indexPath
       EQSpotifyManager.shard.previousPreviewURLString = track.uri.absoluteString
       EQSpotifyManager.shard.playPreview(uri: track.uri.absoluteString, duration: track.duration)
       {
         EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
         cell.startObseve()
+        cell.previewButton.isSelected = true
+        EQNotifycationCenterManager.post(name: Notification.Name.eqProjectPlayPreviewTrack)
       }
       
     } else {
@@ -248,19 +247,6 @@ extension EQSearchViewController: EQSonglistTableViewCellDelegate {
     }
   }
   
-  func resetCell(indexPath: IndexPath?, currentIndex: IndexPath) {
-    guard let resetIndexPath = indexPath,
-      let cell = tableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell,
-      let currentCell = tableView.cellForRow(at: currentIndex) as? EQSonglistTableViewCell  else {
-        return
-    }
-    if currentCell.previewButton.isSelected {
-      return
-    }
-    cell.timer?.invalidate()
-    cell.previewProgressBar.progress = 0
-    cell.previewButton.isSelected = false
-  }
   func resetCell(indexPath: IndexPath?) {
     guard let resetIndexPath = indexPath,
       let cell = tableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell else {
@@ -270,6 +256,17 @@ extension EQSearchViewController: EQSonglistTableViewCellDelegate {
     cell.timer?.invalidate()
     cell.previewProgressBar.progress = 0
     cell.previewButton.isSelected = false
+  }
+  
+  func resetAllVisibleCell() {
+    guard let cells = tableView.visibleCells as? [EQSonglistTableViewCell] else {
+      return
+    }
+    cells.forEach { (cell) in
+      cell.timer?.invalidate()
+      cell.previewProgressBar.progress = 0
+      cell.previewButton.isSelected = false
+    }
   }
 }
 

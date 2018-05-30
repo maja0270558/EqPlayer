@@ -34,26 +34,23 @@ class EQMainScrollableViewController: EQScrollableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    EQSpotifyManager.shard.delegate = self
-    registerCollectionCell()
-    subscribeNotification()
-    setupDelegate()
-    setupTopScrollableMainView()
-    setupBlurEffect()
-    setupAddEQProjectButton()
     guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
       return
     }
     userController.delegate = self
     controllers.append(userController)
     cells.append("EQIconCollectionViewCell")
-    data = ScrollableControllerDataModel(
-      topCellId: cells,
-      mainController: controllers
-    )
-    controllerInit()
+   
+    registerCollectionCell()
+    subscribeNotification()
+    setupDelegate()
+    setupTopScrollableMainView()
+    setupBlurEffect()
+    setupAddEQProjectButton()
+    subControllerInit()
     playingBackground()
   }
+  
   
   func setupAddEQProjectButton(){
     if EQUserManager.shard.userStatus == .guest {
@@ -131,6 +128,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
   
   func setupDelegate() {
     playerView.delegate = self
+    EQSpotifyManager.shard.delegate = self
   }
   
   override func setupCell(cell: UICollectionViewCell, atIndex: Int) {

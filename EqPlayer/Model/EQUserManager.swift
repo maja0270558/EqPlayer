@@ -20,7 +20,7 @@ class EQUserManager {
   var userStatus: UserStatus {
     if let session = EQSpotifyManager.shard.auth?.session {
       if !session.isValid() {
-        return UserStatus.expire
+        return UserStatus.guest
       }else {
         return UserStatus.spotify
       }

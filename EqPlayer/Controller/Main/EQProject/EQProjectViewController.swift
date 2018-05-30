@@ -63,6 +63,10 @@ class EQProjectViewController: EQTableViewController {
       EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
     }
   }
+  @objc func projectChildControllerPreviewDidClick() {
+    editTableView.reloadData()
+  }
+  
   
   func save() {
     eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
@@ -119,8 +123,8 @@ class EQProjectViewController: EQTableViewController {
   
   func backToMain() {
     dismiss(animated: true) {
-//      EQSpotifyManager.shard.resetPreviewURL()
-//      EQSpotifyManager.shard.playFromLastDuration()
+      EQSpotifyManager.shard.resetPreviewURL()
+      EQSpotifyManager.shard.playFromLastDuration()
     }
   }
   
@@ -248,11 +252,15 @@ class EQProjectViewController: EQTableViewController {
   func subscribeNotification() {
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectDidModify), notification: Notification.Name.eqProjectTrackModifyNotification)
     EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectAccidentallyClose), notification: Notification.Name.eqProjectAccidentallyClose)
+    EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(projectChildControllerPreviewDidClick), notification: Notification.Name.eqProjectPlayPreviewTrack)
+
   }
   
   func removeNotification() {
     EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectTrackModifyNotification)
     EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectAccidentallyClose)
+    EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectPlayPreviewTrack)
+
   }
   
   func setupEditBandView() {
@@ -397,18 +405,17 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
       return
     }
     let track = eqSettingManager.tempModel.tracks[indexPath.row]
-    if previousPreviewIndex != indexPath {
-      //按別的cell
-      resetCell(indexPath: previousPreviewIndex)
-    }
+ 
     if cell.previewButton.isSelected {
       //試聽的那個
+      resetAllVisibleCell()
       previousPreviewIndex = indexPath
       EQSpotifyManager.shard.previousPreviewURLString = track.uri
       EQSpotifyManager.shard.playPreview(uri: track.uri, duration: track.duration)
       {
         EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
         cell.startObseve()
+        cell.previewButton.isSelected = true
       }
       
     } else {
@@ -423,20 +430,6 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
     }
   }
   
-  func resetCell(indexPath: IndexPath?, currentIndex: IndexPath) {
-    guard let resetIndexPath = indexPath,
-      let cell = editTableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell,
-      let currentCell = editTableView.cellForRow(at: currentIndex) as? EQSonglistTableViewCell  else {
-        return
-    }
-    if currentCell.previewButton.isSelected {
-      return
-    }
-    cell.timer?.invalidate()
-    cell.previewProgressBar.progress = 0
-    cell.previewButton.isSelected = false
-  }
-  
   func resetCell(indexPath: IndexPath?) {
     guard let resetIndexPath = indexPath,
       let cell = editTableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell else {
@@ -445,6 +438,17 @@ extension EQProjectViewController: EQSonglistTableViewCellDelegate {
     cell.timer?.invalidate()
     cell.previewProgressBar.progress = 0
     cell.previewButton.isSelected = false
+  }
+  
+  func resetAllVisibleCell() {
+    guard let cells = editTableView.visibleCells as? [EQSonglistTableViewCell] else {
+      return
+    }
+    cells.forEach { (cell) in
+      cell.timer?.invalidate()
+      cell.previewProgressBar.progress = 0
+      cell.previewButton.isSelected = false
+    }
   }
 }
 

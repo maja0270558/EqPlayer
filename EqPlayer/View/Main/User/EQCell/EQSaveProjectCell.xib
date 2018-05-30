@@ -90,7 +90,7 @@
                             <constraint firstAttribute="height" constant="90" id="suE-Uu-00N"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDz-82-low">
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDz-82-low">
                         <rect key="frame" x="41" y="87" width="40" height="38"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="38" id="11R-BJ-okl"/>

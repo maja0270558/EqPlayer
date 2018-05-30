@@ -59,7 +59,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pw5-yq-t0B" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
-                                <rect key="frame" x="35" y="537" width="305" height="51"/>
+                                <rect key="frame" x="35" y="535" width="305" height="51"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="t6E-GC-iqv"/>
@@ -82,7 +82,7 @@
                             <constraint firstItem="0JI-pM-D3q" firstAttribute="centerY" secondItem="RI1-oc-9dL" secondAttribute="centerY" multiplier="0.4" id="EyK-wt-AMo"/>
                             <constraint firstItem="QQ7-9A-Fx4" firstAttribute="centerX" secondItem="RI1-oc-9dL" secondAttribute="centerX" id="FDJ-8T-EcV"/>
                             <constraint firstItem="0JI-pM-D3q" firstAttribute="centerX" secondItem="RI1-oc-9dL" secondAttribute="centerX" id="Kqb-EK-29a"/>
-                            <constraint firstItem="wdV-Px-2ep" firstAttribute="top" secondItem="Pw5-yq-t0B" secondAttribute="bottom" constant="8" id="RjF-CW-QXb"/>
+                            <constraint firstItem="wdV-Px-2ep" firstAttribute="top" secondItem="Pw5-yq-t0B" secondAttribute="bottom" constant="10" id="RjF-CW-QXb"/>
                             <constraint firstItem="QQ7-9A-Fx4" firstAttribute="centerY" secondItem="RI1-oc-9dL" secondAttribute="centerY" id="X70-IK-8Pu"/>
                             <constraint firstItem="2nF-2E-Cf8" firstAttribute="bottom" secondItem="wdV-Px-2ep" secondAttribute="bottom" constant="20" id="a8f-Yu-geP"/>
                             <constraint firstItem="2nF-2E-Cf8" firstAttribute="trailing" secondItem="Pw5-yq-t0B" secondAttribute="trailing" constant="35" id="nPx-ys-3bs"/>

@@ -17,6 +17,7 @@ public protocol EQPlayerViewDelegate: class {
 
 class EQPlayerView: EQPlayerPannableView {
     weak var delegate: EQPlayerViewDelegate?
+    let mpVolumeView = MPVolumeView(frame: CGRect.zero)
 
     var maxCoverWidth: CGFloat {
         return UIScreen.main.bounds.width * 0.6
@@ -110,6 +111,8 @@ class EQPlayerView: EQPlayerPannableView {
         setupDurationTarget()
     }
 
+  
+  
     func playOrPause(isPlay: Bool, completion: @escaping () -> Void) {
       EQSpotifyManager.shard.playOrPause(isPlay: isPlay) {
         completion()
@@ -149,9 +152,8 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     func setupVolumeView() {
-        var mpVolumeView = MPVolumeView(frame: volumeSlider.frame)
+      playerControllView.addSubview(mpVolumeView)
         mpVolumeView.showsRouteButton = false
-        playerControllView.addSubview(mpVolumeView)
         for subview in mpVolumeView.subviews {
             if NSStringFromClass(subview.classForCoder) != "MPVolumeSlider" {
                 subview.isHidden = true
@@ -167,9 +169,14 @@ class EQPlayerView: EQPlayerPannableView {
         systemVolumeView?.minimumValueImage = #imageLiteral(resourceName: "volumeOff")
         volumeSlider.isHidden = true
     }
+  
+  func fitVolumeView() {
+    mpVolumeView.frame = volumeSlider.frame
+  }
 
     override func layoutSubviews() {
         super.layoutSubviews()
+      fitVolumeView()
     }
 
     func openPlayer() {
@@ -214,10 +221,8 @@ class EQPlayerView: EQPlayerPannableView {
         coverHorizontalConstraint = coverHorizontalConstraint.setMultiplier(multiplier: minHorizontalMultiplier)
         coverImageView.addShadow()
         coverImageView.layer.cornerRadius = 10
-        //    coverImageView.clipsToBounds = true
         largePlayerCoverImage.image = blur(image: largePlayerCoverImage.image!)
         largePlayerCoverImage.layer.masksToBounds = false
-        //    largePlayerCoverImage.clipsToBounds = true
         let maskLayer = CAGradientLayer()
         maskLayer.frame = largePlayerCoverImage.bounds
         maskLayer.shadowRadius = 10

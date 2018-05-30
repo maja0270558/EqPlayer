@@ -54,7 +54,11 @@ class EQScrollableViewController: EQPannableViewController, EQScrollableViewCont
         customizeTopItemWhenScrolling()
     }
 
-    func controllerInit() {
+    func subControllerInit() {
+        data = ScrollableControllerDataModel(
+          topCellId: cells,
+          mainController: controllers
+        )
         setupCollectionLayout()
         setupScrollView()
     }

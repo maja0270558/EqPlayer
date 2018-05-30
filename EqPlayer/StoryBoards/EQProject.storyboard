@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BWf-pY-O8g">
-    <device id="retina5_9" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,7 +15,7 @@
             <objects>
                 <viewController storyboardIdentifier="EQSelectTrackViewController" id="BWf-pY-O8g" customClass="EQSelectTrackViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dbW-Aw-cl3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dso-It-6Wr">
@@ -42,7 +42,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bDS-sG-bXI">
-                                                    <rect key="frame" x="0.0" y="0.66666666666666663" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.5" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -69,13 +69,13 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cre-l2-GcL">
-                                <rect key="frame" x="0.0" y="135" width="375" height="677"/>
+                                <rect key="frame" x="0.0" y="135" width="375" height="532"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="n37-58-Upi">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="677"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="532"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OB-f9-XCC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="677"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="532"/>
                                         </scrollView>
                                     </subviews>
                                     <constraints>
@@ -115,17 +115,17 @@
             <objects>
                 <viewController storyboardIdentifier="EQProjectViewController" id="hU9-H5-ky2" customClass="EQProjectViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sWo-QT-Ui3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0Y-lw-Eeb">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HrF-ma-pFd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z0i-n7-Mya">
-                                            <rect key="frame" x="0.0" y="348" width="375" height="778"/>
+                                            <rect key="frame" x="0.0" y="348" width="375" height="667"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditBandView" customModule="EqPlayer" customModuleProvider="target">
@@ -152,8 +152,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="top" secondItem="sWo-QT-Ui3" secondAttribute="top" id="GkR-pw-FS2"/>
+                            <constraint firstAttribute="bottom" secondItem="Q0Y-lw-Eeb" secondAttribute="bottom" id="KOh-g7-lBp"/>
                             <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="leading" secondItem="ldw-c8-EyH" secondAttribute="leading" id="fcs-qx-qHe"/>
-                            <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="bottom" secondItem="ldw-c8-EyH" secondAttribute="bottom" id="vDM-Hr-0NF"/>
                             <constraint firstItem="Q0Y-lw-Eeb" firstAttribute="trailing" secondItem="ldw-c8-EyH" secondAttribute="trailing" id="vyy-iv-69Q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ldw-c8-EyH"/>
@@ -166,24 +166,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfG-fy-QSc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-482.39999999999998" y="-79.610194902548727"/>
+            <point key="canvasLocation" x="-482.39999999999998" y="-79.802955665024641"/>
         </scene>
         <!--Save Project View Controller-->
         <scene sceneID="73S-bf-SIf">
             <objects>
                 <viewController storyboardIdentifier="EQSaveProjectViewController" id="kJd-gh-pQf" customClass="EQSaveProjectViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6pa-qM-RvR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeV-nh-JvK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7J2-f6-8i1">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IB3-fd-YFg" customClass="EQCustomUITextField" customModule="EqPlayer" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="178" width="335" height="50"/>
+                                            <rect key="frame" x="20" y="142" width="335" height="50"/>
                                             <color key="backgroundColor" red="0.78823369740000004" green="0.78823572399999997" blue="0.80771607160000003" alpha="0.2538760859073359" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="GB6-uS-F9d"/>
@@ -193,7 +193,7 @@
                                             <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
                                         </textField>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="6v8-kI-YzC">
-                                            <rect key="frame" x="72.666666666666686" y="276" width="230" height="50"/>
+                                            <rect key="frame" x="72.5" y="240" width="230" height="50"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9A-db-gMl">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
@@ -259,7 +259,7 @@
             <objects>
                 <viewController storyboardIdentifier="EQPlayerViewController" id="kbd-Mf-bg9" customClass="EQPlayerViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WeH-Yy-UGl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wYu-HQ-G5S">
@@ -333,13 +333,13 @@
             <objects>
                 <viewController storyboardIdentifier="EQSearchViewController" id="HjP-0J-LmD" customClass="EQSearchViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jxV-03-E1V">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3G-8x-xRw">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ekb-Yh-f2b">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="7lJ-g8-xWY" customClass="EQCustomSearchBar" customModule="EqPlayer" customModuleProvider="target">
@@ -363,7 +363,7 @@
                                             </connections>
                                         </button>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uPc-2u-rW1">
-                                            <rect key="frame" x="0.0" y="91" width="375" height="721"/>
+                                            <rect key="frame" x="0.0" y="91" width="375" height="576"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

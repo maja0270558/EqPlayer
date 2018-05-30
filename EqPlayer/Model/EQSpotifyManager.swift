@@ -108,6 +108,7 @@ extension EQSpotifyManager {
     case .project:
         player?.setIsPlaying(isPlay, callback: { error in
         if error != nil {
+          print(error.debugDescription + "----->")
           return
         }
         completion()
@@ -121,6 +122,7 @@ extension EQSpotifyManager {
     currentPlayingType = .preview
     player?.playSpotifyURI(uri, startingWith: 0, startingWithPosition: duration/2, callback: { error in
       if error != nil {
+        print(error.debugDescription + "----->")
         return
       }
       callback()
@@ -135,16 +137,24 @@ extension EQSpotifyManager {
   
   func playTrack() {
     currentPlayingType = .project
-    player?.playSpotifyURI(trackList[self.currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { _ in
-      
+    player?.playSpotifyURI(trackList[self.currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { error in
+      if error != nil {
+        print(error.debugDescription + "----->")
+        return
+      }
     })
   }
   
   func playFromLastDuration() {
     if currentPlayingType != .project{
-      currentPlayingType = .project
+      self.currentPlayingType = .project
       if  trackList.count > 0  {
-        player?.playSpotifyURI(durationObseve.currentPlayingURI, startingWith: 0, startingWithPosition: durationObseve.currentDuration, callback: nil)
+        player?.playSpotifyURI(durationObseve.currentPlayingURI, startingWith: 0, startingWithPosition: durationObseve.currentDuration, callback: { error in
+          if error != nil {
+            print(error.debugDescription + "----->")
+            return
+          }
+        })
       } else {
         playOrPause(isPlay: false) {
           
@@ -209,7 +219,10 @@ extension EQSpotifyManager {
   }
   
   func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-    delegate?.didChangeTrack(track: metadata.currentTrack!)
+    guard let currentTrack = metadata.currentTrack else {
+      return
+    }
+    delegate?.didChangeTrack(track: currentTrack)
   }
   
   func audioStreaming(_: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {

@@ -189,18 +189,21 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
       return
     }
     let track = songlists[indexPath.row]
-    if previousPreviewIndex != indexPath {
-      //按別的cell
-      resetCell(indexPath: previousPreviewIndex)
-    }
+//    if previousPreviewIndex != indexPath {
+//      //按別的cell
+//      resetCell(indexPath: previousPreviewIndex)
+//    }
     if cell.previewButton.isSelected {
       //試聽的那個
+      resetAllVisibleCell()
       previousPreviewIndex = indexPath
       EQSpotifyManager.shard.previousPreviewURLString = track.uri.absoluteString
       EQSpotifyManager.shard.playPreview(uri: track.uri.absoluteString, duration: track.duration)
       {
         EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
         cell.startObseve()
+        cell.previewButton.isSelected = true
+        EQNotifycationCenterManager.post(name: Notification.Name.eqProjectPlayPreviewTrack)
       }
 
     } else {
@@ -214,20 +217,6 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
       })
     }
   }
-  
-  func resetCell(indexPath: IndexPath?, currentIndex: IndexPath) {
-    guard let resetIndexPath = indexPath,
-      let cell = tableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell,
-      let currentCell = tableView.cellForRow(at: currentIndex) as? EQSonglistTableViewCell  else {
-      return
-    }
-    if currentCell.previewButton.isSelected {
-      return
-    }
-    cell.timer?.invalidate()
-    cell.previewProgressBar.progress = 0
-    cell.previewButton.isSelected = false
-  }
   func resetCell(indexPath: IndexPath?) {
     guard let resetIndexPath = indexPath,
       let cell = tableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell else {
@@ -237,5 +226,15 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
     cell.timer?.invalidate()
     cell.previewProgressBar.progress = 0
     cell.previewButton.isSelected = false
+  }
+  func resetAllVisibleCell() {
+    guard let cells = tableView.visibleCells as? [EQSonglistTableViewCell] else {
+      return
+    }
+    cells.forEach { (cell) in
+      cell.timer?.invalidate()
+      cell.previewProgressBar.progress = 0
+      cell.previewButton.isSelected = false
+    }
   }
 }
