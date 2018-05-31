@@ -42,7 +42,7 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
   func setupAuth() {
     auth?.clientID = EQSpotifyClientInfo.clientID.rawValue
     auth?.redirectURL = URL(string: EQSpotifyClientInfo.redirectURL.rawValue)!
-    auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserReadEmailScope]
+    auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserReadEmailScope, SPTAuthUserReadPrivateScope]
     auth?.sessionUserDefaultsKey = EQSpotifyClientInfo.sessionKey.rawValue
     loginURL = auth?.spotifyWebAuthenticationURL()
     NotificationCenter.default.addObserver(self, selector: #selector(EQSpotifyManager.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessfull"), object: nil)
@@ -56,10 +56,14 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
   }
   
   func initializePlayer(authSession: SPTSession) {
+    
+    guard let userAuth = auth else {
+      return
+    }
     player!.playbackDelegate = self
     player!.delegate = self
     do {
-      try player?.start(withClientId: auth?.clientID, audioController: coreAudioController, allowCaching: false)
+      try player?.start(withClientId: userAuth.clientID, audioController: coreAudioController, allowCaching: false)
     } catch {
       print("error")
     }
@@ -209,7 +213,12 @@ extension EQSpotifyManager {
   func audioStreamingDidLogin(_: SPTAudioStreamingController!) {
     AppDelegate.shard?.switchToMainStoryBoard()
   }
-  
+  func audioStreamingDidLosePermission(forPlayback audioStreaming: SPTAudioStreamingController!) {
+    print("lose")
+  }
+  func audioStreamingDidEncounterTemporaryConnectionError(_ audioStreaming: SPTAudioStreamingController!) {
+    print("encount")
+  }
   func audioStreaming(_: SPTAudioStreamingController!, didStartPlayingTrack _: String!) {
     print("start")
   }

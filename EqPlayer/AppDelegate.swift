@@ -33,7 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let session = spotifyManager.auth?.session {
             if session.isValid() {
+              EQUserManager.shard.saveUserInfo() {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+              }
                 return true
             }
         }
@@ -47,10 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if error != nil {
                     print("error!")
                 }
-                self.spotifyManager.authViewController?.dismiss(animated: true, completion: nil)
-                EQUserManager.shard.saveUserInfo() {
-                  NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
-                }
+                self.spotifyManager.authViewController?.dismiss(animated: true) {
+                  self.switchToLoadingStoryBoard()
+                    EQUserManager.shard.saveUserInfo() {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+                  }
+              }
+              
             })
             return true
         }
@@ -76,5 +81,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let viewController = UIStoryboard.mainStoryBoard().instantiateInitialViewController()
         window?.rootViewController = viewController
+    }
+  
+    func switchToLoadingStoryBoard() {
+      if !Thread.current.isMainThread {
+        DispatchQueue.main.async { [weak self] in
+          self?.switchToMainStoryBoard()
+        }
+        return
+      }
+      let viewController = UIStoryboard.loadingBoard().instantiateInitialViewController()
+      window?.rootViewController = viewController
     }
 }

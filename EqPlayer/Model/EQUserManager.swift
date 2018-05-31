@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import PopupDialog
+
 enum UserStatus {
   case spotify
   case guest
@@ -30,17 +32,39 @@ class EQUserManager {
   
   func saveUserInfo(_ callback: @escaping ()->Void) {
     SPTUser.requestCurrentUser(withAccessToken: (SPTAuth.defaultInstance().session.accessToken)!) { _, data in
-      guard let user = data as? SPTUser else {
+      guard let currentUser = data as? SPTUser else {
         print("Couldn't cast as SPTUser")
         return
       }
-      let userId = user.displayName
-      let userPhotoURL = user.largestImage.imageURL.absoluteString
-      let email = user.emailAddress
+      switch currentUser.product {
+      case .premium:
+        break
+      case .free, .unlimited , .unknown:
+        EQSpotifyManager.shard.auth?.session = nil
+        EQAlertViewControllerSetting.setDarkMode()
+        let title = "提示"
+        let message = "您登入的帳號並不是Spotify premium，也許你會想升級體驗，按下確定將跳轉回登入頁面。"
+        let popup = PopupDialog(title: title, message: message, image: nil)
+        popup.transitionStyle = .zoomIn
+        popup.buttonAlignment = .horizontal
+        
+        let close = DefaultButton(title: "確定", height: 60) {
+          AppDelegate.shard?.switchToLoginStoryBoard()
+        }
+        popup.addButtons([close])
+        AppDelegate.shard?.window?.rootViewController?.present(popup, animated: true, completion: nil)
+        return
+      }
+      
+      
+      let userId = currentUser.displayName ?? currentUser.canonicalUserName
+      if let userImage = currentUser.largestImage {
+        UserDefaults.standard.set(userImage.imageURL.absoluteString, forKey: "userPhotoURL")
+      }
+      let email = currentUser.emailAddress
+      EQFirebaseManager.createUserIfNotExist(withEmail: email!, password: currentUser.canonicalUserName)
       UserDefaults.standard.set(userId, forKey: "userName")
       UserDefaults.standard.set(email, forKey: "email")
-      UserDefaults.standard.set(userPhotoURL, forKey: "userPhotoURL")
-
       callback()
     }
   }

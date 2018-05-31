@@ -79,7 +79,7 @@ class EQProjectViewController: EQTableViewController {
   }
   
   func popupAskUserToSave() {
-    setDarkMode()
+    EQAlertViewControllerSetting.setDarkMode()
     if eqSettingManager.isModify && eqSettingManager.tempModel.tracks.count > 0 {
       let title = "尚未儲存"
       let message = "您的專案尚未儲存，確定直接關閉嗎。"
@@ -264,9 +264,9 @@ class EQProjectViewController: EQTableViewController {
   }
   
   func setupEditBandView() {
+    editBandView.lineChartView.setEntryValue(yValues: Array(eqSettingManager.tempModel.eqSetting))
     editBandView.delegate = self
     editBandView.lineChartView.delegate = self
-    
     editBandView.projectNameLabel.text = projectName
   }
   
@@ -309,37 +309,6 @@ extension EQProjectViewController: ChartViewDelegate {
 
 extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewControllerDelegate {
   
-  func setDarkMode() {
-    let pv = PopupDialogDefaultView.appearance()
-    pv.titleFont    = UIFont(name: "HelveticaNeue-Light", size: 16)!
-    pv.titleColor   = .white
-    pv.messageFont  = UIFont(name: "HelveticaNeue", size: 14)!
-    pv.messageColor = UIColor(white: 0.8, alpha: 1)
-    
-    let pcv = PopupDialogContainerView.appearance()
-    pcv.backgroundColor = UIColor(red:0.23, green:0.23, blue:0.27, alpha:1.00)
-    pcv.cornerRadius    = 2
-    pcv.shadowEnabled   = true
-    pcv.shadowColor     = .black
-    
-    let ov = PopupDialogOverlayView.appearance()
-    ov.blurEnabled     = true
-    ov.blurRadius      = 30
-    ov.liveBlurEnabled = true
-    ov.opacity         = 0.3
-    ov.color           = .black
-    let db = DefaultButton.appearance()
-    db.titleFont      = UIFont(name: "HelveticaNeue-Medium", size: 14)!
-    db.titleColor     = .white
-    db.buttonColor    = UIColor(red:0.25, green:0.25, blue:0.29, alpha:1.00)
-    db.separatorColor = UIColor(red:0.20, green:0.20, blue:0.25, alpha:1.00)
-    
-    let cb = CancelButton.appearance()
-    cb.titleFont      = UIFont(name: "HelveticaNeue-Medium", size: 14)!
-    cb.titleColor     = UIColor(white: 0.6, alpha: 1)
-    cb.buttonColor    = UIColor(red:0.25, green:0.25, blue:0.29, alpha:1.00)
-    cb.separatorColor = UIColor(red:0.20, green:0.20, blue:0.25, alpha:1.00)
-  }
   func didClickDismissButton() {
     popupAskUserToSave()
   }

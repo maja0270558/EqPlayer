@@ -82,8 +82,9 @@ extension EQUserTableViewController {
           }
           return section
         }
-      
-        section.cellDatas = eqData
+        if let indexType = UserToolBarProvider(rawValue: currentToolItemIndex) {
+          section.cellDatas = userPageData[indexType]!
+        }
         section.cellHeight = UITableViewAutomaticDimension
         userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
         section.cellIdentifier = EQSaveProjectCell.typeName
@@ -104,6 +105,7 @@ extension EQUserTableViewController {
             }
             saveCell.cellEQChartView.alpha = 0
             saveCell.cellEQChartView.isUserInteractionEnabled = false
+       
             saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
                 let color = self.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
                 saveCell.cellEQChartView.setChart(15, color: color, style: .cell)
@@ -151,7 +153,9 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
   
   func eqToolBar(didSelectAt: Int) {
     currentToolItemIndex = didSelectAt + 1
-    reloadUserPageData()
+    if EQUserManager.shard.userStatus != .guest {
+      reloadUserPageData()
+    }
   }
   
   func scrollViewDidScroll(_: UIScrollView) {

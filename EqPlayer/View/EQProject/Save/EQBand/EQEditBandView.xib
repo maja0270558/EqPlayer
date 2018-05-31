@@ -27,7 +27,7 @@
                     <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="65" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-NP-nPW">
-                    <rect key="frame" x="85" y="255" width="205" height="30"/>
+                    <rect key="frame" x="152.5" y="255" width="70" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPM-kT-99z" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
@@ -43,8 +43,8 @@
                                 <action selector="saveAction:" destination="-1" eventType="touchUpInside" id="iW7-2m-ZSF"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6q-NY-Vpd" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
-                            <rect key="frame" x="135" y="0.0" width="70" height="30"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6q-NY-Vpd" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="12"/>
                             <state key="normal" title="發布">
                                 <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -18,7 +18,6 @@ class EQLoginViewController: UIViewController {
     }
     @IBAction func loginAction(_: UIButton) {
         if let delegate = appDelegate as? AppDelegate {
-            loginProgress.startAnimating()
             delegate.spotifyManager.login()
         }
     }

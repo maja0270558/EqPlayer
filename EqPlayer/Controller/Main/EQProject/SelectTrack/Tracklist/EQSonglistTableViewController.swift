@@ -189,10 +189,6 @@ extension EQSonglistTableViewController: EQSonglistTableViewCellDelegate {
       return
     }
     let track = songlists[indexPath.row]
-//    if previousPreviewIndex != indexPath {
-//      //按別的cell
-//      resetCell(indexPath: previousPreviewIndex)
-//    }
     if cell.previewButton.isSelected {
       //試聽的那個
       resetAllVisibleCell()

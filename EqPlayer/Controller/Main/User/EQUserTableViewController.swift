@@ -17,11 +17,6 @@ class EQUserTableViewController: EQTableViewController {
     weak var delegate: EQUserTableViewControllerDelegate?
     var icon: UIImage?
     var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
-  
-    var eqData = [EQProjectModel]()
-    var unsaveEQData = [EQProjectModel]()
-    var postedEQData = [EQProjectModel]()
-  
     var userPageData = [UserToolBarProvider: [EQProjectModel]]()
   
     var currentToolItemIndex: Int = 1
@@ -53,8 +48,7 @@ class EQUserTableViewController: EQTableViewController {
         let tempData: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectModel.EQProjectStatus.temp.rawValue)
         userPageData[UserToolBarProvider.saved] = data
         userPageData[UserToolBarProvider.temp] = tempData
-        unsaveEQData = tempData
-        eqData = data
+        userPageData[UserToolBarProvider.posted] = [EQProjectModel]()
     }
 
     func subscribeNotification() {
