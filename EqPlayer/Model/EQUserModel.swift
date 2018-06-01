@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct EQUserModel {
+struct EQUserModel: Codable{
   var name: String = ""
   var email: String = ""
   var photoURL: URL?

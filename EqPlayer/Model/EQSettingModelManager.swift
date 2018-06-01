@@ -22,7 +22,7 @@ class EQSettingModelManager {
         }
     }
 
-    func saveObjectTo(status: EQProjectModel.EQProjectStatus) {
+    func saveObjectTo(status: EQProjectStatus) {
         let modelCopy = EQProjectModel(value: tempModel)
         modelCopy.status = status
 

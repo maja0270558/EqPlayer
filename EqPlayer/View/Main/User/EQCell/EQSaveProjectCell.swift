@@ -7,7 +7,6 @@
 //
 
 import Charts
-import UIImageColors
 import UIKit
 
 protocol EQSaveProjectCellDelegate: class {
@@ -77,7 +76,6 @@ class EQSaveProjectCell: UITableViewCell {
         setSelectedColor()
         backgroundColor = UIColor.clear
         cellEQChartView.configStyle(.cell)
-        cellEQChartView.setChart(15, color: UIColor.green, style: .cell)
         playbutton.layer.shadowOffset = CGSize(width: 1, height: 1)
         playbutton.layer.shadowRadius = 5
         playbutton.layer.shadowOpacity = 1

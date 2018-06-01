@@ -56,7 +56,7 @@ class EQProjectViewController: EQTableViewController {
   }
   
   @objc func projectAccidentallyClose() {
-    if eqSettingManager.tempModel.tracks.count > 0 && eqSettingManager.tempModel.status != EQProjectModel.EQProjectStatus.saved {
+    if eqSettingManager.tempModel.tracks.count > 0 && eqSettingManager.tempModel.status != EQProjectStatus.saved {
       eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
       eqSettingManager.tempModel.name = projectName
       eqSettingManager.saveObjectTo(status: .temp)
@@ -71,9 +71,19 @@ class EQProjectViewController: EQTableViewController {
   func save() {
     eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
     eqSettingManager.tempModel.name = projectName
-    editBandView.projectNameLabel.text = projectName
+    editBandView.projectNameTextField.text = projectName
     editBandView.saveButton.setTitle("編輯", for: .normal)
     eqSettingManager.saveObjectTo(status: .saved)
+    eqSettingManager.tempModel.status = .saved
+    EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
+    backToMain()
+  }
+  func post(description: String) {
+    eqSettingManager.tempModel.name = projectName
+    editBandView.projectNameTextField.text = projectName
+    eqSettingManager.tempModel.status = .post
+    eqSettingManager.tempModel.detailDescription = description
+    EQFirebaseManager.postEQProject(projectModel: eqSettingManager.tempModel)
     EQNotifycationCenterManager.post(name: Notification.Name.eqProjectSave)
     backToMain()
   }
@@ -104,7 +114,7 @@ class EQProjectViewController: EQTableViewController {
       case .temp:
         let temp = DefaultButton(title: "儲存施工專案", height: 60) {
           self.backToAppear()
-          self.showSavePage()
+          self.showSavePage(isPost: false)
           
         }
         popup.addButtons([cancel,temp,close])
@@ -114,6 +124,8 @@ class EQProjectViewController: EQTableViewController {
           self.dismiss(animated: true, completion: nil)
         }
         popup.addButtons([cancel,temp,close])
+      case .post:
+        break
       }
       self.present(popup, animated: true, completion: nil)
     } else {
@@ -267,7 +279,8 @@ class EQProjectViewController: EQTableViewController {
     editBandView.lineChartView.setEntryValue(yValues: Array(eqSettingManager.tempModel.eqSetting))
     editBandView.delegate = self
     editBandView.lineChartView.delegate = self
-    editBandView.projectNameLabel.text = projectName
+    editBandView.projectNameTextField.text = projectName
+    eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
   }
   
   func setupTableView() {
@@ -282,6 +295,8 @@ extension EQProjectViewController: ChartViewDelegate {
   func chartEntryDrag(_: ChartViewBase, entry dragEntry: ChartDataEntry) {
     // Set band
     eqSettingManager.isModify = true
+    editBandView.saveButton.setTitle("儲存", for: .normal)
+    eqSettingManager.tempModel.eqSetting[Int(dragEntry.x)] = dragEntry.y
     EQSpotifyManager.shard.setGain(value: Float(dragEntry.y), atBand: UInt32(dragEntry.x))
   }
   
@@ -313,29 +328,39 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
     popupAskUserToSave()
   }
   
-  func didClickSaveButton(projectName: String) {
+  func didClickSaveButton(projectName: String, description: String, isPost: Bool) {
     print((Realm.Configuration.defaultConfiguration.fileURL?.absoluteString)! + "---------------")
     if eqSettingManager.tempModel.tracks.count <= 0 {
       return
     }
     self.projectName = projectName
-    save()
+    if isPost {
+      post(description: description)
+    } else {
+      save()
+    }
+   
   }
   
   func didClickSaveProjectButton() {
-    showSavePage()
+    showSavePage(isPost: false)
   }
   
   func didClickPostProjectButton() {
+    showSavePage(isPost: true)
   }
-  func showSavePage(){
-    if let saveProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(
-      withIdentifier: String(describing: EQSaveProjectViewController.self)) as? EQSaveProjectViewController {
-      saveProjectViewController.modalPresentationStyle = .overCurrentContext
-      saveProjectViewController.modalTransitionStyle = .crossDissolve
-      saveProjectViewController.delegate = self
-      saveProjectViewController.originalProjectName = projectName
-      present(saveProjectViewController, animated: true, completion: nil)
+  
+  func showSavePage(isPost: Bool){
+    if eqSettingManager.tempModel.tracks.count > 0 {
+      if let saveProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(
+        withIdentifier: String(describing: EQSaveProjectViewController.self)) as? EQSaveProjectViewController {
+        saveProjectViewController.controllerIsUseToPost = isPost
+        saveProjectViewController.modalPresentationStyle = .overCurrentContext
+        saveProjectViewController.modalTransitionStyle = .crossDissolve
+        saveProjectViewController.delegate = self
+        saveProjectViewController.originalProjectName = editBandView.projectNameTextField.text!
+        present(saveProjectViewController, animated: true, completion: nil)
+      }
     }
   }
 }

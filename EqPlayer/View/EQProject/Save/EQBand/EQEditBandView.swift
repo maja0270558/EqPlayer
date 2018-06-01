@@ -15,11 +15,12 @@ protocol EQEditBandViewDelegate: class {
 }
 
 class EQEditBandView: UIView {
-    @IBOutlet var projectNameLabel: UILabel!
+    @IBOutlet var projectNameTextField: UITextField!
     weak var delegate: EQEditBandViewDelegate?
     @IBOutlet var lineChartView: LineChartView!
 
-    @IBAction func saveAction(_: UIButton) {
+  
+  @IBAction func saveAction(_: UIButton) {
         delegate?.didClickSaveProjectButton()
     }
 
@@ -34,7 +35,7 @@ class EQEditBandView: UIView {
     @IBOutlet var saveButton: UIButton!
 
     @IBOutlet var postButton: UIButton!
-
+  
     override init(frame: CGRect) {
         super.init(frame: frame)
         fromNib()

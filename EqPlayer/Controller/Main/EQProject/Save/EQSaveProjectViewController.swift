@@ -8,19 +8,21 @@
 
 import UIKit
 protocol EQSaveProjectViewControllerDelegate: class {
-    func didClickSaveButton(projectName: String)
+  func didClickSaveButton(projectName: String, description: String, isPost: Bool)
 }
 
 class EQSaveProjectViewController: UIViewController {
-    @IBOutlet var projectNameTextField: EQCustomUITextField!
-    @IBOutlet var saveButton: EQCustomButton!
+  @IBOutlet var projectNameTextField: EQCustomUITextField!
+  @IBOutlet weak var postDescriptionTextField: EQCustomUITextField!
+  @IBOutlet weak var descriptionLabel: UILabel!
+  @IBOutlet var saveButton: EQCustomButton!
 
     weak var delegate: EQSaveProjectViewControllerDelegate?
     var originalProjectName: String = ""
-
+  var controllerIsUseToPost: Bool = false
     @IBAction func saveAction(_: EQCustomButton) {
         dismiss(animated: true) {
-            self.delegate?.didClickSaveButton(projectName: self.projectNameTextField.text!)
+          self.delegate?.didClickSaveButton(projectName: self.projectNameTextField.text!, description: self.postDescriptionTextField.text!, isPost: self.controllerIsUseToPost)
         }
     }
 
@@ -31,15 +33,30 @@ class EQSaveProjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProjectNameTextField()
+        setupStyle(isPost: controllerIsUseToPost)
     }
 
     func setupProjectNameTextField() {
         projectNameTextField.delegate = self
         projectNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        projectNameTextField.becomeFirstResponder()
         projectNameTextField.text = originalProjectName
     }
 
+    func setupStyle(isPost: Bool) {
+      if !isPost {
+        descriptionLabel.isHidden = true
+        postDescriptionTextField.isHidden = true
+        saveButton.setTitle("儲存", for: .normal)
+        projectNameTextField.becomeFirstResponder()
+
+      } else {
+        projectNameTextField.isEnabled = false
+        projectNameTextField.alpha = 0.5
+        postDescriptionTextField.becomeFirstResponder()
+        saveButton.setTitle("發布", for: .normal)
+      }
+    }
+  
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField.text?.isEmpty)! {
             saveButton.isEnabled = false

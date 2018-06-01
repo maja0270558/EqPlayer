@@ -13,7 +13,7 @@
             <connections>
                 <outlet property="lineChartView" destination="fuZ-rK-zGL" id="A5S-l1-cqv"/>
                 <outlet property="postButton" destination="P6q-NY-Vpd" id="5GR-at-sVH"/>
-                <outlet property="projectNameLabel" destination="zWL-Lc-7bR" id="8ka-H7-wRL"/>
+                <outlet property="projectNameTextField" destination="Nff-Yj-jF1" id="bRu-eM-H1I"/>
                 <outlet property="saveButton" destination="MPM-kT-99z" id="SeO-yp-Fte"/>
             </connections>
         </placeholder>
@@ -23,11 +23,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fuZ-rK-zGL" customClass="LineChartView" customModule="Charts">
-                    <rect key="frame" x="16" y="46.5" width="343" height="192.5"/>
+                    <rect key="frame" x="16" y="55" width="343" height="184"/>
                     <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="65" translatesAutoresizingMaskIntoConstraints="NO" id="9mi-NP-nPW">
-                    <rect key="frame" x="152.5" y="255" width="70" height="30"/>
+                    <rect key="frame" x="85" y="255" width="205" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPM-kT-99z" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
@@ -43,11 +43,14 @@
                                 <action selector="saveAction:" destination="-1" eventType="touchUpInside" id="iW7-2m-ZSF"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6q-NY-Vpd" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6q-NY-Vpd" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
+                            <rect key="frame" x="135" y="0.0" width="70" height="30"/>
                             <fontDescription key="fontDescription" name="PingFangTC-Regular" family="PingFang TC" pointSize="12"/>
                             <state key="normal" title="發布">
                                 <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="disabled">
+                                <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="postAction:" destination="-1" eventType="touchUpInside" id="OVo-fh-piG"/>
@@ -64,15 +67,6 @@
                         <constraint firstItem="P6q-NY-Vpd" firstAttribute="top" secondItem="9mi-NP-nPW" secondAttribute="top" id="yKo-ua-kVd"/>
                     </constraints>
                 </stackView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="專案" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zWL-Lc-7bR">
-                    <rect key="frame" x="16" y="16" width="343" height="20.5"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="20.5" id="0B6-Xz-xWp"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="25"/>
-                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnZ-2y-gdG">
                     <rect key="frame" x="339" y="16" width="20" height="20"/>
                     <constraints>
@@ -84,20 +78,28 @@
                         <action selector="dismissAction:" destination="-1" eventType="touchUpInside" id="tW0-ix-Mf0"/>
                     </connections>
                 </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="專案" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nff-Yj-jF1">
+                    <rect key="frame" x="16" y="11" width="315" height="39"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="25"/>
+                    <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="fuZ-rK-zGL" firstAttribute="top" secondItem="zWL-Lc-7bR" secondAttribute="bottom" constant="10" id="4BK-ve-Uw1"/>
+                <constraint firstItem="lnZ-2y-gdG" firstAttribute="leading" secondItem="Nff-Yj-jF1" secondAttribute="trailing" constant="8" id="1Aw-ID-jv1"/>
                 <constraint firstItem="9mi-NP-nPW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="8t9-b1-anY"/>
-                <constraint firstItem="zWL-Lc-7bR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="BXq-cV-T3o"/>
                 <constraint firstItem="9mi-NP-nPW" firstAttribute="top" secondItem="fuZ-rK-zGL" secondAttribute="bottom" constant="16" id="D64-Rm-q1T"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zWL-Lc-7bR" secondAttribute="trailing" constant="16" id="EAq-ox-f8a"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lnZ-2y-gdG" secondAttribute="trailing" constant="16" id="Ep6-YN-e7u"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fuZ-rK-zGL" secondAttribute="trailing" constant="16" id="PFt-uK-ZrK"/>
+                <constraint firstItem="fuZ-rK-zGL" firstAttribute="top" secondItem="Nff-Yj-jF1" secondAttribute="bottom" constant="5" id="XId-5G-NdD"/>
                 <constraint firstItem="fuZ-rK-zGL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="afd-ix-0Dc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9mi-NP-nPW" secondAttribute="bottom" constant="30" id="hZr-LG-ey2"/>
                 <constraint firstItem="lnZ-2y-gdG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="mcz-yJ-18N"/>
-                <constraint firstItem="zWL-Lc-7bR" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="rWW-68-UVb"/>
+                <constraint firstItem="Nff-Yj-jF1" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="11" id="tym-Mt-P9A"/>
+                <constraint firstItem="Nff-Yj-jF1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="zdt-YS-xLT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

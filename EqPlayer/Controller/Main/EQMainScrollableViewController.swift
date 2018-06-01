@@ -10,7 +10,7 @@ import Foundation
 import MediaPlayer
 class EQMainScrollableViewController: EQScrollableViewController {
   var topItemSize = CGSize(width: 50, height: 50)
-  let topIcon = [UIImage(named: "user")]
+  let topIcon = [UIImage(named: "user"), UIImage(named: "binoculars")]
   var blurView: UIVisualEffectView!
   @IBOutlet var topScrollableViewBase: UIView!
   @IBOutlet var playerView: EQPlayerView!
@@ -34,13 +34,22 @@ class EQMainScrollableViewController: EQScrollableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+   
     guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
+      return
+    }
+    guard let discoverController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQDiscoverViewController") as? EQDiscoverViewController else {
       return
     }
     userController.delegate = self
     controllers.append(userController)
     cells.append("EQIconCollectionViewCell")
-   
+    
+    if EQUserManager.shard.userStatus != .guest {
+      controllers.append(discoverController)
+      cells.append("EQIconCollectionViewCell")
+    }
+
     registerCollectionCell()
     subscribeNotification()
     setupDelegate()
@@ -111,11 +120,28 @@ class EQMainScrollableViewController: EQScrollableViewController {
     playerView.frame = CGRect(x: 0, y: UIScreen.main.bounds.height * 0.9, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
   }
   
+  func openPlayerAndPlayback(data: EQProjectModel){
+    let uris = Array(data.tracks.map { $0.uri })
+    EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
+    EQSpotifyManager.shard.setGain(withModel: data)
+    EQSpotifyManager.shard.playFirstTrack()
+    playerView.openPlayer()
+  }
+  
+  func openEditProjectPage(data: EQProjectModel){
+    if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+      eqProjectViewController.modalPresentationStyle = .overCurrentContext
+      eqProjectViewController.modalTransitionStyle = .crossDissolve
+      eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
+      present(eqProjectViewController, animated: true, completion: nil)
+    }
+  }
+  
   func setupTopScrollableMainView() {
     topScrollableViewBase.layer.cornerRadius = 10
     topScrollableViewBase.clipsToBounds = true
   }
-  
+
   func setupBlurEffect() {
     let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     blurEffectView.isUserInteractionEnabled = false
@@ -173,25 +199,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
 }
 
 extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
-  func didSelectUserCell(type: UserToolBarProvider, data: EQProjectModel) {
-    switch type {
-    case .posted:
-      break
-    case .saved:
-      let uris = Array(data.tracks.map { $0.uri })
-      EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
-      EQSpotifyManager.shard.setGain(withModel: data)
-      EQSpotifyManager.shard.playFirstTrack()
-      playerView.openPlayer()
-    case .temp:
-      if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
-        eqProjectViewController.modalPresentationStyle = .overCurrentContext
-        eqProjectViewController.modalTransitionStyle = .crossDissolve
-        eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
-        present(eqProjectViewController, animated: true, completion: nil)
-      }
-    }
-  }
   
   func didPressMoreOptionEditButton(at _: IndexPath, data: EQProjectModel) {
     if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
@@ -218,7 +225,6 @@ extension EQMainScrollableViewController: EQPlayerViewDelegate {
     var finalScale = 0.1 * (1-factor)
     topScrollableViewBase.transform = CGAffineTransform(scaleX: 1 - finalScale, y: 1 - finalScale)
     blurView.alpha = (1-factor)
-    print(finalScale)
   }
   
   func didClapPlayer() {

@@ -33,6 +33,20 @@ enum UserToolBarProvider: Int {
 }
 
 extension EQUserTableViewController {
+  
+    @objc func changeProfilePhoto() {
+      EQCameraHandler.shared.showActionSheet(vc: self)
+      EQCameraHandler.shared.imagePickedBlock = { (image) in
+        EQFirebaseManager.uploadImage(userUID: EQUserManager.shard.userUID, image: image) {
+          urlString in
+          self.sessionOf(EQUserTableViewControllerSectionAndCellProvider.userInfoCell.rawValue).cellDatas = [EQUserManager.shard.getUser()]
+          DispatchQueue.main.async {
+            self.userTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+          }
+        }
+      }
+    }
+  
     func createUserInfoHead() -> EQSectionProvider {
         let section = EQSectionProvider()
         userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
@@ -43,6 +57,7 @@ extension EQUserTableViewController {
             guard let infoCell = cell as? EQUserInfoTableViewCell, let userArray = data as? EQUserModel else {
                 return
             }
+            infoCell.cameraButton.addTarget(self, action: #selector(self.changeProfilePhoto), for: .touchUpInside)
             infoCell.userName.text = userArray.name
             infoCell.userImage.sd_setImage(with: userArray.photoURL, placeholderImage: #imageLiteral(resourceName: "dark-1920956_1280"), options: [], completed: nil)
         }
@@ -51,7 +66,7 @@ extension EQUserTableViewController {
 
     func createCustomToolBarSectionWithCell() -> EQSectionProvider {
         let section = EQSectionProvider()
-        var toolBarTitleData = [UserToolBarProvider.saved.getName(), UserToolBarProvider.temp.getName()]
+        var toolBarTitleData = [UserToolBarProvider.saved.getName(), UserToolBarProvider.temp.getName(), UserToolBarProvider.posted.getName()]
         section.headerHeight = UITableViewAutomaticDimension
         section.headerView = EQCustomToolBarView()
         section.headerData = toolBarTitleData
@@ -95,7 +110,7 @@ extension EQUserTableViewController {
             }
             saveCell.delegate = self
             saveCell.cellIndexPath = indexPath
-            let buttonImage = eqModel.status == EQProjectModel.EQProjectStatus.saved ? UIImage(named: "play") : UIImage(named: "wrench")
+            let buttonImage = eqModel.status == EQProjectStatus.temp ? UIImage(named: "wrench") : UIImage(named: "play")
             saveCell.projectTitleLabel.text = eqModel.name
             saveCell.cellIndicator.startAnimating()
             saveCell.trackCountLabel.text = String(eqModel.tracks.count)
@@ -154,7 +169,10 @@ extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarD
   func eqToolBar(didSelectAt: Int) {
     currentToolItemIndex = didSelectAt + 1
     if EQUserManager.shard.userStatus != .guest {
-      reloadUserPageData()
+      loadEQDatas {
+        [weak self] in
+        self?.reloadUserPageData()
+      }
     }
   }
   

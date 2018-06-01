@@ -9,10 +9,16 @@
 import UIKit
 
 class EQUserInfoTableViewCell: UITableViewCell {
-    @IBOutlet var userImage: EQCircleImage!
-    @IBOutlet var userName: UILabel!
+  @IBOutlet var userImage: EQCircleImage!
+  @IBOutlet weak var cameraButton: UIButton!
+  @IBOutlet var userName: UILabel!
+
+  
     override func awakeFromNib() {
         super.awakeFromNib()
+        if EQUserManager.shard.userStatus == .guest {
+          cameraButton.isHidden = true
+        }
         setSelectedColor(color: UIColor.clear)
     }
 }

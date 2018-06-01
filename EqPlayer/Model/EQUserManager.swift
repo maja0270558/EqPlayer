@@ -18,7 +18,7 @@ enum UserStatus {
 class EQUserManager {
   private init() {}
   static let shard = EQUserManager()
- 
+  var userUID = "none"
   var userStatus: UserStatus {
     if let session = EQSpotifyManager.shard.auth?.session {
       if !session.isValid() {
@@ -58,14 +58,15 @@ class EQUserManager {
       
       
       let userId = currentUser.displayName ?? currentUser.canonicalUserName
+      let email = currentUser.emailAddress
+      UserDefaults.standard.set(userId, forKey: "userName")
+      UserDefaults.standard.set(email, forKey: "email")
       if let userImage = currentUser.largestImage {
         UserDefaults.standard.set(userImage.imageURL.absoluteString, forKey: "userPhotoURL")
       }
-      let email = currentUser.emailAddress
-      EQFirebaseManager.createUserIfNotExist(withEmail: email!, password: currentUser.canonicalUserName)
-      UserDefaults.standard.set(userId, forKey: "userName")
-      UserDefaults.standard.set(email, forKey: "email")
-      callback()
+      EQFirebaseManager.createUserIfNotExist(withEmail: email!, password: currentUser.canonicalUserName) {
+        callback()
+      }
     }
   }
   

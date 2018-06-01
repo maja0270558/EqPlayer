@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8gU-ew-QVX">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,14 +15,14 @@
             <objects>
                 <viewController storyboardIdentifier="EQMainScrollableViewController" id="8gU-ew-QVX" customClass="EQMainScrollableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dlR-z5-rMN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ma-Mj-6oe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="600.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="662.33333333333337"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Vv-my-8Cj">
-                                        <rect key="frame" x="0.0" y="30" width="375" height="63"/>
+                                        <rect key="frame" x="0.0" y="30" width="414" height="63"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="63" id="Xj6-Ok-Xjv"/>
@@ -36,7 +36,7 @@
                                         <cells/>
                                     </collectionView>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fk-hj-Ykd">
-                                        <rect key="frame" x="0.0" y="101" width="375" height="499.5"/>
+                                        <rect key="frame" x="0.0" y="101" width="414" height="561.33333333333337"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -48,11 +48,10 @@
                                     <constraint firstAttribute="trailing" secondItem="4Vv-my-8Cj" secondAttribute="trailing" id="lx3-IJ-LMw"/>
                                     <constraint firstItem="5fk-hj-Ykd" firstAttribute="leading" secondItem="9Ma-Mj-6oe" secondAttribute="leading" id="mxJ-o7-Eek"/>
                                     <constraint firstItem="5fk-hj-Ykd" firstAttribute="top" secondItem="4Vv-my-8Cj" secondAttribute="bottom" constant="8" id="wmk-hi-Bkr"/>
-                                    <constraint firstAttribute="width" constant="375" id="xLq-6U-HCe"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-lp-g4p">
-                                <rect key="frame" x="315" y="547" width="40" height="40"/>
+                                <rect key="frame" x="354" y="605.66666666666663" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Ifu-Mu-8eT"/>
                                     <constraint firstAttribute="height" constant="40" id="qau-xo-PDf"/>
@@ -63,7 +62,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gII-kN-WXg" customClass="EQPlayerView" customModule="EqPlayer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="600.5" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="601" width="414" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -74,6 +73,7 @@
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="top" secondItem="dlR-z5-rMN" secondAttribute="top" id="B0c-8e-rKv"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="trailing" secondItem="U0n-3j-ADt" secondAttribute="trailing" id="OwP-Ln-rF8"/>
                             <constraint firstItem="U0n-3j-ADt" firstAttribute="trailing" secondItem="MhK-lp-g4p" secondAttribute="trailing" constant="20" id="gRj-zB-xLY"/>
+                            <constraint firstItem="9Ma-Mj-6oe" firstAttribute="width" secondItem="dlR-z5-rMN" secondAttribute="width" id="jLU-vT-isN"/>
                             <constraint firstItem="9Ma-Mj-6oe" firstAttribute="leading" secondItem="U0n-3j-ADt" secondAttribute="leading" id="pt4-6k-nPc"/>
                             <constraint firstItem="MhK-lp-g4p" firstAttribute="centerY" secondItem="dlR-z5-rMN" secondAttribute="centerY" multiplier="1.7" id="z3F-Vb-8s1"/>
                         </constraints>
@@ -87,18 +87,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mdj-yt-1yP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453.60000000000002" y="14.842578710644679"/>
+            <point key="canvasLocation" x="452.17391304347831" y="14.673913043478262"/>
         </scene>
         <!--User Table View Controller-->
         <scene sceneID="Otb-hd-MkP">
             <objects>
                 <viewController storyboardIdentifier="EQUserTableViewController" id="brM-b9-dUm" customClass="EQUserTableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2td-oW-iXU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wTL-tG-9U5">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -119,6 +119,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tMc-qU-jV9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1240.8" y="14.77832512315271"/>
+        </scene>
+        <!--Discover View Controller-->
+        <scene sceneID="aK9-ln-pxM">
+            <objects>
+                <viewController storyboardIdentifier="EQDiscoverViewController" id="F0E-8g-oEc" customClass="EQDiscoverViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R1F-Ai-KYS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dBx-hN-VZK">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="8sb-jG-a6S">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="探索看看別人都在調些什麼吧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scw-l7-4CB">
+                                            <rect key="frame" x="10" y="10" width="394" height="63"/>
+                                            <fontDescription key="fontDescription" name="PingFangTC-Thin" family="PingFang TC" pointSize="17"/>
+                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="Scw-l7-4CB" firstAttribute="leading" secondItem="8sb-jG-a6S" secondAttribute="leading" constant="10" id="RkS-EE-BIb"/>
+                                        <constraint firstAttribute="bottom" secondItem="Scw-l7-4CB" secondAttribute="bottom" constant="10" id="dWx-dI-8hK"/>
+                                        <constraint firstItem="Scw-l7-4CB" firstAttribute="top" secondItem="8sb-jG-a6S" secondAttribute="top" constant="10" id="kyP-A5-aG0"/>
+                                        <constraint firstAttribute="trailing" secondItem="Scw-l7-4CB" secondAttribute="trailing" constant="10" id="lKS-0g-D8N"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="dBx-hN-VZK" secondAttribute="bottom" id="6r2-bR-rgu"/>
+                            <constraint firstItem="dBx-hN-VZK" firstAttribute="leading" secondItem="1lW-A1-k7f" secondAttribute="leading" id="De8-h0-jiA"/>
+                            <constraint firstItem="dBx-hN-VZK" firstAttribute="trailing" secondItem="1lW-A1-k7f" secondAttribute="trailing" id="mjJ-tT-1bK"/>
+                            <constraint firstItem="dBx-hN-VZK" firstAttribute="top" secondItem="R1F-Ai-KYS" secondAttribute="top" id="vHy-vz-sLT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1lW-A1-k7f"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="dBx-hN-VZK" id="CoA-6E-l7R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UTY-Sz-JlI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2063.768115942029" y="13.043478260869566"/>
         </scene>
     </scenes>
     <resources>
