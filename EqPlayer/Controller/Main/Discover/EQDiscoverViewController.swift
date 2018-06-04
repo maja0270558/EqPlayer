@@ -51,6 +51,8 @@ class EQDiscoverViewController: UIViewController {
         let discoverModelDatas = cellModelArray.filter({ (model) -> Bool in
           model.postUserUID != EQUserManager.shard.userUID
         })
+        self?.discoverPostData = discoverModelDatas
+        self?.tableView.reloadData()
         discoverModelDatas.forEach({ (model) in
           EQFirebaseManager.getUser(withUID: model.postUserUID, failedHandler: {
             
@@ -61,6 +63,7 @@ class EQDiscoverViewController: UIViewController {
           })
         })
       }
+      
     }
 }
 extension EQDiscoverViewController: TableViewDelegateAndDataSource {
