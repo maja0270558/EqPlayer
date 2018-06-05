@@ -22,3 +22,16 @@ extension UIView {
         return contentView
     }
 }
+
+extension UIImageView {
+  func addShadow(offset: CGSize = CGSize(width: 0, height: 0),
+                 radius: CGFloat = 10,
+                 opacity: Float = 1,
+                 color: CGColor = UIColor.black.cgColor) {
+    layer.shadowOffset = offset
+    layer.shadowRadius = radius
+    layer.shadowOpacity = opacity
+    layer.shadowColor = color
+    layer.masksToBounds = false
+  }
+}

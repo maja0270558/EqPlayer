@@ -67,9 +67,6 @@ class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITa
         return cell
     }
 
-//    func tableView(_: UITableView, estimatedHeightForRowAt _: IndexPath) -> CGFloat {
-//        return 214
-//    }
     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return sectionProviders[indexPath.section].cellHeight
     }
