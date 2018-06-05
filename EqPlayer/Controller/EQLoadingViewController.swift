@@ -6,12 +6,11 @@
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import UIKit
 import NVActivityIndicatorView
+import UIKit
 class EQLoadingViewController: UIViewController {
-
-  @IBOutlet weak var loadingProgress: NVActivityIndicatorView!
-  override func viewDidLoad() {
+    @IBOutlet var loadingProgress: NVActivityIndicatorView!
+    override func viewDidLoad() {
         super.viewDidLoad()
         loadingProgress.startAnimating()
     }

@@ -53,8 +53,8 @@ class EQCustomToolBarView: UIView {
             if index % 2 >= 1 {
                 let buttonTag = (index - 1) / 2
                 let barButton = UIBarButtonItem(title: datasource.eqToolBar(titleOfItemAt: buttonTag), style: .plain, target: self, action: #selector(onToolBarItemTapped(sender:)))
-              let font = UIFont.systemFont(ofSize: 14)
-              barButton.setTitleTextAttributes([NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): font], for: .normal)
+                let font = UIFont.systemFont(ofSize: 14)
+                barButton.setTitleTextAttributes([NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): font], for: .normal)
                 barButton.tag = buttonTag
                 items.append(barButton)
                 buttonArray.append(barButton)
@@ -67,8 +67,6 @@ class EQCustomToolBarView: UIView {
         resetBarItemAlpha()
         buttonArray.first?.tintColor = UIColor.white
         animateProgress(toIndex: 0)
-      
-
     }
 
     private func resetBarItemAlpha() {

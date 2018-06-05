@@ -27,11 +27,10 @@ class EQPlaylistTableViewController: UITableViewController {
     }
 
     func fetchPlayList() {
-      
         guard let session = EQSpotifyManager.shard.auth?.session else {
-          return
+            return
         }
-      
+
         SPTPlaylistList.playlists(forUser: session.canonicalUsername, withAccessToken: session.accessToken, callback: { _, response in
             if let listPage = response as? SPTPlaylistList, let playlists = listPage.items as? [SPTPartialPlaylist] {
                 self.playlists = playlists // or however you want to parse these

@@ -56,9 +56,9 @@ class EQSaveProjectCell: UITableViewCell {
         for index in stride(from: 1, through: 3, by: 1) {
             if let disc = viewWithTag(index) as? UIImageView {
                 disc.image = UIImage(named: "vinyl")
-              disc.addShadow(offset: CGSize.zero, radius: 20, opacity: 1, color: UIColor.black.cgColor)
-              disc.layer.masksToBounds = false
-              disc.isHidden = true
+                disc.addShadow(offset: CGSize.zero, radius: 20, opacity: 1, color: UIColor.black.cgColor)
+                disc.layer.masksToBounds = false
+                disc.isHidden = true
             }
         }
     }

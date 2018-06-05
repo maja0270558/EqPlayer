@@ -6,9 +6,9 @@
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import Firebase
-import Fabric
 import Crashlytics
+import Fabric
+import Firebase
 import IQKeyboardManager
 import MediaPlayer
 import UIKit
@@ -33,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let session = spotifyManager.auth?.session {
             if session.isValid() {
-              EQUserManager.shard.saveUserInfo() {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
-              }
+                EQUserManager.shard.saveUserInfo {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+                }
                 return true
             }
         }
@@ -50,12 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("error!")
                 }
                 self.spotifyManager.authViewController?.dismiss(animated: true) {
-                  self.switchToLoadingStoryBoard()
-                    EQUserManager.shard.saveUserInfo() {
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
-                  }
-              }
-              
+                    self.switchToLoadingStoryBoard()
+                    EQUserManager.shard.saveUserInfo {
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
+                    }
+                }
+
             })
             return true
         }
@@ -82,15 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewController = UIStoryboard.mainStoryBoard().instantiateInitialViewController()
         window?.rootViewController = viewController
     }
-  
+
     func switchToLoadingStoryBoard() {
-      if !Thread.current.isMainThread {
-        DispatchQueue.main.async { [weak self] in
-          self?.switchToMainStoryBoard()
+        if !Thread.current.isMainThread {
+            DispatchQueue.main.async { [weak self] in
+                self?.switchToMainStoryBoard()
+            }
+            return
         }
-        return
-      }
-      let viewController = UIStoryboard.loadingBoard().instantiateInitialViewController()
-      window?.rootViewController = viewController
+        let viewController = UIStoryboard.loadingBoard().instantiateInitialViewController()
+        window?.rootViewController = viewController
     }
 }

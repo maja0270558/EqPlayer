@@ -14,46 +14,45 @@ enum EQUserTableViewControllerSectionAndCellProvider: Int, EnumCollection {
 }
 
 enum UserToolBarProvider: Int {
-  case saved = 1
-  case temp = 2
-  case posted = 3
-  
-  func getName() -> String{
-    switch self {
-    case .saved:
-      return "已儲存"
-    case .temp:
-      return "施工中"
-    case .posted:
-      return "已發布"
-    default:
-      break
+    case saved = 1
+    case temp = 2
+    case posted = 3
+
+    func getName() -> String {
+        switch self {
+        case .saved:
+            return "已儲存"
+        case .temp:
+            return "施工中"
+        case .posted:
+            return "已發布"
+        default:
+            break
+        }
     }
-  }
 }
 
 extension EQUserTableViewController {
-  
     @objc func changeProfilePhoto() {
-      EQCameraHandler.shared.showActionSheet(vc: self)
-      EQCameraHandler.shared.imagePickedBlock = { (image) in
-        EQFirebaseManager.uploadImage(userUID: EQUserManager.shard.userUID, image: image) {
-          urlString in
-          self.sessionOf(EQUserTableViewControllerSectionAndCellProvider.userInfoCell.rawValue).cellDatas = [EQUserManager.shard.getUser()]
-          DispatchQueue.main.async {
-            self.userTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-          }
+        EQCameraHandler.shared.showActionSheet(vc: self)
+        EQCameraHandler.shared.imagePickedBlock = { image in
+            EQFirebaseManager.uploadImage(userUID: EQUserManager.shard.userUID, image: image) {
+                _ in
+                self.sessionOf(EQUserTableViewControllerSectionAndCellProvider.userInfoCell.rawValue).cellDatas = [EQUserManager.shard.getUser()]
+                DispatchQueue.main.async {
+                    self.userTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+                }
+            }
         }
-      }
     }
-  
+
     func createUserInfoHead() -> EQSectionProvider {
         let section = EQSectionProvider()
         userTableView.registeCell(cellIdentifier: EQUserInfoTableViewCell.typeName)
         section.cellIdentifier = EQUserInfoTableViewCell.typeName
         section.cellDatas = [EQUserManager.shard.getUser()]
         section.cellHeight = UITableViewAutomaticDimension
-        section.cellOperator = { data, cell, indexPath in
+        section.cellOperator = { data, cell, _ in
             guard let infoCell = cell as? EQUserInfoTableViewCell, let userArray = data as? EQUserModel else {
                 return
             }
@@ -78,27 +77,27 @@ extension EQUserTableViewController {
                 toolBar.datasource = self
             }
         }
-      
+
         if EQUserManager.shard.userStatus == .guest {
-          section.headerData = ["已儲存的專案"]
-          section.cellDatas = [{ return }]
-          section.cellHeight = UITableViewAutomaticDimension
-          userTableView.registeCell(cellIdentifier: EQGusetTableViewCell.typeName)
-          section.cellIdentifier = EQGusetTableViewCell.typeName
-          section.cellOperator = {
-            data, cell, indexPath in
-            guard let hintCell = cell as? EQGusetTableViewCell else {
-              return
+            section.headerData = ["已儲存的專案"]
+            section.cellDatas = [ { return }]
+            section.cellHeight = UITableViewAutomaticDimension
+            userTableView.registeCell(cellIdentifier: EQGusetTableViewCell.typeName)
+            section.cellIdentifier = EQGusetTableViewCell.typeName
+            section.cellOperator = {
+                _, cell, _ in
+                guard let hintCell = cell as? EQGusetTableViewCell else {
+                    return
+                }
+                hintCell.backToLogin = {
+                    AppDelegate.shard?.switchToLoginStoryBoard()
+                }
+                hintCell.selectionStyle = .none
             }
-            hintCell.backToLogin = {
-              AppDelegate.shard?.switchToLoginStoryBoard()
-            }
-            hintCell.selectionStyle = .none
-          }
-          return section
+            return section
         }
         if let indexType = UserToolBarProvider(rawValue: currentToolItemIndex) {
-          section.cellDatas = userPageData[indexType]!
+            section.cellDatas = userPageData[indexType]!
         }
         section.cellHeight = UITableViewAutomaticDimension
         userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
@@ -120,7 +119,7 @@ extension EQUserTableViewController {
             }
             saveCell.cellEQChartView.alpha = 0
             saveCell.cellEQChartView.isUserInteractionEnabled = false
-       
+
             saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
                 let color = self.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
                 saveCell.cellEQChartView.setChart(15, color: color, style: .cell)
@@ -156,28 +155,27 @@ extension EQUserTableViewController {
 }
 
 extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
-  func eqToolBarNumberOfItem() -> Int {
-    let toobarHeaderData: [String] = getHeaderData(1)!
-    return toobarHeaderData.count
-  }
-  
-  func eqToolBar(titleOfItemAt: Int) -> String {
-    let toobarHeaderData: [String] = getHeaderData(1)!
-    return toobarHeaderData[titleOfItemAt]
-  }
-  
-  func eqToolBar(didSelectAt: Int) {
-    currentToolItemIndex = didSelectAt + 1
-    if EQUserManager.shard.userStatus != .guest {
-      loadEQDatas {
-        [weak self] in
-        self?.reloadUserPageData()
-      }
+    func eqToolBarNumberOfItem() -> Int {
+        let toobarHeaderData: [String] = getHeaderData(1)!
+        return toobarHeaderData.count
     }
-  }
-  
-  func scrollViewDidScroll(_: UIScrollView) {
-    userTableView.fadeTopCell()
-  }
-}
 
+    func eqToolBar(titleOfItemAt: Int) -> String {
+        let toobarHeaderData: [String] = getHeaderData(1)!
+        return toobarHeaderData[titleOfItemAt]
+    }
+
+    func eqToolBar(didSelectAt: Int) {
+        currentToolItemIndex = didSelectAt + 1
+        if EQUserManager.shard.userStatus != .guest {
+            loadEQDatas {
+                [weak self] in
+                self?.reloadUserPageData()
+            }
+        }
+    }
+
+    func scrollViewDidScroll(_: UIScrollView) {
+        userTableView.fadeTopCell()
+    }
+}

@@ -29,11 +29,10 @@ class EQPannableViewController: UIViewController {
     func setCanPanToDismiss(_ canPan: Bool) {
         self.canPan = canPan
     }
-  
+
     func onDismiss() {
-      
     }
-  
+
     @objc func onPan(_ panGesture: UIPanGestureRecognizer) {
         if canPan {
             switch panGesture.state {
@@ -58,7 +57,7 @@ class EQPannableViewController: UIViewController {
                         self.slideViewVerticallyTo(self.view.frame.size.height)
                     }, completion: { isCompleted in
                         if isCompleted {
-                          self.onDismiss()
+                            self.onDismiss()
                         }
                     })
                 } else {
@@ -74,13 +73,13 @@ class EQPannableViewController: UIViewController {
         }
     }
 
-  func backToAppear(){
-    UIView.animate(withDuration: animationDuration, animations: {
-      self.slideViewVerticallyTo(0)
-      self.view.alpha = 1
-    })
-  }
-  
+    func backToAppear() {
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.slideViewVerticallyTo(0)
+            self.view.alpha = 1
+        })
+    }
+
     override init(nibName _: String?, bundle _: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overCurrentContext

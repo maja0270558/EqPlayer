@@ -6,16 +6,17 @@
 //  Copyright © 2018年 Django. All rights reserved.
 //
 
-import UIKit
 import NVActivityIndicatorView
+import UIKit
 class EQLoginViewController: UIViewController {
     weak var appDelegate = UIApplication.shared.delegate
 
     @IBOutlet var loginButton: UIButton!
-    @IBOutlet weak var loginProgress: NVActivityIndicatorView!
-    @IBAction func guestLogin(_ sender: EQCustomButton) {
-      AppDelegate.shard?.switchToMainStoryBoard()
+    @IBOutlet var loginProgress: NVActivityIndicatorView!
+    @IBAction func guestLogin(_: EQCustomButton) {
+        AppDelegate.shard?.switchToMainStoryBoard()
     }
+
     @IBAction func loginAction(_: UIButton) {
         if let delegate = appDelegate as? AppDelegate {
             delegate.spotifyManager.login()

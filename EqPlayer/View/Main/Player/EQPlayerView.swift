@@ -59,9 +59,9 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     @IBAction func skipTrackAction(_: UIButton) {
-      if EQSpotifyManager.shard.currentPlayingType == .preview {
-        return
-      }
+        if EQSpotifyManager.shard.currentPlayingType == .preview {
+            return
+        }
         EQSpotifyManager.shard.skip()
     }
 
@@ -82,9 +82,9 @@ class EQPlayerView: EQPlayerPannableView {
     }
 
     @IBAction func previousTrackAction(_: UIButton) {
-      if EQSpotifyManager.shard.currentPlayingType == .preview {
-        return
-      }
+        if EQSpotifyManager.shard.currentPlayingType == .preview {
+            return
+        }
         EQSpotifyManager.shard.previous()
     }
 
@@ -111,12 +111,10 @@ class EQPlayerView: EQPlayerPannableView {
         setupDurationTarget()
     }
 
-  
-  
     func playOrPause(isPlay: Bool, completion: @escaping () -> Void) {
-      EQSpotifyManager.shard.playOrPause(isPlay: isPlay) {
-        completion()
-      }
+        EQSpotifyManager.shard.playOrPause(isPlay: isPlay) {
+            completion()
+        }
     }
 
     func setupDurationTarget() {
@@ -140,19 +138,19 @@ class EQPlayerView: EQPlayerPannableView {
 
     @objc func touchUpEvent(sender: UISlider) {
         if EQSpotifyManager.shard.currentPlayingType == .preview {
-          sender.value = Float(EQSpotifyManager.shard.durationObseve.currentDuration)
-          return
+            sender.value = Float(EQSpotifyManager.shard.durationObseve.currentDuration)
+            return
         }
-      
-      guard let metadata = EQSpotifyManager.shard.player?.metadata else {
-          sender.value = 0
-          return
-      }
-      EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: nil)
+
+        guard let metadata = EQSpotifyManager.shard.player?.metadata else {
+            sender.value = 0
+            return
+        }
+        EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: nil)
     }
 
     func setupVolumeView() {
-      playerControllView.addSubview(mpVolumeView)
+        playerControllView.addSubview(mpVolumeView)
         mpVolumeView.showsRouteButton = false
         for subview in mpVolumeView.subviews {
             if NSStringFromClass(subview.classForCoder) != "MPVolumeSlider" {
@@ -169,14 +167,14 @@ class EQPlayerView: EQPlayerPannableView {
         systemVolumeView?.minimumValueImage = #imageLiteral(resourceName: "volumeOff")
         volumeSlider.isHidden = true
     }
-  
-  func fitVolumeView() {
-    mpVolumeView.frame = volumeSlider.frame
-  }
+
+    func fitVolumeView() {
+        mpVolumeView.frame = volumeSlider.frame
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-      fitVolumeView()
+        fitVolumeView()
     }
 
     func openPlayer() {

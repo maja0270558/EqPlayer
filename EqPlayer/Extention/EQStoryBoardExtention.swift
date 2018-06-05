@@ -19,9 +19,9 @@ extension UIStoryboard {
     static func eqProjectStoryBoard() -> UIStoryboard {
         return UIStoryboard(name: "EQProject", bundle: nil)
     }
-  
+
     static func loadingBoard() -> UIStoryboard {
-      return UIStoryboard(name: "Loading", bundle: nil)
+        return UIStoryboard(name: "Loading", bundle: nil)
     }
 }
 

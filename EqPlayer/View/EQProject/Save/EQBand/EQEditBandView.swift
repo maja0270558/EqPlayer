@@ -19,23 +19,22 @@ class EQEditBandView: UIView {
     weak var delegate: EQEditBandViewDelegate?
     @IBOutlet var lineChartView: LineChartView!
 
-  
-  @IBAction func saveAction(_: UIButton) {
+    @IBAction func saveAction(_: UIButton) {
         delegate?.didClickSaveProjectButton()
     }
 
     @IBAction func postAction(_: UIButton) {
         delegate?.didClickPostProjectButton()
     }
-  
-  @IBAction func dismissAction(_ sender: UIButton) {
-    delegate?.didClickDismissButton()
-  }
-  
+
+    @IBAction func dismissAction(_: UIButton) {
+        delegate?.didClickDismissButton()
+    }
+
     @IBOutlet var saveButton: UIButton!
 
     @IBOutlet var postButton: UIButton!
-  
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         fromNib()

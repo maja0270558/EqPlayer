@@ -31,14 +31,14 @@ class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITa
         super.didReceiveMemoryWarning()
     }
 
-    func getHeaderData<T>(_ index: Int) -> [T]?{
-      return sessionOf(index).headerData as? [T]
+    func getHeaderData<T>(_ index: Int) -> [T]? {
+        return sessionOf(index).headerData as? [T]
     }
-  
+
     func getCellData<T>(_ index: Int) -> [T]? {
-      return sessionOf(index).cellDatas as? [T]
+        return sessionOf(index).cellDatas as? [T]
     }
-  
+
     func sessionOf(_ index: Int) -> EQTableViewSession {
         return sectionProviders[index]
     }
@@ -57,7 +57,7 @@ class EQTableViewController: EQPannableViewController, UITableViewDelegate, UITa
                 keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
                 return cell
             }
-          
+
             keeper.cellOperator(keeper.cellDatas[indexPath.row], cell, indexPath)
             return cell
         }

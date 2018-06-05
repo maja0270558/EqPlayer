@@ -56,8 +56,8 @@ class EQScrollableViewController: EQPannableViewController, EQScrollableViewCont
 
     func subControllerInit() {
         data = ScrollableControllerDataModel(
-          topCellId: cells,
-          mainController: controllers
+            topCellId: cells,
+            mainController: controllers
         )
         setupCollectionLayout()
         setupScrollView()

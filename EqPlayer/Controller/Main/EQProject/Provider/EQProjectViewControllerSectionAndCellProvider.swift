@@ -31,14 +31,14 @@ extension EQProjectViewController {
                 trackCell.setupCell(coverURLString: track.coverURL, title: track.name, artist: track.artist)
                 trackCell.delegate = self
                 trackCell.cellDelegate = self
-              trackCell.indexPath = indexPath
-              trackCell.track = track
-              trackCell.selectionStyle = .none
-              if EQSpotifyManager.shard.previousPreviewURLString == trackCell.track?.uri && EQSpotifyManager.shard.currentPlayingType == .preview {
-                trackCell.obsevePreviewDuration()
-                trackCell.previewButton.isSelected = true
-                trackCell.startObseve()
-              }
+                trackCell.indexPath = indexPath
+                trackCell.track = track
+                trackCell.selectionStyle = .none
+                if EQSpotifyManager.shard.previousPreviewURLString == trackCell.track?.uri && EQSpotifyManager.shard.currentPlayingType == .preview {
+                    trackCell.obsevePreviewDuration()
+                    trackCell.previewButton.isSelected = true
+                    trackCell.startObseve()
+                }
             }
         }
         return section
@@ -55,4 +55,3 @@ extension EQProjectViewController {
         sectionProviders = providers
     }
 }
-

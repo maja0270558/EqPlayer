@@ -9,13 +9,15 @@
 import UIKit
 
 class EQGusetTableViewCell: UITableViewCell {
-  var backToLogin: () -> Void = {
-    return
-  }
-  @IBAction func backToLoginAction(_ sender: EQCustomButton) {
-    backToLogin()
-  }
-  override func awakeFromNib() {
+    var backToLogin: () -> Void = {
+        return
+    }
+
+    @IBAction func backToLoginAction(_: EQCustomButton) {
+        backToLogin()
+    }
+
+    override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
@@ -25,5 +27,4 @@ class EQGusetTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }

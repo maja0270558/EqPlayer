@@ -62,7 +62,6 @@ class EQPlayerPannableView: UIView {
                 onEnded(isClap: isClap)
             default:
                 break
-
             }
         }
     }

@@ -9,9 +9,9 @@
 import Foundation
 
 class EQPostCellModel {
-  var postUserUID: String = ""
-  var postUserName: String = ""
-  var postUserPhotoURL: String = ""
-  var postTime: TimeInterval = 0
-  var projectModel = EQProjectModel()
+    var postUserUID: String = ""
+    var postUserName: String = ""
+    var postUserPhotoURL: String = ""
+    var postTime: TimeInterval = 0
+    var projectModel = EQProjectModel()
 }
