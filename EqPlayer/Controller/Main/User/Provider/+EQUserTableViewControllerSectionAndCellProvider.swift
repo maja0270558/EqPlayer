@@ -32,7 +32,7 @@ enum UserToolBarProvider: Int {
     }
 }
 
-extension EQUserTableViewController {
+extension EQUserViewController {
     @objc func changeProfilePhoto() {
         EQCameraHandler.shared.showActionSheet(vc: self)
         EQCameraHandler.shared.imagePickedBlock = { image in
@@ -96,40 +96,40 @@ extension EQUserTableViewController {
             }
             return section
         }
-        if let indexType = UserToolBarProvider(rawValue: currentToolItemIndex) {
-            section.cellDatas = userPageData[indexType]!
-        }
-        section.cellHeight = UITableViewAutomaticDimension
-        userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
-        section.cellIdentifier = EQSaveProjectCell.typeName
-        section.cellOperator = {
-            data, cell, indexPath in
-            guard let saveCell = cell as? EQSaveProjectCell, let eqModel = data as? EQProjectModel else {
-                return
-            }
-            saveCell.delegate = self
-            saveCell.cellIndexPath = indexPath
-            let buttonImage = eqModel.status == EQProjectStatus.temp ? UIImage(named: "wrench") : UIImage(named: "play")
-            saveCell.projectTitleLabel.text = eqModel.name
-            saveCell.cellIndicator.startAnimating()
-            saveCell.trackCountLabel.text = String(eqModel.tracks.count)
-            saveCell.playbutton.setBackgroundImage(buttonImage, for: .normal)
-            let imageURLs = eqModel.tracks.map {
-                $0.coverURL!
-            }
-            saveCell.cellEQChartView.alpha = 0
-            saveCell.cellEQChartView.isUserInteractionEnabled = false
-
-            saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
-                let color = self.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
-                saveCell.cellEQChartView.setChart(15, color: color, style: .cell)
-                saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
-                saveCell.cellIndicator.stopAnimating()
-                UIView.animate(withDuration: 0.3, animations: {
-                    saveCell.cellEQChartView.alpha = 1
-                })
-            }
-        }
+//        if let indexType = UserToolBarProvider(rawValue: currentToolItemIndex) {
+//            section.cellDatas = userPageData[indexType]!
+//        }
+//        section.cellHeight = UITableViewAutomaticDimension
+//        userTableView.registeCell(cellIdentifier: EQSaveProjectCell.typeName)
+//        section.cellIdentifier = EQSaveProjectCell.typeName
+//        section.cellOperator = {
+//            data, cell, indexPath in
+//            guard let saveCell = cell as? EQSaveProjectCell, let eqModel = data as? EQProjectModel else {
+//                return
+//            }
+//            saveCell.delegate = self
+//            saveCell.cellIndexPath = indexPath
+//            let buttonImage = eqModel.status == EQProjectStatus.temp ? UIImage(named: "wrench") : UIImage(named: "play")
+//            saveCell.projectTitleLabel.text = eqModel.name
+//            saveCell.cellIndicator.startAnimating()
+//            saveCell.trackCountLabel.text = String(eqModel.tracks.count)
+//            saveCell.playbutton.setBackgroundImage(buttonImage, for: .normal)
+//            let imageURLs = eqModel.tracks.map {
+//                $0.coverURL!
+//            }
+//            saveCell.cellEQChartView.alpha = 0
+//            saveCell.cellEQChartView.isUserInteractionEnabled = false
+//
+//            saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
+//                let color = self.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
+//                saveCell.cellEQChartView.setChart(15, color: color, style: .cell)
+//                saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
+//                saveCell.cellIndicator.stopAnimating()
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    saveCell.cellEQChartView.alpha = 1
+//                })
+//            }
+//        }
         return section
     }
 
@@ -154,7 +154,7 @@ extension EQUserTableViewController {
     }
 }
 
-extension EQUserTableViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
+extension EQUserViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
     func eqToolBarNumberOfItem() -> Int {
         let toobarHeaderData: [String] = getHeaderData(1)!
         return toobarHeaderData.count

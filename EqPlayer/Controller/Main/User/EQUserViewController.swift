@@ -12,8 +12,12 @@ protocol EQUserTableViewControllerDelegate: class {
     func didPressMoreOptionDeleteButton(at: IndexPath, data: EQProjectModel)
 }
 
-class EQUserTableViewController: EQTableViewController {
-    weak var delegate: EQUserTableViewControllerDelegate?
+class EQUserViewController: EQTableViewController {
+  @IBOutlet weak var userInfoTopView: UIView!
+  @IBOutlet weak var userInfoView: EQUserInfoView!
+  @IBOutlet weak var toolBarView: EQCustomToolBarView!
+  
+  weak var delegate: EQUserTableViewControllerDelegate?
     var icon: UIImage?
     var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
     var userPageData = [UserToolBarProvider: [EQProjectModel]]()
@@ -26,11 +30,12 @@ class EQUserTableViewController: EQTableViewController {
 
     override func viewDidLoad() {
         subscribeNotification()
-        loadEQDatas { [weak self] in
-            self?.setupTableView()
-            self?.generateSectionAndCell()
-            self?.reloadUserPageData()
-        }
+      
+//        loadEQDatas { [weak self] in
+//            self?.setupTableView()
+//            self?.generateSectionAndCell()
+//            self?.reloadUserPageData()
+//        }
     }
 
     override func viewWillDisappear(_: Bool) {
@@ -78,7 +83,7 @@ class EQUserTableViewController: EQTableViewController {
     }
 }
 
-extension EQUserTableViewController: EQSaveProjectCellDelegate {
+extension EQUserViewController: EQSaveProjectCellDelegate {
   
       func didClickMoreOptionButton(indexPath: IndexPath) {
         moreOptionAlert(

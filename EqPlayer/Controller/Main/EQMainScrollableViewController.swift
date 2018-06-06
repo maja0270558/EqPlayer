@@ -47,7 +47,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     }
 
     func appendScrollableChildController() {
-        guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserTableViewController else {
+        guard let userController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQUserTableViewController") as? EQUserViewController else {
             return
         }
         guard let discoverController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQDiscoverViewController") as? EQDiscoverViewController else {

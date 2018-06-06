@@ -20,4 +20,5 @@ class EQUserInfoTableViewCell: UITableViewCell {
         }
         setSelectedColor(color: UIColor.clear)
     }
+  
 }
