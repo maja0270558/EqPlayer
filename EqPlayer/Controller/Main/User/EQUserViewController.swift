@@ -7,129 +7,219 @@
 //
 
 import Foundation
-protocol EQUserTableViewControllerDelegate: class {
-    func didPressMoreOptionEditButton(at: IndexPath, data: EQProjectModel)
-    func didPressMoreOptionDeleteButton(at: IndexPath, data: EQProjectModel)
-}
 
-class EQUserViewController: EQTableViewController {
+class EQUserViewController: UIViewController {
   @IBOutlet weak var userInfoTopView: UIView!
   @IBOutlet weak var userInfoView: EQUserInfoView!
   @IBOutlet weak var toolBarView: EQCustomToolBarView!
+  var toolBarData = [String]()
+  var childContainerViewDictionary = [Int: UIView]()
+  var childControllerDictionary = [Int: EQProjectTableViewController]()
+  var childTableViews = [UITableView]()
+  var currentToolItemIndex: Int = 1
+
+  @IBOutlet weak var savedContainerView: UIView!
+  private var savedController: EQUserSavedTableViewController!
   
-  weak var delegate: EQUserTableViewControllerDelegate?
-    var icon: UIImage?
-    var sections: [EQUserTableViewControllerSectionAndCellProvider] = [.userInfoCell, .toolBar]
-    var userPageData = [UserToolBarProvider: [EQProjectModel]]()
+  @IBOutlet weak var postedContainerView: UIView!
+  private var postedController: EQUserPostedTableViewController!
+  
+  @IBOutlet weak var tempContainerView: UIView!
+  private var tempController: EQUserTempTableViewController!
 
-    var currentToolItemIndex: Int = 1
-    var operationDictionary: [IndexPath: BlockOperation] = [IndexPath: BlockOperation]()
-    let queue = OperationQueue()
-
-    @IBOutlet var userTableView: UITableView!
-
-    override func viewDidLoad() {
-        subscribeNotification()
-      
-//        loadEQDatas { [weak self] in
-//            self?.setupTableView()
-//            self?.generateSectionAndCell()
-//            self?.reloadUserPageData()
-//        }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if let savedVC = segue.destination as? EQUserSavedTableViewController,
+      segue.identifier == "savedVC" {
+      self.savedController = savedVC
+      savedController.topInset = userInfoTopView.bounds.height
     }
-
-    override func viewWillDisappear(_: Bool) {
-        removeNotification()
+    if let postedVC = segue.destination as? EQUserPostedTableViewController,
+      segue.identifier == "postedVC" {
+      self.postedController = postedVC
+      postedController.topInset = userInfoTopView.bounds.height
     }
-
-    func setupTableView() {
-        userTableView.contentInsetAdjustmentBehavior = .never
-        userTableView.delegate = self
-        userTableView.dataSource = self
-        userTableView.separatorStyle = .none
+    if let tempVC = segue.destination as? EQUserTempTableViewController,
+      segue.identifier == "tempVC" {
+      self.tempController = tempVC
+      tempController.topInset = userInfoTopView.bounds.height
     }
-
-    func loadEQDatas(completion: @escaping () -> Void) {
-        let data: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectStatus.saved.rawValue)
-        let tempData: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "status == %@", value: EQProjectStatus.temp.rawValue)
-        if EQUserManager.shard.userStatus != .guest {
-            EQFirebaseManager.getPost(withPath: "userPosts/\(EQUserManager.shard.userUID)") { [weak self] cellModelArray in
-                let postedProjectModels = cellModelArray.map {
-                    return $0.projectModel
-                }
-                self?.userPageData[UserToolBarProvider.posted] = postedProjectModels
-                completion()
-            }
-        }
-        userPageData[UserToolBarProvider.saved] = data
-        userPageData[UserToolBarProvider.temp] = tempData
-        completion()
+  }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupToolBar()
+    setupUserInfoView()
+    setupChildBranchViewController()
+    setupHitTest()
+  }
+  
+  func setupHitTest() {
+    childControllerDictionary.forEach { (_, view) in
     }
+  }
 
-    func subscribeNotification() {
-        EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectSave)
-        EQNotifycationCenterManager.addObserver(observer: self, selector: #selector(didSaveEQProject), notification: Notification.Name.eqProjectDelete)
+  func setupToolBar() {
+    toolBarData = EQUserManager.shard.userStatus == .guest ? ["已儲存的專案"] : ["已儲存", "施工中", "已發布"]
+    toolBarView.delegate = self
+    toolBarView.datasource = self
+  }
+  
+  func setupChildBranchViewController() {
+    childContainerViewDictionary = [
+      1: savedContainerView,
+      2: tempContainerView,
+      3: postedContainerView
+    ]
+    childControllerDictionary = [
+      1: savedController,
+      2: tempController,
+      3: postedController
+    ]
+    childTableViews = [
+    savedController.tableView,
+    tempController.tableView,
+    postedController.tableView
+    ]
+    savedController.delegate = self
+    postedController.delegate = self
+    tempController.delegate = self
+    showCurrentIndexChildController()
+  }
+  func showCurrentIndexChildController() {
+    hideAllChildController()
+    UIView.animate(withDuration: 0.5) {
+      [weak self] in
+      guard let strongSelf = self else {
+        return
+      }
+      strongSelf.childContainerViewDictionary[strongSelf.currentToolItemIndex]?.alpha = 1
     }
-
-    func removeNotification() {
-        EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectSave)
-        EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectDelete)
+  }
+  
+  func reloadCurrentIndexChildController() {
+    childControllerDictionary[currentToolItemIndex]?.reloadTableView()
+  }
+  
+  func hideAllChildController() {
+    childContainerViewDictionary.forEach { (_ , view) in
+      view.alpha = 0
     }
-
-    @objc func didSaveEQProject() {
-        loadEQDatas { [weak self] in
-            self?.reloadUserPageData()
-        }
+  }
+  
+  func setupUserInfoView() {
+    let userData = EQUserManager.shard.getUser()
+    userInfoView.cameraButton.addTarget(self, action: #selector(self.changeProfilePhoto), for: .touchUpInside)
+    userInfoView.userName.text = userData.name
+    userInfoView.userImage.sd_setImage(with: userData.photoURL, placeholderImage: #imageLiteral(resourceName: "dark-1920956_1280"), options: [], completed: nil)
+  }
+  
+  @objc func changeProfilePhoto() {
+    EQCameraHandler.shared.showActionSheet(vc: self)
+    EQCameraHandler.shared.imagePickedBlock = { image in
+      EQFirebaseManager.uploadImage(userUID: EQUserManager.shard.userUID, image: image) { [weak self]
+        _ in
+        self?.userInfoView.userImage.image = image
+      }
     }
+  }
 }
 
 extension EQUserViewController: EQSaveProjectCellDelegate {
   
-      func didClickMoreOptionButton(indexPath: IndexPath) {
-        moreOptionAlert(
-            delete: { [weak self] _ in
-                self?.delegate?.didPressMoreOptionDeleteButton(at: indexPath, data: (self?.getTargetModelCopy(at: indexPath))!)
-            }, edit: { [weak self] _ in
-                self?.delegate?.didPressMoreOptionEditButton(at: indexPath, data: (self?.getTargetModelCopy(at: indexPath))!)
-        })
-      }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        if indexPath.section != 1 || EQUserManager.shard.userStatus == .guest {
-            return
-        }
-        guard let indexType = UserToolBarProvider(rawValue: currentToolItemIndex),
-            let mainController = parent as? EQMainScrollableViewController else {
-            return
-        }
-        let data = getTargetModelCopy(at: indexPath)
-        switch indexType {
-        case .saved, .posted:
-            mainController.openPlayerAndPlayback(data: data)
-        case .temp:
-            mainController.openEditProjectPage(data: data)
-        }
+  func didClickMoreOptionButton(indexPath: IndexPath) {
+    guard let mainVC = self.parent as? EQMainScrollableViewController else {
+        return
     }
+    let data = self.getTargetModelCopy(at: indexPath)
+    
+    moreOptionAlert(
+      delete: {_ in
+        if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: data.uuid) {
+          let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: data.uuid)
+          let object = result.first!
+          EQRealmManager.shard.remove(object: object)
+        }
+        EQFirebaseManager.remove(path: "post/\(data.uuid)")
+        EQFirebaseManager.remove(path: "userPosts/\(EQUserManager.shard.userUID)/\(data.uuid)")
+        EQNotifycationCenterManager.post(name: Notification.Name.eqProjectDelete)
 
-    func getTargetModelCopy(at: IndexPath) -> EQProjectModel {
-        guard let indexType = UserToolBarProvider(rawValue: currentToolItemIndex), let datas = userPageData[indexType] else {
-            return EQProjectModel()
+    }, edit: {_ in
+        if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+          eqProjectViewController.modalPresentationStyle = .overCurrentContext
+          eqProjectViewController.modalTransitionStyle = .crossDissolve
+          eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
+          mainVC.present(eqProjectViewController, animated: true, completion: nil)
         }
-        return EQProjectModel(value: datas[at.row])
+    })
+  }
+  
+  func getTargetModelCopy(at: IndexPath) -> EQProjectModel {
+    guard let data = childControllerDictionary[currentToolItemIndex]?.projectData![at.row] else{
+      return EQProjectModel()
     }
-
-    func reloadUserPageData() {
-        if EQUserManager.shard.userStatus == .guest {
-            return
-        }
-        guard let indexType = UserToolBarProvider(rawValue: currentToolItemIndex), let datas = userPageData[indexType] else {
-            return
-        }
-        sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas = datas
-        let newCount = sessionOf(EQUserTableViewControllerSectionAndCellProvider.toolBar.rawValue).cellDatas.count
-        let oldCount = userTableView.numberOfRows(inSection: 1)
-        userTableView.reloadRowsInSection(section: 1, oldCount: oldCount, newCount: newCount)
-    }
+    return EQProjectModel(value: data)
+  }
+  
 }
+extension EQUserViewController: EQProjectTableViewControllerDelegate {
+  func didScrollTableView(scrollView: UIScrollView, offset: CGFloat) {
+    
+    let finalOffset = -offset - userInfoTopView.bounds.height
+    userInfoTopView.frame.origin.y = finalOffset
+    if offset > -toolBarView.bounds.height {
+      userInfoTopView.frame.origin.y =  -userInfoTopView.bounds.height+toolBarView.bounds.height
+    }
+    if -offset > -userInfoTopView.bounds.height {
+      let factor = -offset / userInfoTopView.bounds.height
+      userInfoView.userImage.transform = CGAffineTransform(scaleX: 1*factor, y: 1*factor)
+    }
+    syncChidTableViewContentOffset(sender: scrollView, offset: offset, range: -1000...(-toolBarView.bounds.height))
+  }
+  
+  func syncChidTableViewContentOffset(sender: UIScrollView, offset: CGFloat, range: ClosedRange<CGFloat>) {
+    switch offset {
+    case range:
+      childTableViews.forEach { (tableView) in
+        if tableView !== sender {
+          tableView.contentOffset.y = offset
+        }
+      }
+      break
+    default:
+      break
+    }
+  }
+  
+  func didSelectProjectCell(at: IndexPath, data: EQProjectModelProtocol) {
+    guard let projectData = data as? EQProjectModel,
+          let mainController = parent as? EQMainScrollableViewController else {
+      return
+    }
+    let dataCopy = EQProjectModel(value: projectData)
+    switch projectData.status {
+    case .saved, .post:
+      mainController.openPlayerAndPlayback(data: dataCopy)
+    case .temp:
+      mainController.openEditProjectPage(data: dataCopy)
+    default:
+      break
+    }
+  }
+}
+extension EQUserViewController: EQCustomToolBarDataSource, EQCustomToolBarDelegate {
+  func eqToolBarNumberOfItem() -> Int {
+    return toolBarData.count
+  }
+  
+  func eqToolBar(titleOfItemAt: Int) -> String {
+    return toolBarData[titleOfItemAt]
+  }
+  
+  func eqToolBar(didSelectAt: Int) {
+    currentToolItemIndex = didSelectAt + 1
+    if EQUserManager.shard.userStatus != .guest {
+      showCurrentIndexChildController()
+    }
+  }
+}
+

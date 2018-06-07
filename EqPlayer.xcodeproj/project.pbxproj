@@ -56,6 +56,12 @@
 		EB5B0B4120A05D970056E8D6 /* EQIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B3F20A05D970056E8D6 /* EQIconCollectionViewCell.swift */; };
 		EB5B0B4220A05D970056E8D6 /* EQIconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB5B0B4020A05D970056E8D6 /* EQIconCollectionViewCell.xib */; };
 		EB5B0B4820A072550056E8D6 /* EQCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */; };
+		EB64A4DC20C78000008E8557 /* EQProjectModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64A4DB20C78000008E8557 /* EQProjectModelProtocol.swift */; };
+		EB64A4DE20C781A6008E8557 /* EQProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64A4DD20C781A6008E8557 /* EQProjectTableViewController.swift */; };
+		EB64A4E020C80E4F008E8557 /* EQUserSavedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64A4DF20C80E4F008E8557 /* EQUserSavedTableViewController.swift */; };
+		EB64A4E220C9164E008E8557 /* EQUserPostedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64A4E120C9164E008E8557 /* EQUserPostedTableViewController.swift */; };
+		EB64A4E420C91968008E8557 /* EQUserTempTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64A4E320C91968008E8557 /* EQUserTempTableViewController.swift */; };
+		EB64A4E620C956C5008E8557 /* EQCustomHitTestUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB64A4E520C956C5008E8557 /* EQCustomHitTestUIView.swift */; };
 		EB6F33A020AD3B9C00EA3E85 /* EQSaveProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F339F20AD3B9C00EA3E85 /* EQSaveProjectViewController.swift */; };
 		EB6F33A220AD411000EA3E85 /* EQCustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */; };
 		EB73F46920BBB40700743C68 /* ALBAS.TTF in Resources */ = {isa = PBXBuildFile; fileRef = EB73F46620BBB40700743C68 /* ALBAS.TTF */; };
@@ -81,7 +87,6 @@
 		EBA56A9320BBE5AF0080B3E4 /* EQLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA56A9220BBE5AF0080B3E4 /* EQLoadingViewController.swift */; };
 		EBB0264F20B4615A0017CA98 /* EQCustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0264E20B4615A0017CA98 /* EQCustomSlider.swift */; };
 		EBB0265120B465B80017CA98 /* +EQImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB0265020B465B80017CA98 /* +EQImageExtention.swift */; };
-		EBB1C21A20A544D700D21788 /* +EQUserTableViewControllerSectionAndCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C21920A544D700D21788 /* +EQUserTableViewControllerSectionAndCellProvider.swift */; };
 		EBB1C21F20A5495E00D21788 /* EQPlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C21D20A5495E00D21788 /* EQPlaylistTableViewCell.swift */; };
 		EBB1C22020A5495E00D21788 /* EQPlaylistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBB1C21E20A5495E00D21788 /* EQPlaylistTableViewCell.xib */; };
 		EBB1C22220A5636B00D21788 /* EQScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */; };
@@ -95,8 +100,6 @@
 		EBE65D7420A34115001A9E42 /* +EQTableViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D7320A34115001A9E42 /* +EQTableViewExtention.swift */; };
 		EBE65D7720A342F3001A9E42 /* EQSaveProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D7520A342F3001A9E42 /* EQSaveProjectCell.swift */; };
 		EBE65D7820A342F3001A9E42 /* EQSaveProjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE65D7620A342F3001A9E42 /* EQSaveProjectCell.xib */; };
-		EBE65D7D20A343F7001A9E42 /* EQUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D7B20A343F7001A9E42 /* EQUserInfoTableViewCell.swift */; };
-		EBE65D7E20A343F7001A9E42 /* EQUserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBE65D7C20A343F7001A9E42 /* EQUserInfoTableViewCell.xib */; };
 		EBE65D8020A3EFE3001A9E42 /* EQCircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D7F20A3EFE3001A9E42 /* EQCircleImage.swift */; };
 		EBE65D8420A47A26001A9E42 /* EQProject.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBE65D8320A47A26001A9E42 /* EQProject.storyboard */; };
 		EBE65D8720A483B2001A9E42 /* EQSelectTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D8620A483B2001A9E42 /* EQSelectTrackViewController.swift */; };
@@ -158,6 +161,12 @@
 		EB5B0B3F20A05D970056E8D6 /* EQIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB5B0B4020A05D970056E8D6 /* EQIconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQIconCollectionViewCell.xib; sourceTree = "<group>"; };
 		EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		EB64A4DB20C78000008E8557 /* EQProjectModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQProjectModelProtocol.swift; sourceTree = "<group>"; };
+		EB64A4DD20C781A6008E8557 /* EQProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQProjectTableViewController.swift; sourceTree = "<group>"; };
+		EB64A4DF20C80E4F008E8557 /* EQUserSavedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserSavedTableViewController.swift; sourceTree = "<group>"; };
+		EB64A4E120C9164E008E8557 /* EQUserPostedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserPostedTableViewController.swift; sourceTree = "<group>"; };
+		EB64A4E320C91968008E8557 /* EQUserTempTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserTempTableViewController.swift; sourceTree = "<group>"; };
+		EB64A4E520C956C5008E8557 /* EQCustomHitTestUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomHitTestUIView.swift; sourceTree = "<group>"; };
 		EB6F339F20AD3B9C00EA3E85 /* EQSaveProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSaveProjectViewController.swift; sourceTree = "<group>"; };
 		EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomUITextField.swift; sourceTree = "<group>"; };
 		EB73F46620BBB40700743C68 /* ALBAS.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = ALBAS.TTF; sourceTree = "<group>"; };
@@ -183,7 +192,6 @@
 		EBA56A9220BBE5AF0080B3E4 /* EQLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQLoadingViewController.swift; sourceTree = "<group>"; };
 		EBB0264E20B4615A0017CA98 /* EQCustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomSlider.swift; sourceTree = "<group>"; };
 		EBB0265020B465B80017CA98 /* +EQImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQImageExtention.swift"; sourceTree = "<group>"; };
-		EBB1C21920A544D700D21788 /* +EQUserTableViewControllerSectionAndCellProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQUserTableViewControllerSectionAndCellProvider.swift"; sourceTree = "<group>"; };
 		EBB1C21D20A5495E00D21788 /* EQPlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		EBB1C21E20A5495E00D21788 /* EQPlaylistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPlaylistTableViewCell.xib; sourceTree = "<group>"; };
 		EBB1C22120A5636B00D21788 /* EQScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQScrollableViewController.swift; sourceTree = "<group>"; };
@@ -197,8 +205,6 @@
 		EBE65D7320A34115001A9E42 /* +EQTableViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQTableViewExtention.swift"; sourceTree = "<group>"; };
 		EBE65D7520A342F3001A9E42 /* EQSaveProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSaveProjectCell.swift; sourceTree = "<group>"; };
 		EBE65D7620A342F3001A9E42 /* EQSaveProjectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQSaveProjectCell.xib; sourceTree = "<group>"; };
-		EBE65D7B20A343F7001A9E42 /* EQUserInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQUserInfoTableViewCell.swift; sourceTree = "<group>"; };
-		EBE65D7C20A343F7001A9E42 /* EQUserInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQUserInfoTableViewCell.xib; sourceTree = "<group>"; };
 		EBE65D7F20A3EFE3001A9E42 /* EQCircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCircleImage.swift; sourceTree = "<group>"; };
 		EBE65D8320A47A26001A9E42 /* EQProject.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EQProject.storyboard; sourceTree = "<group>"; };
 		EBE65D8620A483B2001A9E42 /* EQSelectTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSelectTrackViewController.swift; sourceTree = "<group>"; };
@@ -306,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				EBE65D8820A48A47001A9E42 /* EQCustomSearchBar.swift */,
+				EB64A4E520C956C5008E8557 /* EQCustomHitTestUIView.swift */,
 				EBC4629520AD277800AE5FB9 /* EQCustomButton.swift */,
 				EBB0264E20B4615A0017CA98 /* EQCustomSlider.swift */,
 				EB6F33A120AD411000EA3E85 /* EQCustomUITextField.swift */,
@@ -328,6 +335,7 @@
 				EB52374020AD77200017FA1F /* EQProjectModel.swift */,
 				EB97BD5F20BFD844007DD8B6 /* EQPostCellModel.swift */,
 				EBE1C71720B99957009C6977 /* EQPlayerDurationObseveModel.swift */,
+				EB64A4DB20C78000008E8557 /* EQProjectModelProtocol.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -358,6 +366,7 @@
 			children = (
 				EB1D910820A2CE8E00384869 /* EQTableViewController.swift */,
 				EB1D910A20A2D70A00384869 /* EQSectionProvider.swift */,
+				EB64A4DD20C781A6008E8557 /* EQProjectTableViewController.swift */,
 			);
 			path = BaseTableView;
 			sourceTree = "<group>";
@@ -479,6 +488,16 @@
 			path = Extention;
 			sourceTree = "<group>";
 		};
+		EB64A4E720C969EC008E8557 /* ChildViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EB64A4DF20C80E4F008E8557 /* EQUserSavedTableViewController.swift */,
+				EB64A4E120C9164E008E8557 /* EQUserPostedTableViewController.swift */,
+				EB64A4E320C91968008E8557 /* EQUserTempTableViewController.swift */,
+			);
+			path = ChildViewController;
+			sourceTree = "<group>";
+		};
 		EB73F46520BBB3F100743C68 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,14 +587,6 @@
 			path = EQProject;
 			sourceTree = "<group>";
 		};
-		EBF3264820AED4050007526B /* Provider */ = {
-			isa = PBXGroup;
-			children = (
-				EBB1C21920A544D700D21788 /* +EQUserTableViewControllerSectionAndCellProvider.swift */,
-			);
-			path = Provider;
-			sourceTree = "<group>";
-		};
 		EBF3264920AED42A0007526B /* BasePannableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -622,8 +633,6 @@
 		EBF3265020AEFB4D0007526B /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				EBE65D7B20A343F7001A9E42 /* EQUserInfoTableViewCell.swift */,
-				EBE65D7C20A343F7001A9E42 /* EQUserInfoTableViewCell.xib */,
 				EB174F8020C68AC300F0753D /* EQUserInfoView.swift */,
 				EB174F8220C68AFC00F0753D /* EQUserInfoView.xib */,
 			);
@@ -700,7 +709,7 @@
 		EBFCEAF820A2E11B00138D80 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				EBF3264820AED4050007526B /* Provider */,
+				EB64A4E720C969EC008E8557 /* ChildViewController */,
 				EB1D910D20A2DDB500384869 /* EQUserViewController.swift */,
 			);
 			path = User;
@@ -797,7 +806,6 @@
 				EB1737B220AABDBE00566F50 /* EQSaveProjectPageAddTrackHeader.xib in Resources */,
 				EBD7955C20A2E2E10057A969 /* EQCustomToolBarView.xib in Resources */,
 				EB1737B820AAC7F000566F50 /* EQEditBandView.xib in Resources */,
-				EBE65D7E20A343F7001A9E42 /* EQUserInfoTableViewCell.xib in Resources */,
 				EB73F46B20BBB40700743C68 /* ALBAM.TTF in Resources */,
 				EB73F46A20BBB40700743C68 /* ALBA.TTF in Resources */,
 				EB73F46920BBB40700743C68 /* ALBAS.TTF in Resources */,
@@ -915,6 +923,8 @@
 				EB174F7920C6704400F0753D /* +EQFoundationExtention.swift in Sources */,
 				EB1737B020AA8FE100566F50 /* EQConstant.swift in Sources */,
 				EBB1C21F20A5495E00D21788 /* EQPlaylistTableViewCell.swift in Sources */,
+				EB64A4E220C9164E008E8557 /* EQUserPostedTableViewController.swift in Sources */,
+				EB64A4DE20C781A6008E8557 /* EQProjectTableViewController.swift in Sources */,
 				EBB0264F20B4615A0017CA98 /* EQCustomSlider.swift in Sources */,
 				EB52374920AEC52C0017FA1F /* EQPannableViewController.swift in Sources */,
 				EBF3264B20AEDE410007526B /* +EQEnumExtention.swift in Sources */,
@@ -926,12 +936,12 @@
 				EB52374120AD77200017FA1F /* EQProjectModel.swift in Sources */,
 				EBB5313720B7B62D009F157C /* +EQUITableViewCellExtention.swift in Sources */,
 				EB1737A120A9779E00566F50 /* EQSonglistTableViewCell.swift in Sources */,
-				EBB1C21A20A544D700D21788 /* +EQUserTableViewControllerSectionAndCellProvider.swift in Sources */,
 				EB5B0B3520A004CE0056E8D6 /* +EQStoryBoardExtention.swift in Sources */,
-				EBE65D7D20A343F7001A9E42 /* EQUserInfoTableViewCell.swift in Sources */,
+				EB64A4DC20C78000008E8557 /* EQProjectModelProtocol.swift in Sources */,
 				EB1D910B20A2D70A00384869 /* EQSectionProvider.swift in Sources */,
 				EB4ABBD8209EF92D006D124D /* AppDelegate.swift in Sources */,
 				EB1737B620AAC7E200566F50 /* EQEditBandView.swift in Sources */,
+				EB64A4E620C956C5008E8557 /* EQCustomHitTestUIView.swift in Sources */,
 				EB174F7B20C6706000F0753D /* +EQColorExtention.swift in Sources */,
 				EB52374520ADB1330017FA1F /* EQRealmManager.swift in Sources */,
 				EB1CB15B20BD4F9100B14D49 /* EQSearchViewController.swift in Sources */,
@@ -942,6 +952,7 @@
 				EBB1C22420A7E14800D21788 /* EQMainScrollableViewController.swift in Sources */,
 				EB3CA75D20BED39B005123FC /* EQAlertViewControllerSetting.swift in Sources */,
 				EB7AD7D020B425D40046BDB2 /* EQPlayerView.swift in Sources */,
+				EB64A4E420C91968008E8557 /* EQUserTempTableViewController.swift in Sources */,
 				EB97BD5D20BF9D6D007DD8B6 /* EQFirebaseManager.swift in Sources */,
 				EBE1C71820B99957009C6977 /* EQPlayerDurationObseveModel.swift in Sources */,
 				EB97BD6320C0282C007DD8B6 /* EQDiscoverViewController.swift in Sources */,
@@ -971,6 +982,7 @@
 				EB6F33A020AD3B9C00EA3E85 /* EQSaveProjectViewController.swift in Sources */,
 				EB5B0B4120A05D970056E8D6 /* EQIconCollectionViewCell.swift in Sources */,
 				EB1CB15D20BD7E4C00B14D49 /* EQUserManager.swift in Sources */,
+				EB64A4E020C80E4F008E8557 /* EQUserSavedTableViewController.swift in Sources */,
 				EB1737AA20AA88B600566F50 /* +EQProjectViewControllerSectionAndCellProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

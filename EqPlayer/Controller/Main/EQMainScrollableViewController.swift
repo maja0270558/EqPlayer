@@ -53,7 +53,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
         guard let discoverController = UIStoryboard.mainStoryBoard().instantiateViewController(withIdentifier: "EQDiscoverViewController") as? EQDiscoverViewController else {
             return
         }
-        userController.delegate = self
         controllers.append(userController)
         cells.append("EQIconCollectionViewCell")
 
@@ -195,28 +194,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
             )
             topPageWidth = UIScreen.main.bounds.width / spaceCount - topItemSize.width / 2
         }
-    }
-}
-
-extension EQMainScrollableViewController: EQUserTableViewControllerDelegate {
-    func didPressMoreOptionEditButton(at _: IndexPath, data: EQProjectModel) {
-        if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
-            eqProjectViewController.modalPresentationStyle = .overCurrentContext
-            eqProjectViewController.modalTransitionStyle = .crossDissolve
-            eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
-            present(eqProjectViewController, animated: true, completion: nil)
-        }
-    }
-
-    func didPressMoreOptionDeleteButton(at _: IndexPath, data: EQProjectModel) {
-        if EQRealmManager.shard.checkModelExist(filter: "uuid == %@", value: data.uuid) {
-            let result: [EQProjectModel] = EQRealmManager.shard.findWithFilter(filter: "uuid == %@", value: data.uuid)
-            let object = result.first!
-            EQRealmManager.shard.remove(object: object)
-        }
-        EQFirebaseManager.remove(path: "post/\(data.uuid)")
-        EQFirebaseManager.remove(path: "userPosts/\(EQUserManager.shard.userUID)/\(data.uuid)")
-        EQNotifycationCenterManager.post(name: Notification.Name.eqProjectDelete)
     }
 }
 

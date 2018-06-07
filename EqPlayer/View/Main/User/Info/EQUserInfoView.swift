@@ -31,4 +31,13 @@ class EQUserInfoView: UIView {
     checkCameraButtonDismiss()
  }
   
+  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    let hitView = super.hitTest(point, with: event)
+    if cameraButton.frame.contains(point) {
+      return hitView
+    } else {
+      return nil
+    }
+  }
+  
 }

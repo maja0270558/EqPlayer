@@ -24,19 +24,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dark-1920956_1280" translatesAutoresizingMaskIntoConstraints="NO" id="XYI-0w-Hxq" customClass="EQCircleImage" customModule="EqPlayer" customModuleProvider="target">
-                    <rect key="frame" x="105.5" y="14" width="138" height="138"/>
+                    <rect key="frame" x="91.5" y="27.5" width="166" height="165.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="XYI-0w-Hxq" secondAttribute="height" multiplier="1:1" id="gxn-pH-yug"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Django" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E4J-fj-53a">
-                    <rect key="frame" x="0.0" y="204" width="348" height="33.5"/>
+                    <rect key="frame" x="0.0" y="232.5" width="348" height="33.5"/>
                     <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="24"/>
                     <color key="textColor" white="0.89340649319999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHa-kc-lR0">
-                    <rect key="frame" x="213.5" y="121.5" width="30" height="30"/>
+                    <rect key="frame" x="227.5" y="162.5" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="F1T-QT-auJ"/>
                         <constraint firstAttribute="width" secondItem="YHa-kc-lR0" secondAttribute="height" multiplier="1:1" id="gDl-4X-Q7t"/>
@@ -49,12 +49,12 @@
                 <constraint firstItem="YHa-kc-lR0" firstAttribute="trailing" secondItem="XYI-0w-Hxq" secondAttribute="trailing" id="0MH-D7-xRT"/>
                 <constraint firstItem="YHa-kc-lR0" firstAttribute="bottom" secondItem="XYI-0w-Hxq" secondAttribute="bottom" id="8rJ-mt-qCW"/>
                 <constraint firstItem="E4J-fj-53a" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="FZC-ev-Wsh"/>
-                <constraint firstItem="XYI-0w-Hxq" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.5" id="Wo5-Qy-UiH"/>
-                <constraint firstItem="XYI-0w-Hxq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.6" id="aNg-za-aDd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="E4J-fj-53a" secondAttribute="bottom" constant="10" id="Fyb-Ua-8f6"/>
+                <constraint firstItem="XYI-0w-Hxq" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="Wo5-Qy-UiH"/>
                 <constraint firstItem="E4J-fj-53a" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.12" id="eaM-R4-nXC"/>
+                <constraint firstItem="XYI-0w-Hxq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.8" id="gtK-x5-jOZ"/>
                 <constraint firstItem="E4J-fj-53a" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="pUc-u5-2E6"/>
                 <constraint firstItem="XYI-0w-Hxq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="syY-m4-DhC"/>
-                <constraint firstItem="E4J-fj-53a" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="1.6" id="xNv-9C-11J"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

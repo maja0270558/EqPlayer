@@ -14,6 +14,7 @@ extension UIView {
             return nil
         }
         addSubview(contentView)
+        self.backgroundColor = UIColor.clear
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true

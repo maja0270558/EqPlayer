@@ -99,35 +99,38 @@
                         <subviews>
                             <containerView opaque="NO" tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FwB-2T-iKC">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="reg-Ly-aUT" kind="embed" id="ay7-4G-tls"/>
+                                    <segue destination="reg-Ly-aUT" kind="embed" identifier="postedVC" id="ay7-4G-tls"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tmc-bW-LTe">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="TkI-pT-fOi" kind="embed" id="hie-MN-PBE"/>
+                                    <segue destination="TkI-pT-fOi" kind="embed" identifier="tempVC" id="hie-MN-PBE"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YB7-f5-KeU">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="h70-ih-lb9" kind="embed" id="1Hd-NF-faJ"/>
+                                    <segue destination="h70-ih-lb9" kind="embed" identifier="savedVC" id="1Hd-NF-faJ"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4F-LV-5iN">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4F-LV-5iN" customClass="EQCustomHitTestUIView" customModule="EqPlayer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kD-go-fBO" customClass="EQUserInfoView" customModule="EqPlayer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="240"/>
-                                        <color key="backgroundColor" red="0.37759073310000002" green="0.40290694929999998" blue="0.4388831238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KfV-FS-tOg" customClass="EQCustomToolBarView" customModule="EqPlayer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="240" width="414" height="60"/>
-                                        <color key="backgroundColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="KfV-FS-tOg" firstAttribute="leading" secondItem="B4F-LV-5iN" secondAttribute="leading" id="9D9-wa-Py7"/>
                                     <constraint firstAttribute="trailing" secondItem="6kD-go-fBO" secondAttribute="trailing" id="AxO-gn-bLI"/>
@@ -162,6 +165,9 @@
                         <viewLayoutGuide key="safeArea" id="m8p-cb-Xpl"/>
                     </view>
                     <connections>
+                        <outlet property="postedContainerView" destination="FwB-2T-iKC" id="lb3-hl-SDT"/>
+                        <outlet property="savedContainerView" destination="YB7-f5-KeU" id="XZq-Bi-wGW"/>
+                        <outlet property="tempContainerView" destination="tmc-bW-LTe" id="Y1d-RR-sb5"/>
                         <outlet property="toolBarView" destination="KfV-FS-tOg" id="bUJ-jN-YDv"/>
                         <outlet property="userInfoTopView" destination="B4F-LV-5iN" id="Zjf-2j-nRi"/>
                         <outlet property="userInfoView" destination="6kD-go-fBO" id="qu9-gU-Oi5"/>
@@ -220,43 +226,92 @@
             </objects>
             <point key="canvasLocation" x="2063.768115942029" y="13.043478260869566"/>
         </scene>
-        <!--View Controller-->
+        <!--User Saved Table View Controller-->
         <scene sceneID="gUk-QV-Pnw">
             <objects>
-                <viewController id="h70-ih-lb9" sceneMemberID="viewController">
+                <viewController id="h70-ih-lb9" customClass="EQUserSavedTableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UDg-Cj-XbW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RTS-7Y-BWa">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fW8-Rd-U1q" firstAttribute="bottom" secondItem="RTS-7Y-BWa" secondAttribute="bottom" id="ahS-oC-RE0"/>
+                            <constraint firstItem="fW8-Rd-U1q" firstAttribute="trailing" secondItem="RTS-7Y-BWa" secondAttribute="trailing" id="mFG-Lt-9Bk"/>
+                            <constraint firstItem="RTS-7Y-BWa" firstAttribute="leading" secondItem="fW8-Rd-U1q" secondAttribute="leading" id="s7n-qY-10g"/>
+                            <constraint firstItem="RTS-7Y-BWa" firstAttribute="top" secondItem="fW8-Rd-U1q" secondAttribute="top" id="s9h-rn-OFN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fW8-Rd-U1q"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="RTS-7Y-BWa" id="jHT-dL-aXo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80F-CU-vBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590" y="770"/>
+            <point key="canvasLocation" x="589.85507246376812" y="769.56521739130437"/>
         </scene>
-        <!--View Controller-->
+        <!--User Temp Table View Controller-->
         <scene sceneID="xji-0E-5yv">
             <objects>
-                <viewController id="TkI-pT-fOi" sceneMemberID="viewController">
+                <viewController id="TkI-pT-fOi" customClass="EQUserTempTableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Sm-UG-ch0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tWL-Lc-yf2">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tWL-Lc-yf2" firstAttribute="top" secondItem="U85-LH-zXQ" secondAttribute="top" id="71i-hF-VWG"/>
+                            <constraint firstItem="tWL-Lc-yf2" firstAttribute="leading" secondItem="U85-LH-zXQ" secondAttribute="leading" id="UsS-rk-DCb"/>
+                            <constraint firstItem="U85-LH-zXQ" firstAttribute="trailing" secondItem="tWL-Lc-yf2" secondAttribute="trailing" id="WXb-91-B85"/>
+                            <constraint firstItem="U85-LH-zXQ" firstAttribute="bottom" secondItem="tWL-Lc-yf2" secondAttribute="bottom" id="dXd-KZ-BnC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="U85-LH-zXQ"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="tWL-Lc-yf2" id="Ute-nO-m83"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LRZ-hJ-eJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1241" y="761"/>
+            <point key="canvasLocation" x="1240.5797101449277" y="760.59782608695662"/>
         </scene>
-        <!--View Controller-->
+        <!--User Posted Table View Controller-->
         <scene sceneID="9jA-Da-q63">
             <objects>
-                <viewController id="reg-Ly-aUT" sceneMemberID="viewController">
+                <viewController id="reg-Ly-aUT" customClass="EQUserPostedTableViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qdO-lt-ebn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YrG-u3-gQ9">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YrG-u3-gQ9" firstAttribute="top" secondItem="UMQ-YE-yrc" secondAttribute="top" id="0QD-Gw-xnB"/>
+                            <constraint firstItem="UMQ-YE-yrc" firstAttribute="trailing" secondItem="YrG-u3-gQ9" secondAttribute="trailing" id="aVe-P5-jVM"/>
+                            <constraint firstItem="YrG-u3-gQ9" firstAttribute="leading" secondItem="UMQ-YE-yrc" secondAttribute="leading" id="uPv-pT-I2N"/>
+                            <constraint firstItem="UMQ-YE-yrc" firstAttribute="bottom" secondItem="YrG-u3-gQ9" secondAttribute="bottom" id="wwH-Pm-NY5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UMQ-YE-yrc"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="YrG-u3-gQ9" id="5rx-Uj-Gsm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07J-S5-qOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
