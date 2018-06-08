@@ -50,12 +50,6 @@ class EQUserViewController: UIViewController {
     setupToolBar()
     setupUserInfoView()
     setupChildBranchViewController()
-    setupHitTest()
-  }
-  
-  func setupHitTest() {
-    childControllerDictionary.forEach { (_, view) in
-    }
   }
 
   func setupToolBar() {
