@@ -9,12 +9,8 @@
 import Charts
 import UIKit
 
-protocol EQDiscoverTableViewCellDelegate: class {
-    func didClickMoreOptionButton(indexPath: IndexPath)
-}
-
 class EQDiscoverTableViewCell: UITableViewCell {
-    weak var delegate: EQDiscoverTableViewCellDelegate?
+    weak var delegate: EQSaveProjectCellDelegate?
     @IBOutlet var playlistCover: EQCircleImage!
     @IBOutlet var cellEQChartView: LineChartView!
     @IBOutlet var projectTitleLabel: UILabel!
