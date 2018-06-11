@@ -11,7 +11,6 @@ target 'EqPlayer' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'Lerp'
-  pod 'UIImageColors'
   pod 'IQKeyboardManager'
   pod 'RealmSwift'
   pod 'SwipeCellKit'

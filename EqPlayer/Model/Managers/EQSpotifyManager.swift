@@ -25,6 +25,7 @@ enum EQPlayingType {
 class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate, SPTCoreAudioControllerDelegate {
     static let shard: EQSpotifyManager = EQSpotifyManager()
     weak var delegate: EQSpotifyManagerDelegate?
+    var currentSetting = [Double]()
     let durationObseve = EQPlayerDurationObseveModel()
     var obsever: NSKeyValueObservation?
     let userDefaults = UserDefaults.standard
@@ -203,6 +204,11 @@ extension EQSpotifyManager {
             coreAudioController.setGain(value: bandValues[index], forBandAt: UInt32(index))
         }
     }
+  func setGain(setting: [Double]) {
+    for index in 0 ..< setting.count {
+      coreAudioController.setGain(value: Float(setting[index]), forBandAt: UInt32(index))
+    }
+  }
     func resetPreviewURL() {
         previousPreviewURLString = ""
     }

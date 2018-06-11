@@ -143,6 +143,7 @@ class EQProjectViewController: EQTrackTableViewController {
         dismiss(animated: true) {
             EQSpotifyManager.shard.resetPreviewURL()
             EQSpotifyManager.shard.playFromLastDuration()
+            EQSpotifyManager.shard.setGain(setting: EQSpotifyManager.shard.currentSetting)
         }
     }
 

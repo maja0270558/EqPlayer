@@ -108,6 +108,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
     func openPlayerAndPlayback(data: EQProjectModel) {
         let uris = Array(data.tracks.map { $0.uri })
         EQSpotifyManager.shard.queuePlaylist(playlistURI: uris)
+        EQSpotifyManager.shard.currentSetting = Array(data.eqSetting)
         EQSpotifyManager.shard.setGain(withModel: data)
         EQSpotifyManager.shard.playFirstTrack()
         playerView.openPlayer()
