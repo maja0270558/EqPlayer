@@ -18,8 +18,8 @@ class EQSelectTrackViewController: EQScrollableViewController {
         return data.mainController[0] as? EQPlaylistTableViewController
     }
 
-    var songlistController: EQSonglistTableViewController? {
-        return data.mainController[1] as? EQSonglistTableViewController
+    var tracklistController: EQTracklistViewController? {
+        return data.mainController[1] as? EQTracklistViewController
     }
 
     override func onDismiss() {
@@ -44,7 +44,7 @@ class EQSelectTrackViewController: EQScrollableViewController {
     func setupSubController() {
         playlistController?.delegate = self
         if let manager = self.eqSettingManager {
-            songlistController?.eqSettingManager = manager
+            tracklistController?.eqSettingManager = manager
         }
     }
 
@@ -64,7 +64,8 @@ class EQSelectTrackViewController: EQScrollableViewController {
 
     func setupControllersAndCells() {
         visiableItemCount = 1
-        controllers = [EQPlaylistTableViewController(), EQSonglistTableViewController()]
+        let trackController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: "EQTracklistViewController")
+        controllers = [EQPlaylistTableViewController(), trackController]
         cells = ["EQSelectTrackTopCollectionViewCell", "EQSelectTrackTopCollectionViewCell"]
         topCollectionView.allowsSelection = false
         topCollectionView.isScrollEnabled = false
@@ -100,7 +101,6 @@ extension EQSelectTrackViewController: EQSelectTrackTopCollectionViewCellProtoco
     }
 
     func didClickBackButton() {
-        EQSpotifyManager.shard.resetPreviewURL()
         goTo(pageAt: 0)
     }
 }
@@ -109,8 +109,8 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
     func didSelect(playlist: SPTPartialPlaylist) {
         titleLabels[1] = playlist.name
         topCollectionView.reloadData()
-        songlistController?.songlists.removeAll()
-        songlistController?.tableView.reloadData()
+        tracklistController?.tableViewData?.removeAll()
+        tracklistController?.trackTableView.reloadData()
 
         SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { error, snapshot in
             if error != nil {
@@ -118,8 +118,9 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
             }
 
             if let snap = snapshot as? SPTPlaylistSnapshot, let trackListPage = snap.firstTrackPage.items as? [SPTPlaylistTrack] {
-                self.songlistController?.songlists = trackListPage
-                self.songlistController?.tableView.reloadData()
+                self.tracklistController?.tableViewData = trackListPage
+                self.tracklistController?.trackTableView.reloadDataUpdateFade()
+
                 if snap.firstTrackPage.hasNextPage {
                     self.getNextPageTrack(currentPage: snap.firstTrackPage)
                 }
@@ -131,8 +132,9 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
     func getNextPageTrack(currentPage: SPTListPage) {
         currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
             if let page = response as? SPTListPage, let trackList = page.items as? [SPTPlaylistTrack] {
-                self.songlistController?.songlists.append(contentsOf: trackList)
-                self.songlistController?.tableView.reloadData()
+                self.tracklistController?.tableViewData!.append(contentsOf: trackList)
+                self.tracklistController?.trackTableView.reloadDataUpdateFade()
+
                 if page.hasNextPage {
                     self.getNextPageTrack(currentPage: page)
                 }
@@ -143,6 +145,7 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
 
 extension EQSelectTrackViewController: UISearchBarDelegate, EQSearchViewControllerDelegate {
     func didDismiss() {
+        tracklistController?.trackTableView.reloadDataUpdateFade()
         UIView.animate(withDuration: 0.25, animations: {
             self.identityAnimation()
         }, completion: { _ in
@@ -169,7 +172,7 @@ extension EQSelectTrackViewController: UISearchBarDelegate, EQSearchViewControll
             if let searchViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQSearchViewController.self)) as? EQSearchViewController {
                 searchViewController.modalPresentationStyle = .overCurrentContext
                 searchViewController.modalTransitionStyle = .crossDissolve
-                searchViewController.delegate = self
+                searchViewController.searchViewControllerdelegate = self
                 searchViewController.eqSettingManager = (self.eqSettingManager)!
                 self.present(searchViewController, animated: true, completion: nil)
             }

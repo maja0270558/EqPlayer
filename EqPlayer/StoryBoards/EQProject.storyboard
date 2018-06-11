@@ -124,26 +124,44 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z0i-n7-Mya">
-                                            <rect key="frame" x="0.0" y="348" width="414" height="736"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BLA-68-jXG">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditBandView" customModule="EqPlayer" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="25" width="414" height="315"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G8I-xE-dki">
+                                            <rect key="frame" x="0.0" y="35" width="414" height="368"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditBandView" customModule="EqPlayer" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="313"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTm-CV-l9a" customClass="EQSaveProjectPageAddTrackHeader" customModule="EqPlayer" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="313" width="414" height="55"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="315" id="U7Q-Pw-sPv"/>
+                                                <constraint firstItem="iEJ-5W-KGO" firstAttribute="top" secondItem="G8I-xE-dki" secondAttribute="top" id="AZd-vk-KUl"/>
+                                                <constraint firstAttribute="bottom" secondItem="BTm-CV-l9a" secondAttribute="bottom" id="KSS-2L-nGN"/>
+                                                <constraint firstAttribute="trailing" secondItem="iEJ-5W-KGO" secondAttribute="trailing" id="QZD-nW-V5C"/>
+                                                <constraint firstItem="iEJ-5W-KGO" firstAttribute="height" secondItem="G8I-xE-dki" secondAttribute="height" multiplier="0.85" id="VUT-7T-E90"/>
+                                                <constraint firstAttribute="trailing" secondItem="BTm-CV-l9a" secondAttribute="trailing" id="d0J-3O-jeC"/>
+                                                <constraint firstItem="BTm-CV-l9a" firstAttribute="top" secondItem="iEJ-5W-KGO" secondAttribute="bottom" id="fFp-eZ-yYF"/>
+                                                <constraint firstItem="iEJ-5W-KGO" firstAttribute="leading" secondItem="G8I-xE-dki" secondAttribute="leading" id="jNj-Vb-InH"/>
+                                                <constraint firstItem="BTm-CV-l9a" firstAttribute="leading" secondItem="G8I-xE-dki" secondAttribute="leading" id="xJh-UW-wxZ"/>
                                             </constraints>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="z0i-n7-Mya" firstAttribute="height" secondItem="HrF-ma-pFd" secondAttribute="height" id="2W0-tb-8vO"/>
-                                        <constraint firstItem="z0i-n7-Mya" firstAttribute="top" secondItem="iEJ-5W-KGO" secondAttribute="bottom" constant="8" id="5od-Nd-j76"/>
-                                        <constraint firstAttribute="trailing" secondItem="z0i-n7-Mya" secondAttribute="trailing" id="8ed-i5-xt5"/>
-                                        <constraint firstItem="iEJ-5W-KGO" firstAttribute="top" secondItem="HrF-ma-pFd" secondAttribute="top" constant="25" id="BaJ-BW-4OP"/>
-                                        <constraint firstItem="z0i-n7-Mya" firstAttribute="leading" secondItem="HrF-ma-pFd" secondAttribute="leading" id="P92-Bl-fSx"/>
-                                        <constraint firstAttribute="trailing" secondItem="iEJ-5W-KGO" secondAttribute="trailing" id="Wiq-Ab-YC3"/>
-                                        <constraint firstItem="iEJ-5W-KGO" firstAttribute="leading" secondItem="HrF-ma-pFd" secondAttribute="leading" id="Zvm-30-rXA"/>
+                                        <constraint firstAttribute="bottom" secondItem="BLA-68-jXG" secondAttribute="bottom" id="2o7-fK-5Kn"/>
+                                        <constraint firstItem="G8I-xE-dki" firstAttribute="height" secondItem="HrF-ma-pFd" secondAttribute="height" multiplier="0.5" id="B8T-Yq-c7j"/>
+                                        <constraint firstItem="BLA-68-jXG" firstAttribute="leading" secondItem="HrF-ma-pFd" secondAttribute="leading" id="MsQ-7N-yAN"/>
+                                        <constraint firstItem="BLA-68-jXG" firstAttribute="top" secondItem="HrF-ma-pFd" secondAttribute="top" id="QF0-FC-Zcy"/>
+                                        <constraint firstAttribute="trailing" secondItem="G8I-xE-dki" secondAttribute="trailing" id="Z3o-rd-uya"/>
+                                        <constraint firstItem="G8I-xE-dki" firstAttribute="leading" secondItem="HrF-ma-pFd" secondAttribute="leading" id="bRN-wR-FXx"/>
+                                        <constraint firstAttribute="trailing" secondItem="BLA-68-jXG" secondAttribute="trailing" id="m6a-JU-LsX"/>
+                                        <constraint firstItem="G8I-xE-dki" firstAttribute="top" secondItem="HrF-ma-pFd" secondAttribute="top" constant="35" id="rn0-Ud-gVR"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
@@ -159,14 +177,15 @@
                         <viewLayoutGuide key="safeArea" id="ldw-c8-EyH"/>
                     </view>
                     <connections>
+                        <outlet property="addTrackView" destination="BTm-CV-l9a" id="4rF-DG-Ufm"/>
                         <outlet property="editBandView" destination="iEJ-5W-KGO" id="Ezo-eN-iQH"/>
-                        <outlet property="editTableView" destination="z0i-n7-Mya" id="ume-Gv-fF7"/>
-                        <outlet property="editViewTopConstraint" destination="BaJ-BW-4OP" id="Tsw-3q-HfX"/>
+                        <outlet property="editTableView" destination="BLA-68-jXG" id="JY2-bt-BwL"/>
+                        <outlet property="topParentView" destination="G8I-xE-dki" id="6Nm-T3-gax"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YfG-fy-QSc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-482.39999999999998" y="-79.802955665024641"/>
+            <point key="canvasLocation" x="-482.60869565217394" y="-79.891304347826093"/>
         </scene>
         <!--Save Project View Controller-->
         <scene sceneID="73S-bf-SIf">
@@ -422,12 +441,42 @@
                     <connections>
                         <outlet property="cancelButton" destination="xIe-WR-04b" id="AHu-0y-fFQ"/>
                         <outlet property="searchBar" destination="7lJ-g8-xWY" id="Z5J-0p-DPc"/>
-                        <outlet property="tableView" destination="uPc-2u-rW1" id="vw5-Bv-qIt"/>
+                        <outlet property="searchTrackTableView" destination="uPc-2u-rW1" id="K7j-rU-KwQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mE2-Iu-9cx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1178.4000000000001" y="594.0886699507389"/>
+        </scene>
+        <!--Tracklist View Controller-->
+        <scene sceneID="aq9-3A-Vd9">
+            <objects>
+                <viewController storyboardIdentifier="EQTracklistViewController" id="NJS-bH-OLe" customClass="EQTracklistViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9pk-wz-il8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZT6-Jt-Kav">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZT6-Jt-Kav" firstAttribute="leading" secondItem="Vfd-rT-UoB" secondAttribute="leading" id="5pm-5e-cH3"/>
+                            <constraint firstItem="Vfd-rT-UoB" firstAttribute="bottom" secondItem="ZT6-Jt-Kav" secondAttribute="bottom" id="qRf-ah-91c"/>
+                            <constraint firstItem="ZT6-Jt-Kav" firstAttribute="top" secondItem="9pk-wz-il8" secondAttribute="top" id="vhB-Xj-aEe"/>
+                            <constraint firstItem="Vfd-rT-UoB" firstAttribute="trailing" secondItem="ZT6-Jt-Kav" secondAttribute="trailing" id="zjk-6L-8YM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Vfd-rT-UoB"/>
+                    </view>
+                    <connections>
+                        <outlet property="trackTableView" destination="ZT6-Jt-Kav" id="avu-dq-ErX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jtd-PT-rzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1890" y="-79"/>
         </scene>
     </scenes>
     <resources>

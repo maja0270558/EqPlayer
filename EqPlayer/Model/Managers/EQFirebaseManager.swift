@@ -13,16 +13,15 @@ import Foundation
 import SDWebImage
 
 class EQFirebaseManager {
-  
     static func remove(path: String) {
-      let ref = Database.database().reference().child(path)
-      ref.removeValue { error, _ in
-        if error != nil {
-          print(error)
+        let ref = Database.database().reference().child(path)
+        ref.removeValue { error, _ in
+            if error != nil {
+                print(error)
+            }
         }
-      }
     }
-  
+
     static func createUserIfNotExist(withEmail: String, password: String, succesfullyLoginCallBack: @escaping () -> Void = { return }) {
         Auth.auth().createUser(withEmail: withEmail, password: password) {
             _, error in

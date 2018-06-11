@@ -8,16 +8,17 @@
 
 import Foundation
 protocol EQProjectModelProtocol {
-  func getProject() -> EQProjectModel
+    func getProject() -> EQProjectModel
 }
 
 extension EQProjectModel: EQProjectModelProtocol {
-  func getProject() -> EQProjectModel {
-    return self
-  }
+    func getProject() -> EQProjectModel {
+        return self
+    }
 }
+
 extension EQPostCellModel: EQProjectModelProtocol {
-  func getProject() -> EQProjectModel {
-    return self.projectModel
-  }
+    func getProject() -> EQProjectModel {
+        return projectModel
+    }
 }

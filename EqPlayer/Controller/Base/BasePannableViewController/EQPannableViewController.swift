@@ -16,7 +16,6 @@ class EQPannableViewController: UIViewController {
     private var canPan = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Listen for pan gesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         view.addGestureRecognizer(panGesture)
     }
@@ -37,14 +36,10 @@ class EQPannableViewController: UIViewController {
         if canPan {
             switch panGesture.state {
             case .began, .changed:
-                // If pan started or is ongoing then
-                // slide the view to follow the finger
                 let translation = panGesture.translation(in: view)
                 let yPosition = max(0, translation.y)
                 slideViewVerticallyTo(yPosition)
             case .ended:
-                // If pan ended, decide it we should close or reset the view
-                // based on the final position and the speed of the gesture
                 let translation = panGesture.translation(in: view)
                 let velocity = panGesture.velocity(in: view)
                 let closing = (translation.y > view.frame.size.height * minimumScreenRatioToHide) ||
@@ -52,7 +47,6 @@ class EQPannableViewController: UIViewController {
 
                 if closing {
                     UIView.animate(withDuration: animationDuration, animations: {
-                        // If closing, animate to the bottom of the view
                         self.view.alpha = 0
                         self.slideViewVerticallyTo(self.view.frame.size.height)
                     }, completion: { isCompleted in
@@ -61,11 +55,9 @@ class EQPannableViewController: UIViewController {
                         }
                     })
                 } else {
-                    // If not closing, reset the view to the top
                     backToAppear()
                 }
             default:
-                // If gesture state is undefined, reset the view to the top
                 UIView.animate(withDuration: animationDuration, animations: {
                     self.slideViewVerticallyTo(0)
                 })

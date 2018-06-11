@@ -85,31 +85,17 @@ class EQMainScrollableViewController: EQScrollableViewController {
         let type = event?.subtype
         switch type! {
         case .remoteControlPlay:
-            // 播放
             EQSpotifyManager.shard.playOrPause(isPlay: true) {
             }
         case .remoteControlPause:
             EQSpotifyManager.shard.playOrPause(isPlay: false) {
             }
-        // 暂停
         case .remoteControlStop: break
-        // 停止
         case .remoteControlTogglePlayPause: break
-        // 切换播放暂停（耳机线控）
         case .remoteControlNextTrack:
             EQSpotifyManager.shard.skip()
-        // 下一首
         case .remoteControlPreviousTrack:
             EQSpotifyManager.shard.previous()
-        // 上一首
-        case .remoteControlBeginSeekingBackward: break
-        // 开始快退
-        case .remoteControlEndSeekingBackward: break
-        // 结束快退
-        case .remoteControlBeginSeekingForward: break
-        // 开始快进
-        case .remoteControlEndSeekingForward: break
-        // 结束快进
         default:
             break
         }
@@ -131,7 +117,8 @@ class EQMainScrollableViewController: EQScrollableViewController {
         if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
             eqProjectViewController.modalPresentationStyle = .overCurrentContext
             eqProjectViewController.modalTransitionStyle = .crossDissolve
-            eqProjectViewController.eqSettingManager.tempModel = EQProjectModel(value: data)
+            let eqSettingManager = EQSettingModelManager(model: data)
+            eqProjectViewController.eqSettingManager = eqSettingManager
             present(eqProjectViewController, animated: true, completion: nil)
         }
     }

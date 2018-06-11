@@ -14,7 +14,7 @@ extension UIView {
             return nil
         }
         addSubview(contentView)
-        self.backgroundColor = UIColor.clear
+        backgroundColor = UIColor.clear
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -25,14 +25,14 @@ extension UIView {
 }
 
 extension UIImageView {
-  func addShadow(offset: CGSize = CGSize(width: 0, height: 0),
-                 radius: CGFloat = 10,
-                 opacity: Float = 1,
-                 color: CGColor = UIColor.black.cgColor) {
-    layer.shadowOffset = offset
-    layer.shadowRadius = radius
-    layer.shadowOpacity = opacity
-    layer.shadowColor = color
-    layer.masksToBounds = false
-  }
+    func addShadow(offset: CGSize = CGSize(width: 0, height: 0),
+                   radius: CGFloat = 10,
+                   opacity: Float = 1,
+                   color: CGColor = UIColor.black.cgColor) {
+        layer.shadowOffset = offset
+        layer.shadowRadius = radius
+        layer.shadowOpacity = opacity
+        layer.shadowColor = color
+        layer.masksToBounds = false
+    }
 }

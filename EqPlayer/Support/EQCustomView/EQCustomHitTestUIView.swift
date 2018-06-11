@@ -8,13 +8,12 @@
 
 import Foundation
 class EQCustomHitTestUIView: UIView {
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    let hitView = super.hitTest(point, with: event)
-    if hitView == self {
-      return nil
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        if hitView == self {
+            return nil
+        } else {
+            return hitView
+        }
     }
-    else {
-      return hitView
-    }
-  }
 }

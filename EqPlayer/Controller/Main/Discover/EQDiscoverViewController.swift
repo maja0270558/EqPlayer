@@ -9,7 +9,6 @@
 import UIKit
 
 class EQDiscoverViewController: EQProjectTableViewController {
-  
     @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,92 +16,88 @@ class EQDiscoverViewController: EQProjectTableViewController {
         setupTableView()
         loadDataFromFirebase()
     }
-  
-    func loadDataFromFirebase(){
-      EQFirebaseManager.getPost(withPath: "post") { [weak self] cellModelArray in
-        let discoverModelDatas = cellModelArray.filter({ (model) -> Bool in
-          model.postUserUID != EQUserManager.shard.userUID
-        })
-        self?.projectData = discoverModelDatas
-        self?.tableView.reloadData()
-        discoverModelDatas.forEach({ model in
-          EQFirebaseManager.getUser(withUID: model.postUserUID, failedHandler: {
-          }, completion: { userModel in
-            model.postUserPhotoURL = (userModel.photoURL?.absoluteString)!
+
+    func loadDataFromFirebase() {
+        EQFirebaseManager.getPost(withPath: "post") { [weak self] cellModelArray in
+            let discoverModelDatas = cellModelArray.filter({ (model) -> Bool in
+                model.postUserUID != EQUserManager.shard.userUID
+            })
             self?.projectData = discoverModelDatas
             self?.tableView.reloadData()
-          })
-        })
-      }
-    }
-  
-    override func reloadTableView() {
-      loadDataFromFirebase()
+            discoverModelDatas.forEach({ model in
+                EQFirebaseManager.getUser(withUID: model.postUserUID, failedHandler: {
+                }, completion: { userModel in
+                    model.postUserPhotoURL = (userModel.photoURL?.absoluteString)!
+                    self?.projectData = discoverModelDatas
+                    self?.tableView.reloadData()
+                })
+            })
+        }
     }
 
-  override func configCell(data: EQProjectModelProtocol, cell: UITableViewCell, indexPath: IndexPath) {
-    guard let cellModel = data as? EQPostCellModel,
-      let discoverCell = cell as? EQDiscoverTableViewCell else {
-        return
+    override func reloadTableView() {
+        loadDataFromFirebase()
     }
-     let eqModel = cellModel.projectModel
-    discoverCell.delegate = self
-    discoverCell.userPhoto.sd_setImage(with: URL(string: cellModel.postUserPhotoURL), placeholderImage: #imageLiteral(resourceName: "user"), options: [], completed: nil)
-    discoverCell.userNameLabel.text = cellModel.postUserName
-    discoverCell.postTimeLabel.text = EQDateFormatter().dateWithUnitTime(time: cellModel.postTime)
-    
-    discoverCell.descriptionLabel.text = eqModel.detailDescription
-    discoverCell.cellIndexPath = indexPath
-    discoverCell.projectTitleLabel.text = eqModel.name
-    discoverCell.cellIndicator.startAnimating()
-    discoverCell.trackCountLabel.text = String(eqModel.tracks.count)
-    let imageURLs = eqModel.tracks.map {
-      $0.coverURL!
+
+    override func configCell(data: EQProjectModelProtocol, cell: UITableViewCell, indexPath: IndexPath) {
+        guard let cellModel = data as? EQPostCellModel,
+            let discoverCell = cell as? EQDiscoverTableViewCell else {
+            return
+        }
+        let eqModel = cellModel.projectModel
+        discoverCell.delegate = self
+        discoverCell.userPhoto.sd_setImage(with: URL(string: cellModel.postUserPhotoURL), placeholderImage: #imageLiteral(resourceName: "user"), options: [], completed: nil)
+        discoverCell.userNameLabel.text = cellModel.postUserName
+        discoverCell.postTimeLabel.text = EQDateFormatter().dateWithUnitTime(time: cellModel.postTime)
+
+        discoverCell.descriptionLabel.text = eqModel.detailDescription
+        discoverCell.cellIndexPath = indexPath
+        discoverCell.projectTitleLabel.text = eqModel.name
+        discoverCell.cellIndicator.startAnimating()
+        discoverCell.trackCountLabel.text = String(eqModel.tracks.count)
+        let imageURLs = eqModel.tracks.map {
+            $0.coverURL!
+        }
+        discoverCell.cellEQChartView.alpha = 0
+        discoverCell.cellEQChartView.isUserInteractionEnabled = false
+        discoverCell.selectionStyle = .none
+        discoverCell.setDiscsImage(imageURLs: Array(imageURLs)) {
+            let color = self.getProperColor(color: (discoverCell.discImageLarge.image?.getPixelColor(discoverCell.discImageLarge.center))!)
+            discoverCell.cellEQChartView.setChart(15, color: color, style: .cell)
+            discoverCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
+            discoverCell.cellIndicator.stopAnimating()
+            UIView.animate(withDuration: 0.3, animations: {
+                discoverCell.cellEQChartView.alpha = 1
+            })
+        }
     }
-    discoverCell.cellEQChartView.alpha = 0
-    discoverCell.cellEQChartView.isUserInteractionEnabled = false
-    discoverCell.selectionStyle = .none
-    discoverCell.setDiscsImage(imageURLs: Array(imageURLs)) {
-      let color = self.getProperColor(color: (discoverCell.discImageLarge.image?.getPixelColor(discoverCell.discImageLarge.center))!)
-      discoverCell.cellEQChartView.setChart(15, color: color, style: .cell)
-      discoverCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
-      discoverCell.cellIndicator.stopAnimating()
-      UIView.animate(withDuration: 0.3, animations: {
-        discoverCell.cellEQChartView.alpha = 1
-      })
-    }
-  }
-  
+
     func setupTableView() {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
     }
-
 }
 
 extension EQDiscoverViewController: EQSaveProjectCellDelegate {
-  
-  func didClickMoreOptionButton(indexPath: IndexPath) {
-    moreOptionAlert()
-  }
-
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let data = projectData as? [EQPostCellModel],
-      let mainController = parent as? EQMainScrollableViewController else {
-        return
+    func didClickMoreOptionButton(indexPath _: IndexPath) {
+        moreOptionAlert()
     }
-    let dataCopy = EQProjectModel(value: data[indexPath.row].projectModel)
-    switch dataCopy.status {
-    case .saved, .post:
-      mainController.openPlayerAndPlayback(data: dataCopy)
-    case .temp:
-      mainController.openEditProjectPage(data: dataCopy)
-    default:
-      break
-  }
-  }
+
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let data = projectData as? [EQPostCellModel],
+            let mainController = parent as? EQMainScrollableViewController else {
+            return
+        }
+        let dataCopy = EQProjectModel(value: data[indexPath.row].projectModel)
+        switch dataCopy.status {
+        case .saved, .post:
+            mainController.openPlayerAndPlayback(data: dataCopy)
+        case .temp:
+            mainController.openEditProjectPage(data: dataCopy)
+        default:
+            break
+        }
+    }
 }
-
-

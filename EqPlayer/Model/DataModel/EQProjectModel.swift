@@ -8,6 +8,10 @@
 
 import Foundation
 import RealmSwift
+protocol EQTrackProtocol {
+    func getTrack() -> EQTrack
+}
+
 @objc enum EQProjectStatus: Int {
     case new
     case saved
@@ -40,7 +44,11 @@ class EQProjectModel: Object {
     let eqSetting = List<Double>()
 }
 
-class EQTrack: Object, Codable {
+class EQTrack: Object, Codable, EQTrackProtocol {
+    func getTrack() -> EQTrack {
+        return self
+    }
+
     var dict: [String: Any] {
         return [
             "duration": duration,
@@ -58,4 +66,42 @@ class EQTrack: Object, Codable {
     @objc dynamic var artist: String = ""
     @objc dynamic var previewURL: String?
     @objc dynamic var coverURL: String?
+}
+
+extension SPTPartialTrack: EQTrackProtocol {
+    func getTrack() -> EQTrack {
+        return convertSPTPartialTrackToEQTrack()
+    }
+
+    func convertSPTPartialTrackToEQTrack() -> EQTrack {
+        let eqTrack = EQTrack()
+
+        if let previewURL = self.previewURL {
+            eqTrack.previewURL = previewURL.absoluteString
+        }
+
+        if let imageURL = self.album.largestCover {
+            eqTrack.coverURL = imageURL.imageURL.absoluteString
+        }
+
+        guard let title = self.name, let artists = self.artists as? [SPTPartialArtist] else {
+            return eqTrack
+        }
+
+        eqTrack.name = title
+        var artistsString = ""
+
+        for index in stride(from: 0, to: artists.count, by: 1) {
+            if index == artists.count - 1 {
+                artistsString += artists[index].name
+            } else {
+                artistsString += artists[index].name + ","
+            }
+        }
+
+        eqTrack.artist = artistsString
+        eqTrack.uri = uri.absoluteString
+        eqTrack.duration = duration
+        return eqTrack
+    }
 }

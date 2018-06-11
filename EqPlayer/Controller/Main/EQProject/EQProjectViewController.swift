@@ -12,31 +12,38 @@ import RealmSwift
 import SwipeCellKit
 import UIKit
 
-class EQProjectViewController: EQTableViewController {
+class EQProjectViewController: EQTrackTableViewController {
     @IBOutlet var editTableView: UITableView!
     @IBOutlet var editBandView: EQEditBandView!
-    @IBOutlet var editViewTopConstraint: NSLayoutConstraint!
-    let eqSettingManager = EQSettingModelManager()
+    @IBOutlet var topParentView: UIView!
+    @IBOutlet var addTrackView: EQSaveProjectPageAddTrackHeader!
     var projectName: String = "專案"
-    var oldContentOffset = CGPoint.zero
-    let topConstraintRange = (CGFloat(-323) ..< CGFloat(25))
-    var previousPreviewIndex: IndexPath?
-    var reorderIndex: IndexPath?
-    // For reorder cell
-    fileprivate var sourceIndexPath: IndexPath?
-    fileprivate var snapshot: UIView?
-    var cellDatas: [EQTrack]? {
-        return sectionProviders[0].cellDatas as? [EQTrack]
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        projectName = eqSettingManager.tempModel.name == "" ? "專案" : eqSettingManager.tempModel.name
-        setupTableView()
+
+        setupAddTrackView()
         setupEditBandView()
-        setCanPanToDismiss(true)
-        generateSectionAndCell()
+        controllerInit()
+    }
+
+    func controllerInit() {
+        setupTableView(typeName: EQSonglistTableViewCell.typeName, tableView: editTableView)
+        tableViewData = Array(eqSettingManager.tempModel.tracks)
+        editTableView.contentInset.top = topParentView.bounds.height
         subscribeNotification()
+        setCanPanToDismiss(true)
+    }
+
+    func setupAddTrackView() {
+        addTrackView.addTrack = { [weak self] in
+            if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateInitialViewController() as? EQSelectTrackViewController {
+                playlistViewController.modalPresentationStyle = .overCurrentContext
+                playlistViewController.modalTransitionStyle = .crossDissolve
+                playlistViewController.eqSettingManager = (self?.eqSettingManager)!
+                self?.present(playlistViewController, animated: true, completion: nil)
+            }
+        }
     }
 
     override func onDismiss() {
@@ -49,7 +56,7 @@ class EQProjectViewController: EQTableViewController {
     }
 
     @objc func projectDidModify() {
-        sessionOf(EQProjectSectionCell.trackHeaderWithCell.rawValue).cellDatas = Array(eqSettingManager.tempModel.tracks)
+        tableViewData = Array(eqSettingManager.tempModel.tracks)
         editBandView.saveButton.setTitle("儲存", for: .normal)
         editTableView.reloadData()
     }
@@ -64,7 +71,7 @@ class EQProjectViewController: EQTableViewController {
     }
 
     @objc func projectChildControllerPreviewDidClick() {
-        editTableView.reloadData()
+        reloadTrack()
     }
 
     func save() {
@@ -139,121 +146,15 @@ class EQProjectViewController: EQTableViewController {
         }
     }
 
-    func setupLongPressOrderCell() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(longPress:)))
-        editTableView.addGestureRecognizer(longPress)
-    }
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
 
-    @objc func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
-        let state = longPress.state
-        let location = longPress.location(in: editTableView)
-        guard let indexPath = self.editTableView.indexPathForRow(at: location) ?? sourceIndexPath ?? nil else {
-            return
+        let finalOffset = -offset - topParentView.bounds.height
+        topParentView.frame.origin.y = finalOffset
+        if offset > -addTrackView.bounds.height {
+            topParentView.frame.origin.y = -topParentView.bounds.height + addTrackView.bounds.height
         }
-        switch state {
-        case .began:
-            reorderIndex = indexPath
-            sourceIndexPath = indexPath
-            guard let cell = self.editTableView.cellForRow(at: indexPath) else { return }
-            snapshot = customSnapshotFromView(inputView: cell)
-            guard let snapshot = self.snapshot else { return }
-            var center = cell.center
-            snapshot.center = center
-            snapshot.alpha = 0.0
-            editTableView.addSubview(snapshot)
-            cell.isHidden = true
-            UIView.animate(withDuration: 0.25, animations: {
-                center.y = location.y
-                snapshot.center = center
-                snapshot.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-                snapshot.alpha = 0.98
-                cell.alpha = 0.0
-            }, completion: { _ in
-            })
-
-        case .changed:
-            guard let snapshot = self.snapshot else {
-                return
-            }
-            var center = snapshot.center
-            center.y = location.y
-            snapshot.center = center
-            guard let sourceIndexPath = self.sourceIndexPath else {
-                return
-            }
-            if indexPath != sourceIndexPath {
-                // 重設試聽index
-                if let preIndex = previousPreviewIndex {
-                    if sourceIndexPath == preIndex {
-                        previousPreviewIndex = indexPath
-                    } else if indexPath == preIndex {
-                        previousPreviewIndex = sourceIndexPath
-                    }
-                }
-                guard let sourceCell = self.editTableView.cellForRow(at: sourceIndexPath) as? EQSonglistTableViewCell, let targetCell = self.editTableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
-                    return
-                }
-
-                sourceCell.indexPath = indexPath
-                targetCell.indexPath = sourceIndexPath
-                swap(&eqSettingManager.tempModel.tracks[indexPath.row], &eqSettingManager.tempModel.tracks[sourceIndexPath.row])
-                sessionOf(EQProjectSectionCell.trackHeaderWithCell.rawValue).cellDatas = Array(eqSettingManager.tempModel.tracks)
-
-//        swap(&sectionProviders[indexPath.section].cellDatas[indexPath.row], &sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row])
-//        let temp = sectionProviders[indexPath.section].cellDatas[indexPath.row]
-//        sectionProviders[indexPath.section].cellDatas[indexPath.row] = sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row]
-//        sectionProviders[indexPath.section].cellDatas[sourceIndexPath.row] = temp
-                editTableView.estimatedRowHeight = UITableViewAutomaticDimension
-
-                UIView.performWithoutAnimation {
-                    self.editTableView.moveRow(at: sourceIndexPath, to: indexPath)
-                }
-                self.sourceIndexPath = indexPath
-            }
-        default:
-            guard let cell = self.editTableView.cellForRow(at: indexPath) else {
-                return
-            }
-            guard let snapshot = self.snapshot else {
-                return
-            }
-            cell.isHidden = false
-            cell.alpha = 0.0
-            UIView.animate(withDuration: 0.25, animations: {
-                snapshot.center = cell.center
-                snapshot.transform = CGAffineTransform.identity
-                snapshot.alpha = 0
-                cell.alpha = 1
-            }, completion: { _ in
-                self.cleanup()
-            })
-            break
-        }
-    }
-
-    private func cleanup() {
-        sourceIndexPath = nil
-        snapshot?.removeFromSuperview()
-        snapshot = nil
-    }
-
-    private func customSnapshotFromView(inputView: UIView) -> UIView? {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-        if let currentContext = UIGraphicsGetCurrentContext() {
-            inputView.layer.render(in: currentContext)
-        }
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            UIGraphicsEndImageContext()
-            return nil
-        }
-        UIGraphicsEndImageContext()
-        let snapshot = UIImageView(image: image)
-        snapshot.layer.masksToBounds = false
-        snapshot.layer.cornerRadius = 0
-        snapshot.layer.shadowOffset = CGSize(width: -5, height: 0)
-        snapshot.layer.shadowRadius = 5
-        snapshot.layer.shadowOpacity = 0.4
-        return snapshot
+        editTableView.fadeTopCell()
     }
 
     func subscribeNotification() {
@@ -269,18 +170,12 @@ class EQProjectViewController: EQTableViewController {
     }
 
     func setupEditBandView() {
+        projectName = eqSettingManager.tempModel.name == "" ? "專案" : eqSettingManager.tempModel.name
         editBandView.lineChartView.setEntryValue(yValues: Array(eqSettingManager.tempModel.eqSetting))
         editBandView.delegate = self
         editBandView.lineChartView.delegate = self
         editBandView.projectNameTextField.text = projectName
         eqSettingManager.setEQSetting(values: editBandView.lineChartView.getEntryValues())
-    }
-
-    func setupTableView() {
-        editTableView.contentInsetAdjustmentBehavior = .never
-        editTableView.delegate = self
-        editTableView.dataSource = self
-        editTableView.separatorStyle = .none
     }
 }
 
@@ -288,29 +183,9 @@ extension EQProjectViewController: ChartViewDelegate {
     func chartEntryDrag(_: ChartViewBase, entry dragEntry: ChartDataEntry) {
         // Set band
         eqSettingManager.isModify = true
-        editBandView.saveButton.setTitle("儲存", for: .normal)
         eqSettingManager.tempModel.eqSetting[Int(dragEntry.x)] = dragEntry.y
+        editBandView.saveButton.setTitle("儲存", for: .normal)
         EQSpotifyManager.shard.setGain(value: Float(dragEntry.y), atBand: UInt32(dragEntry.x))
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let delta = scrollView.contentOffset.y - oldContentOffset.y
-
-        if delta < 0 && (editViewTopConstraint.constant) <= topConstraintRange.upperBound && scrollView.contentOffset.y < 0 {
-            editViewTopConstraint.constant -= delta
-            scrollView.contentOffset.y -= delta
-        } else if scrollView.contentOffset.y < 0 {
-            editViewTopConstraint.constant = -delta + topConstraintRange.upperBound
-            return
-        }
-
-        if delta > 0 && (editViewTopConstraint.constant - delta) > topConstraintRange.lowerBound && scrollView.contentOffset.y > 0 {
-            editViewTopConstraint.constant -= delta
-            scrollView.contentOffset.y -= delta
-        }
-
-        oldContentOffset = scrollView.contentOffset
-        editTableView.fadeTopCell()
     }
 }
 
@@ -321,6 +196,7 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
 
     func didClickSaveButton(projectName: String, description: String, isPost: Bool) {
         print((Realm.Configuration.defaultConfiguration.fileURL?.absoluteString)! + "---------------")
+
         if eqSettingManager.tempModel.tracks.count <= 0 {
             return
         }
@@ -351,88 +227,6 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
                 saveProjectViewController.originalProjectName = editBandView.projectNameTextField.text!
                 present(saveProjectViewController, animated: true, completion: nil)
             }
-        }
-    }
-}
-
-extension EQProjectViewController: SwipeTableViewCellDelegate {
-    func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        let track = eqSettingManager.tempModel.tracks[indexPath.row]
-        guard orientation == .right else {
-            return nil
-        }
-        let swipeAction = SwipeAction(style: .default, title: "") { _, _ in
-            self.eqSettingManager.tempModel.tracks.remove(at: indexPath.row)
-            self.eqSettingManager.isModify = true
-            EQNotifycationCenterManager.post(name: Notification.Name.eqProjectTrackModifyNotification)
-        }
-        swipeAction.image = UIImage(named: "remove")
-        swipeAction.backgroundColor = UIColor.clear
-        return [swipeAction]
-    }
-
-    func tableView(_: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for _: SwipeActionsOrientation) -> SwipeTableOptions {
-        var options = SwipeTableOptions()
-        options.backgroundColor = UIColor(red: 1, green: 38 / 255, blue: 0, alpha: 0.3)
-        options.expansionStyle = .selection
-        options.transitionStyle = .reveal
-        options.buttonVerticalAlignment = .center
-        return options
-    }
-}
-
-extension EQProjectViewController: EQSonglistTableViewCellDelegate {
-    func tableView(_: UITableView, didEndDisplaying _: UITableViewCell, forRowAt indexPath: IndexPath) {
-        resetCell(indexPath: indexPath)
-    }
-
-    func didPreviewButtonClick(indexPath: IndexPath) {
-        guard let cell = editTableView.cellForRow(at: indexPath) as? EQSonglistTableViewCell else {
-            return
-        }
-        let track = eqSettingManager.tempModel.tracks[indexPath.row]
-
-        if cell.previewButton.isSelected {
-            // 試聽的那個
-            resetAllVisibleCell()
-            previousPreviewIndex = indexPath
-            EQSpotifyManager.shard.previousPreviewURLString = track.uri
-            EQSpotifyManager.shard.playPreview(uri: track.uri, duration: track.duration) {
-                EQSpotifyManager.shard.durationObseve.previewCurrentDuration = 0
-                cell.startObseve()
-                cell.previewButton.isSelected = true
-            }
-
-        } else {
-            // 按自己
-            EQSpotifyManager.shard.player?.setIsPlaying(false, callback: { error in
-                if error != nil {
-                    return
-                }
-                EQSpotifyManager.shard.currentPlayingType = .project
-                self.resetCell(indexPath: indexPath)
-            })
-        }
-    }
-
-    func resetCell(indexPath: IndexPath?) {
-        guard let resetIndexPath = indexPath,
-            let cell = editTableView.cellForRow(at: resetIndexPath) as? EQSonglistTableViewCell else {
-            return
-        }
-        cell.timer?.invalidate()
-        cell.previewProgressBar.progress = 0
-        cell.previewButton.isSelected = false
-    }
-
-    func resetAllVisibleCell() {
-        guard let cells = editTableView.visibleCells as? [EQSonglistTableViewCell] else {
-            return
-        }
-        cells.forEach { cell in
-            cell.timer?.invalidate()
-            cell.previewProgressBar.progress = 0
-            cell.previewButton.isSelected = false
         }
     }
 }

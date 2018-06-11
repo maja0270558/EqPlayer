@@ -14,12 +14,13 @@ extension UITableViewCell {
         myCustomSelectionColorView.backgroundColor = color
         selectedBackgroundView = myCustomSelectionColorView
     }
-  var otherTypeName: String {
-    let thisType = type(of: self)
-    return String(describing: thisType)
-  }
-  
-  static var typeName: String {
-    return String(describing: self)
-  }
+
+    var otherTypeName: String {
+        let thisType = type(of: self)
+        return String(describing: thisType)
+    }
+
+    static var typeName: String {
+        return String(describing: self)
+    }
 }
