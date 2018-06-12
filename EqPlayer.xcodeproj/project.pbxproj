@@ -1111,7 +1111,10 @@
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1177,8 +1180,6 @@
 					"\"SwipeCellKit\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIImageColors\"",
 					"-framework",
 					"\"UIKit\"",
 					"-framework",
@@ -1211,7 +1212,10 @@
 				);
 				INFOPLIST_FILE = EqPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1277,8 +1281,6 @@
 					"\"SwipeCellKit\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIImageColors\"",
 					"-framework",
 					"\"UIKit\"",
 					"-framework",
