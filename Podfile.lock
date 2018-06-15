@@ -6,6 +6,8 @@ PODS:
     - Fabric (~> 1.7.5)
   - DynamicBlurView (2.0.2)
   - Fabric (1.7.6)
+  - Firebase (4.13.0):
+    - Firebase/Core (= 4.13.0)
   - Firebase/Auth (4.13.0):
     - Firebase/Core
     - FirebaseAuth (= 4.6.1)
@@ -78,6 +80,7 @@ DEPENDENCIES:
   - Charts
   - Crashlytics
   - Fabric
+  - Firebase
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -144,6 +147,6 @@ SPEC CHECKSUMS:
   SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
   SwipeCellKit: 8ae09401e1137566b187980d824310129233c959
 
-PODFILE CHECKSUM: e44facbfa24199292949c8ee9408cbd871ce1385
+PODFILE CHECKSUM: 04b9aa9f336d7c2bfc3f2922ecb4cfe6b1c20e69
 
 COCOAPODS: 1.5.0

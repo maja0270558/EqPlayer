@@ -31,24 +31,24 @@ class EQPlaylistTableViewController: UITableViewController {
             return
         }
 
-        SPTPlaylistList.playlists(forUser: session.canonicalUsername, withAccessToken: session.accessToken, callback: { _, response in
+        SPTPlaylistList.playlists(forUser: session.canonicalUsername, withAccessToken: session.accessToken, callback: { [weak self] _, response in
             if let listPage = response as? SPTPlaylistList, let playlists = listPage.items as? [SPTPartialPlaylist] {
-                self.playlists = playlists // or however you want to parse these
-                self.tableView.reloadDataUpdateFade()
+                self?.playlists = playlists // or however you want to parse these
+                self?.tableView.reloadDataUpdateFade()
                 if listPage.hasNextPage {
-                    self.getNextPlaylistPage(currentPage: listPage)
+                    self?.getNextPlaylistPage(currentPage: listPage)
                 }
             }
         })
     }
 
     func getNextPlaylistPage(currentPage: SPTListPage) {
-        currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
+        currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { [weak self] _, response in
             if let page = response as? SPTListPage, let playlists = page.items as? [SPTPartialPlaylist] {
-                self.playlists.append(contentsOf: playlists)
-                self.tableView.reloadDataUpdateFade()
+                self?.playlists.append(contentsOf: playlists)
+                self?.tableView.reloadDataUpdateFade()
                 if page.hasNextPage {
-                    self.getNextPlaylistPage(currentPage: page)
+                    self?.getNextPlaylistPage(currentPage: page)
                 }
             }
         })

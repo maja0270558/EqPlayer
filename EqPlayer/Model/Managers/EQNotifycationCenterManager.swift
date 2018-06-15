@@ -13,12 +13,15 @@ class EQNotifycationCenterManager {
         NotificationCenter.default.post(name: name, object: nil)
     }
 
-    static func addObserver(observer: AnyObject, selector: Selector, notification: Notification.Name) {
+    static func addObserver(observer: AnyObject,
+                            selector: Selector,
+                            notification: Notification.Name) {
         NotificationCenter.default
             .addObserver(observer, selector: selector, name: notification, object: nil)
     }
 
-    static func removeObseve(observer: AnyObject, name: Notification.Name) {
+    static func removeObseve(observer: AnyObject,
+                             name: Notification.Name) {
         NotificationCenter.default.removeObserver(observer, name: name, object: nil)
     }
 }

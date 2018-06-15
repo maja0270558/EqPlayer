@@ -182,12 +182,9 @@ extension EQScrollableViewController: UIScrollViewDelegate {
         }
     }
 
-    @objc func setupCell(cell _: UICollectionViewCell, atIndex _: Int) {
-    }
+    @objc func setupCell(cell _: UICollectionViewCell, atIndex _: Int) {}
 
-    @objc func customizeTopItemWhenScrolling(_: CGFloat = 0) {
-    }
+    @objc func customizeTopItemWhenScrolling(_: CGFloat = 0) {}
 
-    @objc func setupCollectionLayout() {
-    }
+    @objc func setupCollectionLayout() {}
 }

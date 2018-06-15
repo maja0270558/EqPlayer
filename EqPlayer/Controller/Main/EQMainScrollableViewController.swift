@@ -34,7 +34,6 @@ class EQMainScrollableViewController: EQScrollableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         appendScrollableChildController()
         registerCollectionCell()
         subscribeNotification()
@@ -85,17 +84,14 @@ class EQMainScrollableViewController: EQScrollableViewController {
         let type = event?.subtype
         switch type! {
         case .remoteControlPlay:
-            EQSpotifyManager.shard.playOrPause(isPlay: true) {
-            }
+            EQSpotifyManager.shard.playOrPause(isPlay: true)
         case .remoteControlPause:
-            EQSpotifyManager.shard.playOrPause(isPlay: false) {
-            }
-        case .remoteControlStop: break
-        case .remoteControlTogglePlayPause: break
+            EQSpotifyManager.shard.playOrPause(isPlay: false)
         case .remoteControlNextTrack:
             EQSpotifyManager.shard.skip()
         case .remoteControlPreviousTrack:
             EQSpotifyManager.shard.previous()
+        case .remoteControlStop, .remoteControlTogglePlayPause: break
         default:
             break
         }
@@ -144,15 +140,15 @@ class EQMainScrollableViewController: EQScrollableViewController {
         EQSpotifyManager.shard.delegate = self
     }
 
+    func registerCollectionCell() {
+        let iconNib = UINib(nibName: "EQIconCollectionViewCell", bundle: nil)
+        topCollectionView.register(iconNib, forCellWithReuseIdentifier: "EQIconCollectionViewCell")
+    }
+
     override func setupCell(cell: UICollectionViewCell, atIndex: Int) {
         if let iconCell = cell as? EQIconCollectionViewCell {
             iconCell.iconImageView.image = topIcon[atIndex]
         }
-    }
-
-    func registerCollectionCell() {
-        let iconNib = UINib(nibName: "EQIconCollectionViewCell", bundle: nil)
-        topCollectionView.register(iconNib, forCellWithReuseIdentifier: "EQIconCollectionViewCell")
     }
 
     override func customizeTopItemWhenScrolling(_ currentIndex: CGFloat = 0) {
@@ -242,10 +238,10 @@ extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
         case .project:
             playerView.durationSlider.maximumValue = Float(track.duration)
             playerView.maxDurationLabel.text = "-" + track.duration.stringFromTimeInterval()
-            playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: []) { image, _, _, _ in
-                self.playerView.blurCoverBackground(source: image!)
-                self.info[MPNowPlayingInfoPropertyPlaybackRate] = 1
-                self.setLockScreenDisplay(model: track, cover: image!)
+            playerView.coverImageView.sd_setImage(with: URL(string: track.albumCoverArtURL!), placeholderImage: #imageLiteral(resourceName: "vinyl"), options: []) { [weak self] image, _, _, _ in
+                self?.playerView.blurCoverBackground(source: image!)
+                self?.info[MPNowPlayingInfoPropertyPlaybackRate] = 1
+                self?.setLockScreenDisplay(model: track, cover: image!)
             }
             playerView.artistNameLabel.text = track.artistName
             playerView.trackNameLabel.text = track.name

@@ -42,7 +42,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
         ofNode destinationNode: AUNode,
         in graph: AUGraph!
     ) throws {
-        // 定義nodetype
+        // 定義 nodetype
         var desc = AudioComponentDescription(
             componentType: kAudioUnitType_Effect,
             componentSubType: kAudioUnitSubType_NBandEQ,
@@ -55,7 +55,7 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
 
         var maxFPS: UInt32 = 4096
         // 要在出初始化之前不然會報錯
-        // 設定最大Ｆrame
+        // 設定最大 frame 使 lockscreen 可播放
         let status2 = AudioUnitSetProperty(
             eqUnit!,
             kAudioUnitProperty_MaximumFramesPerSlice,
@@ -71,10 +71,10 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
 
         // 幾個band
         var eqFreq: [UInt32] = [25, 40, 63, 100, 160, 250, 400, 640, 1000, 1600, 2500, 4000, 6300, 10000, 16000]
-        // 20 -band [32,44,63,88,125,180,250,355,500,710,1000,1400,2000,2800,4000,5600,8000,11300,16000,22000]
-        // 6  -band [32, 250, 500, 1000, 2000, 16000]
-        // 10 -band [32, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
-        // 15 -band [25,40, 63, 100, 250, 400, 640, 1000, 1600, 2500, 4000,6300,10000,16000]
+        // 20 - band [32,44,63,88,125,180,250,355,500,710,1000,1400,2000,2800,4000,5600,8000,11300,16000,22000]
+        // 6  - band [32, 250, 500, 1000, 2000, 16000]
+        // 10 - band [32, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
+        // 15 - band [25,40, 63, 100, 250, 400, 640, 1000, 1600, 2500, 4000,6300,10000,16000]
 
         var eqBypass = Array(repeating: 0, count: eqFreq.count)
         var noBands: UInt32 = UInt32(eqFreq.count)
@@ -111,9 +111,6 @@ class EQSpotifyCoreAudioController: SPTCoreAudioController {
                 AudioUnitParameterValue(eqBypass[Int(index)]),
                 0)
         }
-
-        // MARK: connect
-
         AUGraphConnectNodeInput(graph, sourceNode, sourceOutputBusNumber, eqNode, 0)
         AUGraphConnectNodeInput(graph, eqNode, 0, destinationNode, destinationInputBusNumber)
     }

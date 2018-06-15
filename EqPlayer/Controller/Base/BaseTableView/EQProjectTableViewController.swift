@@ -41,13 +41,11 @@ class EQProjectTableViewController: UIViewController {
         EQNotifycationCenterManager.removeObseve(observer: self, name: Notification.Name.eqProjectDelete)
     }
 
-    func configCell(data _: EQProjectModelProtocol, cell _: UITableViewCell, indexPath _: IndexPath) {
-        return
-    }
+    func configCell(data _: EQProjectModelProtocol,
+                    cell _: UITableViewCell,
+                    indexPath _: IndexPath) {}
 
-    func reloadTableView() {
-        return
-    }
+    func reloadTableView() {}
 }
 
 extension EQProjectTableViewController: TableViewDelegateAndDataSource {

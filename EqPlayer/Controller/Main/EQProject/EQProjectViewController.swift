@@ -21,7 +21,6 @@ class EQProjectViewController: EQTrackTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupAddTrackView()
         setupEditBandView()
         controllerInit()
@@ -37,11 +36,14 @@ class EQProjectViewController: EQTrackTableViewController {
 
     func setupAddTrackView() {
         addTrackView.addTrack = { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
             if let playlistViewController = UIStoryboard.eqProjectStoryBoard().instantiateInitialViewController() as? EQSelectTrackViewController {
                 playlistViewController.modalPresentationStyle = .overCurrentContext
                 playlistViewController.modalTransitionStyle = .crossDissolve
-                playlistViewController.eqSettingManager = (self?.eqSettingManager)!
-                self?.present(playlistViewController, animated: true, completion: nil)
+                playlistViewController.eqSettingManager = strongSelf.eqSettingManager
+                strongSelf.present(playlistViewController, animated: true, completion: nil)
             }
         }
     }
@@ -110,10 +112,8 @@ class EQProjectViewController: EQTrackTableViewController {
             let close = DefaultButton(title: "直接關閉", height: 60) {
                 self.backToMain()
             }
-
             switch eqSettingManager.tempModel.status {
             case .saved, .post:
-
                 let temp = DefaultButton(title: "儲存", height: 60) {
                     self.save()
                 }
@@ -130,8 +130,6 @@ class EQProjectViewController: EQTrackTableViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
                 popup.addButtons([cancel, temp, close])
-            case .post:
-                break
             }
             present(popup, animated: true, completion: nil)
         } else {
@@ -149,7 +147,6 @@ class EQProjectViewController: EQTrackTableViewController {
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
-
         let finalOffset = -offset - topParentView.bounds.height
         topParentView.frame.origin.y = finalOffset
         if offset > -addTrackView.bounds.height {

@@ -11,8 +11,7 @@ import RealmSwift
 
 class EQRealmManager {
     static let shard = EQRealmManager()
-    private init() {
-    }
+    private init() {}
 
     let realm = try? Realm()
 

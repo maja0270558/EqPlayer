@@ -139,9 +139,9 @@ extension EQUserViewController: EQSaveProjectCellDelegate {
 
             }, edit: { _ in
                 if let eqProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQProjectViewController.self)) as? EQProjectViewController {
+                    let eqSettingManager = EQSettingModelManager(model: data)
                     eqProjectViewController.modalPresentationStyle = .overCurrentContext
                     eqProjectViewController.modalTransitionStyle = .crossDissolve
-                    let eqSettingManager = EQSettingModelManager(model: data)
                     eqProjectViewController.eqSettingManager = eqSettingManager
                     mainVC.present(eqProjectViewController, animated: true, completion: nil)
                 }

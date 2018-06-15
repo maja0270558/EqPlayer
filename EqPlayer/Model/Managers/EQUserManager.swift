@@ -20,7 +20,7 @@ class EQUserManager {
     static let shard = EQUserManager()
     var userUID = "none"
     var userStatus: UserStatus {
-        if let session = EQSpotifyManager.shard.auth?.session {
+        if let auth = EQSpotifyManager.shard.auth, let session = auth.session {
             if !session.isValid() {
                 return UserStatus.guest
             } else {
@@ -70,6 +70,9 @@ class EQUserManager {
     }
 
     func getUser() -> EQUserModel {
+        if EQUserManager.shard.userStatus == .guest {
+            return EQUserModel(name: "訪客", email: "", photoURL: nil)
+        }
         let name = getUserName()
         let email = getUserEmail()
         let photo = getUserPhotoURL()

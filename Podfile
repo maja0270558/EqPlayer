@@ -21,4 +21,10 @@ target 'EqPlayer' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'SwiftLint'
+
+ target 'EqPlayerTests' do
+        inherit! :search_paths
+        pod 'Firebase'
+    end
+
 end

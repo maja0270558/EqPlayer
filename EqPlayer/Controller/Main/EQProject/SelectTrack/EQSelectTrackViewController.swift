@@ -112,17 +112,15 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
         tracklistController?.tableViewData?.removeAll()
         tracklistController?.trackTableView.reloadData()
 
-        SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { error, snapshot in
+        SPTPlaylistSnapshot.playlist(withURI: playlist.uri, accessToken: EQSpotifyManager.shard.auth?.session.accessToken) { [weak self] error, snapshot in
             if error != nil {
                 return
             }
-
             if let snap = snapshot as? SPTPlaylistSnapshot, let trackListPage = snap.firstTrackPage.items as? [SPTPlaylistTrack] {
-                self.tracklistController?.tableViewData = trackListPage
-                self.tracklistController?.trackTableView.reloadDataUpdateFade()
-
+                self?.tracklistController?.tableViewData = trackListPage
+                self?.tracklistController?.trackTableView.reloadDataUpdateFade()
                 if snap.firstTrackPage.hasNextPage {
-                    self.getNextPageTrack(currentPage: snap.firstTrackPage)
+                    self?.getNextPageTrack(currentPage: snap.firstTrackPage)
                 }
             }
         }
@@ -130,13 +128,12 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
     }
 
     func getNextPageTrack(currentPage: SPTListPage) {
-        currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { _, response in
+        currentPage.requestNextPage(withAccessToken: EQSpotifyManager.shard.auth?.session.accessToken, callback: { [weak self] _, response in
             if let page = response as? SPTListPage, let trackList = page.items as? [SPTPlaylistTrack] {
-                self.tracklistController?.tableViewData!.append(contentsOf: trackList)
-                self.tracklistController?.trackTableView.reloadDataUpdateFade()
-
+                self?.tracklistController?.tableViewData!.append(contentsOf: trackList)
+                self?.tracklistController?.trackTableView.reloadDataUpdateFade()
                 if page.hasNextPage {
-                    self.getNextPageTrack(currentPage: page)
+                    self?.getNextPageTrack(currentPage: page)
                 }
             }
         })
@@ -146,10 +143,10 @@ extension EQSelectTrackViewController: EQPlaylistTableViewControllerDelegate {
 extension EQSelectTrackViewController: UISearchBarDelegate, EQSearchViewControllerDelegate {
     func didDismiss() {
         tracklistController?.trackTableView.reloadDataUpdateFade()
-        UIView.animate(withDuration: 0.25, animations: {
-            self.identityAnimation()
-        }, completion: { _ in
-            self.resignFirstResponder()
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            self?.identityAnimation()
+        }, completion: { [weak self] _ in
+            self?.resignFirstResponder()
         })
     }
 
@@ -166,15 +163,20 @@ extension EQSelectTrackViewController: UISearchBarDelegate, EQSearchViewControll
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
 
-        UIView.animate(withDuration: 0.25, animations: {
-            self.moveUpAnimation()
-        }, completion: { _ in
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            self?.moveUpAnimation()
+        }, completion: { [weak self] _ in
+
+            guard let strongSelf = self,
+                let settingData = strongSelf.eqSettingManager else {
+                return
+            }
             if let searchViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(withIdentifier: String(describing: EQSearchViewController.self)) as? EQSearchViewController {
                 searchViewController.modalPresentationStyle = .overCurrentContext
                 searchViewController.modalTransitionStyle = .crossDissolve
                 searchViewController.searchViewControllerdelegate = self
-                searchViewController.eqSettingManager = (self.eqSettingManager)!
-                self.present(searchViewController, animated: true, completion: nil)
+                searchViewController.eqSettingManager = settingData
+                self?.present(searchViewController, animated: true, completion: nil)
             }
         })
     }

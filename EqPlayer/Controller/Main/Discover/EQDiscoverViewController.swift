@@ -25,11 +25,12 @@ class EQDiscoverViewController: EQProjectTableViewController {
             self?.projectData = discoverModelDatas
             self?.tableView.reloadData()
             discoverModelDatas.forEach({ model in
-                EQFirebaseManager.getUser(withUID: model.postUserUID, failedHandler: {
-                }, completion: { userModel in
-                    model.postUserPhotoURL = (userModel.photoURL?.absoluteString)!
-                    self?.projectData = discoverModelDatas
-                    self?.tableView.reloadData()
+                EQFirebaseManager.getUser(withUID: model.postUserUID,
+                                          failedHandler: {},
+                                          completion: { userModel in
+                                              model.postUserPhotoURL = (userModel.photoURL?.absoluteString)!
+                                              self?.projectData = discoverModelDatas
+                                              self?.tableView.reloadData()
                 })
             })
         }
@@ -61,8 +62,11 @@ class EQDiscoverViewController: EQProjectTableViewController {
         discoverCell.cellEQChartView.alpha = 0
         discoverCell.cellEQChartView.isUserInteractionEnabled = false
         discoverCell.selectionStyle = .none
-        discoverCell.setDiscsImage(imageURLs: Array(imageURLs)) {
-            let color = self.getProperColor(color: (discoverCell.discImageLarge.image?.getPixelColor(discoverCell.discImageLarge.center))!)
+        discoverCell.setDiscsImage(imageURLs: Array(imageURLs)) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            let color = strongSelf.getProperColor(color: (discoverCell.discImageLarge.image?.getPixelColor(discoverCell.discImageLarge.center))!)
             discoverCell.cellEQChartView.setChart(15, color: color, style: .cell)
             discoverCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
             discoverCell.cellIndicator.stopAnimating()

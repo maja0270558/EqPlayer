@@ -39,6 +39,7 @@
 		EB4ABBDF209EF92F006D124D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBDE209EF92F006D124D /* Assets.xcassets */; };
 		EB4ABBE2209EF92F006D124D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBE0209EF92F006D124D /* LaunchScreen.storyboard */; };
 		EB4ABBEA209EFCB5006D124D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */; };
+		EB4BE32020CFD60800E7B608 /* EQSettingModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4BE31F20CFD60800E7B608 /* EQSettingModelTest.swift */; };
 		EB52374120AD77200017FA1F /* EQProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB52374020AD77200017FA1F /* EQProjectModel.swift */; };
 		EB52374320AD9A6E0017FA1F /* EQNotifycationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB52374220AD9A6E0017FA1F /* EQNotifycationCenterManager.swift */; };
 		EB52374520ADB1330017FA1F /* EQRealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB52374420ADB1330017FA1F /* EQRealmManager.swift */; };
@@ -91,6 +92,7 @@
 		EBB1C22420A7E14800D21788 /* EQMainScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB1C22320A7E14800D21788 /* EQMainScrollableViewController.swift */; };
 		EBB5313720B7B62D009F157C /* +EQUITableViewCellExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5313620B7B62D009F157C /* +EQUITableViewCellExtention.swift */; };
 		EBC4629620AD277800AE5FB9 /* EQCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC4629520AD277800AE5FB9 /* EQCustomButton.swift */; };
+		EBCBE7FF20D1097200BF37AF /* EQFirebaseManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCBE7FE20D1097200BF37AF /* EQFirebaseManagerTest.swift */; };
 		EBD7955A20A2E2C10057A969 /* EQCustomToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD7955920A2E2C10057A969 /* EQCustomToolBarView.swift */; };
 		EBD7955C20A2E2E10057A969 /* EQCustomToolBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBD7955B20A2E2E10057A969 /* EQCustomToolBarView.xib */; };
 		EBD7955E20A2E4AE0057A969 /* +UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD7955D20A2E4AE0057A969 /* +UIViewExtention.swift */; };
@@ -103,11 +105,24 @@
 		EBE65D8720A483B2001A9E42 /* EQSelectTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D8620A483B2001A9E42 /* EQSelectTrackViewController.swift */; };
 		EBE65D8920A48A47001A9E42 /* EQCustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE65D8820A48A47001A9E42 /* EQCustomSearchBar.swift */; };
 		EBF3264B20AEDE410007526B /* +EQEnumExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF3264A20AEDE410007526B /* +EQEnumExtention.swift */; };
+		F6F3EE4C3A76190C74602D60 /* Pods_EqPlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF5F3F2C6A03D677068536F1 /* Pods_EqPlayerTests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EB4BE32220CFD60800E7B608 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EB4ABBCC209EF92D006D124D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EB4ABBD3209EF92D006D124D;
+			remoteInfo = EqPlayer;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EqPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		C18E352A3D09B0C906E34111 /* Pods-EqPlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayerTests/Pods-EqPlayerTests.release.xcconfig"; sourceTree = "<group>"; };
+		C577EAAFEADCDD064B65D897 /* Pods-EqPlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayerTests/Pods-EqPlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EB04334B209F03D700616EB9 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		EB04334C209F03D700616EB9 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
 		EB04334D209F03D800616EB9 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
@@ -142,6 +157,9 @@
 		EB4ABBE1209EF92F006D124D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB4ABBE3209EF92F006D124D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB4ABBE9209EFCB5006D124D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB4BE31D20CFD60800E7B608 /* EqPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EqPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB4BE31F20CFD60800E7B608 /* EQSettingModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSettingModelTest.swift; sourceTree = "<group>"; };
+		EB4BE32120CFD60800E7B608 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB52374020AD77200017FA1F /* EQProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQProjectModel.swift; sourceTree = "<group>"; };
 		EB52374220AD9A6E0017FA1F /* EQNotifycationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQNotifycationCenterManager.swift; sourceTree = "<group>"; };
 		EB52374420ADB1330017FA1F /* EQRealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQRealmManager.swift; sourceTree = "<group>"; };
@@ -194,6 +212,7 @@
 		EBB1C22320A7E14800D21788 /* EQMainScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMainScrollableViewController.swift; sourceTree = "<group>"; };
 		EBB5313620B7B62D009F157C /* +EQUITableViewCellExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQUITableViewCellExtention.swift"; sourceTree = "<group>"; };
 		EBC4629520AD277800AE5FB9 /* EQCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomButton.swift; sourceTree = "<group>"; };
+		EBCBE7FE20D1097200BF37AF /* EQFirebaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQFirebaseManagerTest.swift; sourceTree = "<group>"; };
 		EBD7955920A2E2C10057A969 /* EQCustomToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomToolBarView.swift; sourceTree = "<group>"; };
 		EBD7955B20A2E2E10057A969 /* EQCustomToolBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQCustomToolBarView.xib; sourceTree = "<group>"; };
 		EBD7955D20A2E4AE0057A969 /* +UIViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+UIViewExtention.swift"; sourceTree = "<group>"; };
@@ -207,6 +226,7 @@
 		EBE65D8820A48A47001A9E42 /* EQCustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQCustomSearchBar.swift; sourceTree = "<group>"; };
 		EBF3264A20AEDE410007526B /* +EQEnumExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+EQEnumExtention.swift"; sourceTree = "<group>"; };
 		EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EqPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EqPlayer/Pods-EqPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		FF5F3F2C6A03D677068536F1 /* Pods_EqPlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EqPlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +243,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB4BE31A20CFD60800E7B608 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6F3EE4C3A76190C74602D60 /* Pods_EqPlayerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -232,6 +260,7 @@
 				EB043357209F052A00616EB9 /* SystemConfiguration.framework */,
 				EB043355209F051600616EB9 /* AVFoundation.framework */,
 				2B50D90B6D81B6C290479932 /* Pods_EqPlayer.framework */,
+				FF5F3F2C6A03D677068536F1 /* Pods_EqPlayerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -241,6 +270,8 @@
 			children = (
 				EF286DDD03CF9E1A5D8DEC5A /* Pods-EqPlayer.debug.xcconfig */,
 				9D884D42C27229B5D4939D7E /* Pods-EqPlayer.release.xcconfig */,
+				C577EAAFEADCDD064B65D897 /* Pods-EqPlayerTests.debug.xcconfig */,
+				C18E352A3D09B0C906E34111 /* Pods-EqPlayerTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -370,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				EB4ABBD6209EF92D006D124D /* EqPlayer */,
+				EB4BE31E20CFD60800E7B608 /* EqPlayerTests */,
 				EB4ABBD5209EF92D006D124D /* Products */,
 				2F55842F6198D93E1079B769 /* Pods */,
 				1224413986664437A4EB16AA /* Frameworks */,
@@ -380,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				EB4ABBD4209EF92D006D124D /* EqPlayer.app */,
+				EB4BE31D20CFD60800E7B608 /* EqPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -451,6 +484,16 @@
 				EB5B0B4720A072550056E8D6 /* EQCollectionViewFlowLayout.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		EB4BE31E20CFD60800E7B608 /* EqPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				EBCBE7FE20D1097200BF37AF /* EQFirebaseManagerTest.swift */,
+				EB4BE31F20CFD60800E7B608 /* EQSettingModelTest.swift */,
+				EB4BE32120CFD60800E7B608 /* Info.plist */,
+			);
+			path = EqPlayerTests;
 			sourceTree = "<group>";
 		};
 		EB5B0B2E20A003E70056E8D6 /* StoryBoards */ = {
@@ -725,6 +768,26 @@
 			productReference = EB4ABBD4209EF92D006D124D /* EqPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EB4BE31C20CFD60800E7B608 /* EqPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB4BE32620CFD60800E7B608 /* Build configuration list for PBXNativeTarget "EqPlayerTests" */;
+			buildPhases = (
+				84550144E415626DEF7D497E /* [CP] Check Pods Manifest.lock */,
+				EB4BE31920CFD60800E7B608 /* Sources */,
+				EB4BE31A20CFD60800E7B608 /* Frameworks */,
+				EB4BE31B20CFD60800E7B608 /* Resources */,
+				1D36983E0F2009340BD8E95A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EB4BE32320CFD60800E7B608 /* PBXTargetDependency */,
+			);
+			name = EqPlayerTests;
+			productName = EqPlayerTests;
+			productReference = EB4BE31D20CFD60800E7B608 /* EqPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -750,6 +813,10 @@
 							};
 						};
 					};
+					EB4BE31C20CFD60800E7B608 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = EB4ABBD3209EF92D006D124D;
+					};
 				};
 			};
 			buildConfigurationList = EB4ABBCF209EF92D006D124D /* Build configuration list for PBXProject "EqPlayer" */;
@@ -766,6 +833,7 @@
 			projectRoot = "";
 			targets = (
 				EB4ABBD3209EF92D006D124D /* EqPlayer */,
+				EB4BE31C20CFD60800E7B608 /* EqPlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -800,9 +868,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB4BE31B20CFD60800E7B608 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1D36983E0F2009340BD8E95A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EqPlayerTests/Pods-EqPlayerTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EqPlayerTests/Pods-EqPlayerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2319F33B21B9DDB92EA14D76 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -821,6 +916,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		84550144E415626DEF7D497E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EqPlayerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8C39AA07ACC597F0BCA594EC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -831,7 +944,7 @@
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Lerp/Lerp.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
@@ -969,7 +1082,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB4BE31920CFD60800E7B608 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBCBE7FF20D1097200BF37AF /* EQFirebaseManagerTest.swift in Sources */,
+				EB4BE32020CFD60800E7B608 /* EQSettingModelTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EB4BE32320CFD60800E7B608 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EB4ABBD3209EF92D006D124D /* EqPlayer */;
+			targetProxy = EB4BE32220CFD60800E7B608 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EB4ABBE0209EF92F006D124D /* LaunchScreen.storyboard */ = {
@@ -1298,6 +1428,52 @@
 			};
 			name = Release;
 		};
+		EB4BE32420CFD60800E7B608 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C577EAAFEADCDD064B65D897 /* Pods-EqPlayerTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2CY3RX8F76;
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/Core/Sources";
+				INFOPLIST_FILE = EqPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EqPlayer.app/EqPlayer";
+			};
+			name = Debug;
+		};
+		EB4BE32520CFD60800E7B608 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C18E352A3D09B0C906E34111 /* Pods-EqPlayerTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2CY3RX8F76;
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Firebase/Core/Sources";
+				INFOPLIST_FILE = EqPlayerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Django.EqPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EqPlayer.app/EqPlayer";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1315,6 +1491,15 @@
 			buildConfigurations = (
 				EB4ABBE7209EF92F006D124D /* Debug */,
 				EB4ABBE8209EF92F006D124D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EB4BE32620CFD60800E7B608 /* Build configuration list for PBXNativeTarget "EqPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB4BE32420CFD60800E7B608 /* Debug */,
+				EB4BE32520CFD60800E7B608 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

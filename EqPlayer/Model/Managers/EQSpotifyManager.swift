@@ -25,18 +25,17 @@ enum EQPlayingType {
 class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStreamingDelegate, SPTCoreAudioControllerDelegate {
     static let shard: EQSpotifyManager = EQSpotifyManager()
     weak var delegate: EQSpotifyManagerDelegate?
-    var currentSetting = [Double]()
-    let durationObseve = EQPlayerDurationObseveModel()
-    var obsever: NSKeyValueObservation?
-    let userDefaults = UserDefaults.standard
+
     var player = SPTAudioStreamingController.sharedInstance()
     var auth = SPTAuth.defaultInstance()
-    var authViewController: SFSafariViewController?
-    var loginURL: URL?
     var coreAudioController = EQSpotifyCoreAudioController()
+    var authViewController: SFSafariViewController?
+    let userDefaults = UserDefaults.standard
+    let durationObseve = EQPlayerDurationObseveModel()
+
+    var currentSetting = [Double]()
+    var loginURL: URL?
     var currentPlayIndex: Int = 0
-    var playbackBackgroundTask = UIBackgroundTaskIdentifier()
-    var eqSettingForPreview: [Float] = Array(repeating: 0, count: 15)
     var currentPlayingType: EQPlayingType = .none
     var previousPreviewURLString: String = ""
     private var trackList: [String] = [String]()
@@ -44,36 +43,31 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     func setupAuth() {
         auth?.clientID = EQSpotifyClientInfo.clientID.rawValue
         auth?.redirectURL = URL(string: EQSpotifyClientInfo.redirectURL.rawValue)!
-        auth?.requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthUserReadEmailScope, SPTAuthUserReadPrivateScope]
+        auth?.requestedScopes = [
+            SPTAuthStreamingScope,
+            SPTAuthPlaylistReadPrivateScope,
+            SPTAuthUserReadEmailScope,
+            SPTAuthUserReadPrivateScope
+        ]
         auth?.sessionUserDefaultsKey = EQSpotifyClientInfo.sessionKey.rawValue
+
         loginURL = auth?.spotifyWebAuthenticationURL()
         NotificationCenter.default.addObserver(self, selector: #selector(EQSpotifyManager.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessfull"), object: nil)
     }
 
     @objc func updateAfterFirstLogin() {
-        guard let session = auth?.session else {
-            fatalError("session nil")
-        }
+        guard let session = auth?.session else { fatalError("session nil") }
+
         initializePlayer(authSession: session)
     }
 
     func initializePlayer(authSession: SPTSession) {
-        guard let userAuth = auth else {
-            return
-        }
-        player!.playbackDelegate = self
-        player!.delegate = self
-        do {
-            try player?.start(withClientId: userAuth.clientID, audioController: coreAudioController, allowCaching: false)
-        } catch {
-            print("error")
-        }
-        player!.login(withAccessToken: authSession.accessToken)
-    }
+        guard let userAuth = auth else { return }
 
-    func popLoginViewController() {
-        authViewController = SFSafariViewController(url: loginURL!)
-        UIApplication.shared.keyWindow?.rootViewController?.present(authViewController!, animated: true, completion: nil)
+        player?.playbackDelegate = self
+        player?.delegate = self
+        try? player?.start(withClientId: userAuth.clientID, audioController: coreAudioController, allowCaching: false)
+        player?.login(withAccessToken: authSession.accessToken)
     }
 
     func login() {
@@ -90,23 +84,29 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
 
     func getSession() -> Data? {
         let session = UserDefaults.standard.value(forKey: EQSpotifyClientInfo.sessionKey.rawValue)
-        guard let data = session as? Data else {
-            return nil
-        }
+
+        guard let data = session as? Data else { return nil }
         return data
+    }
+
+    func popLoginViewController() {
+        authViewController = SFSafariViewController(url: loginURL!)
+        UIApplication.shared.keyWindow?.rootViewController?.present(authViewController!, animated: true, completion: nil)
     }
 }
 
+// Music
 extension EQSpotifyManager {
     func setupLockScreen() {
         let commandCenter = MPRemoteCommandCenter.shared()
+
         commandCenter.nextTrackCommand.isEnabled = true
         commandCenter.nextTrackCommand.addTarget(self, action: #selector(skip))
         commandCenter.previousTrackCommand.addTarget(self, action: #selector(previous))
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [MPMediaItemPropertyTitle: "TESTING"]
     }
 
-    func playOrPause(isPlay: Bool, completion: @escaping () -> Void) {
+    func playOrPause(isPlay: Bool, completion: @escaping () -> Void = {}) {
         switch currentPlayingType {
         case .preview:
             playFromLastDuration()
@@ -123,7 +123,9 @@ extension EQSpotifyManager {
         }
     }
 
-    func playPreview(uri: String, duration: Double, callback: @escaping () -> Void = { return }) {
+    func playPreview(uri: String,
+                     duration: Double,
+                     callback: @escaping () -> Void = { return }) {
         currentPlayingType = .preview
         player?.playSpotifyURI(uri, startingWith: 0, startingWithPosition: duration / 2, callback: { error in
             if error != nil {
@@ -142,11 +144,14 @@ extension EQSpotifyManager {
 
     func playTrack() {
         currentPlayingType = .project
-        player?.playSpotifyURI(trackList[self.currentPlayIndex], startingWith: 0, startingWithPosition: 0, callback: { error in
-            if error != nil {
-                print(error.debugDescription + "----->")
-                return
-            }
+        player?.playSpotifyURI(trackList[self.currentPlayIndex],
+                               startingWith: 0,
+                               startingWithPosition: 0,
+                               callback: { error in
+                                   if error != nil {
+                                       print(error.debugDescription + "----->")
+                                       return
+                                   }
         })
     }
 
@@ -154,20 +159,20 @@ extension EQSpotifyManager {
         if currentPlayingType != .project {
             currentPlayingType = .project
             if trackList.count > 0 {
-                player?.playSpotifyURI(durationObseve.currentPlayingURI, startingWith: 0, startingWithPosition: durationObseve.currentDuration, callback: { error in
-                    if error != nil {
-                        print(error.debugDescription + "----->")
-                        return
-                    }
+                player?.playSpotifyURI(durationObseve.currentPlayingURI,
+                                       startingWith: 0,
+                                       startingWithPosition: durationObseve.currentDuration,
+                                       callback: { error in
+                                           if error != nil {
+                                               print(error.debugDescription + "----->")
+                                               return
+                                           }
                 })
             } else {
                 playOrPause(isPlay: false) {
                 }
             }
         }
-    }
-
-    func checkIsModifyCurrentModel() {
     }
 
     @objc func skip() {
@@ -204,11 +209,13 @@ extension EQSpotifyManager {
             coreAudioController.setGain(value: bandValues[index], forBandAt: UInt32(index))
         }
     }
-  func setGain(setting: [Double]) {
-    for index in 0 ..< setting.count {
-      coreAudioController.setGain(value: Float(setting[index]), forBandAt: UInt32(index))
+
+    func setGain(setting: [Double]) {
+        for index in 0 ..< setting.count {
+            coreAudioController.setGain(value: Float(setting[index]), forBandAt: UInt32(index))
+        }
     }
-  }
+
     func resetPreviewURL() {
         previousPreviewURLString = ""
     }
@@ -217,18 +224,6 @@ extension EQSpotifyManager {
 extension EQSpotifyManager {
     func audioStreamingDidLogin(_: SPTAudioStreamingController!) {
         AppDelegate.shard?.switchToMainStoryBoard()
-    }
-
-    func audioStreamingDidLosePermission(forPlayback _: SPTAudioStreamingController!) {
-        print("lose")
-    }
-
-    func audioStreamingDidEncounterTemporaryConnectionError(_: SPTAudioStreamingController!) {
-        print("encount")
-    }
-
-    func audioStreaming(_: SPTAudioStreamingController!, didStartPlayingTrack _: String!) {
-        print("start")
     }
 
     func audioStreaming(_: SPTAudioStreamingController!, didStopPlayingTrack _: String!) {

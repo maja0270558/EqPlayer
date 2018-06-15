@@ -25,7 +25,6 @@ class EQFirebaseManager {
     static func createUserIfNotExist(withEmail: String, password: String, succesfullyLoginCallBack: @escaping () -> Void = { return }) {
         Auth.auth().createUser(withEmail: withEmail, password: password) {
             _, error in
-
             if let loginError = error, let errCode = AuthErrorCode(rawValue: loginError._code) {
                 switch errCode {
                 case .emailAlreadyInUse:

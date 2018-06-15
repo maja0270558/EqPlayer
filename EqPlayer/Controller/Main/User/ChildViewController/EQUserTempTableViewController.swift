@@ -48,8 +48,11 @@ class EQUserTempTableViewController: EQProjectTableViewController {
         postCell.cellEQChartView.alpha = 0
         postCell.cellEQChartView.isUserInteractionEnabled = false
 
-        postCell.setDiscsImage(imageURLs: Array(imageURLs)) {
-            let color = self.getProperColor(color: (postCell.discImageLarge.image?.getPixelColor(postCell.discImageLarge.center))!)
+        postCell.setDiscsImage(imageURLs: Array(imageURLs)) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            let color = strongSelf.getProperColor(color: (postCell.discImageLarge.image?.getPixelColor(postCell.discImageLarge.center))!)
             postCell.cellEQChartView.setChart(15, color: color, style: .cell)
             postCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
             postCell.cellIndicator.stopAnimating()

@@ -58,8 +58,11 @@ class EQUserSavedTableViewController: EQProjectTableViewController {
         saveCell.cellEQChartView.alpha = 0
         saveCell.cellEQChartView.isUserInteractionEnabled = false
 
-        saveCell.setDiscsImage(imageURLs: Array(imageURLs)) {
-            let color = self.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
+        saveCell.setDiscsImage(imageURLs: Array(imageURLs)) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            let color = strongSelf.getProperColor(color: (saveCell.discImageLarge.image?.getPixelColor(saveCell.discImageLarge.center))!)
             saveCell.cellEQChartView.setChart(15, color: color, style: .cell)
             saveCell.cellEQChartView.setEntryValue(yValues: Array(eqModel.eqSetting))
             saveCell.cellIndicator.stopAnimating()

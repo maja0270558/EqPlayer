@@ -46,29 +46,34 @@ class EQPannableViewController: UIViewController {
                     (velocity.y > minimumVelocityToHide)
 
                 if closing {
-                    UIView.animate(withDuration: animationDuration, animations: {
-                        self.view.alpha = 0
-                        self.slideViewVerticallyTo(self.view.frame.size.height)
-                    }, completion: { isCompleted in
-                        if isCompleted {
-                            self.onDismiss()
-                        }
+                    UIView.animate(withDuration: animationDuration,
+                                   animations: { [weak self] in
+                                       guard let strongSelf = self else {
+                                           return
+                                       }
+                                       self?.view.alpha = 0
+                                       self?.slideViewVerticallyTo(strongSelf.view.frame.size.height)
+                                   },
+                                   completion: { [weak self] isCompleted in
+                                       if isCompleted {
+                                           self?.onDismiss()
+                                       }
                     })
                 } else {
                     backToAppear()
                 }
             default:
-                UIView.animate(withDuration: animationDuration, animations: {
-                    self.slideViewVerticallyTo(0)
+                UIView.animate(withDuration: animationDuration, animations: { [weak self] in
+                    self?.slideViewVerticallyTo(0)
                 })
             }
         }
     }
 
     func backToAppear() {
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.slideViewVerticallyTo(0)
-            self.view.alpha = 1
+        UIView.animate(withDuration: animationDuration, animations: { [weak self] in
+            self?.slideViewVerticallyTo(0)
+            self?.view.alpha = 1
         })
     }
 
