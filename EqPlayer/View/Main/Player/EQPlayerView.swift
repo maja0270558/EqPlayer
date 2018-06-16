@@ -142,11 +142,12 @@ class EQPlayerView: EQPlayerPannableView {
             return
         }
 
-        guard let metadata = EQSpotifyManager.shard.player?.metadata else {
+        if EQSpotifyManager.shard.player?.getMetadata() == nil {
             sender.value = 0
             return
         }
-        EQSpotifyManager.shard.player?.seek(to: TimeInterval(sender.value), callback: nil)
+
+        EQSpotifyManager.shard.player?.seekTo(TimeInterval(sender.value))
     }
 
     func setupVolumeView() {
@@ -256,7 +257,7 @@ class EQPlayerView: EQPlayerPannableView {
         var newSize = currentSize
         newOrigin.y += translation
         newOrigin.y = max(0, newOrigin.y)
-        var factorScale = max(0, newOrigin.y / (UIScreen.main.bounds.height * 0.9))
+        let factorScale = max(0, newOrigin.y / (UIScreen.main.bounds.height * 0.9))
         delegate?.didDragPlayer(factor: factorScale)
         coverWidthConstraint.constant = lerp(factorScale, min: maxCoverWidth, max: minCoverWidth)
         coverVerticleConstraint = coverVerticleConstraint.setMultiplier(multiplier: lerp(factorScale, min: maxVerticleMultiplier, max: minVerticleMultiplier))
@@ -282,7 +283,7 @@ class EQPlayerView: EQPlayerPannableView {
             .scaledBy(x: destination.width / source.width, y: destination.height / source.height)
     }
 
-    func blur(image image: UIImage) -> UIImage {
+    func blur(image: UIImage) -> UIImage {
         let imageToBlur = CIImage(image: image)
         let blurfilter = CIFilter(name: "CIGaussianBlur")
         blurfilter!.setValue(imageToBlur, forKey: "inputImage")

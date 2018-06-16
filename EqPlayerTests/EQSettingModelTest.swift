@@ -22,7 +22,7 @@ class EQSettingModelTest: XCTestCase {
     }
 
     func test_SetBand() {
-        var value: [Double] = [10, 10, 10, 10, 10, 10]
+        let value: [Double] = [10, 10, 10, 10, 10, 10]
         setting.setEQSetting(values: value)
         XCTAssertEqual(setting.tempModel.eqSetting.count, value.count)
     }

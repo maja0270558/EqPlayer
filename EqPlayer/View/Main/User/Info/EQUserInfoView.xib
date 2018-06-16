@@ -29,7 +29,7 @@
                         <constraint firstAttribute="width" secondItem="XYI-0w-Hxq" secondAttribute="height" multiplier="1:1" id="gxn-pH-yug"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Django" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E4J-fj-53a">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Django" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="E4J-fj-53a">
                     <rect key="frame" x="0.0" y="232.5" width="348" height="33.5"/>
                     <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="24"/>
                     <color key="textColor" white="0.89340649319999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

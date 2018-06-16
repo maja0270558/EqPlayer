@@ -55,8 +55,8 @@ class EQTrack: Object, Codable, EQTrackProtocol {
             "name": name,
             "uri": uri,
             "artist": artist,
-            "previewURL": previewURL,
-            "coverURL": coverURL
+            "previewURL": previewURL ?? "",
+            "coverURL": coverURL ?? ""
         ]
     }
 

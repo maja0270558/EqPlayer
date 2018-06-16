@@ -35,7 +35,7 @@ class EQSaveProjectCell: UITableViewCell {
     }
 
     func setDiscsImage(imageURLs: [String], completion: @escaping () -> Void = { return }) {
-        var clampedURLsCount = (imageURLs.count >= 3) ? 3 : imageURLs.count
+        let clampedURLsCount = (imageURLs.count >= 3) ? 3 : imageURLs.count
         resetDiscImage()
         if imageURLs.count < 0 {
             completion()

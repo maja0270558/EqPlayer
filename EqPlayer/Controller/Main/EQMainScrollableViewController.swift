@@ -183,7 +183,7 @@ class EQMainScrollableViewController: EQScrollableViewController {
 
 extension EQMainScrollableViewController: EQPlayerViewDelegate {
     func didDragPlayer(factor: CGFloat) {
-        var finalScale = 0.1 * (1 - factor)
+        let finalScale = 0.1 * (1 - factor)
         topScrollableViewBase.transform = CGAffineTransform(scaleX: 1 - finalScale, y: 1 - finalScale)
         blurView.alpha = (1 - factor)
     }
@@ -204,7 +204,9 @@ extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
         info[MPMediaItemPropertyTitle] = model.name
         info[MPMediaItemPropertyArtist] = model.artistName
         info[MPMediaItemPropertyAlbumArtist] = model.artistName
-        info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: cover)
+        info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: cover.size, requestHandler: { (_) -> UIImage in
+            cover
+        })
         info[MPMediaItemPropertyPlaybackDuration] = model.duration
         info[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
         MPNowPlayingInfoCenter.default().nowPlayingInfo = info
@@ -255,7 +257,7 @@ extension EQMainScrollableViewController: EQSpotifyManagerDelegate {
     func didPositionChange(position: TimeInterval) {
         switch EQSpotifyManager.shard.currentPlayingType {
         case .preview:
-            let previewCurrentDuration = EQSpotifyManager.shard.durationObseve.maxDuration / 2 - position
+            _ = EQSpotifyManager.shard.durationObseve.maxDuration / 2 - position
         case .project:
             EQSpotifyManager.shard.durationObseve.currentDuration = position
             playerView.durationSlider.value = Float(position)
@@ -282,7 +284,7 @@ extension EQMainScrollableViewController {
     }
 
     @objc func eqProjectDelete() {
-        EQSpotifyManager.shard.player?.setIsPlaying(false, callback: nil)
+        EQSpotifyManager.shard.playOrPause(isPlay: false)
         playerView.resetPlayer()
     }
 

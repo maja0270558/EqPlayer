@@ -26,7 +26,7 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     static let shard: EQSpotifyManager = EQSpotifyManager()
     weak var delegate: EQSpotifyManagerDelegate?
 
-    var player = SPTAudioStreamingController.sharedInstance()
+    var player: StreamableController? = SPTAudioStreamingController.sharedInstance()
     var auth = SPTAuth.defaultInstance()
     var coreAudioController = EQSpotifyCoreAudioController()
     var authViewController: SFSafariViewController?
@@ -40,6 +40,10 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     var previousPreviewURLString: String = ""
     private var trackList: [String] = [String]()
 
+    func subscribeNotifycation() {
+        NotificationCenter.default.addObserver(self, selector: #selector(EQSpotifyManager.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessfull"), object: nil)
+    }
+
     func setupAuth() {
         auth?.clientID = EQSpotifyClientInfo.clientID.rawValue
         auth?.redirectURL = URL(string: EQSpotifyClientInfo.redirectURL.rawValue)!
@@ -50,9 +54,7 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
             SPTAuthUserReadPrivateScope
         ]
         auth?.sessionUserDefaultsKey = EQSpotifyClientInfo.sessionKey.rawValue
-
         loginURL = auth?.spotifyWebAuthenticationURL()
-        NotificationCenter.default.addObserver(self, selector: #selector(EQSpotifyManager.updateAfterFirstLogin), name: NSNotification.Name(rawValue: "loginSuccessfull"), object: nil)
     }
 
     @objc func updateAfterFirstLogin() {
@@ -62,16 +64,21 @@ class EQSpotifyManager: NSObject, SPTAudioStreamingPlaybackDelegate, SPTAudioStr
     }
 
     func initializePlayer(authSession: SPTSession) {
-        guard let userAuth = auth else { return }
+        guard let userAuth = auth,
+            let sptPlayer = player as? SPTAudioStreamingController else {
+            return
+        }
 
-        player?.playbackDelegate = self
-        player?.delegate = self
-        try? player?.start(withClientId: userAuth.clientID, audioController: coreAudioController, allowCaching: false)
-        player?.login(withAccessToken: authSession.accessToken)
+        sptPlayer.delegate = self
+        sptPlayer.playbackDelegate = self
+        sptPlayer.startPlayer(withClientId: userAuth.clientID,
+                              audioController: coreAudioController,
+                              allowCaching: false)
+        sptPlayer.loginPlayer(withAccessToken: authSession.accessToken)
     }
 
     func login() {
-        if let session = auth?.session {
+        if (auth?.session) != nil {
             if (auth?.session.isValid())! {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "loginSuccessfull"), object: nil)
             } else {
@@ -111,7 +118,7 @@ extension EQSpotifyManager {
         case .preview:
             playFromLastDuration()
         case .project:
-            player?.setIsPlaying(isPlay, callback: { error in
+            player?.setPlaying(isPlay, callback: { error in
                 if error != nil {
                     print(error.debugDescription + "----->")
                     return
@@ -127,9 +134,9 @@ extension EQSpotifyManager {
                      duration: Double,
                      callback: @escaping () -> Void = { return }) {
         currentPlayingType = .preview
-        player?.playSpotifyURI(uri, startingWith: 0, startingWithPosition: duration / 2, callback: { error in
+        player?.playURI(uri: uri, startingPosition: duration / 2, callback: { error in
             if error != nil {
-                print(error.debugDescription + "----->")
+                print(error.debugDescription)
                 return
             }
             callback()
@@ -144,14 +151,13 @@ extension EQSpotifyManager {
 
     func playTrack() {
         currentPlayingType = .project
-        player?.playSpotifyURI(trackList[self.currentPlayIndex],
-                               startingWith: 0,
-                               startingWithPosition: 0,
-                               callback: { error in
-                                   if error != nil {
-                                       print(error.debugDescription + "----->")
-                                       return
-                                   }
+        player?.playURI(uri: trackList[self.currentPlayIndex],
+                        startingPosition: 0,
+                        callback: { error in
+                            if error != nil {
+                                print(error.debugDescription)
+                                return
+                            }
         })
     }
 
@@ -159,18 +165,16 @@ extension EQSpotifyManager {
         if currentPlayingType != .project {
             currentPlayingType = .project
             if trackList.count > 0 {
-                player?.playSpotifyURI(durationObseve.currentPlayingURI,
-                                       startingWith: 0,
-                                       startingWithPosition: durationObseve.currentDuration,
-                                       callback: { error in
-                                           if error != nil {
-                                               print(error.debugDescription + "----->")
-                                               return
-                                           }
+                player?.playURI(uri: durationObseve.currentPlayingURI,
+                                startingPosition: durationObseve.currentDuration,
+                                callback: { error in
+                                    if error != nil {
+                                        print(error.debugDescription + "----->")
+                                        return
+                                    }
                 })
             } else {
-                playOrPause(isPlay: false) {
-                }
+                playOrPause(isPlay: false)
             }
         }
     }

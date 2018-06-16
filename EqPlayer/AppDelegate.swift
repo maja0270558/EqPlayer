@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         FirebaseApp.configure()
+        spotifyManager.subscribeNotifycation()
         spotifyManager.setupAuth()
         window?.insertSubview(MPVolumeView(), at: 0)
 

@@ -212,13 +212,10 @@ extension EQTrackTableViewController: EQSonglistTableViewCellDelegate {
 
         } else {
             // 按自己
-            EQSpotifyManager.shard.player?.setIsPlaying(false, callback: { [weak self] error in
-                if error != nil {
-                    return
-                }
-                EQSpotifyManager.shard.currentPlayingType = .project
-                self?.resetAllVisibleCell()
-            })
+            EQSpotifyManager.shard.currentPlayingType = .project
+            EQSpotifyManager.shard.playOrPause(isPlay: false) {
+                self.resetAllVisibleCell()
+            }
         }
     }
 

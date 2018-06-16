@@ -66,9 +66,6 @@ extension LineChartView {
     }
 
     func setEntryValue(yValues: [Double]) {
-        guard let xCount = self.lineData?.dataSets.first?.entryCount else {
-            return
-        }
         for index in stride(from: 0, to: yValues.count, by: 1) {
             if let xEntry = self.lineData?.dataSets.first?.entryForIndex(index) {
                 xEntry.y = yValues[index]

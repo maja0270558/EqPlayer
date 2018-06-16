@@ -17,7 +17,7 @@ class EQFirebaseManager {
         let ref = Database.database().reference().child(path)
         ref.removeValue { error, _ in
             if error != nil {
-                print(error)
+                print(error!.localizedDescription)
             }
         }
     }
@@ -30,7 +30,7 @@ class EQFirebaseManager {
                 case .emailAlreadyInUse:
                     signin(withEmail: withEmail, password: password, succesfullyLoginCallBack: succesfullyLoginCallBack)
                 default:
-                    print("Create User Error: \(error)")
+                    print("Create User Error: \(loginError)")
                 }
             } else {
                 print("create succesfully")
@@ -42,7 +42,7 @@ class EQFirebaseManager {
     static func signin(withEmail: String, password: String, succesfullyLoginCallBack: @escaping () -> Void = { return }) {
         Auth.auth().signIn(withEmail: withEmail, password: password, completion: { user, error in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
             }
             guard let currentUser = user else {
                 return
@@ -74,7 +74,7 @@ class EQFirebaseManager {
             guard let name = dictionary["name"] as? String,
                 let email = dictionary["email"] as? String,
                 let image = dictionary["image"] as? String,
-                let like = dictionary["like"] as? [String] else {
+                let _ = dictionary["like"] as? [String] else {
                 failedHandler()
                 return
             }
@@ -85,7 +85,6 @@ class EQFirebaseManager {
 
     static func updateUserDatabase(userUID: String, completion: @escaping () -> Void = { return }) {
         let ref = Database.database().reference().child("user")
-        let storageRef = Storage.storage().reference().child("userPhoto")
         let user = EQUserManager.shard.getUser()
         let imageURLString = (user.photoURL == nil) ? "" : (user.photoURL?.absoluteString)!
 
@@ -118,11 +117,19 @@ class EQFirebaseManager {
             let metadata = StorageMetadata()
             metadata.contentType = "image/png"
             let task = storageRef.putData(imageData, metadata: metadata)
-            task.observe(.success) { snapshot in
-                let downloadURL = snapshot.metadata?.downloadURL()?.absoluteString
-                ref.child("\(userUID)").updateChildValues(["image": downloadURL!])
-                UserDefaults.standard.set(downloadURL!, forKey: "userPhotoURL")
-                completion(downloadURL!)
+            task.observe(.success) { _ in
+                storageRef.downloadURL(completion: { url, error in
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    if url != nil {
+                        let urlString = (url?.absoluteString)!
+                        ref.child("\(userUID)").updateChildValues(["image": urlString])
+                        UserDefaults.standard.set(urlString, forKey: "userPhotoURL")
+                        completion(urlString)
+                    }
+                })
             }
         }
     }
@@ -135,8 +142,8 @@ class EQFirebaseManager {
         }
 
         for post in postArray {
-            var eqPostCellModel = EQPostCellModel()
-            var eqProjectModel = EQProjectModel()
+            let eqPostCellModel = EQPostCellModel()
+            let eqProjectModel = EQProjectModel()
             var eqTrackList = [EQTrack]()
             guard let dictionary = post.value as? [String: Any] else {
                 return cellModels
