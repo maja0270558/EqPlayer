@@ -69,15 +69,16 @@ extension LineChartView {
         for index in stride(from: 0, to: yValues.count, by: 1) {
             if let xEntry = self.lineData?.dataSets.first?.entryForIndex(index) {
                 xEntry.y = yValues[index]
+                self.notifyDataSetChanged()
             }
         }
     }
 
     func configStyle(_ style: EQChartViewStyle) {
-        leftAxis.axisMinimum = -25
-        leftAxis.axisMaximum = 30
-        rightAxis.axisMinimum = -25
-        rightAxis.axisMaximum = 30
+        leftAxis.axisMinimum = -12
+        leftAxis.axisMaximum = 15
+        rightAxis.axisMinimum = -12
+        rightAxis.axisMaximum = 15
         leftAxis.drawGridLinesEnabled = false
         leftAxis.drawAxisLineEnabled = false
         leftAxis.drawLabelsEnabled = false

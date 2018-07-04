@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class EQPlayerDurationObseveModel: NSObject {
+class EQPlaybackDurationModel: NSObject {
     var currentDuration: Double = 0
     var previewCurrentDuration: Double = 0
     var maxPreviewDuration: Double = 30

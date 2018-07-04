@@ -132,22 +132,58 @@
                                             <rect key="frame" x="0.0" y="35" width="414" height="368"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iEJ-5W-KGO" customClass="EQEditBandView" customModule="EqPlayer" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="313"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="276"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="36u-pB-dTE">
+                                                    <rect key="frame" x="0.0" y="275.66666666666669" width="414" height="50"/>
+                                                    <subviews>
+                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dfw-yn-OHr">
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FOP-l7-BCv">
+                                                                <size key="itemSize" width="50" height="50"/>
+                                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            </collectionViewFlowLayout>
+                                                            <cells>
+                                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9Xg-OY-FpI">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                    </view>
+                                                                </collectionViewCell>
+                                                            </cells>
+                                                        </collectionView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="dfw-yn-OHr" secondAttribute="bottom" id="4qG-DG-hkv"/>
+                                                        <constraint firstItem="dfw-yn-OHr" firstAttribute="leading" secondItem="36u-pB-dTE" secondAttribute="leading" id="OmO-PA-gi1"/>
+                                                        <constraint firstItem="dfw-yn-OHr" firstAttribute="top" secondItem="36u-pB-dTE" secondAttribute="top" id="o36-Bj-AKd"/>
+                                                        <constraint firstAttribute="height" constant="50" id="pE4-NK-Je3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="dfw-yn-OHr" secondAttribute="trailing" id="pY4-FT-5Ud"/>
+                                                    </constraints>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTm-CV-l9a" customClass="EQSaveProjectPageAddTrackHeader" customModule="EqPlayer" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="313" width="414" height="55"/>
+                                                    <rect key="frame" x="0.0" y="325.66666666666669" width="414" height="42.333333333333314"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="iEJ-5W-KGO" firstAttribute="top" secondItem="G8I-xE-dki" secondAttribute="top" id="AZd-vk-KUl"/>
+                                                <constraint firstItem="36u-pB-dTE" firstAttribute="leading" secondItem="G8I-xE-dki" secondAttribute="leading" id="DtX-Dy-Gxj"/>
+                                                <constraint firstAttribute="trailing" secondItem="36u-pB-dTE" secondAttribute="trailing" id="GaC-gD-pfQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="BTm-CV-l9a" secondAttribute="bottom" id="KSS-2L-nGN"/>
+                                                <constraint firstItem="36u-pB-dTE" firstAttribute="top" secondItem="iEJ-5W-KGO" secondAttribute="bottom" id="Lp1-N1-1Xd"/>
                                                 <constraint firstAttribute="trailing" secondItem="iEJ-5W-KGO" secondAttribute="trailing" id="QZD-nW-V5C"/>
-                                                <constraint firstItem="iEJ-5W-KGO" firstAttribute="height" secondItem="G8I-xE-dki" secondAttribute="height" multiplier="0.85" id="VUT-7T-E90"/>
+                                                <constraint firstItem="iEJ-5W-KGO" firstAttribute="height" secondItem="G8I-xE-dki" secondAttribute="height" multiplier="0.75" id="VUT-7T-E90"/>
                                                 <constraint firstAttribute="trailing" secondItem="BTm-CV-l9a" secondAttribute="trailing" id="d0J-3O-jeC"/>
-                                                <constraint firstItem="BTm-CV-l9a" firstAttribute="top" secondItem="iEJ-5W-KGO" secondAttribute="bottom" id="fFp-eZ-yYF"/>
+                                                <constraint firstItem="BTm-CV-l9a" firstAttribute="top" secondItem="36u-pB-dTE" secondAttribute="bottom" id="deO-CE-K0C"/>
                                                 <constraint firstItem="iEJ-5W-KGO" firstAttribute="leading" secondItem="G8I-xE-dki" secondAttribute="leading" id="jNj-Vb-InH"/>
                                                 <constraint firstItem="BTm-CV-l9a" firstAttribute="leading" secondItem="G8I-xE-dki" secondAttribute="leading" id="xJh-UW-wxZ"/>
                                             </constraints>
@@ -178,6 +214,7 @@
                     </view>
                     <connections>
                         <outlet property="addTrackView" destination="BTm-CV-l9a" id="4rF-DG-Ufm"/>
+                        <outlet property="defaultSettingCollectionView" destination="dfw-yn-OHr" id="HKm-rq-bSh"/>
                         <outlet property="editBandView" destination="iEJ-5W-KGO" id="Ezo-eN-iQH"/>
                         <outlet property="editTableView" destination="BLA-68-jXG" id="JY2-bt-BwL"/>
                         <outlet property="topParentView" destination="G8I-xE-dki" id="6Nm-T3-gax"/>

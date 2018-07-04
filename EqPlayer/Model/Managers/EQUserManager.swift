@@ -31,7 +31,7 @@ class EQUserManager {
     }
 
     func saveUserInfo(_ callback: @escaping () -> Void) {
-        SPTUser.requestCurrentUser(withAccessToken: (SPTAuth.defaultInstance().session.accessToken)!) { _, data in
+        SPTUser.requestCurrentUser(withAccessToken: SPTAuth.defaultInstance().session.accessToken) { _, data in
             guard let currentUser = data as? SPTUser else {
                 print("Couldn't cast as SPTUser")
                 return

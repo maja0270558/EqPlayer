@@ -17,15 +17,28 @@ class EQProjectViewController: EQTrackTableViewController {
     @IBOutlet var editBandView: EQEditBandView!
     @IBOutlet var topParentView: UIView!
     @IBOutlet var addTrackView: EQSaveProjectPageAddTrackHeader!
-    var projectName: String = "專案"
-
+    @IBOutlet weak var defaultSettingCollectionView: UICollectionView!
+  let templates = EQDefaultSettings()
+  var projectName: String = "專案"
+  let settingIdentifier = "DefaultSettingCollectionViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAddTrackView()
         setupEditBandView()
         controllerInit()
+        setupDefaultSettingCollectionView()
     }
 
+    func setupDefaultSettingCollectionView(){
+      defaultSettingCollectionView.dataSource = self
+      defaultSettingCollectionView.delegate = self
+      let nib = UINib(nibName: settingIdentifier, bundle: nil)
+      defaultSettingCollectionView.register(nib, forCellWithReuseIdentifier: settingIdentifier)
+      if let flowlayout = defaultSettingCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+        flowlayout.estimatedItemSize = CGSize(width: 1.1, height: 1.1)
+      }
+  }
+  
     func controllerInit() {
         setupTableView(typeName: EQSonglistTableViewCell.typeName, tableView: editTableView)
         tableViewData = Array(eqSettingManager.tempModel.tracks)
@@ -146,6 +159,7 @@ class EQProjectViewController: EQTrackTableViewController {
     }
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      if scrollView === defaultSettingCollectionView { return }
         let offset = scrollView.contentOffset.y
         let finalOffset = -offset - topParentView.bounds.height
         topParentView.frame.origin.y = finalOffset
@@ -215,6 +229,7 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
     }
 
     func showSavePage(isPost: Bool) {
+      print(editBandView.lineChartView.getEntryValues())
         if eqSettingManager.tempModel.tracks.count > 0 {
             if let saveProjectViewController = UIStoryboard.eqProjectStoryBoard().instantiateViewController(
                 withIdentifier: String(describing: EQSaveProjectViewController.self)) as? EQSaveProjectViewController {
@@ -227,4 +242,39 @@ extension EQProjectViewController: EQEditBandViewDelegate, EQSaveProjectViewCont
             }
         }
     }
+}
+
+extension EQProjectViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+    editBandView.lineChartView.setEntryValue(yValues: templates.settings[indexPath.row].setting)
+    EQSpotifyManager.shard.setGain(setting: templates.settings[indexPath.row].setting)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return templates.settings.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = defaultSettingCollectionView.dequeueReusableCell(withReuseIdentifier: settingIdentifier, for: indexPath) as? DefaultSettingCollectionViewCell else {
+      return UICollectionViewCell()
+    }
+    cell.settingTitle.text = templates.settings[indexPath.row].name
+    return cell
+  }
+//
+//  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//    return CGSize(width: 100, height: 40)
+//
+//  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 10
+  }
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 10
+  }
 }

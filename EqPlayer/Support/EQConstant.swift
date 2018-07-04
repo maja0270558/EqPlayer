@@ -9,6 +9,6 @@
 import Foundation
 
 class EQConstant {
-    static let minEQValue: Double = -25
-    static let maxEQValue: Double = 25
+   static let minEQValue: Double = -12
+   static let maxEQValue: Double = 12
 }
