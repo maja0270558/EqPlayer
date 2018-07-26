@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EQCustomToolBarView" customModule="EqPlayer" customModuleProvider="target">
+            <connections>
+                <outlet property="caProgress" destination="v9t-Lv-Dw1" id="Cfd-Ie-KkY"/>
+                <outlet property="toolBar" destination="6D4-IA-IYC" id="aqc-Hc-oO8"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="306" height="54"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6D4-IA-IYC">
+                    <rect key="frame" x="0.0" y="0.0" width="306" height="46"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="46" id="Dzi-AX-3Wp"/>
+                    </constraints>
+                    <items/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="barTintColor" red="0.092212701612903181" green="0.09059206405542379" blue="0.07984490687823538" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </toolbar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9t-Lv-Dw1">
+                    <rect key="frame" x="0.0" y="46" width="306" height="8"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="8" id="ljv-dX-jUA"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="6D4-IA-IYC" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FzF-rI-atu"/>
+                <constraint firstItem="v9t-Lv-Dw1" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="HbS-EO-p5G"/>
+                <constraint firstItem="v9t-Lv-Dw1" firstAttribute="top" secondItem="6D4-IA-IYC" secondAttribute="bottom" id="MY3-Ff-ny8"/>
+                <constraint firstItem="v9t-Lv-Dw1" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="P4S-Mi-kWv"/>
+                <constraint firstItem="6D4-IA-IYC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="nub-rG-nUM"/>
+                <constraint firstItem="6D4-IA-IYC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="svr-0X-v1E"/>
+                <constraint firstItem="v9t-Lv-Dw1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="x7J-j3-moJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="77" y="-381"/>
+        </view>
+    </objects>
+</document>

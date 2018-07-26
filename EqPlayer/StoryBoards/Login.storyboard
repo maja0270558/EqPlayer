@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ty9-cl-0S5">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="ALBAM.TTF">
+            <string>AlbaMatter</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="TNp-e0-lG6">
+            <objects>
+                <viewController id="ty9-cl-0S5" customClass="EQLoginViewController" customModule="EqPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RI1-oc-9dL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdV-Px-2ep" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
+                                <rect key="frame" x="35" y="596" width="305" height="51"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="LmP-Jw-kVN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="-18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="LOG IN WITH SPOTIFY" image="spotify">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginAction:" destination="ty9-cl-0S5" eventType="touchUpInside" id="Sxl-jj-5WH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="qtune" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0JI-pM-D3q">
+                                <rect key="frame" x="101.5" y="80" width="173" height="107"/>
+                                <fontDescription key="fontDescription" name="AlbaMatter" family="Alba Matter" pointSize="68"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQ7-9A-Fx4" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="150.5" y="303" width="74" height="61"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="B82-i7-gXN"/>
+                                    <constraint firstAttribute="height" constant="61" id="XJS-z3-kHE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballPulse"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pw5-yq-t0B" customClass="EQCustomButton" customModule="EqPlayer" customModuleProvider="target">
+                                <rect key="frame" x="35" y="535" width="305" height="51"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="t6E-GC-iqv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="-18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="我是訪客">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="guestLogin:" destination="ty9-cl-0S5" eventType="touchUpInside" id="HaG-lw-XLM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wdV-Px-2ep" firstAttribute="leading" secondItem="2nF-2E-Cf8" secondAttribute="leading" constant="35" id="0K6-wc-f7R"/>
+                            <constraint firstItem="2nF-2E-Cf8" firstAttribute="trailing" secondItem="wdV-Px-2ep" secondAttribute="trailing" constant="35" id="4Rf-zA-mlE"/>
+                            <constraint firstItem="Pw5-yq-t0B" firstAttribute="leading" secondItem="2nF-2E-Cf8" secondAttribute="leading" constant="35" id="4Wr-ps-1cR"/>
+                            <constraint firstItem="0JI-pM-D3q" firstAttribute="centerY" secondItem="RI1-oc-9dL" secondAttribute="centerY" multiplier="0.4" id="EyK-wt-AMo"/>
+                            <constraint firstItem="QQ7-9A-Fx4" firstAttribute="centerX" secondItem="RI1-oc-9dL" secondAttribute="centerX" id="FDJ-8T-EcV"/>
+                            <constraint firstItem="0JI-pM-D3q" firstAttribute="centerX" secondItem="RI1-oc-9dL" secondAttribute="centerX" id="Kqb-EK-29a"/>
+                            <constraint firstItem="wdV-Px-2ep" firstAttribute="top" secondItem="Pw5-yq-t0B" secondAttribute="bottom" constant="10" id="RjF-CW-QXb"/>
+                            <constraint firstItem="QQ7-9A-Fx4" firstAttribute="centerY" secondItem="RI1-oc-9dL" secondAttribute="centerY" id="X70-IK-8Pu"/>
+                            <constraint firstItem="2nF-2E-Cf8" firstAttribute="bottom" secondItem="wdV-Px-2ep" secondAttribute="bottom" constant="20" id="a8f-Yu-geP"/>
+                            <constraint firstItem="2nF-2E-Cf8" firstAttribute="trailing" secondItem="Pw5-yq-t0B" secondAttribute="trailing" constant="35" id="nPx-ys-3bs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2nF-2E-Cf8"/>
+                    </view>
+                    <connections>
+                        <outlet property="loginButton" destination="wdV-Px-2ep" id="Fq9-3X-SV5"/>
+                        <outlet property="loginProgress" destination="QQ7-9A-Fx4" id="qGQ-JL-02T"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A01-6x-KkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-554.39999999999998" y="-15.742128935532236"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="spotify" width="32" height="32"/>
+    </resources>
+    <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>

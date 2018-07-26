@@ -1,0 +1,168 @@
+PODS:
+  - Charts (3.1.1):
+    - Charts/Core (= 3.1.1)
+  - Charts/Core (3.1.1)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - DynamicBlurView (2.0.2)
+  - Fabric (1.7.6)
+  - Firebase (4.13.0):
+    - Firebase/Core (= 4.13.0)
+  - Firebase/Auth (4.13.0):
+    - Firebase/Core
+    - FirebaseAuth (= 4.6.1)
+  - Firebase/Core (4.13.0):
+    - FirebaseAnalytics (= 4.2.0)
+    - FirebaseCore (= 4.0.20)
+  - Firebase/Database (4.13.0):
+    - Firebase/Core
+    - FirebaseDatabase (= 4.1.5)
+  - Firebase/Storage (4.13.0):
+    - Firebase/Core
+    - FirebaseStorage (= 2.2.0)
+  - FirebaseAnalytics (4.2.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseAuth (4.6.1):
+    - FirebaseAnalytics (~> 4.2)
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (4.0.20):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseDatabase (4.1.5):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - FirebaseStorage (2.2.0):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3)":
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
+  - GTMSessionFetcher/Core (1.1.15)
+  - IQKeyboardManager (6.0.1)
+  - Lerp (2.0.0)
+  - leveldb-library (1.20)
+  - MGSwipeTableCell (1.6.6)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+  - NVActivityIndicatorView (4.2.0):
+    - NVActivityIndicatorView/Presenter (= 4.2.0)
+  - NVActivityIndicatorView/Presenter (4.2.0)
+  - PopupDialog (0.7.1):
+    - DynamicBlurView (~> 2.0)
+  - ReactiveCocoa (7.2.0):
+    - ReactiveSwift (~> 3.1)
+  - ReactiveObjC (3.1.0)
+  - ReactiveSwift (3.1.0):
+    - Result (~> 3.2)
+  - Realm (3.3.2):
+    - Realm/Headers (= 3.3.2)
+  - Realm/Headers (3.3.2)
+  - RealmSwift (3.3.2):
+    - Realm (= 3.3.2)
+  - Result (3.2.4)
+  - SDWebImage (4.3.3):
+    - SDWebImage/Core (= 4.3.3)
+  - SDWebImage/Core (4.3.3)
+  - SwiftLint (0.25.1)
+
+DEPENDENCIES:
+  - Charts
+  - Crashlytics
+  - Fabric
+  - Firebase
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Database
+  - Firebase/Storage
+  - IQKeyboardManager
+  - Lerp
+  - MGSwipeTableCell
+  - NVActivityIndicatorView
+  - PopupDialog (~> 0.7)
+  - ReactiveCocoa
+  - ReactiveObjC
+  - RealmSwift
+  - SDWebImage (~> 4.0)
+  - SwiftLint
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Charts
+    - Crashlytics
+    - DynamicBlurView
+    - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseDatabase
+    - FirebaseInstanceID
+    - FirebaseStorage
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
+    - IQKeyboardManager
+    - Lerp
+    - leveldb-library
+    - MGSwipeTableCell
+    - nanopb
+    - NVActivityIndicatorView
+    - PopupDialog
+    - ReactiveCocoa
+    - ReactiveObjC
+    - ReactiveSwift
+    - Realm
+    - RealmSwift
+    - Result
+    - SDWebImage
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
+  Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
+  FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
+  FirebaseAuth: bf22cacf22c60ab454bf2636f556d8892b10b53f
+  FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
+  FirebaseDatabase: 5f0bc6134c5c237cf55f9e1249d406770a75eafd
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  FirebaseStorage: 0c223481c8f89ed300cf1239ddd2d9833622c65f
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
+  IQKeyboardManager: 118602feb2d0b8852cc7387c21db988f2ebdec6d
+  Lerp: fe0fd19edf08a7dab2283a3f250f2c840b6a97aa
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  MGSwipeTableCell: c3bc6e261e7bc06c112909fe3fb8205de286082c
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NVActivityIndicatorView: 75c9634073e03b31d7e2748cd2417feab1206195
+  PopupDialog: 39598b7d41719f5c025b4b70e62728bae7734fef
+  ReactiveCocoa: 476dae7ca790f40d30d186a1bd7ebae4290395d5
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  ReactiveSwift: 5b26d2e988fe0eed2daf48c4054d1de74db50184
+  Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
+  RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  SwiftLint: ce933681be10c3266e82576dad676fa815a602e9
+
+PODFILE CHECKSUM: 4dad7fd77ea5d1e8b02bd2929d50dd0187883068
+
+COCOAPODS: 1.5.0
