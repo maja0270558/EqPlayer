@@ -63,7 +63,6 @@
         [cell configureCellWithCellModel:cellModel swipeCallback:^BOOL(MGSwipeTableCell *sender) {
             @strongify(self)
             [self.parentViewModel addOrRemoveThisTrackInProjectModelAt:indexPath];
-            [self.tableView reloadDataUpdateFade];
             return true;
         }];
     }
